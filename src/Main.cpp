@@ -1,6 +1,10 @@
 #include <iostream>
 #include <raylib.h>
 
+using namespace std;
+
+
+
 
 int main() {
     std::cout << "Starting the game..." << "\n";
