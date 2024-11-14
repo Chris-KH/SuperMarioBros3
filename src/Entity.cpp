@@ -32,7 +32,7 @@ void Entity::move() {
     position.y += velocity.y * deltaTime;
 }
 
-void Entity::draw() const {
+void Entity::draw()  {
     Vector2 origin = { 0, 0 };
 
     // Flip sourceRect width to mirror the image when isFlipped is true
@@ -41,6 +41,8 @@ void Entity::draw() const {
 
     Rectangle destRect = { position.x, position.y, size.x, size.y };
     DrawTexturePro(texture, flippedSourceRect, destRect, origin, 0.0f, WHITE);
+    //Rectangle temp = getHitBox();
+    //DrawRectangleRec(temp, RED);
 }
 
 void Entity::unloadTexture() const {

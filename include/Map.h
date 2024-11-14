@@ -7,7 +7,7 @@
 //#include <vector>
 //
 //class Map {
-//    public:
+//public:
 //    Map();
 //
 //    ~Map();
@@ -17,7 +17,7 @@
 //};
 //
 //class Block : public Map {
-//    public:
+//public:
 //    Block(int x, int y, int width, int height) {
 //        hitbox.setPosition(x, y);
 //        hitbox.setSize(width, height);
@@ -32,18 +32,18 @@
 //        return hitbox;
 //    }
 //
-//    private:
+//private:
 //    Hitbox hitbox;
 //    int x, y;
 //};
 //
 //class InteractBlock : public Block {
-//    protected:
+//protected:
 //    std::vector<Block*> block;
 //    std::vector<Item*> item;
 //    std::vector<Enemy*> enemy;
 //
-//    public:
+//public:
 //
 //};
 //
@@ -56,7 +56,7 @@
 //};
 //
 //class Lava : public Map {
-//    public:
+//public:
 //    Lava(int x, int y, int width, int height) {
 //        hitbox.setPosition(x, y);
 //        hitbox.setSize(width, height);
@@ -70,8 +70,8 @@
 //    Hitbox getHitbox() const {
 //        return hitbox;
 //    }
-//    
-//    private:
+//
+//private:
 //    Hitbox hitbox;
 //    int x, y;
 //
@@ -92,9 +92,8 @@
 //        return hitbox;
 //    }
 //
-//    private:
+//private:
 //    Hitbox hitbox;
 //    int x, y;
-//    
-//};
 //
+//};
