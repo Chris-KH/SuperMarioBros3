@@ -1,36 +1,39 @@
-#include <iostream>
+﻿#include <iostream>
 #include <raylib.h>
 #include "../lib/bits/stdc++.h"
+#include "../include/Entity.h"
 
 using namespace std;
 
 int main() {
-    std::cout << "Starting the game..." << "\n";
-    const int screen_width = 1280;
-    const int screen_height = 800;
-    InitWindow(screen_width, screen_height, "Super Mario Bros!");
-    SetTargetFPS(60);
+    InitWindow(800, 600, "Entity Class with Keyboard Movement");
+    SetTargetFPS(120);
 
-    Font font = LoadFontEx("", 64, 0, 0); // input font file, download from internet
+    // Tải texture cho vật thể
+    Texture2D texture = LoadTexture("D:/Project/CS202/SuperMario/SuperMario/images.png");
 
-    Texture2D background = LoadTexture("");// input background file
+    // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
+    Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 200.0f);
 
+    while (!WindowShouldClose()) {
+        entity.handleInput();
 
-    while (WindowShouldClose() == false) {
-        Vector2 mousePosition = GetMousePosition();
-        bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
-        
+        entity.move();
 
         BeginDrawing();
-        
-        
-        ClearBackground(Color(100, 100, 100, 100));
-        DrawText("MARIO SUPER BROS", 100, 100, 40, ORANGE);
+        ClearBackground(GRAY);
 
+        // Vẽ vật thể
+        entity.draw();
 
         EndDrawing();
     }
 
+    // Giải phóng tài nguyên
+    entity.unloadTexture();
     CloseWindow();
+
     return 0;
 }
+
+//D:/Project/CS202/SuperMario/SuperMario/images.png
