@@ -1,40 +1,77 @@
-#pragma once
-#include<raylib.h>
-#include "Strategy.h"
+﻿#pragma once
+#include"Strategy.h"
+#include <raylib.h>
 
+class Entity {
+private:
+	Vector2 position;
+	Vector2 size;
+	Texture2D texture;
+	Rectangle sourceRect;
+	Vector2 velocity;
+	float speed;
+	bool isFlipped;
+	ICollisionStrategy* collisionStrategy;//
+public:
+	// Constructor
+	Entity(Vector2 pos, Vector2 sz, Texture2D tex, float spd) 
+		: position(pos), size(sz), texture(tex), velocity{ 0, 0 }, collisionStrategy(nullptr), speed(spd), isFlipped(false) 
+	{
+		sourceRect = { 0, 0, (float)tex.width, (float)tex.height };
+	}
+
+	Rectangle getHitBox();
+	void setPosition(Vector2 newPos);
+	void handleInput();
+	void move();
+	void draw() ;
+	void unloadTexture() const;
+	void setCollisionStrategy(ICollisionStrategy* strategy) //
+	{
+		collisionStrategy = strategy;
+	}
+
+	bool checkCollision(const Block& block)//
+	{
+		if (collisionStrategy)
+			return collisionStrategy->collides(*this, block);
+		return false;
+	}
+};
 class Block {
 public:
-    Rectangle hitbox;
-    Block(float x, float y, float width, float height)
-        : hitbox{ x, y, width, height } {}
+	Block(float x, float y, float width, float height) : hitbox{ x, y, width, height } {}
+
+	Rectangle getHitbox() const {
+		return hitbox;
+	}
+
+private:
+	Rectangle hitbox;
 };
-class Entity {
-public:
-    Rectangle hitbox;
-    ICollisionStrategy* collisionStrategy;
-    float speed;  // Movement speed
 
-    Entity(float x, float y, float width, float height, float speed = 200.0f)
-        : hitbox{ x, y, width, height }, collisionStrategy(nullptr), speed(speed) {}
 
-    void setCollisionStrategy(ICollisionStrategy* strategy) {
-        collisionStrategy = strategy;
-    }
 
-    bool checkCollision(const Block& block) {
-        if (collisionStrategy)
-            return collisionStrategy->collides(*this, block);
-        return false;
-    }
-
-    void move(float deltaTime) {
-        // Use arrow keys or WASD for movement
-        if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) hitbox.x += speed * deltaTime;
-        if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) hitbox.x -= speed * deltaTime;
-        if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) hitbox.y += speed * deltaTime;
-        if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) hitbox.y -= speed * deltaTime;
-    }
-};
+//
+//class Entity {
+//public:
+//    Rectangle hitbox;
+//    ICollisionStrategy* collisionStrategy;
+//    float speed;  // Movement speed
+//
+//    Entity(float x, float y, float width, float height, float speed = 200.0f)
+//        : hitbox{ x, y, width, height }, collisionStrategy(nullptr), speed(speed) {}
+//
+//    void setCollisionStrategy(ICollisionStrategy* strategy) {
+//        collisionStrategy = strategy;
+//    }
+//
+//    bool checkCollision(const Block& block) {
+//        if (collisionStrategy)
+//            return collisionStrategy->collides(*this, block);
+//        return false;
+//    }
+//};
 
 
 

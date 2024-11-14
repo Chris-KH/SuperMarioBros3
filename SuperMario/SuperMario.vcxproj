@@ -134,6 +134,7 @@
     <ClInclude Include="..\include\Enemy.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\GameEngine.h" />
+    <ClInclude Include="..\include\Hitbox.h" />
     <ClInclude Include="..\include\Item.h" />
     <ClInclude Include="..\include\Map.h" />
     <ClInclude Include="..\include\Strategy.h" />
