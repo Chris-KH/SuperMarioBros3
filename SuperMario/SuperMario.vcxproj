@@ -129,23 +129,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Character.h" />
     <ClInclude Include="..\include\Colors.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="GameEngine.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Map.h" />
+    <ClInclude Include="..\include\Enemy.h" />
+    <ClInclude Include="..\include\Entity.h" />
+    <ClInclude Include="..\include\GameEngine.h" />
+    <ClInclude Include="..\include\Item.h" />
+    <ClInclude Include="..\include\Map.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Character.cpp" />
     <ClCompile Include="..\src\Colors.cpp" />
+    <ClCompile Include="..\src\Enemy.cpp" />
+    <ClCompile Include="..\src\Entity.cpp" />
+    <ClCompile Include="..\src\GameEngine.cpp" />
+    <ClCompile Include="..\src\Item.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="GameEngine.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="..\src\Map.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
