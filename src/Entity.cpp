@@ -33,7 +33,7 @@ void Entity::move() {
 }
 
 void Entity::draw() const {
-    Vector2 origin = { size.x / 2, size.y / 2 };
+    Vector2 origin = { 0, 0 };
 
     // Flip sourceRect width to mirror the image when isFlipped is true
     Rectangle flippedSourceRect = sourceRect;

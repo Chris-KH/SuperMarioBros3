@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include <raylib.h>
+#include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
 #include "../include/Entity.h"
 
@@ -10,7 +10,7 @@ int main() {
     SetTargetFPS(120);
 
     // Tải texture cho vật thể
-    Texture2D texture = LoadTexture("D:/Project/CS202/SuperMario/SuperMario/images.png");
+    Texture2D texture = LoadTexture("../SuperMario/images.png");
 
     // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
     Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 200.0f);
