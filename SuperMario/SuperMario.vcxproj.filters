@@ -42,6 +42,15 @@
     <ClInclude Include="..\include\Entity.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Hitbox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Colors.cpp">
