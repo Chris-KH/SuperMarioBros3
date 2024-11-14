@@ -48,3 +48,15 @@ void Entity::draw()  {
 void Entity::unloadTexture() const {
     UnloadTexture(texture);
 }
+
+void Entity::setCollisionStrategy(ICollisionStrategy* strategy)
+{
+    collisionStrategy = strategy;
+}
+
+bool Entity::checkCollision(const Block& block)
+{
+    if (collisionStrategy)
+        return collisionStrategy->collides(*this, block);
+    return false;
+}

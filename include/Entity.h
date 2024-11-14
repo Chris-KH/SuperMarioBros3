@@ -26,17 +26,9 @@ public:
 	void move();
 	void draw() ;
 	void unloadTexture() const;
-	void setCollisionStrategy(ICollisionStrategy* strategy) //
-	{
-		collisionStrategy = strategy;
-	}
+	void setCollisionStrategy(ICollisionStrategy* strategy); //
+	bool checkCollision(const Block& block);//
 
-	bool checkCollision(const Block& block)//
-	{
-		if (collisionStrategy)
-			return collisionStrategy->collides(*this, block);
-		return false;
-	}
 };
 class Block {
 public:
