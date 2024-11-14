@@ -130,10 +130,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Colors.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Map.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Colors.cpp" />
-    <ClCompile Include="..\src\Console.cpp" />
+    <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,8 @@
 #include <iostream>
 #include <raylib.h>
+#include "../lib/bits/stdc++.h"
 
 using namespace std;
-
-
-
 
 int main() {
     std::cout << "Starting the game..." << "\n";
@@ -26,8 +24,8 @@ int main() {
         BeginDrawing();
         
         
-        ClearBackground(BLUE);
-        DrawText("MARIO SUPER BROS", 10, 20, 40, ORANGE);
+        ClearBackground(Color(100, 100, 100, 100));
+        DrawText("MARIO SUPER BROS", 100, 100, 40, ORANGE);
 
 
         EndDrawing();
