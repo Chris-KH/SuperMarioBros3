@@ -1,36 +1,48 @@
 #include <iostream>
 #include <raylib.h>
-#include "../lib/bits/stdc++.h"
+#include "../include/Strategy.h"
+#include "../include/Entity.h"
+//#include "../lib/bits/stdc++.h"
 
 using namespace std;
 
 int main() {
-    std::cout << "Starting the game..." << "\n";
-    const int screen_width = 1280;
-    const int screen_height = 800;
-    InitWindow(screen_width, screen_height, "Super Mario Bros!");
+    // Initialize raylib and set up the window
+    InitWindow(800, 600, "Strategy Pattern Collision with Movement");
     SetTargetFPS(60);
+    // Create an entity and a block
+    Entity player(100, 100, 50, 50, 200.0f);  // 200 pixels per second speed
+    Block wall(200, 100, 50, 50);
 
-    Font font = LoadFontEx("", 64, 0, 0); // input font file, download from internet
+    // Create a collision strategy and assign it to the entity
+    EntityToBlockPushbackCollision pushbackCollision;
+    EntityToBLockCollision normalCollision;
+    player.setCollisionStrategy(&normalCollision);
 
-    Texture2D background = LoadTexture("");// input background file
+    // Game loop
+    while (!WindowShouldClose()) {
+        float deltaTime = GetFrameTime();  // Time elapsed since the last frame
 
+        // Move the player
+        player.move(deltaTime);
 
-    while (WindowShouldClose() == false) {
-        Vector2 mousePosition = GetMousePosition();
-        bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
-        
+        // Check for collision
+       bool isColliding = player.checkCollision(wall);
 
+        // Begin drawing
         BeginDrawing();
-        
-        
-        ClearBackground(Color(100, 100, 100, 100));
-        DrawText("MARIO SUPER BROS", 100, 100, 40, ORANGE);
+        ClearBackground(RAYWHITE);
 
+        DrawRectangleRec(player.hitbox, isColliding ? RED : BLUE);
+        DrawRectangleRec(wall.hitbox, DARKGRAY);
 
         EndDrawing();
     }
 
     CloseWindow();
+
     return 0;
 }
+
+
+
