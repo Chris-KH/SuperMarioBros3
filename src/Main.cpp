@@ -1,27 +1,84 @@
+//#include <iostream>
+//#include <raylib.h>
+//#include "../include/Strategy.h"
+//#include "../include/Entity.h"
+////#include "../lib/bits/stdc++.h"
+//
+//using namespace std;
+//
+//int main() {
+//    // Initialize raylib and set up the window
+//    InitWindow(800, 600, "Strategy Pattern Collision with Movement");
+//    SetTargetFPS(60);
+//    // Create an entity and a block
+//    Entity player(100, 100, 50, 50, 200.0f);  // 200 pixels per second speed
+//    Block wall(200, 100, 50, 50);
+//
+//    // Create a collision strategy and assign it to the entity
+//    EntityToBlockPushbackCollision pushbackCollision;
+//    EntityToBLockCollision normalCollision;
+//    player.setCollisionStrategy(&normalCollision);
+//
+//    // Game loop
+//    while (!WindowShouldClose()) {
+//        float deltaTime = GetFrameTime();  // Time elapsed since the last frame
+//
+//        // Move the player
+//        player.move(deltaTime);
+//
+//        // Check for collision
+//       bool isColliding = player.checkCollision(wall);
+//
+//        // Begin drawing
+//        BeginDrawing();
+//        ClearBackground(RAYWHITE);
+//
+//        DrawRectangleRec(player.getHitbox(), isColliding ? RED : BLUE);
+//        DrawRectangleRec(wall.getHitbox(), DARKGRAY);
+//
+//        EndDrawing();
+//    }
+//
+//    CloseWindow();
+//
+//    return 0;
+//}
+
+#include <raylib.h>
 #include <iostream>
 #include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
+#include "../include/Entity.h"
 
 using namespace std;
 
 int main() {
-    std::cout << "Starting the game..." << "\n";
-    const int screen_width = 1280;
-    const int screen_height = 800;
-    InitWindow(screen_width, screen_height, "Super Mario Bros!");
+    InitWindow(800, 600, "Entity Class with Keyboard Movement");
     SetTargetFPS(60);
 
-    Font font = LoadFontEx("", 64, 0, 0); // input font file, download from internet
+    // Tải texture cho vật thể
+    Texture2D texture = LoadTexture("../SuperMario/images.png");
 
-    Texture2D background = LoadTexture("");// input background file
+    // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
+    Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 200.0f);
 
+    Block wall(200, 100, 50, 50);
+    EntityToBlockPushbackCollision pushbackCollision;
+    EntityToBLockCollision normalCollision;
+    entity.setCollisionStrategy(&pushbackCollision);
 
-    while (WindowShouldClose() == false) {
-        Vector2 mousePosition = GetMousePosition();
-        bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
-        
+    while (!WindowShouldClose()) {
+        entity.handleInput();
 
+        entity.move();
+        bool isColliding = entity.checkCollision(wall);
         BeginDrawing();
+        ClearBackground(GRAY);
+
+        // Vẽ vật thể
+
+        entity.draw();
+        DrawRectangleRec(wall.getHitbox(), DARKGRAY);
         
         
         //ClearBackground(Color(100, 100, 100, 100));
@@ -31,6 +88,12 @@ int main() {
         EndDrawing();
     }
 
+    // Giải phóng tài nguyên
+    entity.unloadTexture();
     CloseWindow();
+
     return 0;
 }
+
+
+

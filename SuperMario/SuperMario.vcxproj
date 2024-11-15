@@ -134,8 +134,10 @@
     <ClInclude Include="..\include\Enemy.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\GameEngine.h" />
+    <ClInclude Include="..\include\Hitbox.h" />
     <ClInclude Include="..\include\Item.h" />
     <ClInclude Include="..\include\Map.h" />
+    <ClInclude Include="..\include\Strategy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Character.cpp" />
@@ -146,6 +148,7 @@
     <ClCompile Include="..\src\Item.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Map.cpp" />
+    <ClCompile Include="..\src\Strategy.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
