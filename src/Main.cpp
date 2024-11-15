@@ -1,5 +1,5 @@
 #include <iostream>
-#include <raylib.h>
+#include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
 
 using namespace std;
@@ -24,7 +24,7 @@ int main() {
         BeginDrawing();
         
         
-        ClearBackground(Color(100, 100, 100, 100));
+        //ClearBackground(Color(100, 100, 100, 100));
         DrawText("MARIO SUPER BROS", 100, 100, 40, ORANGE);
 
 
