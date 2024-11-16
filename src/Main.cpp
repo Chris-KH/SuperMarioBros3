@@ -51,14 +51,14 @@
 using namespace std;
 
 int main() {
-    InitWindow(800, 600, "Entity Class with Keyboard Movement");
+    InitWindow(1280, 800, "Entity Class with Keyboard Movement");
     SetTargetFPS(60);
 
     // Tải texture cho vật thể
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
     // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
-    Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 200.0f);
+    Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 300.0f);
 
     Block wall(200, 100, 50, 50);
     EntityToBlockPushbackCollision pushbackCollision;
