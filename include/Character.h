@@ -1,6 +1,7 @@
 #pragma once
+#include"Entity.h"
 
-class Character {
+class Character : public Entity {
 private:
 
 public:
