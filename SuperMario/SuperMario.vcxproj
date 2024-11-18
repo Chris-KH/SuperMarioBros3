@@ -135,7 +135,7 @@
     <ClInclude Include="..\include\ - Copy (5).h" />
     <ClInclude Include="..\include\ - Copy (6).h" />
     <ClInclude Include="..\include\ - Copy (7).h" />
-    <ClInclude Include="..\include\ - Copy.h" />
+    <ClInclude Include="..\include\Entity2.h" />
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\Character.h" />
     <ClInclude Include="..\include\Collision.h" />
@@ -156,7 +156,7 @@
     <ClCompile Include="..\src\ - Copy (5).cpp" />
     <ClCompile Include="..\src\ - Copy (6).cpp" />
     <ClCompile Include="..\src\ - Copy (7).cpp" />
-    <ClCompile Include="..\src\ - Copy.cpp" />
+    <ClCompile Include="..\src\Entity2.cpp" />
     <ClCompile Include="..\src\Animation.cpp" />
     <ClCompile Include="..\src\Character.cpp" />
     <ClCompile Include="..\src\Colors.cpp" />

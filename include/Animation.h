@@ -1,6 +1,6 @@
 #pragma once
 #include<raylib.h>
-#include <vector>
+#include "../lib/bits/stdc++.h"
 
 using namespace std;
 

@@ -54,16 +54,13 @@
     <ClInclude Include="..\include\Hitbox.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Collision.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Sprite.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Animation.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\ - Copy.h">
+    <ClInclude Include="..\include\Entity2.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ - Copy (2).h">
@@ -83,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="..\include\ - Copy (7).h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Collision.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,13 +113,10 @@
     <ClCompile Include="..\src\Map.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Animation.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ - Copy.cpp">
+    <ClCompile Include="..\src\Entity2.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ - Copy (2).cpp">
@@ -139,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ - Copy (7).cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Sprite.cpp">
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
