@@ -8,13 +8,13 @@ public:
     virtual ~Entity2() {}
 
     //Get the x coordinate of the entity.
-    virtual double getX() const = 0;
+    virtual float getX() const = 0;
     //Get the y coordinate of the entity.
-    virtual double getY() const = 0;
+    virtual float getY() const = 0;
     //Get the width of the bounding box (rectangle)
-    virtual double getWidth() const = 0;
+    virtual float getWidth() const = 0;
     //Get the length of the bounding box (rectangle)
-    virtual double getLength() const = 0;
+    virtual float getHeight() const = 0;
     //Get box (rectangle)
     virtual Rectangle getRectangle() const = 0;
 
