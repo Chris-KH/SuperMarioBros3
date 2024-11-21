@@ -1,4 +1,4 @@
-#include "../include/Strategy.h"
+#include "../include/Collision.h"
 #include "../include/Entity.h"
 //#include "../include/Block.h"
 #include "raylib.h"

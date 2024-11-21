@@ -33,9 +33,6 @@
     <ClInclude Include="..\include\GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Strategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Character.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
@@ -95,9 +92,6 @@
     <ClCompile Include="..\src\GameEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Strategy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Item.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
@@ -139,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Sprite.cpp">
       <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Collision.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
