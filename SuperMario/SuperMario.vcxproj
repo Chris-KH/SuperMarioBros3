@@ -129,7 +129,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\ - Copy (2).h" />
+    <ClInclude Include="..\include\ - Copy (3).h" />
+    <ClInclude Include="..\include\ - Copy (4).h" />
+    <ClInclude Include="..\include\ - Copy (5).h" />
+    <ClInclude Include="..\include\ - Copy (6).h" />
+    <ClInclude Include="..\include\ - Copy (7).h" />
+    <ClInclude Include="..\include\Entity2.h" />
+    <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\Character.h" />
+    <ClInclude Include="..\include\Collision.h" />
     <ClInclude Include="..\include\Colors.h" />
     <ClInclude Include="..\include\Enemy.h" />
     <ClInclude Include="..\include\Entity.h" />
@@ -137,9 +146,18 @@
     <ClInclude Include="..\include\Hitbox.h" />
     <ClInclude Include="..\include\Item.h" />
     <ClInclude Include="..\include\Map.h" />
+    <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\Strategy.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\ - Copy (2).cpp" />
+    <ClCompile Include="..\src\ - Copy (3).cpp" />
+    <ClCompile Include="..\src\ - Copy (4).cpp" />
+    <ClCompile Include="..\src\ - Copy (5).cpp" />
+    <ClCompile Include="..\src\ - Copy (6).cpp" />
+    <ClCompile Include="..\src\ - Copy (7).cpp" />
+    <ClCompile Include="..\src\Entity2.cpp" />
+    <ClCompile Include="..\src\Animation.cpp" />
     <ClCompile Include="..\src\Character.cpp" />
     <ClCompile Include="..\src\Colors.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
@@ -148,6 +166,7 @@
     <ClCompile Include="..\src\Item.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Map.cpp" />
+    <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\Strategy.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

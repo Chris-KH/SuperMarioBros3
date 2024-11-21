@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include"Strategy.h"
+#include"Collision.h"
 #include <raylib.h>
 
 class Entity {

@@ -1,6 +1,6 @@
 #pragma once
-#include"Entity.h"
+#include"Sprite.h"
 
-class Enemy : public Entity {
+class Enemy : public Sprite {
 
 };
