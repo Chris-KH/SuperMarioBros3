@@ -1,10 +1,17 @@
 #pragma once
-#include"Sprite.h"
+
+#include "Sprite.h"
+#include "Hitbox.h"
 
 class Character : public Sprite {
-private:
+    private:
+    Vector2 velocity;
+    float gravity;
+    bool isGrounded, isJumping;
+    Hitbox hitbox;
 
-public:
+    public:
+    Character(float x, float y, float width, float height) : Sprite() {}
 
 };
 
