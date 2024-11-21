@@ -19,15 +19,10 @@ public:
         rect.width = width;
         rect.height = height;
     }
-<<<<<<< HEAD
-    bool Hitbox::checkCollision(const Hitbox& other) const {
-        return CheckCollisionRecs(rect, other.rect);
-    }
-=======
+    
     //bool Hitbox::checkCollision(const Hitbox& other) const {
     //    return CheckCollisionRecs(rect, other.rect);
     //}
->>>>>>> 44191ed8dd049dea357388c0c82ddfa655517ec0
 
     int getX() const {
         return rect.x;

@@ -30,18 +30,6 @@ public:
 	bool checkCollision(const Block& block);//
 
 };
-class Block {
-public:
-	Block(float x, float y, float width, float height) : hitbox{ x, y, width, height } {}
-
-	Rectangle getHitbox() const {
-		return hitbox;
-	}
-
-private:
-	Rectangle hitbox;
-};
-
 
 
 //
