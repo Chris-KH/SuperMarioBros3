@@ -1,13 +1,17 @@
 #pragma once
 
 #include "raylib.h"
+//#include "Hitbox.h"
+#include <fstream>
 
 enum BlockType {
     normal,
     breakable,
     moving,
     itemRelease,
-    hidden
+    hidden,
+    lava,
+    pipe
 };
 
 class Block {
@@ -16,7 +20,7 @@ public:
 	Rectangle getHitbox() const {
         switch (type) {
             case breakable:
-            return;
+            return { hitbox.x, hitbox.y, hitbox.width, 0 };
             default:
             return hitbox;
         }
@@ -44,11 +48,21 @@ public:
             //xử lý opacity - Fade, ColorAlpha
             break;
 
-            
+
         }
     }
 
-    void render() const {
+    void savetoBinaryFile(std::ofstream &file) const {
+        file.write(reinterpret_cast<const char*>(&type), sizeof(type));
+        file.write(reinterpret_cast<const char*>(&hitbox), sizeof(hitbox));
+    }
+
+    void loadfromBinaryFile(std::ifstream &file) {
+        file.read(reinterpret_cast<char*>(&type), sizeof(type));
+        file.read(reinterpret_cast<char*>(&hitbox), sizeof(hitbox));
+    }
+
+    virtual void render() const {
         Color color;
         ColorAlpha(color, 0.0f);
         DrawRectangle(static_cast<int>(hitbox.x), static_cast<int>(hitbox.y), static_cast<int>(hitbox.width), static_cast<int> (hitbox.height), Fade(color, 0));

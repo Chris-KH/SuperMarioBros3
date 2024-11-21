@@ -1,99 +1,47 @@
-//#pragma once
-//
-//#include "Entity.h"
-//#include "Item.h"
-//#include "Enemy.h"
-//#include "Hitbox.h"
-//#include <vector>
-//
-//class Map {
-//public:
-//    Map();
-//
-//    ~Map();
-//    virtual void fluff() = 0;
-//    virtual void background() = 0;
-//
-//};
-//
-//class Block : public Map {
-//public:
-//    Block(int x, int y, int width, int height) {
-//        hitbox.setPosition(x, y);
-//        hitbox.setSize(width, height);
-//    }
-//    /*void render() {
-//
-//    }
-//    void update() {
-//
-//    }*/
-//    Hitbox getHitbox() const {
-//        return hitbox;
-//    }
-//
-//private:
-//    Hitbox hitbox;
-//    int x, y;
-//};
-//
-//class InteractBlock : public Block {
-//protected:
-//    std::vector<Block*> block;
-//    std::vector<Item*> item;
-//    std::vector<Enemy*> enemy;
-//
-//public:
-//
-//};
-//
-//class NonInteractBlock : public Block {
-//
-//};
-//
-//class NonInteractMoveBlock : public NonInteractBlock {
-//
-//};
-//
-//class Lava : public Map {
-//public:
-//    Lava(int x, int y, int width, int height) {
-//        hitbox.setPosition(x, y);
-//        hitbox.setSize(width, height);
-//    }
-//    /*void render() {
-//
-//    }
-//    void update() {
-//
-//    }*/
-//    Hitbox getHitbox() const {
-//        return hitbox;
-//    }
-//
-//private:
-//    Hitbox hitbox;
-//    int x, y;
-//
-//};
-//
-//class Pipe : public Map {
-//    Pipe(int x, int y, int width, int height) {
-//        hitbox.setPosition(x, y);
-//        hitbox.setSize(width, height);
-//    }
-//    /*void render() {
-//
-//    }
-//    void update() {
-//
-//    }*/
-//    Hitbox getHitbox() const {
-//        return hitbox;
-//    }
-//
-//private:
-//    Hitbox hitbox;
-//    int x, y;
-//
-//};
+#pragma once
+
+#include "Block.h"
+#include <vector>
+
+class Map {
+public:
+    Map() {}
+
+    ~Map() {
+        for (std::vector<Block*>::iterator it = blocks.begin(); it != blocks.end(); ++it) {
+            delete *it;
+        }
+    }
+
+    void addBlock(Block* block) {
+        blocks.push_back(block);
+    }
+
+    void saveMap(std::string &filename) {
+        std::ofstream savedFile(filename, std::ios::binary);
+        if (savedFile.is_open()) {
+            unsigned int numBlocks = blocks.size();
+            savedFile.write(reinterpret_cast<const char*>(&numBlocks), sizeof(numBlocks));
+            for (std::vector<Block*>::iterator it = blocks.begin(); it != blocks.end(); ++it) {
+                (*it)->savetoBinaryFile(savedFile);
+            }
+        }
+    }
+
+    void loadMap(std::string &filename) {
+        std::ifstream loadedFile(filename, std::ios::binary);
+        if (loadedFile.is_open()) {
+            unsigned int numBlocks = 0;
+            loadedFile.read(reinterpret_cast<char*>(&numBlocks), sizeof(numBlocks));
+            blocks.clear();
+            for (int i = 0; i < numBlocks; ++i) {
+                Block* block = new Block(0, 0, 0, 0, normal);
+                block->loadfromBinaryFile(loadedFile);
+                blocks.push_back(block);
+            }
+        }
+    }
+    
+private:
+    std::vector<Block*> blocks;
+};
