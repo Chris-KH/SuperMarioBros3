@@ -49,6 +49,7 @@
 #include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
 #include "../include/Entity.h"
+#include "../include/Block.h"
 
 using namespace std;
 
@@ -62,7 +63,7 @@ int main() {
     // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
     Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 300.0f);
 
-    Block wall(200, 100, 50, 50);
+    Block wall(200, 100, 50, 50, normal);
     EntityToBlockPushbackCollision pushbackCollision;
     EntityToBLockCollision normalCollision;
     entity.setCollisionStrategy(&pushbackCollision);
