@@ -1,6 +1,7 @@
-﻿#pragma once
-#include"Collision.h"
-#include <raylib.h>
+﻿//#pragma once
+
+#include "Collision.h"
+#include "../lib/raylib.h"
 
 class Entity {
 private:
@@ -52,6 +53,5 @@ public:
 //        return false;
 //    }
 //};
-
 
 

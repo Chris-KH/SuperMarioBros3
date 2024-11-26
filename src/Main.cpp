@@ -44,8 +44,7 @@
 //    return 0;
 //}
 
-#include <raylib.h>
-#include <iostream>
+
 #include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
 #include "../include/Entity.h"
@@ -62,7 +61,7 @@ int main() {
     // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
     Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 300.0f);
 
-    Block wall(200, 100, 50, 50);
+    //Block wall(200, 100, 50, 50);
     EntityToBlockPushbackCollision pushbackCollision;
     EntityToBLockCollision normalCollision;
     entity.setCollisionStrategy(&pushbackCollision);
@@ -71,14 +70,14 @@ int main() {
         entity.handleInput();
 
         entity.move();
-        bool isColliding = entity.checkCollision(wall);
+        //bool isColliding = entity.checkCollision(wall);
         BeginDrawing();
         ClearBackground(GRAY);
 
         // Vẽ vật thể
 
         entity.draw();
-        DrawRectangleRec(wall.getHitbox(), DARKGRAY);
+        //DrawRectangleRec(wall.getHitbox(), DARKGRAY);
         
         
         //ClearBackground(Color(100, 100, 100, 100));
