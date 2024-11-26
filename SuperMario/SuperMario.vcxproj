@@ -135,6 +135,7 @@
     <ClInclude Include="..\include\ - Copy (5).h" />
     <ClInclude Include="..\include\ - Copy (6).h" />
     <ClInclude Include="..\include\ - Copy (7).h" />
+    <ClInclude Include="..\include\Block.h" />
     <ClInclude Include="..\include\Entity2.h" />
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\Character.h" />

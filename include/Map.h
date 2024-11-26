@@ -20,7 +20,7 @@ public:
     void saveMap(std::string &filename) {
         std::ofstream savedFile(filename, std::ios::binary);
         if (savedFile.is_open()) {
-            unsigned int numBlocks = blocks.size();
+            size_t numBlocks = blocks.size();
             savedFile.write(reinterpret_cast<const char*>(&numBlocks), sizeof(numBlocks));
             for (std::vector<Block*>::iterator it = blocks.begin(); it != blocks.end(); ++it) {
                 (*it)->savetoBinaryFile(savedFile);
@@ -31,7 +31,7 @@ public:
     void loadMap(std::string &filename) {
         std::ifstream loadedFile(filename, std::ios::binary);
         if (loadedFile.is_open()) {
-            unsigned int numBlocks = 0;
+            int numBlocks = 0;
             loadedFile.read(reinterpret_cast<char*>(&numBlocks), sizeof(numBlocks));
             blocks.clear();
             for (int i = 0; i < numBlocks; ++i) {

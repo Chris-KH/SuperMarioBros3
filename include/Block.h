@@ -63,7 +63,7 @@ public:
     }
 
     virtual void render() const {
-        Color color;
+        Color color = Color(0, 0, 0, 255);
         ColorAlpha(color, 0.0f);
         DrawRectangle(static_cast<int>(hitbox.x), static_cast<int>(hitbox.y), static_cast<int>(hitbox.width), static_cast<int> (hitbox.height), Fade(color, 0));
     }
