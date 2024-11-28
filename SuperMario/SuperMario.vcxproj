@@ -133,6 +133,7 @@
     <ClInclude Include="..\include\Beetle.h" />
     <ClInclude Include="..\include\Block.h" />
     <ClInclude Include="..\include\Bowser.h" />
+    <ClInclude Include="..\include\Coin.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\Character.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\src\AttackingState.cpp" />
     <ClCompile Include="..\src\Beetle.cpp" />
     <ClCompile Include="..\src\Bowser.cpp" />
+    <ClCompile Include="..\src\Coin.cpp" />
     <ClCompile Include="..\src\Collision.cpp" />
     <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\Animation.cpp" />
