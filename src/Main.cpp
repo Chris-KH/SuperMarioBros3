@@ -62,7 +62,7 @@ int main() {
     // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
     /*Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 300.0f);*/
 
-    Block wall(200, 100, 50, 50, normal);
+    //Block wall(200, 100, 50, 50, normal);
     //EntityToBlockPushbackCollision pushbackCollision;
     //EntityToBLockCollision normalCollision;
     //entity.setCollisionStrategy(&pushbackCollision);
@@ -73,9 +73,9 @@ int main() {
 
         // Vẽ vật thể
 
-        entity.draw();
+        //entity.draw();
         //DrawRectangleRec(wall.getHitbox(), DARKGRAY);
-        DrawRectangleRec(wall.getHitbox(), DARKGRAY);
+        //DrawRectangleRec(wall.getHitbox(), DARKGRAY);
         
         
         //ClearBackground(Color(100, 100, 100, 100));
