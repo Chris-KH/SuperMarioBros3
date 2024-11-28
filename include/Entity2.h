@@ -3,34 +3,29 @@
 #include "Animation.h"
 
 class Entity2 {
+protected:
+    Vector2 position; // Position of the entity
+    Vector2 size;     // Size of the entity
+    Color color;      // RGBA color of the entity
 public:
-    Entity2() : red(255), green(255), blue(255), alpha(255) {}
+    Entity2(Vector2 pos = { 0, 0 }, Vector2 sz = { 1, 1 }, Color col = Color(255, 255, 255, 255));
+    Entity2(const Entity2& other);
+
     virtual ~Entity2() {}
 
-    //Get the x coordinate of the entity.
-    virtual float getX() const = 0;
-    //Get the y coordinate of the entity.
-    virtual float getY() const = 0;
-    //Get the width of the bounding box (rectangle)
-    virtual float getWidth() const = 0;
-    //Get the length of the bounding box (rectangle)
-    virtual float getHeight() const = 0;
-    //Get box (rectangle)
-    virtual Rectangle getRectangle() const = 0;
+    // Getters
+    virtual float getX() const;
+    virtual float getY() const;
+    virtual float getWidth() const;
+    virtual float getHeight() const;
+    virtual Rectangle getRectangle() const;
 
-    // RGBA Color setters and getters
-    void setRed(unsigned r);
-    unsigned getRed() const { return red; }
+    // Setters
+    virtual void setPosition(Vector2 pos);
+    virtual void setSize(Vector2 sz);
+    virtual void setColor(Color col);
 
-    void setGreen(unsigned g);
-    unsigned getGreen() const { return green; }
-
-    void setBlue(unsigned b);
-    unsigned getBlue() const { return blue; }
-
-    void setAlpha(unsigned a);
-    unsigned getAlpha() const { return alpha; }
-protected:
-    unsigned red, green, blue, alpha;
+    // Pure virtual draw function
+    virtual void draw() const = 0;
 };
 
