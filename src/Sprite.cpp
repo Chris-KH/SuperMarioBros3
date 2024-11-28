@@ -1,7 +1,7 @@
 #include "../include/Sprite.h"
 
 Sprite::Sprite() 
-    : Entity2(Vector2(0 , 0), Vector2(1, 1), Color(255, 255, 255, 255)),
+    : Entity(Vector2(0 , 0), Vector2(1, 1), Color(255, 255, 255, 255)),
 	velocity({ 0, 0 }),
 	acceleration({ 0, 0 }),
 	maxSpeed({ 100, 100 }),
@@ -10,7 +10,7 @@ Sprite::Sprite()
 {}
 
 Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
-    : Entity2(pos, size, color),
+    : Entity(pos, size, color),
     velocity({ 0, 0 }), 
     acceleration({ 0, 0 }),
     maxSpeed({ 300, 500 }), 
@@ -19,7 +19,7 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
 {}
 
 Sprite::Sprite(const Sprite& other)
-    : Entity2(other),
+    : Entity(other),
     velocity(other.velocity),
     acceleration(other.acceleration),
     maxSpeed(other.maxSpeed),

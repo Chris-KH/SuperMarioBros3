@@ -61,24 +61,19 @@ int main() {
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
     // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
-    Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 300.0f);
+    /*Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 300.0f);*/
 
     Block wall(200, 100, 50, 50, normal);
-    EntityToBlockPushbackCollision pushbackCollision;
-    EntityToBLockCollision normalCollision;
-    entity.setCollisionStrategy(&pushbackCollision);
+    //EntityToBlockPushbackCollision pushbackCollision;
+    //EntityToBLockCollision normalCollision;
+    //entity.setCollisionStrategy(&pushbackCollision);
 
     while (!WindowShouldClose()) {
-        entity.handleInput();
-
-        entity.move();
-        bool isColliding = entity.checkCollision(wall);
         BeginDrawing();
         ClearBackground(GRAY);
 
         // Vẽ vật thể
 
-        entity.draw();
         DrawRectangleRec(wall.getHitbox(), DARKGRAY);
         
         
@@ -89,8 +84,6 @@ int main() {
         EndDrawing();
     }
 
-    // Giải phóng tài nguyên
-    entity.unloadTexture();
     CloseWindow();
 
     return 0;

@@ -2,8 +2,7 @@
 
 Character::Character(Vector2 pos, Vector2 size, Color col)
     : Sprite(pos, size, col),
-    runAnimation(), jumpAnimation(), idleAnimation(),
-    currentAnimation(&idleAnimation)
+    runAnimation(), jumpAnimation(), idleAnimation()
 {
     // Initialize animations
     // Assuming you have the texture loaded elsewhere and frames are added

@@ -1,6 +1,6 @@
 #pragma once
 
-class Entity2;
+class Entity;
 class Sprite;
 class Character;
 class Enemy;

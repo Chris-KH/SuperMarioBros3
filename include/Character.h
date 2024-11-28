@@ -5,10 +5,28 @@
 
 class Character : public Sprite {
 protected:
+    Animation idleAnimation;
     Animation runAnimation;
     Animation jumpAnimation;
-    Animation idleAnimation;
-    Animation* currentAnimation;
+    Animation fallAnimation;
+    Animation duckAnimation;
+    Animation slideAnimation;
+    Animation attackAnimation;
+    Animation powerUpAnimation;
+    Animation deathAnimation;
+    Animation victoryAnimation;
+
+    // Another animation
+    Animation swimmingAnimation;
+    Animation climbingAnimation;
+    Animation hurtAnimation;
+    Animation transformAnimation;
+    Animation crouchJumpAnimation;
+    Animation victoryDanceAnimation;
+    Animation collectCoinAnimation;
+    Animation dashAnimation;
+    Animation fallingAnimation;
+    Animation specialMoveAnimation;
 
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
