@@ -3,6 +3,6 @@
 
 class Enemy : public Sprite {
 private:
-		
+    
 public:
 };
