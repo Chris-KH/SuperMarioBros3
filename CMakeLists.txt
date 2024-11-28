@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(SuperMario)
+running project(SuperMario)
 
 set(CMAKE_CXX_STANDARD 11)
 
