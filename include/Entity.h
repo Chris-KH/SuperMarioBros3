@@ -1,37 +1,51 @@
+<<<<<<< HEAD
 ﻿//#pragma once
 
 #include "Collision.h"
 #include "../lib/raylib.h"
+=======
+#pragma once
+#include <raylib.h>
+#include "Animation.h"
+#include "State.h"
+>>>>>>> 091e26b87b428f4aa13e201d3101b6b79ccfac81
 
 class Entity {
-private:
-	Vector2 position;
-	Vector2 size;
-	Texture2D texture;
-	Rectangle sourceRect;
-	Vector2 velocity;
-	float speed;
-	bool isFlipped;
-	ICollisionStrategy* collisionStrategy;//
+protected:
+    Vector2 position; // Position of the entity
+    Vector2 size;     // Size of the entity
+    Color color;      // RGBA color of the entity
+
+    Animation* currentAnimation; 
+    State* currentState;
 public:
-	// Constructor
-	Entity(Vector2 pos, Vector2 sz, Texture2D tex, float spd) 
-		: position(pos), size(sz), texture(tex), velocity{ 0, 0 }, collisionStrategy(nullptr), speed(spd), isFlipped(false) 
-	{
-		sourceRect = { 0, 0, (float)tex.width, (float)tex.height };
-	}
+    Entity(Vector2 pos = { 0, 0 }, Vector2 sz = { 1, 1 }, Color col = Color(255, 255, 255, 255));
+    Entity(const Entity& other);
 
-	Rectangle getHitBox();
-	void setPosition(Vector2 newPos);
-	void handleInput();
-	void move();
-	void draw() ;
-	void unloadTexture() const;
-	void setCollisionStrategy(ICollisionStrategy* strategy); //
-	bool checkCollision(const Block& block);//
+    virtual ~Entity() {}
 
+    // Getters
+    virtual float getX() const;
+    virtual float getY() const;
+    virtual float getWidth() const;
+    virtual float getHeight() const;
+    virtual Rectangle getRectangle() const;
+    virtual Vector2 getSize() const ;
+    virtual Vector2 getPosition() const;
+    virtual Color getColor() const;
+
+    // Setters
+    virtual void setPosition(Vector2 pos);
+    virtual void setSize(Vector2 sz);
+    virtual void setColor(Color col);
+   
+    // Pure virtual draw function
+    virtual void draw() const = 0;
+
+    // Collision detection 
 };
 
+<<<<<<< HEAD
 
 //
 //class Entity {
@@ -55,3 +69,5 @@ public:
 //};
 
 
+=======
+>>>>>>> 091e26b87b428f4aa13e201d3101b6b79ccfac81

@@ -19,6 +19,9 @@ void Animation::addFrame(const Rectangle& source, const Vector2& offset, unsigne
 }
 
 const Animation::Frame& Animation::getFrame(int frameNumber) const { 
+    if (frames.empty()) {
+        throw std::out_of_range("No frames available in the animation.");
+    }
     unsigned index = frameNumber % frames.size();
     return frames[index];
 }

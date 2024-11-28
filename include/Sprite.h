@@ -1,7 +1,7 @@
-#include "Entity2.h"
+#include "Entity.h"
 
 //For moving object
-class Sprite : public Entity2 {
+class Sprite : public Entity {
 protected:
     Vector2 velocity;      // Velocity vector (dx, dy)
     Vector2 acceleration;  // Acceleration vector (ax, ay)
