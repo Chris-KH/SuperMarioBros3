@@ -4,8 +4,8 @@ Sprite::Sprite() :
 	position({ 0, 0 }),
 	size({ 0, 0 }),
 	velocity({ 0, 0 }),
-	acceloration({ 0, 0 }),
-	maxSpeed({ 0, 0 }),
+	acceleration({ 0, 0 }),
+	maxSpeed({ 100, 100 }),
 	isDead(false),
 	isFlipped(false)
 {
@@ -68,11 +68,11 @@ float Sprite::getYVelocity() const {
 }
 
 float Sprite::getXAcceleration() const {
-	return acceloration.x;
+	return acceleration.x;
 }
 
 float Sprite::getYAcceleration() const {
-	return acceloration.y;
+	return acceleration.y;
 }
 
 void Sprite::setXVelocity(float vx) {
@@ -84,9 +84,9 @@ void Sprite::setYVelocity(float vy) {
 }
 
 void Sprite::setXAcceleration(float ax) {
-	this->acceloration.x = ax;
+	this->acceleration.x = ax;
 }
 
 void Sprite::setYAcceleration(float ay) {
-	this->acceloration.y = ay;
+	this->acceleration.y = ay;
 }

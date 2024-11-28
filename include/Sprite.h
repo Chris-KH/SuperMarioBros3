@@ -3,14 +3,14 @@
 //For moving object
 class Sprite : public Entity2 {
 private:
-	Vector2 position;
-	Vector2 size;
-	Vector2 velocity;
-	Vector2 acceloration;
-	Vector2 maxSpeed;
+	Vector2 position;     // Position (x, y)
+	Vector2 size;         // Size (width, height)
+	Vector2 velocity;     // Velocity (dx, dy)
+	Vector2 acceleration; // Acceleration (ax, ay)
+	Vector2 maxSpeed;     // Maximum speed (x, y)
 
-	bool isDead;
-	bool isFlipped;
+	bool isDead;   // Indicates if the sprite is "dead"
+	bool isFlipped; // Indicates if the sprite is flipped horizontally
 public:
 	Sprite();
 	

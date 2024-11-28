@@ -4,7 +4,7 @@
 
 class Entity2 {
 public:
-    Entity2();
+    Entity2() : red(255), green(255), blue(255), alpha(255) {}
     virtual ~Entity2() {}
 
     //Get the x coordinate of the entity.
@@ -18,19 +18,19 @@ public:
     //Get box (rectangle)
     virtual Rectangle getRectangle() const = 0;
 
-    //Get red in RGBA
-    void setRed(unsigned red);
-    //Get green in RGBA
-    void setGreen(unsigned green);
-    //Get blue in RGBA
-    void setBlue(unsigned blue);
-    //Get alpha (opacity) in RGBA
-    void setAlphe(unsigned alpha);
-private:
-    unsigned red;
-    unsigned green;
-    unsigned blue;
-    unsigned alpha;
+    // RGBA Color setters and getters
+    void setRed(unsigned r);
+    unsigned getRed() const { return red; }
 
+    void setGreen(unsigned g);
+    unsigned getGreen() const { return green; }
+
+    void setBlue(unsigned b);
+    unsigned getBlue() const { return blue; }
+
+    void setAlpha(unsigned a);
+    unsigned getAlpha() const { return alpha; }
+protected:
+    unsigned red, green, blue, alpha;
 };
 

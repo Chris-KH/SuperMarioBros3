@@ -19,6 +19,6 @@ void Entity2::setBlue(unsigned blue) {
     this->blue = min(max(blue, 0u), 255u);
 }
 
-void Entity2::setAlphe(unsigned alpha) {
+void Entity2::setAlpha(unsigned alpha) {
     this->alpha = min(max(alpha, 0u), 255u);
 }
