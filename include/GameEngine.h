@@ -4,18 +4,100 @@
 #include "Map.h"
 #include "Block.h"
 #include "Entity.h"
+class GameCamera {
+public:
+    float cameraX;          // GameCamera position on the X-axis
+    float cameraY;          // GameCamera position on the Y-axis
+    float cameraWidth;      // Width of the camera view
+    float cameraHeight;     // Height of the camera view
+
+    RenderTexture2D renderTexture; // Off-screen render texture
+
+    GameCamera(float width, float height, int mapWidth, int mapHeight)
+        : cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0) {
+        renderTexture = LoadRenderTexture(mapWidth, mapHeight);
+    }
+
+    ~GameCamera() {
+        UnloadRenderTexture(renderTexture);
+    }
+
+    void update(float characterX, float characterY) {
+        // Calculate the offset needed to center the camera on the character
+        cameraX = characterX - cameraWidth / 2;
+        cameraY = characterY - cameraHeight / 2;
+
+        //    // Optional: Clamp the camera position so it doesn't go out of map bounds
+        //    if (cameraX < 0) cameraX = 0;
+        //    if (cameraY < 0) cameraY = 0;
+        //    if (cameraX + cameraWidth > renderTexture.texture.width) {
+        //        cameraX = renderTexture.texture.width - cameraWidth;
+        //    }
+        //    if (cameraY + cameraHeight > renderTexture.texture.height) {
+        //        cameraY = renderTexture.texture.height - cameraHeight;
+        //    }
+        //
+    }
+
+    // Draw the current view to the screen
+    void render() const {
+        // Calculate source and destination rectangles for drawing
+        Rectangle sourceRec = { cameraX, cameraY, cameraWidth, cameraHeight };
+        Rectangle destRec = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+
+        // Draw the relevant section of the render texture to the window
+        DrawTexturePro(renderTexture.texture, sourceRec, destRec, Vector2{ 0, 0 }, 0.0f, WHITE);
+    }
+
+    // Begin drawing to the off-screen texture
+    void beginDrawing() {
+        BeginTextureMode(renderTexture);
+        ClearBackground(RAYWHITE);
+    }
+
+    // End drawing to the off-screen texture
+    void endDrawing() {
+        EndTextureMode();
+    }
+};
+
+class Chunk {
+public:
+    int x;                     // Chunk grid position (horizontal only)
+    bool isLoaded;             // Whether this chunk is loaded
+    std::vector<Block*> blocks; // Blocks belonging to this chunk
+
+    Chunk(int x) : x(x), isLoaded(false) {}
+
+    void load() {
+        isLoaded = true;
+    }
+
+    void unload() {
+        isLoaded = false;
+        blocks.clear();
+    }
+
+    void render() const {
+        if (isLoaded) {
+            for (const auto& block : blocks) {
+                block->render();
+            }
+        }
+    }
+};
 class GameEngine {
 private:
     //Map map;
     std::vector<Chunk> chunks; // Horizontal chunks
     int chunkSize;             // Size of each chunk in pixels
-    Camera camera;
+    GameCamera camera;
     float characterX;
 
 public:
-    GameEngine(int screenWidth, int screenHeight, int mapWidth, int mapHeight, int chunkSize)
-        : /*map(mapWidth, mapHeight)*/ chunkSize(chunkSize),
-        camera(screenWidth, screenHeight, mapWidth, screenHeight),
+    GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, int chunkSize)
+        : /*map(mapWidth, mapHeight)*/ 
+        camera(screenWidth, screenHeight, mapWidth, screenHeight), chunkSize(chunkSize),
         characterX(500) {
         int numChunks = mapWidth / chunkSize;
         chunks.reserve(numChunks);
@@ -90,89 +172,6 @@ public:
         while (!WindowShouldClose()) {
             update();
             render();
-        }
-    }
-};
-
-class Camera {
-public:
-    float cameraX;          // Camera position on the X-axis
-    float cameraY;          // Camera position on the Y-axis
-    float cameraWidth;      // Width of the camera view
-    float cameraHeight;     // Height of the camera view
-
-    RenderTexture2D renderTexture; // Off-screen render texture
-
-    Camera(float width, float height, int mapWidth, int mapHeight)
-        : cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0) {
-        renderTexture = LoadRenderTexture(mapWidth, mapHeight);
-    }
-
-    ~Camera() {
-        UnloadRenderTexture(renderTexture);
-    }
-
-    void update(float characterX, float characterY) {
-        // Calculate the offset needed to center the camera on the character
-        cameraX = characterX - cameraWidth / 2;
-        cameraY = characterY - cameraHeight / 2;
-
-        //    // Optional: Clamp the camera position so it doesn't go out of map bounds
-        //    if (cameraX < 0) cameraX = 0;
-        //    if (cameraY < 0) cameraY = 0;
-        //    if (cameraX + cameraWidth > renderTexture.texture.width) {
-        //        cameraX = renderTexture.texture.width - cameraWidth;
-        //    }
-        //    if (cameraY + cameraHeight > renderTexture.texture.height) {
-        //        cameraY = renderTexture.texture.height - cameraHeight;
-        //    }
-        //
-    }
-
-    // Draw the current view to the screen
-    void render() const {
-        // Calculate source and destination rectangles for drawing
-        Rectangle sourceRec = { cameraX, cameraY, cameraWidth, cameraHeight };
-        Rectangle destRec = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
-
-        // Draw the relevant section of the render texture to the window
-        DrawTexturePro(renderTexture.texture, sourceRec, destRec, Vector2{ 0, 0 }, 0.0f, WHITE);
-    }
-
-    // Begin drawing to the off-screen texture
-    void beginDrawing() {
-        BeginTextureMode(renderTexture);
-        ClearBackground(RAYWHITE);
-    }
-
-    // End drawing to the off-screen texture
-    void endDrawing() {
-        EndTextureMode();
-    }
-};
-
-class Chunk {
-public:
-    int x;                     // Chunk grid position (horizontal only)
-    bool isLoaded;             // Whether this chunk is loaded
-    std::vector<Block*> blocks; // Blocks belonging to this chunk
-
-    Chunk(int x) : x(x), isLoaded(false) {}
-
-    void load() {
-        isLoaded = true;
-    }
-
-    void unload() {
-        isLoaded = false;
-        blocks.clear();
-    }
-
-    void render() const {
-        if (isLoaded) {
-            for (const auto& block : blocks) {
-                block->render();
-            }
         }
     }
 };
