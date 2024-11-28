@@ -27,6 +27,7 @@ Sprite::Sprite(const Sprite& other)
     isFlipped(other.isFlipped)
 {}
 
+
 // Movement and physics methods
 Vector2 Sprite::getVelocity() const { return velocity; }
 
