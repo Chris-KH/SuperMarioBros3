@@ -42,15 +42,17 @@ Vector2 Sprite::getMaxSpeed() const { return maxSpeed; }
 void Sprite::setMaxSpeed(Vector2 max) { maxSpeed = max; }
 
 void Sprite::update(float deltaTime) {
-    // Update velocity with acceleration
     velocity.x += acceleration.x * deltaTime;
     velocity.y += acceleration.y * deltaTime;
 
-    // Clamp velocity to max speed
-    if (velocity.x > maxSpeed.x) velocity.x = maxSpeed.x;
-    if (velocity.y > maxSpeed.y) velocity.y = maxSpeed.y;
+    // Clamp the velocity to maxSpeed
+    if (fabs(velocity.x) > maxSpeed.x) {
+        velocity.x = (velocity.x > 0) ? maxSpeed.x : -maxSpeed.x;
+    }
+    if (fabs(velocity.y) > maxSpeed.y) {
+        velocity.y = (velocity.y > 0) ? maxSpeed.y : -maxSpeed.y;
+    }
 
-    // Update position with velocity
     position.x += velocity.x * deltaTime;
     position.y += velocity.y * deltaTime;
 }
