@@ -16,10 +16,6 @@ public:
 
     virtual ~Sprite() = default;
 
-    // Override methods from Entity2
-    void setPosition(Vector2 pos) override;
-    void setSize(Vector2 sz) override;
-
     // Movement and physics methods
     Vector2 getVelocity() const;
     void setVelocity(Vector2 vel);

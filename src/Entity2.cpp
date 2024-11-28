@@ -20,6 +20,18 @@ Rectangle Entity2::getRectangle() const {
     return { position.x, position.y, size.x, size.y };
 }
 
+Vector2 Entity2::getSize() const {
+    return this->size;
+}
+
+Vector2 Entity2::getPosition() const {
+    return this->position;
+}
+
+Color Entity2::getColor() const {
+    return this->color;
+}
+
 void Entity2::setPosition(Vector2 pos) { position = pos; }
 
 void Entity2::setSize(Vector2 sz) { size = sz; }

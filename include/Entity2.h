@@ -19,13 +19,18 @@ public:
     virtual float getWidth() const;
     virtual float getHeight() const;
     virtual Rectangle getRectangle() const;
+    virtual Vector2 getSize() const ;
+    virtual Vector2 getPosition() const;
+    virtual Color getColor() const;
 
     // Setters
     virtual void setPosition(Vector2 pos);
     virtual void setSize(Vector2 sz);
     virtual void setColor(Color col);
-
+   
     // Pure virtual draw function
     virtual void draw() const = 0;
+
+    // Collision detection 
 };
 

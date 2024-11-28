@@ -27,11 +27,6 @@ Sprite::Sprite(const Sprite& other)
     isFlipped(other.isFlipped)
 {}
 
-// Override methods from Entity2
-void Sprite::setPosition(Vector2 pos) { position = pos; }
-
-void Sprite::setSize(Vector2 sz) { size = sz; }
-
 // Movement and physics methods
 Vector2 Sprite::getVelocity() const { return velocity; }
 
