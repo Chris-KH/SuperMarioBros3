@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{a85f1231-f85a-4dfb-9158-dffe3a68a98c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entity\State">
+      <UniqueIdentifier>{192f672c-1302-40e8-b371-e761654ba8b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity\State">
+      <UniqueIdentifier>{68a61819-5ecf-483b-b0eb-0fb51c4ea612}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Colors.h">
@@ -84,6 +90,24 @@
     <ClInclude Include="..\include\Block.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AttackingState.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IdleState.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\JumpingState.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PatrollingState.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\WalkingState.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Colors.cpp">
@@ -139,6 +163,24 @@
     </ClCompile>
     <ClCompile Include="..\src\Collision.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AttackingState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\IdleState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\JumpingState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PatrollingState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State.cpp">
+      <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WalkingState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
