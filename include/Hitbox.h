@@ -11,11 +11,11 @@ public:
         rect.width = 0;
         rect.height = 0;
     }
-    void setPosition(int x, int y) {
+    void setPosition(float x, float y) {
         rect.x = x;
         rect.y = y;
     }
-    void setSize(int width, int height) {
+    void setSize(float width, float height) {
         rect.width = width;
         rect.height = height;
     }
@@ -24,16 +24,16 @@ public:
     //    return CheckCollisionRecs(rect, other.rect);
     //}
 
-    int getX() const {
+    float getX() const {
         return rect.x;
     }
-    int getY() const {
+    float getY() const {
         return rect.y;
     }
-    int getWidth() const {
+    float getWidth() const {
         return rect.width;
     }
-    int getHeight() const {
+    float getHeight() const {
         return rect.height;
     }
 

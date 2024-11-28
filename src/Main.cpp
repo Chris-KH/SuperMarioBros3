@@ -53,46 +53,26 @@
 
 using namespace std;
 
+#include "../include/Sprite.h"
+
 int main() {
-    InitWindow(1280, 800, "Entity Class with Keyboard Movement");
+    InitWindow(800, 600, "Sprite Example");
+
+    Sprite mario({ 100, 200 }, { 50, 50 }, RED);
+
     SetTargetFPS(60);
-
-    // Tải texture cho vật thể
-    Texture2D texture = LoadTexture("../SuperMario/images.png");
-
-    // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
-    Entity entity(Vector2{ 100, 100 }, Vector2{ 100, 100 }, texture, 300.0f);
-
-    Block wall(200, 100, 50, 50, normal);
-    EntityToBlockPushbackCollision pushbackCollision;
-    EntityToBLockCollision normalCollision;
-    entity.setCollisionStrategy(&pushbackCollision);
-
     while (!WindowShouldClose()) {
-        entity.handleInput();
+        // Update logic
+        mario.update(GetFrameTime());
 
-        entity.move();
-        bool isColliding = entity.checkCollision(wall);
+        // Draw
         BeginDrawing();
-        ClearBackground(GRAY);
-
-        // Vẽ vật thể
-
-        entity.draw();
-        DrawRectangleRec(wall.getHitbox(), DARKGRAY);
-        
-        
-        //ClearBackground(Color(100, 100, 100, 100));
-        DrawText("MARIO SUPER BROS", 100, 100, 40, ORANGE);
-
-
+        ClearBackground(BLACK);
+        mario.draw();
         EndDrawing();
     }
 
-    // Giải phóng tài nguyên
-    entity.unloadTexture();
     CloseWindow();
-
     return 0;
 }
 
