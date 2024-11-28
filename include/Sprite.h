@@ -2,66 +2,35 @@
 
 //For moving object
 class Sprite : public Entity2 {
-private:
-	Vector2 position;
-	Vector2 size;
-	Vector2 velocity;
-	Vector2 acceloration;
-	Vector2 maxSpeed;
+protected:
+    Vector2 velocity;      // Velocity vector (dx, dy)
+    Vector2 acceleration;  // Acceleration vector (ax, ay)
+    Vector2 maxSpeed;      // Maximum speed (x, y)
+    bool isDead;           // Indicates if the sprite is "dead"
+    bool isFlipped;        // Flip sprite horizontally
 
-	bool isDead;
-	bool isFlipped;
 public:
-	Sprite();
-	
-	virtual ~Sprite() = default;
+    Sprite();
+    Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(255, 255, 255, 255));
+    Sprite(const Sprite& other);
 
-	//void disableCollisions();
-	//void disableGravity();
+    virtual ~Sprite() = default;
 
-	float getX() const override;
-	float getY() const override;
-	float getWidth() const override;
-	float getHeight() const override;
+    // Movement and physics methods
+    Vector2 getVelocity() const;
+    void setVelocity(Vector2 vel);
 
-	void setX(float x); 
-	void setY(float y); 
-	void setWidth(float width); 
-	void setHeight(float height);
+    Vector2 getAcceleration() const;
+    void setAcceleration(Vector2 acc);
 
-	float getMaximumXSpeed() const;
-	float getMaximumYSpeed() const;
-	void setMaximumXSpeed(float speed);
-	void setMaximumYSpeed(float speed);
+    Vector2 getMaxSpeed() const;
+    void setMaxSpeed(Vector2 max);
 
-	
-	float getXVelocity() const;
-	float getYVelocity() const;
-	float getXAcceleration() const;
-	float getYAcceleration() const;
-	
+    void update(float deltaTime);
 
-	void setXVelocity(float vx);
-	void setYVelocity(float vy);
-	void setXAcceleration(float ax);
-	void setYAcceleration(float ay);
-	
-	
-	//bool isFlying() const;
-	//bool isHeld() const;
-	//bool isHoldingEnabled() const;
-	//void kill(); ///@todo rename to destroy()
-	//
-	//void setCollisionsEnabled(bool enabled);
-	//void setDeathBoundaryEnabled(bool enabled);
-	//void setGravityEnabled(bool enabled);
-	//
-	//void setHolding(bool held, Player* player = nullptr);
-	//void setLayer(int layer);
-	//void setLeft(float x);
-	//void setRight(float x);
-	//void setTop(float y);
-	//void setBottom(float y);
-	//void setCenterX(float x);
-	//void setCenterY(float y);
+    // Flip sprite horizontally
+    void flip(bool flip);
+
+    // Draw method override
+    virtual void draw() const override;
 };

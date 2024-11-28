@@ -1,24 +1,39 @@
 #include "../include/Entity2.h"
 
-Entity2::Entity2():
-    red(255),
-    green(255),
-    blue(255),
-    alpha(255)
-{}
-
-void Entity2::setRed(unsigned red) {
-    this->red = min(max(red, 0u), 255u);
+Entity2::Entity2(Vector2 pos, Vector2 size, Color color)
+    : position(pos), size(size), color(color) {
 }
 
-void Entity2::setGreen(unsigned green) {
-    this->green = min(max(green, 0u), 255u);
+Entity2::Entity2(const Entity2& other)
+    : position(other.position), size(other.size), color(other.color) {
 }
 
-void Entity2::setBlue(unsigned blue) {
-    this->blue = min(max(blue, 0u), 255u);
+float Entity2::getX() const { return position.x; }
+
+float Entity2::getY() const { return position.y; }
+
+float Entity2::getWidth() const { return size.x; }
+
+float Entity2::getHeight() const { return size.y; }
+
+Rectangle Entity2::getRectangle() const {
+    return { position.x, position.y, size.x, size.y };
 }
 
-void Entity2::setAlphe(unsigned alpha) {
-    this->alpha = min(max(alpha, 0u), 255u);
+Vector2 Entity2::getSize() const {
+    return this->size;
 }
+
+Vector2 Entity2::getPosition() const {
+    return this->position;
+}
+
+Color Entity2::getColor() const {
+    return this->color;
+}
+
+void Entity2::setPosition(Vector2 pos) { position = pos; }
+
+void Entity2::setSize(Vector2 sz) { size = sz; }
+
+void Entity2::setColor(Color col) { color = col; }
