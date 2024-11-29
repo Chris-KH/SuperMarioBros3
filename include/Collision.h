@@ -25,8 +25,6 @@ public:
     virtual void resolve(Entity& entity, const Block& block) = 0; // Block-specific case
     virtual ~CollisionStrategy() = default;
 };
-
-
 class EntityBlockCollisionHandler : public CollisionStrategy {
 public:
     void resolve(Entity& entity, const Block& block) override
@@ -91,9 +89,9 @@ private:
 
 public:
     void handleCollision(Entity& entityA, Entity& entityB) {
-        if (dynamic_cast<Character*>(&entityA) && dynamic_cast<Enemy*>(&entityB)) 
+        if (dynamic_cast<Character*>(&entityA) && dynamic_cast<Enemy*>(&entityB)) // should not do this. this is very bad.
             entityEntity.resolve(entityA, entityB);
-        
+        // 
         //else if (dynamic_cast<Enemy*>(&entityA) && dynamic_cast<Character*>(&entityB)) {
         //    characterEnemyStrategy.handleCollision(entityB, entityA);
         //}
