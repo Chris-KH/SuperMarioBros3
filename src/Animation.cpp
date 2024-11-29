@@ -14,7 +14,7 @@ Animation::Animation(Texture2D texture) :
     finished(false)
 {}
 
-void Animation::addFrame(const Rectangle& source, const Vector2& offset, unsigned duration) {
+void Animation::addFrame(const Rectangle& source, const Vector2& offset, float duration) {
     frames.push_back({ source, offset, duration });
 }
 

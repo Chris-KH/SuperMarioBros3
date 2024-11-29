@@ -31,6 +31,8 @@ protected:
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
 
+    virtual EntityType getType() const override { return EntityType::CHACRACTER; }
+    
     // Override draw to use animations
     void draw() const;
 

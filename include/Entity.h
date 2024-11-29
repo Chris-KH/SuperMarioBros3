@@ -3,6 +3,33 @@
 #include "Animation.h"
 #include "State.h"
 
+enum EntityType {
+    CHACRACTER,
+    ENEMY,
+    ITEM
+};
+
+//enum class CHACRACTER {
+//    Mario,
+//    Luigi
+//};
+//
+//enum class ITEM {
+//    Coin,
+//    Mushroom
+//};
+//
+//enum class ENEMY {
+//    Beetle,
+//    Bowser,
+//    Goomba,
+//    Plant,
+//    Spiny,
+//    Thwomp,
+//    Lakitu,
+//    KoopaTroopa
+//};
+
 class Entity {
 protected:
     Vector2 position; // Position of the entity
@@ -26,6 +53,7 @@ public:
     virtual Vector2 getSize() const ;
     virtual Vector2 getPosition() const;
     virtual Color getColor() const;
+    virtual EntityType getType() const = 0;
 
     // Setters
     virtual void setPosition(Vector2 pos);
@@ -34,9 +62,12 @@ public:
    
     // Pure virtual draw function
     virtual void draw() const = 0;
+    virtual void update(float deltaTime) = 0;
+    //virtual void changeState(State* newState);
+    //virtual void setAnimation(Animation* animation);
 
     // Collision detection 
-
-    // 
+    //virtual void checkCollision(const Entity& other);
+     
 };
 

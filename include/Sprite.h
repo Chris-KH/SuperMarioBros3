@@ -15,6 +15,7 @@ public:
     Sprite(const Sprite& other);
 
     virtual ~Sprite() = default;
+    virtual EntityType getType() const = 0;
 
     // Movement and physics methods
     Vector2 getVelocity() const;

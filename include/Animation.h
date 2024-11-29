@@ -10,7 +10,7 @@ public:
     struct Frame {
         Rectangle source; ///< Position and size of the frame in the texture atlas.
         Vector2 offset;   ///< Offset for rendering the frame.
-        unsigned duration;   ///< Duration of the frame in seconds.
+        float duration;   ///< Duration of the frame in seconds.
     };
 
      //Default constructor.
@@ -20,7 +20,7 @@ public:
     Animation(Texture2D texture);
 
     //Add a new frame to the animation.
-    void addFrame(const Rectangle& source, const Vector2& offset, unsigned duration = 1);
+    void addFrame(const Rectangle& source, const Vector2& offset, float duration = 1.f);
 
     //Get a frame from the animation.
     const Frame& getFrame(int frameNumber) const;

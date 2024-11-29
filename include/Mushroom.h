@@ -2,14 +2,16 @@
 #include "Item.h"
 
 enum MushroomType{
-	MUSHROOM_SUPER,
-	MUSHROOM_1UP
+	MUSHROOM_SUPER, //Enlarges Mario, turning him into Super Mario and allowing him to survive one hit.
+	MUSHROOM_1UP //Provides an extra life.
 };
 
 //class Mushroom : public Item {
 //private:
 //	MushroomType type;
 //public:
+//	static constexpr float SPEED = 0.f;
+// 
 //	//Create new mushroom
 //	Mushroom(MushroomType type = MUSHROOM_SUPER);
 //
