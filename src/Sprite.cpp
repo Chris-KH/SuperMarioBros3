@@ -53,8 +53,7 @@ void Sprite::update(float deltaTime) {
         velocity.y = (velocity.y > 0) ? maxSpeed.y : -maxSpeed.y;
     }
 
-    position.x += velocity.x * deltaTime;
-    position.y += velocity.y * deltaTime;
+    setPosition(Vector2(getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime));
 }
 
 // Flip sprite horizontally
@@ -62,7 +61,7 @@ void Sprite::flip(bool flip) { isFlipped = flip; }
 
 // Draw method override
 void Sprite::draw() const {
-    Rectangle destRect = { position.x, position.y, size.x, size.y };
-    Rectangle srcRect = { 0, 0, (isFlipped ? -size.x : size.x), size.y };
-    DrawRectangleRec(destRect, color); // Replace with texture drawing
+    Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y};
+    Rectangle srcRect = { 0, 0, (isFlipped ? -getSize().x : getSize().x), getSize().y };
+    DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
 }

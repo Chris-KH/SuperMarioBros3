@@ -29,20 +29,20 @@ protected:
     Animation specialMoveAnimation;
 
 public:
-    Character(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
+    //Character(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
 
-    virtual EntityType getType() const override { return EntityType::CHACRACTER; }
-    
-    // Override draw to use animations
-    void draw() const;
+    //virtual EntityType getType() const override { return EntityType::CHACRACTER; }
+    //
+    //// Override draw to use animations
+    //void draw() const;
 
-    // Method to handle movement (keyboard input)
-    void move(float deltaTime);
+    //// Method to handle movement (keyboard input)
+    //void move(float deltaTime);
 
-    // Method to handle jumping
-    void jump();
+    //// Method to handle jumping
+    //void jump();
 
-    // Method to switch between animations
-    void switchAnimation(Animation& animation);
+    //// Method to switch between animations
+    //void switchAnimation(Animation& animation);
 };
 

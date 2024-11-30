@@ -129,7 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\AttackingState.h" />
+    <ClInclude Include="..\include\NormalState.h" />
     <ClInclude Include="..\include\Beetle.h" />
     <ClInclude Include="..\include\Block.h" />
     <ClInclude Include="..\include\Bowser.h" />
@@ -143,24 +143,24 @@
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GoomBa.h" />
     <ClInclude Include="..\include\Hitbox.h" />
-    <ClInclude Include="..\include\IdleState.h" />
+    <ClInclude Include="..\include\SuperState.h" />
     <ClInclude Include="..\include\Item.h" />
-    <ClInclude Include="..\include\JumpingState.h" />
+    <ClInclude Include="..\include\FireState.h" />
     <ClInclude Include="..\include\KoopaTroopa.h" />
     <ClInclude Include="..\include\Lakitu.h" />
     <ClInclude Include="..\include\Luigi.h" />
     <ClInclude Include="..\include\Map.h" />
     <ClInclude Include="..\include\Mario.h" />
-    <ClInclude Include="..\include\PatrollingState.h" />
+    <ClInclude Include="..\include\CapedState.h" />
     <ClInclude Include="..\include\Plant.h" />
     <ClInclude Include="..\include\Spiny.h" />
     <ClInclude Include="..\include\Sprite.h" />
-    <ClInclude Include="..\include\State.h" />
+    <ClInclude Include="..\include\CharacterState.h" />
     <ClInclude Include="..\include\Thwomp.h" />
-    <ClInclude Include="..\include\WalkingState.h" />
+    <ClInclude Include="..\include\TailState.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\AttackingState.cpp" />
+    <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Beetle.cpp" />
     <ClCompile Include="..\src\Block.cpp" />
     <ClCompile Include="..\src\Bowser.cpp" />
@@ -174,22 +174,22 @@
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\GameEngine.cpp" />
     <ClCompile Include="..\src\GoomBa.cpp" />
-    <ClCompile Include="..\src\IdleState.cpp" />
+    <ClCompile Include="..\src\SuperState.cpp" />
     <ClCompile Include="..\src\Item.cpp" />
-    <ClCompile Include="..\src\JumpingState.cpp" />
+    <ClCompile Include="..\src\FireState.cpp" />
     <ClCompile Include="..\src\KoopaTroopa.cpp" />
     <ClCompile Include="..\src\Lakitu.cpp" />
     <ClCompile Include="..\src\Luigi.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Map.cpp" />
     <ClCompile Include="..\src\Mario.cpp" />
-    <ClCompile Include="..\src\PatrollingState.cpp" />
+    <ClCompile Include="..\src\CapedState.cpp" />
     <ClCompile Include="..\src\Plant.cpp" />
     <ClCompile Include="..\src\Spiny.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
-    <ClCompile Include="..\src\State.cpp" />
+    <ClCompile Include="..\src\CharacterState.cpp" />
     <ClCompile Include="..\src\Thwomp.cpp" />
-    <ClCompile Include="..\src\WalkingState.cpp" />
+    <ClCompile Include="..\src\TailState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

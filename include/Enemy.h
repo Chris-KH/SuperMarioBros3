@@ -15,16 +15,16 @@ protected:
     bool isWalking;
 
 public:
-    Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
+    //Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
 
-    virtual EntityType getType() const override { return EntityType::ENEMY; }
+    //virtual EntityType getType() const override { return EntityType::ENEMY; }
 
-    // Override draw to use animations
-    void draw() const;
+    //// Override draw to use animations
+    //void draw() const;
 
-    // Method to move enemy (AI-controlled)
-    void move(float deltaTime);
+    //// Method to move enemy (AI-controlled)
+    //void move(float deltaTime);
 
-    // Method to switch between animations
-    void switchAnimation(Animation& animation);
+    //// Method to switch between animations
+    //void switchAnimation(Animation& animation);
 };

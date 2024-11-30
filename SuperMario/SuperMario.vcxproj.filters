@@ -72,22 +72,22 @@
     <ClInclude Include="..\include\Block.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\AttackingState.h">
+    <ClInclude Include="..\include\NormalState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\IdleState.h">
+    <ClInclude Include="..\include\SuperState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\JumpingState.h">
+    <ClInclude Include="..\include\FireState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\PatrollingState.h">
+    <ClInclude Include="..\include\CapedState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\State.h">
+    <ClInclude Include="..\include\CharacterState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\WalkingState.h">
+    <ClInclude Include="..\include\TailState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Character.h">
@@ -161,22 +161,22 @@
     <ClCompile Include="..\src\Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AttackingState.cpp">
+    <ClCompile Include="..\src\NormalState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\IdleState.cpp">
+    <ClCompile Include="..\src\SuperState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\JumpingState.cpp">
+    <ClCompile Include="..\src\FireState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\PatrollingState.cpp">
+    <ClCompile Include="..\src\CapedState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\State.cpp">
+    <ClCompile Include="..\src\CharacterState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\WalkingState.cpp">
+    <ClCompile Include="..\src\TailState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Spiny.cpp">

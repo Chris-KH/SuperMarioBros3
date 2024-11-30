@@ -1,7 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include "Animation.h"
-#include "State.h"
+#include "CharacterState.h"
 
 enum EntityType {
     CHACRACTER,
@@ -31,19 +31,19 @@ enum EntityType {
 //};
 
 class Entity {
-protected:
+private:
     Vector2 position; // Position of the entity
     Vector2 size;     // Size of the entity
     Color color;      // RGBA color of the entity
 
     Animation* currentAnimation; 
-    State* currentState;
+    Animation* nextAnimation;
 public:
     Entity(Vector2 pos = { 0, 0 }, Vector2 sz = { 1, 1 }, Color col = Color(255, 255, 255, 255));
     Entity(const Entity& other);
 
     virtual ~Entity() {}
-
+        
     // Getters
     virtual float getX() const;
     virtual float getY() const;
@@ -63,7 +63,6 @@ public:
     // Pure virtual draw function
     virtual void draw() const = 0;
     virtual void update(float deltaTime) = 0;
-    //virtual void changeState(State* newState);
     //virtual void setAnimation(Animation* animation);
 
     // Collision detection 
