@@ -59,7 +59,7 @@ public:
     virtual void setPosition(Vector2 pos);
     virtual void setSize(Vector2 sz);
     virtual void setColor(Color col);
-   
+    
     // Pure virtual draw function
     virtual void draw() const = 0;
     virtual void update(float deltaTime) = 0;

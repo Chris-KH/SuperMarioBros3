@@ -143,6 +143,7 @@
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GoomBa.h" />
     <ClInclude Include="..\include\Hitbox.h" />
+    <ClInclude Include="..\include\ResourceManager.h" />
     <ClInclude Include="..\include\SuperState.h" />
     <ClInclude Include="..\include\Item.h" />
     <ClInclude Include="..\include\FireState.h" />
@@ -160,6 +161,8 @@
     <ClInclude Include="..\include\TailState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\include\Background.h" />
+    <ClCompile Include="..\src\Background.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Beetle.cpp" />
     <ClCompile Include="..\src\Block.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\GameEngine.cpp" />
     <ClCompile Include="..\src\GoomBa.cpp" />
+    <ClCompile Include="..\src\ResourceManager.cpp" />
     <ClCompile Include="..\src\SuperState.cpp" />
     <ClCompile Include="..\src\Item.cpp" />
     <ClCompile Include="..\src\FireState.cpp" />
