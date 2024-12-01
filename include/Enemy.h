@@ -14,6 +14,10 @@ protected:
     bool isAttacking;
     bool isWalking;
 
+    float x, y; //position
+    float speed;
+    bool isAlive;
+
 public:
     //Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
 

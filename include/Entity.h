@@ -39,7 +39,7 @@ private:
     Animation* currentAnimation; 
     Animation* nextAnimation;
 public:
-    Entity(Vector2 pos = { 0, 0 }, Vector2 sz = { 1, 1 }, Color col = Color(255, 255, 255, 255));
+    Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(255, 255, 255, 255));
     Entity(const Entity& other);
 
     virtual ~Entity() {}
@@ -69,4 +69,3 @@ public:
     //virtual void checkCollision(const Entity& other);
      
 };
-
