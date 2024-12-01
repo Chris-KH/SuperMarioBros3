@@ -65,7 +65,7 @@ class Chunk {
 public:
     int x;                     // Chunk grid position (horizontal only)
     bool isLoaded;             // Whether this chunk is loaded
-    std::vector<Block*> blocks; // Blocks belonging to this chunk
+    vector<Block*> blocks; // Blocks belonging to this chunk
 
     Chunk(int x) : x(x), isLoaded(false) {}
 
@@ -89,7 +89,7 @@ public:
 class GameEngine {
 private:
     //Map map;
-    std::vector<Chunk> chunks; // Horizontal chunks
+    vector<Chunk> chunks; // Horizontal chunks
     int chunkSize;             // Size of each chunk in pixels
     GameCamera camera;
     float characterX;
@@ -99,14 +99,14 @@ public:
         : /*map(mapWidth, mapHeight)*/ 
         camera(screenWidth, screenHeight, mapWidth, screenHeight), chunkSize(chunkSize),
         characterX(500) {
-        int numChunks = mapWidth / chunkSize;
+        int numChunks = int(mapWidth / chunkSize);
         chunks.reserve(numChunks);
         for (int i = 0; i < numChunks; ++i) {
             chunks.emplace_back(i);
         }
     }
     // implement later
-   /* void loadMap(const std::string& filePath) {
+   /* void loadMap(const string& filePath) {
         map.loadFromFile(filePath);
 
         // Assign blocks to chunks
@@ -124,7 +124,7 @@ public:
         if (IsKeyDown(KEY_LEFT)) characterX -= 2;
 
         // Determine the character's current chunk
-        int currentChunk = characterX / chunkSize;
+        int currentChunk = (int)(characterX / chunkSize);
 
         // Update active chunks
         updateChunks(currentChunk);
@@ -158,7 +158,7 @@ public:
         }
 
         // Render character
-        DrawRectangle(characterX - 10, 500 - 10, 20, 20, RED);
+        DrawRectangle((int)characterX - 10, 500 - 10, 20, 20, RED);
 
         camera.endDrawing();
 

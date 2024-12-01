@@ -36,4 +36,6 @@ public:
     virtual void draw() const = 0;
 
     // Collision detection 
+
+    // 
 };

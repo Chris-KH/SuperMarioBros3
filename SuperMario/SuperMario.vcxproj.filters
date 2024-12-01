@@ -224,5 +224,11 @@
     <ClCompile Include="..\src\Item.cpp">
       <Filter>Source Files\Entity\Item</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Block.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hitbox.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

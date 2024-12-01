@@ -162,12 +162,14 @@
   <ItemGroup>
     <ClCompile Include="..\src\AttackingState.cpp" />
     <ClCompile Include="..\src\Beetle.cpp" />
+    <ClCompile Include="..\src\Block.cpp" />
     <ClCompile Include="..\src\Bowser.cpp" />
     <ClCompile Include="..\src\Coin.cpp" />
     <ClCompile Include="..\src\Collision.cpp" />
     <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\Animation.cpp" />
     <ClCompile Include="..\src\Character.cpp" />
+    <ClCompile Include="..\src\Hitbox.cpp" />
     <ClCompile Include="..\src\Mushroom.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\GameEngine.cpp" />
