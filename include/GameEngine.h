@@ -58,10 +58,10 @@ public:
 
 class Chunk {
 public:
-	int x;                     // Chunk grid position (horizontal only)
+	int x;                    
 	bool isLoaded;             // Whether this chunk is loaded
 	vector<Block*> blocks; // Blocks belonging to this chunk
-	// might be entity
+	vector<Entity*> entities;
 	Chunk(int x) : x(x), isLoaded(false) {}
 
 	void load() {
@@ -70,7 +70,7 @@ public:
 
 	void unload() {
 		isLoaded = false;
-		blocks.clear();
+		//blocks.clear();
 	}
 
 	void render() const {
@@ -78,14 +78,25 @@ public:
 			for (const auto& block : blocks) {
 				block->render();
 			}
+			for (const auto& entity : entities)
+				entity->draw();
 		}
+	}
+	void update()
+	{
+		// enemy ai
+		// character update
+
+		// handle collision
+
+		//animation update
 	}
 };
 class GameEngine {
 private:
 	//Map map;
-	vector<Chunk> chunks; // Horizontal chunks
-	int chunkSize;             // Size of each chunk in pixels
+	vector<Chunk> chunks; 
+	int chunkSize;        // Size of each chunk in pixels
 	GameCamera camera;
 	float characterX;
 	int CenterChunk; /// later
@@ -119,17 +130,14 @@ public:
 
 	void update() {
 		// 
-		// character update
 		// follow character
-
-		// enemy ai
-
-		// handle collision
-
-		//animation update
 
 		int currentChunk = (int)(characterX / chunkSize); // get current chunk
 		updateChunks(currentChunk);
+		for (int i = 0; i < chunks.size(); ++i)
+		{
+			chunks[i].update();
+		}
 		camera.update(characterX, 0);
 	}
 

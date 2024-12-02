@@ -3,21 +3,7 @@
 #include"Block.h"
 #include"Character.h"
 #include"Enemy.h"
-//
-//class ICollisionStrategy {
-//public:
-//    virtual bool collides(Entity& entity, const Block& block) = 0;
-//    virtual ~ICollisionStrategy() = default;
-//};
-//class EntityToBlockPushbackCollision : public ICollisionStrategy {
-//public:
-//    bool collides(Entity& entity, const Block& block) override;
-//};
-//class EntityToBLockCollision : public ICollisionStrategy
-//{
-//public:
-//    bool collides(Entity& entity, const Block& block) override;
-//};
+
 
 class CollisionStrategy {
 public:
@@ -80,6 +66,9 @@ public:
        // }
     }
 };
+
+
+
 class CollisionHandler {
 private:
     EntityEntityCollisionHandler entityEntity;
