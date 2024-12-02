@@ -3,28 +3,29 @@
 #include "raylib.h"
 #include "Entity.h"
 #include <fstream>
+#include <sstream>
 #include <string>
 
 enum BlockType {
-FLOOR,
-BRICK, // breakable
-SOLIDBLOCK, // unmovable, unbreakable
-MOVINGBLOCK,
-ITEMBLOCK,
-HIDDEN,
-SPIKE,
-PIPE,
-DECOR
+    FLOOR,
+    BRICK, // breakable
+    SOLIDBLOCK, // unmovable, unbreakable
+    MOVINGBLOCK,
+    ITEMBLOCK,
+    HIDDEN,
+    SPIKE,
+    PIPE,
+    DECOR
 };
 
 class BaseBlock : public Entity
 {
 public:
-	BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 0, 0, 255)) : Entity(pos,size,color){}
+	BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE) : Entity(pos,size,color){}
 	virtual ~BaseBlock(){};
 	void setSprite(const Animation* blockAnimation)
 	{
-		/// set it here, not in the derived class
+		
 	}
 	EntityType getType() const {
 		return BLOCK;
@@ -46,7 +47,7 @@ class Floor : public BaseBlock
 {
 private:
 public:
-	Floor(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(50,50, 50, 255)) : BaseBlock(pos, size, color) {}
+	Floor(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = GREEN) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return FLOOR; }
 	void update(float deltaTime)
 	{
@@ -57,7 +58,7 @@ class Brick : public BaseBlock
 {
 private:
 public:
-	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 39, 0, 255)) : BaseBlock(pos, size, color) {}
+	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return BRICK; }
 	void update(float deltaTime)
 	{
@@ -69,7 +70,7 @@ class SolidBlock : public BaseBlock
 {
 private:
 public:
-	SolidBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 0, 123, 255)) : BaseBlock(pos, size, color) {}
+	SolidBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKBROWN) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return SOLIDBLOCK; }
 	void update(float deltaTime)
 	{
@@ -80,7 +81,7 @@ class MovingBlock : public BaseBlock
 {
 private:
 public:
-	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 0, 0, 255)) : BaseBlock(pos, size, color) {}
+	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGRAY) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return MOVINGBLOCK; }
 	void update(float deltaTime)
 	{
@@ -94,7 +95,7 @@ class ItemBlock : public BaseBlock
 private:
 	// items?
 public:
-	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(255, 255, 0, 255)) : BaseBlock(pos, size, color) {}
+	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return ITEMBLOCK; }
 	void update(float deltaTime)
 	{
@@ -107,7 +108,7 @@ class HiddenBlock : public BaseBlock
 {
 private:
 public:
-	HiddenBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(100, 100, 100, 255)) : BaseBlock(pos, size, color) {}
+	HiddenBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return HIDDEN; }
 	void update(float deltaTime)
 	{
@@ -120,7 +121,7 @@ class SpikeBlock : public BaseBlock
 {
 private:
 public:
-	SpikeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(255, 0, 0, 255)) : BaseBlock(pos, size, color) {}
+	SpikeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLACK) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return SPIKE; }
 	void update(float deltaTime)
 	{
@@ -133,7 +134,7 @@ class PipeBlock : public BaseBlock
 {
 private:
 public:
-	PipeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 255, 0, 255)) : BaseBlock(pos, size, color) {}
+	PipeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGREEN) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return PIPE; }
 	void update(float deltaTime)
 	{
@@ -146,7 +147,7 @@ class DecorBlock : public BaseBlock
 {
 private:
 public:
-	DecorBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(128, 128, 128, 255)) : BaseBlock(pos, size, color) {}
+	DecorBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return DECOR; }
 	void update(float deltaTime)
 	{
