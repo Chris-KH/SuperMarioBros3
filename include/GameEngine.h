@@ -2,8 +2,9 @@
 #include <iostream>
 #include <raylib.h>
 #include "Map.h"
-#include "Block.h"
 #include "Entity.h"
+#include "Block.h"
+
 class GameCamera {
 public:
 	float cameraX;          // GameCamera position on the X-axis
@@ -60,7 +61,7 @@ class Chunk {
 public:
 	int x;                    
 	bool isLoaded;             // Whether this chunk is loaded
-	vector<Block*> blocks; // Blocks belonging to this chunk
+	//vector<Block*> blocks; // Blocks belonging to this chunk
 	vector<Entity*> entities;
 	Chunk(int x) : x(x), isLoaded(false) {}
 
@@ -75,9 +76,6 @@ public:
 
 	void render() const {
 		if (isLoaded) {
-			for (const auto& block : blocks) {
-				block->render();
-			}
 			for (const auto& entity : entities)
 				entity->draw();
 		}

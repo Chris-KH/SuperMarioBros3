@@ -6,7 +6,10 @@
 enum EntityType {
     CHACRACTER,
     ENEMY,
-    ITEM
+    ITEM,
+    BLOCK
+
+
 };
 
 //enum class CHACRACTER {
@@ -35,7 +38,7 @@ private:
     Vector2 position; // Position of the entity
     Vector2 size;     // Size of the entity
     Color color;      // RGBA color of the entity
-
+protected:
     Animation* currentAnimation; 
     Animation* nextAnimation;
 public:
