@@ -1,7 +1,7 @@
 #include "../include/Sprite.h"
 
 Sprite::Sprite() 
-    : Entity(Vector2(0 , 0), Vector2(1, 1), Color(255, 255, 255, 255)),
+    : Entity(Vector2(0 , 0), Vector2(1, 1), BLANK),
 	velocity({ 0, 0 }),
 	acceleration({ 0, 0 }),
 	maxSpeed({ 100, 100 }),

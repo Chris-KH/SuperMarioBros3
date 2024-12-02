@@ -55,7 +55,7 @@ void Animation::render(Vector2 position, bool mirrorX, bool mirrorY, float scale
     if (mirrorX) source.width *= -1;
     if (mirrorY) source.height *= -1;
 
-    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
+    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, BLANK);
 }
 
 void Animation::render(const Frame& frame, bool mirrorX, bool mirrorY, float scale) const {
@@ -66,7 +66,7 @@ void Animation::render(const Frame& frame, bool mirrorX, bool mirrorY, float sca
     if (mirrorX) source.width *= -1;
     if (mirrorY) source.height *= -1;
 
-    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
+    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, BLANK);
 }
 
 void Animation::render(int frameNumber, bool mirrorX, bool mirrorY, float scale) const {

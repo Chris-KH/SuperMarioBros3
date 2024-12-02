@@ -83,7 +83,7 @@ public:
 
     virtual void render() const {
         if (loadTexture) {
-            DrawTexture(texture, static_cast<int>(hitbox.x), static_cast<int>(hitbox.y), WHITE);
+            DrawTexture(texture, static_cast<int>(hitbox.x), static_cast<int>(hitbox.y), BLANK);
         } else {
             Color color = GetColor(type);
             DrawRectangle(static_cast<int>(hitbox.x), static_cast<int>(hitbox.y), static_cast<int>(hitbox.width), static_cast<int>(hitbox.height), color);
