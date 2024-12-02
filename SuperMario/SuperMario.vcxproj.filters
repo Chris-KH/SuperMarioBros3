@@ -81,7 +81,7 @@
     <ClInclude Include="..\include\FireState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\CapedState.h">
+    <ClInclude Include="..\include\StarState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CharacterState.h">
@@ -173,7 +173,7 @@
     <ClCompile Include="..\src\FireState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CapedState.cpp">
+    <ClCompile Include="..\src\StarState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
     <ClCompile Include="..\src\CharacterState.cpp">

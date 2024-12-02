@@ -152,7 +152,7 @@
     <ClInclude Include="..\include\Luigi.h" />
     <ClInclude Include="..\include\Map.h" />
     <ClInclude Include="..\include\Mario.h" />
-    <ClInclude Include="..\include\CapedState.h" />
+    <ClInclude Include="..\include\StarState.h" />
     <ClInclude Include="..\include\Plant.h" />
     <ClInclude Include="..\include\Spiny.h" />
     <ClInclude Include="..\include\Sprite.h" />
@@ -187,7 +187,7 @@
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Map.cpp" />
     <ClCompile Include="..\src\Mario.cpp" />
-    <ClCompile Include="..\src\CapedState.cpp" />
+    <ClCompile Include="..\src\StarState.cpp" />
     <ClCompile Include="..\src\Plant.cpp" />
     <ClCompile Include="..\src\Spiny.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
