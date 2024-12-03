@@ -102,10 +102,7 @@
     <ClInclude Include="..\include\Enemy.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Beetle.h">
-      <Filter>Header Files\Entity\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Bowser.h">
+    <ClInclude Include="..\include\BoomBoom.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GoomBa.h">
@@ -114,13 +111,13 @@
     <ClInclude Include="..\include\KoopaTroopa.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Lakitu.h">
+    <ClInclude Include="..\include\Firesnake.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Plant.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Spiny.h">
+    <ClInclude Include="..\include\Bloober.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Thwomp.h">
@@ -140,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="..\include\ResourceManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SuperLeaf.h">
+      <Filter>Header Files\Entity\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,19 +182,13 @@
     <ClCompile Include="..\src\TailState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Spiny.cpp">
+    <ClCompile Include="..\src\Bloober.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Beetle.cpp">
-      <Filter>Source Files\Entity\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Bowser.cpp">
+    <ClCompile Include="..\src\BoomBoom.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GoomBa.cpp">
-      <Filter>Source Files\Entity\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Mario.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Luigi.cpp">
@@ -203,7 +197,7 @@
     <ClCompile Include="..\src\KoopaTroopa.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Lakitu.cpp">
+    <ClCompile Include="..\src\Firesnake.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Plant.cpp">
@@ -241,6 +235,12 @@
     </ClCompile>
     <ClCompile Include="..\src\ResourceManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Mario.cpp">
+      <Filter>Source Files\Entity\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SuperLeaf.cpp">
+      <Filter>Source Files\Entity\Item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
