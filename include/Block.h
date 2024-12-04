@@ -37,7 +37,7 @@ public:
 		DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
 		//currentAnimation.render()
 	}
-	virtual void update(float deltaTime)
+	virtual void update(float deltaTime,int param = 0)
 	{
 		// moving,.... implement in derived classes
 	}

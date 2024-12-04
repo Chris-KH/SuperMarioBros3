@@ -31,9 +31,12 @@ public:
         return nullptr; // No applicable strategy
     }
 };
-class CollisionLogicHandler {
+class CollisionInterface {
 public:
     void resolve(Entity& entityA, Entity& entityB) {
+        if (!shouldCheckCollision(entityA, entityB)) {
+            return; // Skip unnecessary checks
+        }
         auto typeA = entityA.getType();
         auto typeB = entityB.getType();
 
@@ -52,7 +55,14 @@ public:
     }
 };
 
-
+bool shouldCheckCollision(Entity& entityA, Entity& entityB)
+{
+    Rectangle RectA = entityA.getRectangle();
+    Rectangle RectB = entityB.getRectangle();
+    if (CheckCollisionRecs(RectA, RectB))
+        return true;
+    else return false;
+}
 
 class CollisionStrategy {
 public:

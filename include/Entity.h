@@ -58,6 +58,7 @@ public:
     virtual Color getColor() const;
     virtual EntityType getType() const = 0;
 
+
     // Setters
     virtual void setPosition(Vector2 pos);
     virtual void setSize(Vector2 sz);
@@ -68,7 +69,7 @@ public:
     virtual void update(float deltaTime) = 0;
     //virtual void setAnimation(Animation* animation);
 
-    // Collision detection 
+    //Collision detection 
     //virtual void checkCollision(const Entity& other);
      
 };
