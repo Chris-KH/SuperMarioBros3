@@ -153,6 +153,9 @@
     <ClInclude Include="..\include\Settings.h">
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\InputManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
@@ -258,6 +261,9 @@
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Settings.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\InputManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
   </ItemGroup>
