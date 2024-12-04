@@ -1,7 +1,7 @@
 #pragma once
 #include "Animation.h"
 #include "Sprite.h"
-#include "Hitbox.h"
+//#include "Hitbox.h"
 
 class Character : public Sprite {
 protected:

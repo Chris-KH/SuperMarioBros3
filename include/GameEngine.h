@@ -83,6 +83,7 @@ public:
 	void update()
 	{
 		// enemy ai
+
 		// character update
 
 		// handle collision
