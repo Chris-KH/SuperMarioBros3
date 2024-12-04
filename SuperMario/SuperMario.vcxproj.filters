@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Entity\Item">
       <UniqueIdentifier>{5b3bef0b-79eb-474e-8599-84e65fa34451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Manager">
+      <UniqueIdentifier>{75c2193a-8795-4196-af8a-8e148eb4f1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Manager">
+      <UniqueIdentifier>{b745ced1-3a99-4dee-b13c-14181ceabbe6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Entity.h">
@@ -135,11 +141,14 @@
     <ClInclude Include="..\include\Item.h">
       <Filter>Header Files\Entity\Item</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\SuperLeaf.h">
       <Filter>Header Files\Entity\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FPSManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ResourceManager.h">
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -233,14 +242,17 @@
     <ClCompile Include="..\src\Background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Mario.cpp">
       <Filter>Source Files\Entity\Character</Filter>
     </ClCompile>
     <ClCompile Include="..\src\SuperLeaf.cpp">
       <Filter>Source Files\Entity\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ResourceManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FPSManager.cpp">
+      <Filter>Source Files\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

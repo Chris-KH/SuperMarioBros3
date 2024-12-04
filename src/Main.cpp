@@ -61,7 +61,7 @@ private:
     Vector2 acceleration;
     Vector2 maxSpeed;
     const float gravity = 1200.f;
-    const float jumpForce = 1000.0f;
+    const float jumpForce = 900.0f;
     bool isFlipped;
     bool isJumping;
     const float groundY = 700.f;

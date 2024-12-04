@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\FPSManager.h" />
     <ClInclude Include="..\include\NormalState.h" />
     <ClInclude Include="..\include\SuperLeaf.h" />
     <ClInclude Include="..\include\Block.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
     <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\src\FPSManager.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\SuperLeaf.cpp" />
     <ClCompile Include="..\src\Block.cpp" />
