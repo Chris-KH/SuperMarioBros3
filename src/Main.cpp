@@ -47,12 +47,11 @@
 
 #include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
-#include "../include/Entity.h"
-#include "../include/Block.h"
+#include "../include/InputManager.h"
 
 using namespace std;
 
-class Object {
+class Object : public InputManager::Listener {  // Thừa kế từ InputManager::Listener
 private:
     Vector2 position;
     Vector2 size;
@@ -65,16 +64,27 @@ private:
     bool isFlipped;
     bool isJumping;
     const float groundY = 700.f;
+
+    InputManager& inputManager; // Thêm đối tượng InputManager
+
 public:
-    Object(Vector2 position, Vector2 size, Texture& texture)
-        : position(position),
-        size(size),
-        texture(texture) {
+    Object(Vector2 position, Vector2 size, Texture& texture, InputManager& inputMgr)
+        : position(position), size(size), texture(texture), inputManager(inputMgr) {
         velocity = Vector2(0, 0);
         maxSpeed = Vector2(600, 600);
         acceleration = Vector2(500, 500);
         isFlipped = false;
         isJumping = false;
+
+        inputManager.addListener(*this);  // Đăng ký Object làm listener
+    }
+
+    ~Object() {
+        inputManager.removeListener(*this);  // Xóa listener khi Object bị hủy
+    }
+
+    void onKey(KeyboardKey key, bool pressed) override {
+        //Xử lí các nút bấm có tính năng đặc biệt (bắn lửa, )
     }
 
     void update(float deltaTime) {
@@ -128,7 +138,7 @@ public:
             }
         }
 
-        
+
 
         // Giới hạn vận tốc (max speed)
         if (fabs(velocity.x) > maxSpeed.x) {
@@ -139,86 +149,44 @@ public:
         else if (velocity.x > 0) isFlipped = false;
 
         // Cập nhật vị trí mới
-        setPosition(Vector2(getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime));
+        position.x += velocity.x * deltaTime;
+        position.y += velocity.y * deltaTime;
     }
-
-
-
-    Vector2 getVelocity() const { return velocity; }
-
-    void setVelocity(Vector2 vel) { velocity = vel; }
-
-    Vector2 getAcceleration() const { return acceleration; }
-
-    void setAcceleration(Vector2 acc) { acceleration = acc; }
-
-    Vector2 getMaxSpeed() const { return maxSpeed; }
-
-    void setMaxSpeed(Vector2 max) { maxSpeed = max; }
-
-    float getX() const { return position.x; }
-
-    float getY() const { return position.y; }
-
-    float getWidth() const { return size.x; }
-
-    float getHeight() const { return size.y; }
-
-    Rectangle getRectangle() const {
-        return { position.x, position.y, size.x, size.y };
-    }
-
-    Vector2 getSize() const {
-        return this->size;
-    }
-
-    Vector2 getPosition() const {
-        return this->position;
-    }
-
-    void setPosition(Vector2 pos) { position = pos; }
-
-    void setSize(Vector2 sz) { size = sz; }
-
-    
 
     void draw() const {
-        Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
+        Rectangle destRect = { position.x, position.y, size.x, size.y };
         Rectangle srcRect = { 0, 0, (isFlipped ? -texture.width : texture.width), texture.height };
-        DrawTexturePro(texture, srcRect, destRect, {0, 0}, 0.f, WHITE); // Replace with texture drawing
+        DrawTexturePro(texture, srcRect, destRect, { 0, 0 }, 0.f, WHITE); // Vẽ texture
     }
 };
 
 int main() {
-    InitWindow(1280, 800, "Entity Class with Keyboard Movement");
+    InitWindow(1280, 800, "Entity Class with InputManager");
     SetTargetFPS(60);
 
     // Tải texture cho vật thể
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
-    // Tạo một vật thể với texture và tốc độ di chuyển là 200 pixels/second
-    Object object(Vector2{ 0, 700 }, Vector2{ 100, 100 }, texture);
+    // Tạo InputManager
+    InputManager inputManager;
+    inputManager.bindKey(KEY_A);
+    inputManager.bindKey(KEY_D);
+    inputManager.bindKey(KEY_S);
+    inputManager.bindKey(KEY_SPACE);
 
-    //Block wall(200, 100, 50, 50, normal);
-    //EntityToBlockPushbackCollision pushbackCollision;
-    //EntityToBLockCollision normalCollision;
-    //entity.setCollisionStrategy(&pushbackCollision);
+    // Tạo một vật thể với texture và InputManager
+    Object object(Vector2{ 0, 700 }, Vector2{ 100, 100 }, texture, inputManager);
 
     while (!WindowShouldClose()) {
+        
         BeginDrawing();
         ClearBackground(GRAY);
 
         // Vẽ vật thể
         float deltaTime = GetFrameTime();
+        inputManager.update();
         object.update(deltaTime);
         object.draw();
-        //DrawRectangleRec(wall.getHitbox(), DARKGRAY);
-        //DrawRectangleRec(wall.getHitbox(), DARKGRAY);
-        
-        
-        ClearBackground(Color(100, 100, 100, 100));
-        //DrawText("MARIO SUPER BROS", 100, 100, 40, ORANGE);
-
 
         EndDrawing();
     }
@@ -227,4 +195,3 @@ int main() {
 
     return 0;
 }
-

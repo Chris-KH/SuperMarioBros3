@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "../lib/bits/stdc++.h"
 #include <raylib.h>
-#include <Windows.h>
 #include "raylib.h"
 #include <chrono>
 
