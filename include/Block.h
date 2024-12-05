@@ -3,28 +3,29 @@
 #include "raylib.h"
 #include "Entity.h"
 #include <fstream>
+#include <sstream>
 #include <string>
 
 enum BlockType {
-FLOOR,
-BRICK, // breakable
-SOLIDBLOCK, // unmovable, unbreakable
-MOVINGBLOCK,
-ITEMBLOCK,
-HIDDEN,
-SPIKE,
-PIPE,
-DECOR
+    FLOOR,
+    BRICK, // breakable
+    SOLIDBLOCK, // unmovable, unbreakable
+    MOVINGBLOCK,
+    ITEMBLOCK,
+    HIDDEN,
+    SPIKE,
+    PIPE,
+    DECOR
 };
 
 class BaseBlock : public Entity
 {
 public:
-	BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 0, 0, 255)) : Entity(pos,size,color){}
+	BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE) : Entity(pos,size,color), sprite(nullptr) {}
 	virtual ~BaseBlock(){};
 	void setSprite(const Animation* blockAnimation)
 	{
-		/// set it here, not in the derived class
+		sprite = blockAnimation;
 	}
 	EntityType getType() const {
 		return BLOCK;
@@ -35,97 +36,119 @@ public:
 		Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
 		Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
 		DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
-		//currentAnimation.render()
+		//current Animation rendering
 	}
-	virtual void update(float deltaTime,int param = 0)
-	{
-		// moving,.... implement in derived classes
-	}
+	virtual void update(float deltaTime) override {} // moving,.... implement in derived classes
+protected:
+	const Animation* sprite = nullptr;
 };
 class Floor : public BaseBlock
 {
 private:
 public:
-	Floor(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(50,50, 50, 255)) : BaseBlock(pos, size, color) {}
+	Floor(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = GREEN) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return FLOOR; }
 	void update(float deltaTime)
 	{
-		// something
+		//static floor ko có tác động làm thay đổi
 	}
 };
 class Brick : public BaseBlock
 {
 private:
+	bool isBroken = false;
 public:
-	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 39, 0, 255)) : BaseBlock(pos, size, color) {}
+	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return BRICK; }
-	void update(float deltaTime)
+	void update(float deltaTime) override
 	{
-		// break
-		// something
+		if (isBroken) {
+			setColor(BLANK);
+			setSize({0, 0});
+		}
 	}
+	void breakBrick() {
+		isBroken = true;
+	}
+
 };
 class SolidBlock : public BaseBlock
 {
 private:
 public:
-	SolidBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 0, 123, 255)) : BaseBlock(pos, size, color) {}
+	SolidBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKBROWN) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return SOLIDBLOCK; }
-	void update(float deltaTime)
+	void update(float deltaTime) 
 	{
-		// something
+		//solid brock bình thường cũng ko tác động làm thay đổi
 	}
 };
 class MovingBlock : public BaseBlock
 {
 private:
+	Vector2 velocity = {50.0f, 50.0f};
+	float leftAlign, rightAlign;
 public:
-	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 0, 0, 255)) : BaseBlock(pos, size, color) {}
+	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGRAY) : BaseBlock(pos, size, color) {}
 	BlockType getBLockType() { return MOVINGBLOCK; }
 	void update(float deltaTime)
 	{
-		// moving
-		// something
+		Vector2 pos = getPosition();
+        pos.x += velocity.x * deltaTime;
+        if (pos.x <= leftAlign || pos.x + getSize().x >= rightAlign) {
+            velocity.x = -velocity.x;
+        }
+        setPosition(pos);
 	}
 };
 
 class ItemBlock : public BaseBlock
 {
 private:
-	// items?
+	bool hasItem = true;
 public:
-	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(255, 255, 0, 255)) : BaseBlock(pos, size, color) {}
+	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return ITEMBLOCK; }
 	void update(float deltaTime)
 	{
-		// Handle item logic
-		// something
+		if (hasItem) {
+			//xử lý Item
+			hasItem = false;
+		}
+
 	}
 };
 
 class HiddenBlock : public BaseBlock
 {
 private:
+	bool revealed = false;
 public:
-	HiddenBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(100, 100, 100, 255)) : BaseBlock(pos, size, color) {}
+	HiddenBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return HIDDEN; }
-	void update(float deltaTime)
+	void update(float deltaTime) override
 	{
-		// Hidden block logic
-		// something
+		if (revealed) {
+			setColor(ORANGE);
+		}
 	}
+	void reveal() {
+		revealed = true;
+	}
+
 };
 
 class SpikeBlock : public BaseBlock
 {
 private:
 public:
-	SpikeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(255, 0, 0, 255)) : BaseBlock(pos, size, color) {}
+	SpikeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLACK) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return SPIKE; }
 	void update(float deltaTime)
 	{
-		// Spike-related logic
-		// something
+		//Check collision với Mario
+		//Nếu Mario có va chạm, check trạng thái
+		//Nếu ko phải trạng thái bất tử, game over
 	}
 };
 
@@ -133,12 +156,12 @@ class PipeBlock : public BaseBlock
 {
 private:
 public:
-	PipeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(0, 255, 0, 255)) : BaseBlock(pos, size, color) {}
+	PipeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGREEN) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return PIPE; }
 	void update(float deltaTime)
 	{
-		// Pipe-related logic
-		// something
+		//Check collision với Mario
+		//Nếu Mario chạm đến, kết màn và chuyển sang màn chơi mới
 	}
 };
 
@@ -146,7 +169,7 @@ class DecorBlock : public BaseBlock
 {
 private:
 public:
-	DecorBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = Color(128, 128, 128, 255)) : BaseBlock(pos, size, color) {}
+	DecorBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK) : BaseBlock(pos, size, color) {}
 	BlockType getBlockType() { return DECOR; }
 	void update(float deltaTime)
 	{
@@ -154,9 +177,18 @@ public:
 	}
 };
 
+/*Entity* BaseBlock::spikeMario() {
+	for (Entity* entity : entity managing = quản lý trong entity) {Có va chạm trả về entity}
+	Ko va chạm trả về nullptr
+}*/
 
+/*void setGameOver(bool isGameOver) {
+    GameStateManager::setGameOverFlag(isGameOver); //set game over
+}*/
 
-
+/*void advanceToNextLevel() {
+    LevelManager::loadNextLevel(GameEngine); // Load level tiếp theo <- Lấy từ GameEngine
+}*/
 
 
 //
