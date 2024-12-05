@@ -10,15 +10,23 @@ public:
     virtual ~CollisionStrategy() = default;
 };
 
+inline Rectangle getProximityRectangle(Entity& entity, float radius) {
+    Rectangle rect = entity.getRectangle();
+    return {
+        rect.x - radius,
+        rect.y - radius,
+        rect.width + 2 * radius,
+        rect.height + 2 * radius
+    };
+}
+inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 10.0f) {
+    Rectangle proximityRectA = getProximityRectangle(entityA, proximityRadius);
+    Rectangle proximityRectB = entityB.getRectangle(); // Unmovable entities stay static
 
-//bool shouldCheckCollision(Entity& entityA, Entity& entityB)
-//{
-//    Rectangle RectA = entityA.getRectangle();
-//    Rectangle RectB = entityB.getRectangle();
-//    if (CheckCollisionRecs(RectA, RectB))
-//        return true;
-//    else return false;
-//}
+    // Check if proximity rectangles overlap
+    return CheckCollisionRecs(proximityRectA, proximityRectB);
+}
+
 
 class PlayerFloorStrat : public CollisionStrategy
 {
@@ -148,9 +156,9 @@ public:
 class CollisionInterface {
 public:
     void resolve(Entity& entityA, Entity& entityB) {
-        //if (!shouldCheckCollision(entityA, entityB)) {
-        //    return; // Skip unnecessary checks
-        //}
+        if (!shouldCheckCollision(entityA, entityB)) {
+            return; // Skip unnecessary checks
+        }
         auto typeA = entityA.getType();
         auto typeB = entityB.getType();
 
