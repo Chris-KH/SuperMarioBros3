@@ -3,72 +3,23 @@
 #include"Block.h"
 #include"Character.h"
 #include"Enemy.h"
-class CollisionStrategySelector {
-public:
-    static std::unique_ptr<CollisionStrategy> getStrategy(EntityType typeA, EntityType typeB, BaseBlock* block = nullptr) {
-        if (typeA == CHACRACTER && typeB == BLOCK) {
-            if (block && block->getBlockType() == FLOOR) 
-                return std::make_unique<PlayerFloorStrat>();           
-            if (block && block->getBlockType() == SOLIDBLOCK)         
-                return std::make_unique<PlayerBlockStrat>();
-        }
-        if (typeA == ENEMY && typeB == BLOCK)
-        {
-            if (block && block->getBlockType() == SOLIDBLOCK)
-                return make_unique<EnemyBlockStrat>();
-        }
-        if (typeA == CHACRACTER && typeB == ENEMY)
-        {
-
-        }
-        if (typeA == CHACRACTER && ITEM)
-        {
-
-        }
-
-
-
-        return nullptr; // No applicable strategy
-    }
-};
-class CollisionInterface {
-public:
-    void resolve(Entity& entityA, Entity& entityB) {
-        if (!shouldCheckCollision(entityA, entityB)) {
-            return; // Skip unnecessary checks
-        }
-        auto typeA = entityA.getType();
-        auto typeB = entityB.getType();
-
-        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
-        auto strategy = CollisionStrategySelector::getStrategy(typeA, typeB, block);
-        if (!strategy) {
-            strategy = CollisionStrategySelector::getStrategy(typeB, typeA, dynamic_cast<BaseBlock*>(&entityA));
-        }
-        if (strategy) {
-            strategy->resolve(entityA, entityB);
-        }
-        else {
-            std::cout << "No collision strategy found for entities: "
-                << static_cast<int>(typeA) << " and " << static_cast<int>(typeB) << std::endl;
-        }
-    }
-};
-
-bool shouldCheckCollision(Entity& entityA, Entity& entityB)
-{
-    Rectangle RectA = entityA.getRectangle();
-    Rectangle RectB = entityB.getRectangle();
-    if (CheckCollisionRecs(RectA, RectB))
-        return true;
-    else return false;
-}
 
 class CollisionStrategy {
 public:
     virtual void resolve(Entity& entityA, Entity& entityB) = 0;
     virtual ~CollisionStrategy() = default;
 };
+
+
+//bool shouldCheckCollision(Entity& entityA, Entity& entityB)
+//{
+//    Rectangle RectA = entityA.getRectangle();
+//    Rectangle RectB = entityB.getRectangle();
+//    if (CheckCollisionRecs(RectA, RectB))
+//        return true;
+//    else return false;
+//}
+
 class PlayerFloorStrat : public CollisionStrategy
 {
 public:
@@ -166,4 +117,54 @@ public:
     }
 };
 
+class CollisionStrategySelector {
+public:
+    static std::unique_ptr<CollisionStrategy> getStrategy(EntityType typeA, EntityType typeB, BaseBlock* block = nullptr) {
+        if (typeA == CHACRACTER && typeB == BLOCK) {
+            if (block && block->getBlockType() == FLOOR)
+                return std::make_unique<PlayerFloorStrat>();
+            if (block && block->getBlockType() == SOLIDBLOCK)
+                return std::make_unique<PlayerBlockStrat>();
+        }
+        if (typeA == ENEMY && typeB == BLOCK)
+        {
+            if (block && block->getBlockType() == SOLIDBLOCK)
+                return make_unique<EnemyBlockStrat>();
+        }
+        if (typeA == CHACRACTER && typeB == ENEMY)
+        {
 
+        }
+        if (typeA == CHACRACTER && ITEM)
+        {
+
+        }
+
+
+
+        return nullptr; // No applicable strategy
+    }
+};
+class CollisionInterface {
+public:
+    void resolve(Entity& entityA, Entity& entityB) {
+        //if (!shouldCheckCollision(entityA, entityB)) {
+        //    return; // Skip unnecessary checks
+        //}
+        auto typeA = entityA.getType();
+        auto typeB = entityB.getType();
+
+        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+        auto strategy = CollisionStrategySelector::getStrategy(typeA, typeB, block);
+        if (!strategy) {
+            strategy = CollisionStrategySelector::getStrategy(typeB, typeA, dynamic_cast<BaseBlock*>(&entityA));
+        }
+        if (strategy) {
+            strategy->resolve(entityA, entityB);
+        }
+        else {
+            std::cout << "No collision strategy found for entities: "
+                << static_cast<int>(typeA) << " and " << static_cast<int>(typeB) << std::endl;
+        }
+    }
+};
