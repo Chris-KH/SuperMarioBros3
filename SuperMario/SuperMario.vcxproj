@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Menu.h" />
     <ClInclude Include="..\include\NormalState.h" />
     <ClInclude Include="..\include\Beetle.h" />
     <ClInclude Include="..\include\Block.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
     <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\src\menu.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Beetle.cpp" />
     <ClCompile Include="..\src\Block.cpp" />

@@ -47,7 +47,7 @@ class Floor : public BaseBlock
 private:
 public:
 	Floor(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = GREEN) : BaseBlock(pos, size, color) {}
-	BlockType getBLockType() { return FLOOR; }
+	BlockType getBlockType() const override { return FLOOR; }
 	void update(float deltaTime)
 	{
 		//static floor ko có tác động làm thay đổi
@@ -59,7 +59,7 @@ private:
 	bool isBroken = false;
 public:
 	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) {}
-	BlockType getBLockType() { return BRICK; }
+	BlockType getBlockType() const override { return BRICK; }
 	void update(float deltaTime) override
 	{
 		if (isBroken) {
@@ -77,7 +77,7 @@ class SolidBlock : public BaseBlock
 private:
 public:
 	SolidBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKBROWN) : BaseBlock(pos, size, color) {}
-	BlockType getBLockType() { return SOLIDBLOCK; }
+	BlockType getBlockType() const override { return SOLIDBLOCK; }
 	void update(float deltaTime) 
 	{
 		//solid brock bình thường cũng ko tác động làm thay đổi
@@ -90,7 +90,7 @@ private:
 	float leftAlign, rightAlign;
 public:
 	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGRAY) : BaseBlock(pos, size, color) {}
-	BlockType getBLockType() { return MOVINGBLOCK; }
+	BlockType getBlockType() const override { return MOVINGBLOCK; }
 	void update(float deltaTime)
 	{
 		Vector2 pos = getPosition();
@@ -108,7 +108,7 @@ private:
 	bool hasItem = true;
 public:
 	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW) : BaseBlock(pos, size, color) {}
-	BlockType getBlockType() { return ITEMBLOCK; }
+	BlockType getBlockType() const override { return ITEMBLOCK; }
 	void update(float deltaTime)
 	{
 		if (hasItem) {
@@ -125,7 +125,7 @@ private:
 	bool revealed = false;
 public:
 	HiddenBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE) : BaseBlock(pos, size, color) {}
-	BlockType getBlockType() { return HIDDEN; }
+	BlockType getBlockType() const override { return HIDDEN; }
 	void update(float deltaTime) override
 	{
 		if (revealed) {
@@ -143,7 +143,7 @@ class SpikeBlock : public BaseBlock
 private:
 public:
 	SpikeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLACK) : BaseBlock(pos, size, color) {}
-	BlockType getBlockType() { return SPIKE; }
+	BlockType getBlockType() const override { return SPIKE; }
 	void update(float deltaTime)
 	{
 		//Check collision với Mario
@@ -170,7 +170,7 @@ class DecorBlock : public BaseBlock
 private:
 public:
 	DecorBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK) : BaseBlock(pos, size, color) {}
-	BlockType getBlockType() { return DECOR; }
+	BlockType getBlockType() const override { return DECOR; }
 	void update(float deltaTime)
 	{
 		//something
