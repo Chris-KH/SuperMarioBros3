@@ -17,8 +17,7 @@ class Background;
 */
 class ResourceManager {
 private:
-    enum ResourceType
-    {
+    enum ResourceType {
         RESOURCE_ANIMATION,
         RESOURCE_BACKGROUND,
         RESOURCE_FONT,
@@ -27,12 +26,9 @@ private:
         RESOURCE_SOUND
     };
 
-    struct Resource
-    {
+    struct Resource {
         ResourceType type;
-
-        union
-        {
+        union {
             Animation* animation;
             Background* background;
             Font* font;

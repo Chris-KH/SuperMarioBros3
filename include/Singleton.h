@@ -7,9 +7,10 @@ using namespace std;
 template <class T>
 class Singleton {
 public:
-    static T& getInstance() {
+    template <typename... Args>
+    static T& getInstance(Args&&... args) {
         if (!instance) {
-            instance.reset(new T());
+            instance.reset(new T(forward<Args>(args)...));
         }
         return *instance;
     }

@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\FileHandle.h" />
     <ClInclude Include="..\include\FPSManager.h" />
+    <ClInclude Include="..\include\Global.h" />
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\NormalState.h" />
     <ClInclude Include="..\include\Settings.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="..\src\Background.cpp" />
     <ClCompile Include="..\src\FileHandle.cpp" />
     <ClCompile Include="..\src\FPSManager.cpp" />
+    <ClCompile Include="..\src\Global.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Settings.cpp" />
