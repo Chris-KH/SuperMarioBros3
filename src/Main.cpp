@@ -161,8 +161,9 @@ public:
 };
 
 int main() {
-    InitWindow(1280, 800, "Entity Class with InputManager");
+    InitWindow(1280, 800, "Super Mario Bros");
     SetTargetFPS(60);
+    
 
     // Tải texture cho vật thể
     Texture2D texture = LoadTexture("../SuperMario/images.png");
