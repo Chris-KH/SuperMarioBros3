@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "../lib/bits/stdc++.h"
 #include <raylib.h>
 #include "raylib.h"
 #include <chrono>

@@ -1,7 +1,8 @@
 #pragma once
 #include <raylib.h>
 #include "raylib.h"
-#include "../lib/bits/stdc++.h"
+#include <map>
+#include <string>
 
 using namespace std;
 

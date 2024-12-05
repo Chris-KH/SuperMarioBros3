@@ -1,7 +1,8 @@
 #pragma once
-#include"../lib/bits/stdc++.h"
 #include "raylib.h"
 #include <raylib.h>
+#include<vector>
+#include<unordered_map>
 
 using namespace std;
 
