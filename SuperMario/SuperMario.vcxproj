@@ -133,6 +133,7 @@
     <ClInclude Include="..\include\FPSManager.h" />
     <ClInclude Include="..\include\Global.h" />
     <ClInclude Include="..\include\InputManager.h" />
+    <ClInclude Include="..\include\Menu.h" />
     <ClInclude Include="..\include\NormalState.h" />
     <ClInclude Include="..\include\Settings.h" />
     <ClInclude Include="..\include\Singleton.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="..\src\FPSManager.cpp" />
     <ClCompile Include="..\src\Global.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
+    <ClCompile Include="..\src\menu.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Settings.cpp" />
     <ClCompile Include="..\src\SuperLeaf.cpp" />
