@@ -165,7 +165,6 @@ public:
 int main() {
     InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
-    SetTargetFPS(120);
     
     RESOURCE_MANAGER.loadAllResource();
 
@@ -186,19 +185,21 @@ int main() {
     RESOURCE_MANAGER.playMusic("World1.mp3");
 
     while (!WindowShouldClose()) {
-        // Update music stream
-        UpdateMusicStream(RESOURCE_MANAGER.getMusic("World1.mp3"));
-       
-        BeginDrawing();
-        ClearBackground(GRAY);
+        if (FPS_MANAGER.update()) {
+            // Update music stream
+            UpdateMusicStream(RESOURCE_MANAGER.getMusic("World1.mp3"));
 
-        // Vẽ vật thể
-        float deltaTime = GetFrameTime();
-        inputManager.update();
-        object.update(deltaTime);
-        object.draw();
+            BeginDrawing();
+            ClearBackground(GRAY);
 
-        EndDrawing();
+            // Vẽ vật thể
+            float deltaTime = GetFrameTime();
+            inputManager.update();
+            object.update(deltaTime);
+            object.draw();
+
+            EndDrawing();
+        }
     }
 
     CloseWindow();
