@@ -49,11 +49,13 @@
 #include "../lib/bits/stdc++.h"
 #include "../include/InputManager.h"
 #include "../include/Global.h"
+#include "../include/Animation.h"
 
 using namespace std;
 
 class Object : public InputManager::Listener {
 private:
+    Animation* cur = nullptr;
     Vector2 position;
     Vector2 size;
     Texture& texture;
@@ -91,7 +93,8 @@ public:
     void update(float deltaTime) {
         // Gia tốc hãm
         const float deceleration = 1000.0f; // Gia tốc hãm (pixel/s^2)
-
+        cur = RESOURCE_MANAGER.getAnimation("marioRun");
+        cur->update(deltaTime);
         // Di chuyển theo trục X
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {  // Nhấn D (phải) nhưng không nhấn A (trái)
             if (velocity.x < 0) {  // Đang di chuyển sang trái, hãm lại
@@ -126,7 +129,7 @@ public:
         if (IsKeyDown(KEY_SPACE) && !isJumping && abs(position.y - groundY) < 1e-9) {
             velocity.y = -jumpForce;  // Đẩy lên
             isJumping = true;  // Đánh dấu là đang nhảy
-            PlaySound(RESOURCE_MANAGER.getSound("jump.wav"));
+            PlaySound(*RESOURCE_MANAGER.getSound("jump.wav"));
         }
 
         // Gia tốc trọng trường
@@ -139,8 +142,6 @@ public:
                 isJumping = false;  // Không còn nhảy nữa
             }
         }
-
-
 
         // Giới hạn vận tốc (max speed)
         if (fabs(velocity.x) > maxSpeed.x) {
@@ -156,9 +157,14 @@ public:
     }
 
     void draw() const {
-        Rectangle destRect = { position.x, position.y, size.x, size.y };
-        Rectangle srcRect = { 0, 0, (isFlipped ? -texture.width : texture.width), texture.height };
-        DrawTexturePro(texture, srcRect, destRect, { 0, 0 }, 0.f, WHITE); // Vẽ texture
+        //Rectangle destRect = { position.x, position.y, size.x, size.y };
+        //Rectangle srcRect = { 0, 0, (isFlipped ? -texture.width : texture.width), texture.height };
+        //DrawTexturePro(texture, srcRect, destRect, { 0, 0 }, 0.f, WHITE); // Vẽ texture
+        cur->render(position, false, false, 2.f);
+    }
+
+    const Rectangle getRectangle() const {
+        return { position.x, position.y, size.x, size.y };
     }
 };
 
@@ -187,14 +193,14 @@ int main() {
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
             // Update music stream
-            UpdateMusicStream(RESOURCE_MANAGER.getMusic("World1.mp3"));
+            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
 
             BeginDrawing();
             ClearBackground(GRAY);
 
             // Vẽ vật thể
             float deltaTime = GetFrameTime();
-            inputManager.update();
+            //inputManager.update();
             object.update(deltaTime);
             object.draw();
 

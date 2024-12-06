@@ -33,6 +33,7 @@ private:
     void loadMusic();     // Load music resources
     void loadSound();     // Load sound effect resources
 
+    void unloadAnimation();
     void unloadFonts();
     void unloadSounds();
     void unloadMusic();
@@ -43,15 +44,15 @@ public:
 
     void loadAllResource();
 
-    const Animation& getAnimation(const string& name) const; 
+ Animation* getAnimation(const string& name) const; 
 
-    const Background& getBackground(const string& name) const; 
+    const Background* getBackground(const string& name) const; 
 
-    const Music& getMusic(const string& name) const;
+    const Music* getMusic(const string& name) const;
 
-    const Sound& getSound(const string& name) const;
+    const Sound*getSound(const string& name) const;
 
-    const Font& getFont(const string& name) const;
+    const Font* getFont(const string& name) const;
 
     // Play a music track
     void playMusic(const string& trackName) const; 

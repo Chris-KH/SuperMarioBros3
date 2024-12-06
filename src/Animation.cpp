@@ -32,7 +32,7 @@ void Animation::update(float deltaTime) {
         if (currentFrame >= frames.size())
         {
             currentFrame = 0;
-            finished = true; // Set finished for one-shot animations.
+            //finished = true; // Set finished for one-shot animations.
         }
     }
 }
@@ -48,7 +48,7 @@ void Animation::render(Vector2 position, bool mirrorX, bool mirrorY, float scale
     if (mirrorX) source.width *= -1;
     if (mirrorY) source.height *= -1;
 
-    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, BLANK);
+    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
 }
 
 void Animation::render(const Frame& frame, bool mirrorX, bool mirrorY, float scale) const {

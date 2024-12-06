@@ -37,7 +37,7 @@ public:
     bool isFinished() const;
 
 private:
-    Texture2D& texture; ///< The texture containing the animation frames.
+    Texture2D texture; ///< The texture containing the animation frames.
     vector<Frame> frames; ///< List of frames in the animation.
     int currentFrame; ///< Index of the current frame.
     float frameTimeCounter; ///< Time counter for the current frame.

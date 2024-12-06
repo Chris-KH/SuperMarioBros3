@@ -6,15 +6,30 @@
 ResourceManager::ResourceManager() {}
 
 ResourceManager::~ResourceManager() {
+    unloadAnimation();
     unloadFonts();
     unloadSounds();
     unloadMusic();
 }
 
 void ResourceManager::loadAllResource() {
+    loadAnimation();
     loadMusic();
     loadSound();
     loadFont();
+}
+
+void ResourceManager::loadAnimation() {
+    //For character
+    string characterFolder = "../assets/Animation/Character/";
+    string marioPath1 = characterFolder + "mario1.png";
+    Texture2D mario1 = LoadTexture(marioPath1.c_str());
+
+    Animation running = Animation(mario1);
+    running.addFrame({ 11, 18, 12, 15 }, { 0, 0 }, 0.3);
+    running.addFrame({ 43, 17, 15, 16 }, { 0, 0 }, 0.3);
+
+    animationResource["marioRun"] = make_unique<Animation>(move(running));
 }
 
 void ResourceManager::loadFont() {
@@ -72,24 +87,28 @@ void ResourceManager::loadMusic() {
     }
 }
 
-const Animation& ResourceManager::getAnimation(const string& name) const {
-    return *animationResource.at(name);
+Animation* ResourceManager::getAnimation(const string& name) const {
+    return animationResource.at(name).get();
 }
 
-const Background& ResourceManager::getBackground(const string& name) const {
-    return *backgroundResource.at(name);
+const Background* ResourceManager::getBackground(const string& name) const {
+    return backgroundResource.at(name).get();
 }
 
-const Font& ResourceManager::getFont(const string& name) const {
-    return *fontResource.at(name);
+const Font* ResourceManager::getFont(const string& name) const {
+    return fontResource.at(name).get();
 }
 
-const Music& ResourceManager::getMusic(const string& name) const {
-    return *musicResource.at(name);
+const Music* ResourceManager::getMusic(const string& name) const {
+    return musicResource.at(name).get();
 }
 
-const Sound& ResourceManager::getSound(const string& name) const {
-    return *soundResource.at(name);
+const Sound* ResourceManager::getSound(const string& name) const {
+    return soundResource.at(name).get();
+}
+
+void ResourceManager::unloadAnimation() {
+    animationResource.clear();
 }
 
 void ResourceManager::unloadFonts() {
@@ -107,11 +126,11 @@ void ResourceManager::unloadMusic() {
 void ResourceManager::playMusic(const string& trackName) const {
     if (SETTINGS.isMusicEnabled() == false) return;
 
-    PlayMusicStream(getMusic(trackName));
+    PlayMusicStream(*getMusic(trackName));
 }
 
 void ResourceManager::playSound(const string& soundName) const {
     if (SETTINGS.isSoundEnabled() == false) return;
 
-    PlaySound(getSound(soundName));
+    PlaySound(*getSound(soundName));
 }
