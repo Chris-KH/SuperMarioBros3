@@ -126,6 +126,7 @@ public:
         if (IsKeyDown(KEY_SPACE) && !isJumping && abs(position.y - groundY) < 1e-9) {
             velocity.y = -jumpForce;  // Đẩy lên
             isJumping = true;  // Đánh dấu là đang nhảy
+            PlaySound(RESOURCE_MANAGER.getSound("jump.wav"));
         }
 
         // Gia tốc trọng trường
