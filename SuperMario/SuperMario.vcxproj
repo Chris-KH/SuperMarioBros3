@@ -164,7 +164,6 @@
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\CharacterState.h" />
     <ClInclude Include="..\include\Thwomp.h" />
-    <ClInclude Include="..\include\TailState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
@@ -204,7 +203,6 @@
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\CharacterState.cpp" />
     <ClCompile Include="..\src\Thwomp.cpp" />
-    <ClCompile Include="..\src\TailState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

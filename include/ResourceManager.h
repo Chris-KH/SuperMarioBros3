@@ -1,10 +1,13 @@
-#pragma once
+﻿#pragma once
 #include <raylib.h>
 #include "raylib.h"
 #include <map>
 #include <string>
+#include <filesystem>
+#include <iostream>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 class Animation;
 class Background;
@@ -17,59 +20,46 @@ class Background;
 */
 class ResourceManager {
 private:
-    enum ResourceType {
-        RESOURCE_ANIMATION,
-        RESOURCE_BACKGROUND,
-        RESOURCE_FONT,
-        RESOURCE_LEVELTHEME,
-        RESOURCE_MUSIC,
-        RESOURCE_SOUND
-    };
+ /*   map<string, Animation> animationResource;
+    map<string, Background> backgroundResource;*/
+    map<string, Font> fontResource;
+    map<string, Music> musicResource;
+    map<string, Sound> soundResource;
 
-    struct Resource {
-        ResourceType type;
-        union {
-            Animation* animation;
-            Background* background;
-            Font* font;
-            //LevelTheme* levelTheme;
-            Music* music;
-            Sound* sound;
-        };
-    };
-
-    map<string, Resource> resources;
-    map<string, ResourceManager*> groups;
-
-    const Resource* getResource(const string& name) const;
     void loadAnimation();  // Load animation resources
     void loadBackground(); // Load background resources
     void loadFont();      // Load font resources
     void loadMusic();     // Load music resources
     void loadSound();     // Load sound effect resources
+
+    void unloadFonts();
+    void unloadSounds();
+    void unloadMusic();
+
 public:
     ResourceManager();     // Constructor
     ~ResourceManager();    // Destructor
 
+    void loadAllResource();
+
     // Retrieve an Animation resource
-    const Animation* getAnimation(const string& name) const; 
+    const Animation& getAnimation(const string& name) const; 
 
     // Retrieve a Background resource
-    const Background* getBackground(const string& name) const; 
+    const Background& getBackground(const string& name) const; 
 
-    const Music* getMusic(const string& name) const;
+    const Music& getMusic(const string& name) const;
 
-    const Sound* getSound(const string& name) const;
+    const Sound& getSound(const string& name) const;
 
-    // Get loading progress of resources
-    int getLoadingProgress() const; 
-
-    // Load resources from a specified file
-    void loadResources(const string& resourceFileName); 
+    const Font& getFont(const string& name) const;
 
     // Play a music track
     void playMusic(const string& trackName, bool loop) const; 
 
     // Play a sound effect
-    void playSound(const string& soundName, int channel = -1) const; 
+    void playSound(const string& soundName) const; 
 };
+
+
+

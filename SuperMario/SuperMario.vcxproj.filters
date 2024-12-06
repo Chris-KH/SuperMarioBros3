@@ -93,9 +93,6 @@
     <ClInclude Include="..\include\CharacterState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\TailState.h">
-      <Filter>Header Files\Entity\State</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Character.h">
       <Filter>Header Files\Entity\Character</Filter>
     </ClInclude>
@@ -201,9 +198,6 @@
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
     <ClCompile Include="..\src\CharacterState.cpp">
-      <Filter>Source Files\Entity\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\TailState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Bloober.cpp">

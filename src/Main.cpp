@@ -48,10 +48,11 @@
 #include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
 #include "../include/InputManager.h"
+#include "../include/Global.h"
 
 using namespace std;
 
-class Object : public InputManager::Listener {  // Thừa kế từ InputManager::Listener
+class Object : public InputManager::Listener {
 private:
     Vector2 position;
     Vector2 size;
@@ -161,9 +162,11 @@ public:
 };
 
 int main() {
+    InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
     
+    RESOURCE_MANAGER.loadAllResource();
 
     // Tải texture cho vật thể
     Texture2D texture = LoadTexture("../SuperMario/images.png");
@@ -178,8 +181,13 @@ int main() {
     // Tạo một vật thể với texture và InputManager
     Object object(Vector2{ 0, 700 }, Vector2{ 100, 100 }, texture, inputManager);
 
+
+    PlayMusicStream(RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+
     while (!WindowShouldClose()) {
-        
+        // Update music stream
+        UpdateMusicStream(RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+       
         BeginDrawing();
         ClearBackground(GRAY);
 
@@ -193,6 +201,7 @@ int main() {
     }
 
     CloseWindow();
+    CloseAudioDevice();
 
     return 0;
 }
