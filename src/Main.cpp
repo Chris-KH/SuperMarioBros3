@@ -183,11 +183,11 @@ int main() {
     Object object(Vector2{ 0, 700 }, Vector2{ 100, 100 }, texture, inputManager);
 
 
-    PlayMusicStream(RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+    RESOURCE_MANAGER.playMusic("World1.mp3");
 
     while (!WindowShouldClose()) {
         // Update music stream
-        UpdateMusicStream(RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+        UpdateMusicStream(RESOURCE_MANAGER.getMusic("World1.mp3"));
        
         BeginDrawing();
         ClearBackground(GRAY);

@@ -13,11 +13,8 @@ public:
         float duration;   ///< Duration of the frame in seconds.
     };
 
-     //Default constructor.
-    Animation();
-
     //Constructor with texture.
-    Animation(Texture2D texture);
+    Animation(Texture2D& texture);
 
     //Add a new frame to the animation.
     void addFrame(const Rectangle& source, const Vector2& offset, float duration = 1.f);
@@ -40,7 +37,7 @@ public:
     bool isFinished() const;
 
 private:
-    Texture2D texture; ///< The texture containing the animation frames.
+    Texture2D& texture; ///< The texture containing the animation frames.
     vector<Frame> frames; ///< List of frames in the animation.
     int currentFrame; ///< Index of the current frame.
     float frameTimeCounter; ///< Time counter for the current frame.

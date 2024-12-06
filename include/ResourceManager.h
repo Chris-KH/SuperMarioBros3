@@ -5,6 +5,7 @@
 #include <string>
 #include <filesystem>
 #include <iostream>
+#include <memory>
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -20,11 +21,11 @@ class Background;
 */
 class ResourceManager {
 private:
- /*   map<string, Animation> animationResource;
-    map<string, Background> backgroundResource;*/
-    map<string, Font> fontResource;
-    map<string, Music> musicResource;
-    map<string, Sound> soundResource;
+    map<string, unique_ptr<Animation>> animationResource;
+    map<string, unique_ptr<Background>> backgroundResource;
+    map<string, unique_ptr<Font>> fontResource;
+    map<string, unique_ptr<Music>> musicResource;
+    map<string, unique_ptr<Sound>> soundResource;
 
     void loadAnimation();  // Load animation resources
     void loadBackground(); // Load background resources
@@ -42,10 +43,8 @@ public:
 
     void loadAllResource();
 
-    // Retrieve an Animation resource
     const Animation& getAnimation(const string& name) const; 
 
-    // Retrieve a Background resource
     const Background& getBackground(const string& name) const; 
 
     const Music& getMusic(const string& name) const;
@@ -55,7 +54,7 @@ public:
     const Font& getFont(const string& name) const;
 
     // Play a music track
-    void playMusic(const string& trackName, bool loop) const; 
+    void playMusic(const string& trackName) const; 
 
     // Play a sound effect
     void playSound(const string& soundName) const; 

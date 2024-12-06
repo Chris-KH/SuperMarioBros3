@@ -1,13 +1,6 @@
 #include"../include/Animation.h"
 
-Animation::Animation():
-    texture({ 0 }), 
-    currentFrame(0), 
-    frameTimeCounter(0.0f), 
-    finished(false) 
-{}
-
-Animation::Animation(Texture2D texture) :
+Animation::Animation(Texture2D& texture) :
     texture(texture),
     currentFrame(0),
     frameTimeCounter(0.0f),
