@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include "Animation.h"
 #include "CharacterState.h"
+#include "ResourceManager.h"
 
 enum EntityType {
     CHACRACTER,
@@ -41,8 +42,10 @@ private:
 protected:
     Animation* currentAnimation; 
     Animation* nextAnimation;
+
+    const ResourceManager* resourceManager;
 public:
-    Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
+    Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK);
     Entity(const Entity& other);
 
     virtual ~Entity() {}

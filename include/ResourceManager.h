@@ -16,6 +16,35 @@ class Background;
 */
 class ResourceManager {
 private:
+    enum ResourceType
+    {
+        RESOURCE_ANIMATION,
+        RESOURCE_BACKGROUND,
+        RESOURCE_FONT,
+        RESOURCE_LEVELTHEME,
+        RESOURCE_MUSIC,
+        RESOURCE_SOUND
+    };
+
+    struct Resource
+    {
+        ResourceType type;
+
+        union
+        {
+            Animation* animation;
+            Background* background;
+            Font* font;
+            //LevelTheme* levelTheme;
+            Music* music;
+            Sound* sound;
+        };
+    };
+
+    map<string, Resource> resources;
+    map<string, ResourceManager*> groups;
+
+    const Resource* getResource(const string& name) const;
     void loadAnimation();  // Load animation resources
     void loadBackground(); // Load background resources
     void loadFont();      // Load font resources
@@ -30,6 +59,10 @@ public:
 
     // Retrieve a Background resource
     const Background* getBackground(const string& name) const; 
+
+    const Music* getMusic(const string& name) const;
+
+    const Sound* getSound(const string& name) const;
 
     // Get loading progress of resources
     int getLoadingProgress() const; 

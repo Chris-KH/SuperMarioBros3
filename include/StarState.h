@@ -1,7 +1,7 @@
 #pragma once
 #include"CharacterState.h"
 
-class CapedState : public CharacterState {
+class StarState : public CharacterState {
 public:
 
 };
