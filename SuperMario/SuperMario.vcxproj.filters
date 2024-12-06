@@ -162,6 +162,9 @@
     <ClInclude Include="..\include\Global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
@@ -273,6 +276,9 @@
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Global.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

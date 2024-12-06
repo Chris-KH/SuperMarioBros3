@@ -7,7 +7,10 @@
 enum EntityType {
     CHACRACTER,
     ENEMY,
-    ITEM
+    ITEM,
+    BLOCK
+
+
 };
 
 //enum class CHACRACTER {
@@ -36,7 +39,7 @@ private:
     Vector2 position; // Position of the entity
     Vector2 size;     // Size of the entity
     Color color;      // RGBA color of the entity
-
+protected:
     Animation* currentAnimation; 
     Animation* nextAnimation;
 
@@ -58,6 +61,7 @@ public:
     virtual Color getColor() const;
     virtual EntityType getType() const = 0;
 
+
     // Setters
     virtual void setPosition(Vector2 pos);
     virtual void setSize(Vector2 sz);
@@ -68,7 +72,7 @@ public:
     virtual void update(float deltaTime) = 0;
     //virtual void setAnimation(Animation* animation);
 
-    // Collision detection 
+    //Collision detection 
     //virtual void checkCollision(const Entity& other);
      
 };

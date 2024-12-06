@@ -5,15 +5,15 @@
 
 class Map {
 public:
-    Map() {}
+   Map() {}
 
     ~Map() {
-        for (std::vector<Block*>::iterator it = blocks.begin(); it != blocks.end(); ++it) {
-            delete *it;
+        for (BaseBlock* block : blocks) {
+            delete block;
         }
     }
 
-    void addBlock(Block* block) {
+    void addBlock(BaseBlock* block) {
         blocks.push_back(block);
     }
 
@@ -22,8 +22,8 @@ public:
         if (savedFile.is_open()) {
             size_t numBlocks = blocks.size();
             savedFile.write(reinterpret_cast<const char*>(&numBlocks), sizeof(numBlocks));
-            for (std::vector<Block*>::iterator it = blocks.begin(); it != blocks.end(); ++it) {
-                (*it)->savetoBinaryFile(savedFile);
+            for (std::vector<BaseBlock*>::iterator it = blocks.begin(); it != blocks.end(); ++it) {
+                //(*it)->savetoBinaryFile(savedFile);
             }
         }
     }
@@ -35,13 +35,27 @@ public:
             loadedFile.read(reinterpret_cast<char*>(&numBlocks), sizeof(numBlocks));
             blocks.clear();
             for (int i = 0; i < numBlocks; ++i) {
-                Block* block = new Block(0, 0, 0, 0, normal);
-                block->loadfromBinaryFile(loadedFile);
-                blocks.push_back(block);
+                //BaseBlock* block = new SolidBlock(0, 0, 0, 0);
+                //block->loadfromBinaryFile(loadedFile);
+                //blocks.push_back(block);
             }
         }
     }
     
 private:
-    std::vector<Block*> blocks;
+    std::vector<BaseBlock*> blocks;
+    BaseBlock* createBlockByType(BlockType blockType) {
+        switch (blockType) {
+            /*case FLOOR: return new Floor();
+            case BRICK: return new Brick();
+            case SOLIDBLOCK: return new SolidBlock();
+            case MOVINGBLOCK: return new MovingBlock();
+            case ITEMBLOCK: return new ItemBlock();
+            case HIDDEN: return new HiddenBlock();
+            case SPIKE: return new SpikeBlock();
+            case PIPE: return new PipeBlock();
+            case DECOR: return new DecorBlock();*/
+            default: return nullptr;
+        }
+    }
 };
