@@ -129,15 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\FileHandle.h" />
-
+<<<<<<< HEAD
     <ClInclude Include="..\include\Menu.h" />
+=======
     <ClInclude Include="..\include\FPSManager.h" />
-    <ClInclude Include="..\include\Global.h" />
     <ClInclude Include="..\include\InputManager.h" />
+>>>>>>> main
     <ClInclude Include="..\include\NormalState.h" />
     <ClInclude Include="..\include\Settings.h" />
-    <ClInclude Include="..\include\Singleton.h" />
     <ClInclude Include="..\include\SuperLeaf.h" />
     <ClInclude Include="..\include\Block.h" />
     <ClInclude Include="..\include\BoomBoom.h" />
@@ -166,15 +165,17 @@
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\CharacterState.h" />
     <ClInclude Include="..\include\Thwomp.h" />
+    <ClInclude Include="..\include\TailState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
     <ClCompile Include="..\src\Background.cpp" />
-    <ClCompile Include="..\src\FileHandle.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="..\src\menu.cpp" />
+=======
     <ClCompile Include="..\src\FPSManager.cpp" />
-    <ClCompile Include="..\src\Global.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
+>>>>>>> main
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Settings.cpp" />
     <ClCompile Include="..\src\SuperLeaf.cpp" />
@@ -206,6 +207,7 @@
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\CharacterState.cpp" />
     <ClCompile Include="..\src\Thwomp.cpp" />
+    <ClCompile Include="..\src\TailState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

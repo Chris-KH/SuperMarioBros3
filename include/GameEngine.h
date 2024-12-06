@@ -2,8 +2,10 @@
 #include <iostream>
 #include <raylib.h>
 #include "Map.h"
-#include "Block.h"
 #include "Entity.h"
+#include "Block.h"
+#include "Collision.h"
+
 class GameCamera {
 public:
 	float cameraX;          // GameCamera position on the X-axis
@@ -57,11 +59,14 @@ public:
 };
 
 class Chunk {
+private:
+	vector<Entity*> blocks;
+	vector<Entity*> enemies;
+	vector<Entity*> items;
 public:
-	int x;                    
+	int x; //coord                   
 	bool isLoaded;             // Whether this chunk is loaded
-	vector<Block*> blocks; // Blocks belonging to this chunk
-	vector<Entity*> entities;
+
 	Chunk(int x) : x(x), isLoaded(false) {}
 
 	void load() {
@@ -75,19 +80,25 @@ public:
 
 	void render() const {
 		if (isLoaded) {
-			for (const auto& block : blocks) {
-				block->render();
-			}
-			for (const auto& entity : entities)
+			for (const Entity* entity : blocks,enemies,items)
 				entity->draw();
 		}
 	}
 	void update()
 	{
 		// enemy ai
+
 		// character update
 
 		// handle collision
+		CollisionInterface IColl;
+		for (Entity* enemy : enemies)
+		{
+			for (Entity* block : blocks)
+				IColl.resolve(*enemy, *block);
+			//
+		}
+
 
 		//animation update
 	}

@@ -4,92 +4,175 @@
 #include"Character.h"
 #include"Enemy.h"
 
-
 class CollisionStrategy {
 public:
-    virtual void resolve(Entity& entityA, Entity& entityB) = 0; // General case
-    virtual void resolve(Entity& entity, const Block& block) = 0; // Block-specific case
+    virtual void resolve(Entity& entityA, Entity& entityB) = 0;
     virtual ~CollisionStrategy() = default;
 };
-class EntityBlockCollisionHandler : public CollisionStrategy {
+
+inline Rectangle getProximityRectangle(Entity& entity, float radius) {
+    Rectangle rect = entity.getRectangle();
+    return {
+        rect.x - radius,
+        rect.y - radius,
+        rect.width + 2 * radius,
+        rect.height + 2 * radius
+    };
+}
+inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 10.0f) {
+    Rectangle proximityRectA = getProximityRectangle(entityA, proximityRadius);
+    Rectangle proximityRectB = entityB.getRectangle(); // Unmovable entities stay static
+
+    // Check if proximity rectangles overlap
+    return CheckCollisionRecs(proximityRectA, proximityRectB);
+}
+
+
+class PlayerFloorStrat : public CollisionStrategy
+{
 public:
-    void resolve(Entity& entity, const Block& block) override
+    void resolve(Entity& entityA, Entity& entityB) override
     {
-        Rectangle entityRect = entity.getRectangle();
-        Rectangle blockRect = block.getHitbox();
+        Floor* floor = dynamic_cast<Floor*>(&entityB);
+        Character* player = dynamic_cast<Character*>(&entityA);
 
-        if (CheckCollisionRecs(entityRect, blockRect)) {
-            float overlapX = 0;
-            float overlapY = 0;
-            bool isLeft = 0;
-            bool isUp = 0;
-            if (entityRect.x < blockRect.x) {
-                overlapX = (entityRect.x + entityRect.width) - blockRect.x;
-                isLeft = true;
-            }
-            else {
-                overlapX = (blockRect.x + blockRect.width) - entityRect.x;
-            }
+        if (!floor || !player)
+            return;
 
-            if (entityRect.y < blockRect.y) {
-                overlapY = (entityRect.y + entityRect.height) - blockRect.y;
-                isUp = true;
-            }
-            else {
-                overlapY = (blockRect.y + blockRect.height) - entityRect.y;
-            }
+        Rectangle playerRect = player->getRectangle();
+        Rectangle floorRect = floor->getRectangle();
 
-            if (std::abs(overlapX) < std::abs(overlapY)) {
-                if (overlapX > 0)
-                    entity.setPosition(Vector2(entityRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), entityRect.y));
+        Vector2 playerVelocity = player->getVelocity();
+        Rectangle futurePlayerRect = {
+            playerRect.x,
+            playerRect.y + playerVelocity.y,
+            playerRect.width,
+            playerRect.height
+        };
+
+        if (CheckCollisionRecs(futurePlayerRect, floorRect)) {
+            // Ensure the player was above the floor in the previous frame
+            if (playerRect.y + playerRect.height <= floorRect.y) {
+                // Snap the player to the top of the floor
+                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
+
+                // Reset vertical velocity to prevent falling
+                player->setVelocity(Vector2(playerVelocity.x, 0));
             }
-            else {
-                if (overlapY > 0)
-                    entity.setPosition(Vector2(entityRect.x, entityRect.y + (isUp ? -std::abs(overlapY) : std::abs(overlapY))));
-            }         
         }
     }
 
-    void resolve(Entity& entityA, Entity& entityB) override {}
 };
-class EntityEntityCollisionHandler : public CollisionStrategy {
+class PlayerBlockStrat : public CollisionStrategy {
 public:
-    void resolve(Entity& entity, const Block& block) override {}
+    void resolve(Entity& player, Entity& block) override {
+        Rectangle playerRect = player.getRectangle();
+        Rectangle blockRect = block.getRectangle();
 
-    void resolve(Entity& entityA, Entity& entityB) override {
-        Rectangle rectA = entityA.getRectangle();
-        Rectangle rectB = entityB.getRectangle();
-
-        //if (CheckCollisionRecs(rectA, rectB)) 
-       //{
-       //  do something
-       // }
+        if (CheckCollisionRecs(playerRect, blockRect)) {
+            float overlapX = 0;
+            float overlapY = 0;
+            bool isLeft = false;
+            bool isUp = false;
+            if (playerRect.x < blockRect.x) {
+                overlapX = (playerRect.x + playerRect.width) - blockRect.x;
+                isLeft = true;
+            }
+            else 
+                overlapX = (blockRect.x + blockRect.width) - playerRect.x;
+            if (playerRect.y < blockRect.y) {
+                overlapY = (playerRect.y + playerRect.height) - blockRect.y;
+                isUp = true;
+            }
+            else 
+                overlapY = (blockRect.y + blockRect.height) - playerRect.y;
+            if (std::abs(overlapX) < std::abs(overlapY)) 
+                player.setPosition(Vector2(playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), playerRect.y));
+            else if (isUp)
+                player.setPosition(Vector2(playerRect.x, playerRect.y - std::abs(overlapY)));
+        }
     }
 };
-
-
-
-class CollisionHandler {
-private:
-    EntityEntityCollisionHandler entityEntity;
-    EntityBlockCollisionHandler entityBlock;
-    // add more to this
-
-
+class EnemyBlockStrat : public CollisionStrategy {
 public:
-    void handleCollision(Entity& entityA, Entity& entityB) {
-        if (dynamic_cast<Character*>(&entityA) && dynamic_cast<Enemy*>(&entityB)) // should not do this. this is very bad.
-            entityEntity.resolve(entityA, entityB);
-        // 
-        //else if (dynamic_cast<Enemy*>(&entityA) && dynamic_cast<Character*>(&entityB)) {
-        //    characterEnemyStrategy.handleCollision(entityB, entityA);
-        //}
-    }
+    void resolve(Entity& enemy, Entity& block) override {
+        Rectangle enemyRect = enemy.getRectangle();
+        Rectangle blockRect = block.getRectangle();
 
-    void handleCollision(Entity& entity, const Block& block) {
-        if (dynamic_cast<Character*>(&entity)) 
-            entityBlock.resolve(entity, block);
+        if (CheckCollisionRecs(enemyRect, blockRect)) {
+            float overlapX = 0;
+            float overlapY = 0;
+            bool isLeft = false;
+            bool isUp = false;
+
+            if (enemyRect.x < blockRect.x) {
+                overlapX = (enemyRect.x + enemyRect.width) - blockRect.x;
+                isLeft = true;
+            }
+            else
+                overlapX = (blockRect.x + blockRect.width) - enemyRect.x;
+            if (enemyRect.y < blockRect.y) {
+                overlapY = (enemyRect.y + enemyRect.height) - blockRect.y;
+                isUp = true;
+            }
+            else 
+                overlapY = (blockRect.y + blockRect.height) - enemyRect.y;
+            if (std::abs(overlapX) < std::abs(overlapY)) 
+                enemy.setPosition(Vector2(enemyRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), enemyRect.y));
+            else 
+                enemy.setPosition(Vector2(enemyRect.x, enemyRect.y + ((isUp) ? -std::abs(overlapY) : std::abs(overlapY))));
+        }
     }
 };
 
+class CollisionStrategySelector {
+public:
+    static std::unique_ptr<CollisionStrategy> getStrategy(EntityType typeA, EntityType typeB, BaseBlock* block = nullptr) {
+        if (typeA == CHACRACTER && typeB == BLOCK) {
+            if (block && block->getBlockType() == FLOOR)
+                return std::make_unique<PlayerFloorStrat>();
+            if (block && block->getBlockType() == SOLIDBLOCK)
+                return std::make_unique<PlayerBlockStrat>();
+        }
+        if (typeA == ENEMY && typeB == BLOCK)
+        {
+            if (block && block->getBlockType() == SOLIDBLOCK)
+                return make_unique<EnemyBlockStrat>();
+        }
+        if (typeA == CHACRACTER && typeB == ENEMY)
+        {
 
+        }
+        if (typeA == CHACRACTER && ITEM)
+        {
+
+        }
+
+
+
+        return nullptr; // No applicable strategy
+    }
+};
+class CollisionInterface {
+public:
+    void resolve(Entity& entityA, Entity& entityB) {
+        if (!shouldCheckCollision(entityA, entityB)) {
+            return; // Skip unnecessary checks
+        }
+        auto typeA = entityA.getType();
+        auto typeB = entityB.getType();
+
+        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+        auto strategy = CollisionStrategySelector::getStrategy(typeA, typeB, block);
+        if (!strategy) {
+            strategy = CollisionStrategySelector::getStrategy(typeB, typeA, dynamic_cast<BaseBlock*>(&entityA));
+        }
+        if (strategy) {
+            strategy->resolve(entityA, entityB);
+        }
+        else {
+            std::cout << "No collision strategy found for entities: "
+                << static_cast<int>(typeA) << " and " << static_cast<int>(typeB) << std::endl;
+        }
+    }
+};

@@ -160,6 +160,7 @@
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Global.h">
+    <ClInclude Include="..\include\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -273,6 +274,7 @@
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Global.cpp">
+    <ClCompile Include="..\src\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
