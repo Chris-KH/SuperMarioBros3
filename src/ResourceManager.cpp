@@ -25,11 +25,34 @@ void ResourceManager::loadAnimation() {
     string marioPath1 = characterFolder + "mario1.png";
     Texture2D mario1 = LoadTexture(marioPath1.c_str());
 
-    Animation running = Animation(mario1);
-    running.addFrame({ 11, 18, 12, 15 }, { 0, 0 }, 0.3);
-    running.addFrame({ 43, 17, 15, 16 }, { 0, 0 }, 0.3);
+    Animation mario_walk_left = Animation(mario1);
+    mario_walk_left.addFrame({ 11, 18, 12, 15 }, { 0, 0 }, 0.01);
+    mario_walk_left.addFrame({ 43, 17, 15, 16 }, { 0, 0 }, 0.01);
+    mario_walk_left.setScale(4.f);
 
-    animationResource["marioRun"] = make_unique<Animation>(move(running));
+    animationResource["mario_walk_left"] = make_unique<Animation>(move(mario_walk_left));
+
+    Animation mario_walk_right = Animation(mario1);
+    mario_walk_right.addFrame({ 11, 51, 12, 15 }, { 0, 0 }, 0.01);
+    mario_walk_right.addFrame({ 43, 50, 15, 16 }, { 0, 0 }, 0.01);
+    mario_walk_right.setScale(4.f);
+
+    animationResource["mario_walk_right"] = make_unique<Animation>(move(mario_walk_right));
+
+
+    Animation mario_idle_left = Animation(mario1);
+    mario_idle_left.addFrame({ 11, 18, 12, 15 }, { 0, 0 });
+    mario_idle_left.setScale(4.f);
+
+    animationResource["mario_idle_left"] = make_unique<Animation>(move(mario_idle_left));
+
+    Animation mario_idle_right = Animation(mario1);
+    mario_idle_right.addFrame({ 11, 51, 12, 15 }, { 0, 0 });
+    mario_idle_right.setScale(4.f);
+
+    animationResource["mario_idle_right"] = make_unique<Animation>(move(mario_idle_right));
+
+
 }
 
 void ResourceManager::loadFont() {

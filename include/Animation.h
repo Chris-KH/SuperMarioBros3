@@ -26,9 +26,9 @@ public:
     void update(float deltaTime);
 
     //Render the current frame of the animation.
-    void render(Vector2 position, bool mirrorX = false, bool mirrorY = false, float scale = 1.0f) const;
-    void render(const Frame& frame, bool mirrorX, bool mirrorY, float = 1.0f) const;
-    void render(int frameNumber, bool mirrorX, bool mirrorY, float scale = 1.0f) const;
+    void render(Vector2 position) const;
+    void render(const Frame& frame) const;
+    void render(int frameNumber) const;
 
     //Reset the animation to the first frame.
     void reset();
@@ -36,11 +36,20 @@ public:
     // Check if the animation has finished (useful for one-shot animations).
     bool isFinished() const;
 
+    //Hitbox
+    const Vector2& getSize() const {
+        return { scale * frames[currentFrame].source.width, scale * frames[currentFrame].source.height };
+    }
+
+    void setScale(float scale) {
+        this->scale = scale;
+    }
 private:
     Texture2D texture; ///< The texture containing the animation frames.
     vector<Frame> frames; ///< List of frames in the animation.
     int currentFrame; ///< Index of the current frame.
     float frameTimeCounter; ///< Time counter for the current frame.
     bool finished; ///< Whether the animation has finished playing.
+    float scale;
 };
 

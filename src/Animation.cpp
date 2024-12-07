@@ -4,7 +4,8 @@ Animation::Animation(Texture2D& texture) :
     texture(texture),
     currentFrame(0),
     frameTimeCounter(0.0f),
-    finished(false)
+    finished(false),
+    scale(1.f)
 {}
 
 void Animation::addFrame(const Rectangle& source, const Vector2& offset, float duration) {
@@ -37,35 +38,28 @@ void Animation::update(float deltaTime) {
     }
 }
 
-void Animation::render(Vector2 position, bool mirrorX, bool mirrorY, float scale) const {
+void Animation::render(Vector2 position) const {
     if (frames.empty()) return;
 
     const Frame& frame = frames[currentFrame];
     Rectangle dest = { position.x, position.y, frame.source.width * scale, frame.source.height * scale };
     Rectangle source = frame.source;
 
-    // Handle mirroring.
-    if (mirrorX) source.width *= -1;
-    if (mirrorY) source.height *= -1;
 
     DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
 }
 
-void Animation::render(const Frame& frame, bool mirrorX, bool mirrorY, float scale) const {
+void Animation::render(const Frame& frame) const {
     Rectangle dest = {frame.source.x, frame.source.y, frame.source.width * scale, frame.source.height * scale };
     Rectangle source = frame.source;
-
-    // Handle mirroring.
-    if (mirrorX) source.width *= -1;
-    if (mirrorY) source.height *= -1;
 
     DrawTexturePro(texture, source, dest, frame.offset, 0.0f, BLANK);
 }
 
-void Animation::render(int frameNumber, bool mirrorX, bool mirrorY, float scale) const {
+void Animation::render(int frameNumber) const {
     // Get the frame and render it
     const Frame& frame = getFrame(frameNumber);
-    render(frame, mirrorX, mirrorY, scale);
+    render(frame);
 }
 
 void Animation::reset() {

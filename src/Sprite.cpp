@@ -1,12 +1,11 @@
 #include "../include/Sprite.h"
 
 Sprite::Sprite() 
-    : Entity(Vector2(0 , 0), Vector2(1, 1), BLANK),
+    : Entity(Vector2(0 , 0), Vector2(1, 1), WHITE),
 	velocity({ 0, 0 }),
 	acceleration({ 0, 0 }),
 	maxSpeed({ 100, 100 }),
-	isDead(false),
-	isFlipped(false)
+	isDead(false)
 {}
 
 Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
@@ -14,8 +13,7 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     velocity({ 0, 0 }), 
     acceleration({ 0, 0 }),
     maxSpeed({ 300, 500 }), 
-    isDead(false), 
-    isFlipped(false) 
+    isDead(false)
 {}
 
 Sprite::Sprite(const Sprite& other)
@@ -23,8 +21,7 @@ Sprite::Sprite(const Sprite& other)
     velocity(other.velocity),
     acceleration(other.acceleration),
     maxSpeed(other.maxSpeed),
-    isDead(other.isDead),
-    isFlipped(other.isFlipped)
+    isDead(other.isDead)
 {}
 
 
@@ -56,12 +53,9 @@ void Sprite::update(float deltaTime) {
     setPosition(Vector2(getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime));
 }
 
-// Flip sprite horizontally
-void Sprite::flip(bool flip) { isFlipped = flip; }
-
 // Draw method override
 void Sprite::draw() const {
     Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y};
-    Rectangle srcRect = { 0, 0, (isFlipped ? -getSize().x : getSize().x), getSize().y };
+    Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
     DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
 }

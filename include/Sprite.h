@@ -8,11 +8,10 @@ protected:
     Vector2 acceleration;  // Acceleration vector (ax, ay)
     Vector2 maxSpeed;      // Maximum speed (x, y)
     bool isDead;           // Indicates if the sprite is "dead"
-    bool isFlipped;        // Flip sprite horizontally
 
 public:
     Sprite();
-    Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK);
+    Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
     Sprite(const Sprite& other);
 
     virtual ~Sprite() = default;
@@ -29,9 +28,6 @@ public:
     void setMaxSpeed(Vector2 max);
 
     void update(float deltaTime);
-
-    // Flip sprite horizontally
-    void flip(bool flip);
 
     // Draw method override
     virtual void draw() const override;
