@@ -27,6 +27,10 @@ private:
     map<string, unique_ptr<Music>> musicResource;
     map<string, unique_ptr<Sound>> soundResource;
 
+    map<string, Texture2D> textures;
+
+    void loadTextures();
+    void loadAnimationFromFile(const string& filePath, const string& fileName);
     void loadAnimation();  // Load animation resources
     void loadBackground(); // Load background resources
     void loadFont();      // Load font resources
@@ -37,6 +41,7 @@ private:
     void unloadFonts();
     void unloadSounds();
     void unloadMusic();
+    void unloadTexture();
 
 public:
     ResourceManager();     // Constructor
@@ -44,7 +49,7 @@ public:
 
     void loadAllResource();
 
- Animation* getAnimation(const string& name) const; 
+    Animation* getAnimation(const string& name) const; 
 
     const Background* getBackground(const string& name) const; 
 
@@ -53,6 +58,8 @@ public:
     const Sound*getSound(const string& name) const;
 
     const Font* getFont(const string& name) const;
+
+    const Texture2D& getTexture(const string& name) const;
 
     // Play a music track
     void playMusic(const string& trackName) const; 

@@ -13,8 +13,10 @@ public:
         float duration;   ///< Duration of the frame in seconds.
     };
 
+    Animation() = default;
+
     //Constructor with texture.
-    Animation(Texture2D& texture);
+    Animation(const Texture2D& texture);
 
     //Add a new frame to the animation.
     void addFrame(const Rectangle& source, const Vector2& offset, float duration = 1.f);
@@ -37,15 +39,15 @@ public:
     bool isFinished() const;
 
     //Hitbox
-    const Vector2& getSize() const {
-        return { scale * frames[currentFrame].source.width, scale * frames[currentFrame].source.height };
-    }
+    const Vector2& getSize() const;
 
-    void setScale(float scale) {
-        this->scale = scale;
-    }
+    void setScale(float scale);
+
+    // **Prototype Pattern: clone method**
+    Animation* clone() const;
+
 private:
-    Texture2D texture; ///< The texture containing the animation frames.
+    const Texture2D& texture; ///< The texture containing the animation frames.
     vector<Frame> frames; ///< List of frames in the animation.
     int currentFrame; ///< Index of the current frame.
     float frameTimeCounter; ///< Time counter for the current frame.

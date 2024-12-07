@@ -47,41 +47,53 @@ public:
 
     void update(float deltaTime) {
         // Gia tốc hãm
-        const float deceleration = 1000.0f; // Gia tốc hãm (pixel/s^2)
+        const float deceleration = 2000.0f; // Gia tốc hãm (pixel/s^2)
         cur->update(deltaTime);
         // Di chuyển theo trục X
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {  // Nhấn D (phải) nhưng không nhấn A (trái)
             if (velocity.x < 0) {  // Đang di chuyển sang trái, hãm lại
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_left");
                 velocity.x += deceleration * deltaTime;
                 if (velocity.x > 0) velocity.x = 0; // Dừng hoàn toàn trước khi đổi hướng
             }
             else {
                 velocity.x += acceleration.x * deltaTime; // Tiếp tục tăng tốc khi đi phải
+                if (isJumping == false) {
+                    cur = RESOURCE_MANAGER.getAnimation("mario_walk_right");
+                    this->size = cur->getSize();
+                }
             }
-            cur = RESOURCE_MANAGER.getAnimation("mario_walk_right");
         }
         else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {  // Nhấn A (trái) nhưng không nhấn D (phải)
             if (velocity.x > 0) {  // Đang di chuyển sang phải, hãm lại
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_right");
                 velocity.x -= deceleration * deltaTime;
                 if (velocity.x < 0) velocity.x = 0; // Dừng hoàn toàn trước khi đổi hướng
             }
             else {
                 velocity.x -= acceleration.x * deltaTime; // Tiếp tục tăng tốc khi đi trái
+                if (isJumping == false) {
+                    cur = RESOURCE_MANAGER.getAnimation("mario_walk_left");
+                    this->size = cur->getSize();
+                }
             }
-            cur = RESOURCE_MANAGER.getAnimation("mario_walk_left");
+            
         }
         else { // Không nhấn phím di chuyển nào
             if (velocity.x > 0) {
                 velocity.x -= deceleration * deltaTime;
                 if (velocity.x < 0) velocity.x = 0;
-                horizontalOrientation = true;
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_right");
             }
             else if (velocity.x < 0) {
                 velocity.x += deceleration * deltaTime;
                 if (velocity.x > 0) velocity.x = 0;
-                horizontalOrientation = false;
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_left");
             }
         }
+
+        if (velocity.x > 0) horizontalOrientation = true;
+        else if (velocity.x < 0) horizontalOrientation = false;
 
         // Kiểm tra nhảy khi nhấn phím SPACE và đang không nhảy
         if (IsKeyDown(KEY_SPACE) && !isJumping && onGround()) {
@@ -106,9 +118,16 @@ public:
             velocity.x = (velocity.x > 0) ? maxSpeed.x : -maxSpeed.x;
         }
 
-        if (isIdle()) {
+        if (isJumping) {
+            if (horizontalOrientation) cur = RESOURCE_MANAGER.getAnimation("mario_jump_right");
+            else cur = RESOURCE_MANAGER.getAnimation("mario_jump_left");
+            this->size = cur->getSize();
+        }
+
+        if (isIdle() && onGround()) {
             if (horizontalOrientation) cur = RESOURCE_MANAGER.getAnimation("mario_idle_right");
             else cur = RESOURCE_MANAGER.getAnimation("mario_idle_left");
+            this->size = cur->getSize();
         }
 
         // Cập nhật vị trí mới

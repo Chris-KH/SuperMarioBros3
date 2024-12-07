@@ -10,49 +10,95 @@ ResourceManager::~ResourceManager() {
     unloadFonts();
     unloadSounds();
     unloadMusic();
+    unloadTexture();
 }
 
 void ResourceManager::loadAllResource() {
+    loadTextures();
     loadAnimation();
     loadMusic();
     loadSound();
     loadFont();
 }
 
+void ResourceManager::loadTextures() {
+    string texturesFolder = "../assets/Textures";
+
+    for (const auto& entry : fs::directory_iterator(texturesFolder)) {
+        if (entry.is_regular_file()) { // Chỉ xử lý tệp
+            string filePath = entry.path().string(); // Đường dẫn đầy đủ
+            string fileName = entry.path().stem().string(); // Tên tệp (không có đường dẫn)
+            // Kiểm tra định dạng tệp (chỉ lấy PNG và JPG)
+            if (filePath.ends_with(".png") || filePath.ends_with(".jpg") || filePath.ends_with(".jpeg")) {
+                Texture2D texture = LoadTexture(filePath.c_str());
+
+                // Kiểm tra xem texture có được tải thành công không
+                if (texture.id != 0) {
+                    textures[fileName] = texture; // Thêm vào map với khóa là tên tệp
+                    cout << "Loaded texture: " << fileName << endl;
+                }
+                else {
+                    cerr << "Failed to load texture: " << filePath << endl;
+                }
+            }
+        }
+    }
+}
+
 void ResourceManager::loadAnimation() {
-    //For character
-    string characterFolder = "../assets/Animation/Character/";
-    string marioPath1 = characterFolder + "mario1.png";
-    Texture2D mario1 = LoadTexture(marioPath1.c_str());
+    string animationFolder = "../assets/Animation";
 
-    Animation mario_walk_left = Animation(mario1);
-    mario_walk_left.addFrame({ 11, 18, 12, 15 }, { 0, 0 }, 0.01);
-    mario_walk_left.addFrame({ 43, 17, 15, 16 }, { 0, 0 }, 0.01);
-    mario_walk_left.setScale(4.f);
+    for (const auto& entry : fs::directory_iterator(animationFolder)) {
+        if (entry.is_regular_file() && entry.path().extension() == ".txt") {
+            string filePath = entry.path().string();
+            string fileName = entry.path().stem().string();
+            loadAnimationFromFile(filePath, fileName);
+        }
+    }
+}
 
-    animationResource["mario_walk_left"] = make_unique<Animation>(move(mario_walk_left));
+void ResourceManager::loadAnimationFromFile(const string& filePath, const string& fileName) {
+    ifstream file(filePath);
 
-    Animation mario_walk_right = Animation(mario1);
-    mario_walk_right.addFrame({ 11, 51, 12, 15 }, { 0, 0 }, 0.01);
-    mario_walk_right.addFrame({ 43, 50, 15, 16 }, { 0, 0 }, 0.01);
-    mario_walk_right.setScale(4.f);
+    if (!file.is_open()) {
+        cerr << "Failed to open animation file: " << filePath << endl;
+        return;
+    }
 
-    animationResource["mario_walk_right"] = make_unique<Animation>(move(mario_walk_right));
+    string textureName = fileName.substr(0, filePath.length() - 4);
+    if (textures.find(textureName) == textures.end()) {
+        cerr << "!!!Texture invalid: " << textureName << endl;
+        return;
+    }
 
+    string line;
+    string animationName;
 
-    Animation mario_idle_left = Animation(mario1);
-    mario_idle_left.addFrame({ 11, 18, 12, 15 }, { 0, 0 });
-    mario_idle_left.setScale(4.f);
+    while (getline(file, line)) {
+        if (line.empty() || line[0] == '#') continue; // Bỏ qua dòng trống hoặc comment
 
-    animationResource["mario_idle_left"] = make_unique<Animation>(move(mario_idle_left));
+        if (line[0] == '$') {
+            animationName = line.substr(1);
+            Animation animation = Animation(getTexture(textureName));
+            animationResource[animationName] = make_unique<Animation>(move(animation));
+            animationResource[animationName]->setScale(4.f);
+        }
+        else {
+            istringstream iss(line);
+            int x, y, width, height;
+            float duration;
+            if (!(iss >> x >> y >> width >> height >> duration)) {
+                cerr << "Invalid frame data in file: " << filePath << endl;
+                continue;
+            }
 
-    Animation mario_idle_right = Animation(mario1);
-    mario_idle_right.addFrame({ 11, 51, 12, 15 }, { 0, 0 });
-    mario_idle_right.setScale(4.f);
+            Rectangle source = { (float)x, (float)y, (float)width, (float)height };
+            Vector2 offset = { 0.0f, 0.0f }; // Offset mặc định
+            animationResource[animationName]->addFrame(source, offset, duration);
+        }
+    }
 
-    animationResource["mario_idle_right"] = make_unique<Animation>(move(mario_idle_right));
-
-
+    file.close();
 }
 
 void ResourceManager::loadFont() {
@@ -130,6 +176,10 @@ const Sound* ResourceManager::getSound(const string& name) const {
     return soundResource.at(name).get();
 }
 
+const Texture2D& ResourceManager::getTexture(const string& name) const {
+    return textures.at(name);
+}
+
 void ResourceManager::unloadAnimation() {
     animationResource.clear();
 }
@@ -144,6 +194,13 @@ void ResourceManager::unloadSounds() {
 
 void ResourceManager::unloadMusic() {
     musicResource.clear();
+}
+
+void ResourceManager::unloadTexture() {
+    for (auto& [name, texture] : textures) {
+        UnloadTexture(texture);
+    }
+    textures.clear();
 }
 
 void ResourceManager::playMusic(const string& trackName) const {

@@ -1,6 +1,6 @@
 #include"../include/Animation.h"
 
-Animation::Animation(Texture2D& texture) :
+Animation::Animation(const Texture2D& texture) :
     texture(texture),
     currentFrame(0),
     frameTimeCounter(0.0f),
@@ -70,4 +70,21 @@ void Animation::reset() {
 
 bool Animation::isFinished() const {
     return finished;
+}
+
+//Hitbox
+const Vector2& Animation::getSize() const {
+    return { scale * frames[currentFrame].source.width, scale * frames[currentFrame].source.height };
+}
+
+void Animation::setScale(float scale) {
+    this->scale = scale;
+}
+
+// **Prototype Pattern: clone method**
+Animation* Animation::clone() const {
+    Animation* copy = new Animation(texture); // Clone with the same texture
+    copy->frames = frames;    // Copy frames
+    copy->scale = scale;      // Copy scale
+    return copy;
 }
