@@ -15,6 +15,7 @@ enum BlockType {
     HIDDEN,
     SPIKE,
     PIPE,
+	TEMPBLOCK,
     DECOR
 };
 
@@ -86,20 +87,84 @@ public:
 class MovingBlock : public BaseBlock
 {
 private:
-	Vector2 velocity = {50.0f, 50.0f};
-	float leftAlign, rightAlign;
+	Vector2 velocity = { 50.0f, 50.0f }; // diagonal velocity
+	float leftAlign, rightAlign;       // horizontal bounds
+	float topAlign, bottomAlign;       // vertical bounds
+
 public:
-	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGRAY) : BaseBlock(pos, size, color) {}
+	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGRAY)
+		: BaseBlock(pos, size, color)
+	{
+		velocity = { 50, 50 };
+		leftAlign = 0;
+		topAlign = 0;
+		rightAlign = 0;
+		bottomAlign = 0;
+	}
+
 	BlockType getBlockType() const override { return MOVINGBLOCK; }
+
+	void setHorizontalBounds(float left, float right)
+	{
+		leftAlign = left;
+		rightAlign = right;
+	}
+
+	void setVerticalBounds(float top, float bottom)
+	{
+		topAlign = top;
+		bottomAlign = bottom;
+	}
+	Vector2 getVelocity()
+	{
+		return velocity;
+	}
+	void setVelocity(Vector2 newVelocity)
+	{
+		velocity = newVelocity;
+	}
+
 	void update(float deltaTime)
 	{
 		Vector2 pos = getPosition();
-        pos.x += velocity.x * deltaTime;
-        if (pos.x <= leftAlign || pos.x + getSize().x >= rightAlign) {
-            velocity.x = -velocity.x;
-        }
-        setPosition(pos);
+
+		// Update position based on velocity
+		pos.x += velocity.x * deltaTime;
+		pos.y += velocity.y * deltaTime;
+
+		// Handle horizontal bouncing
+		if (pos.x < leftAlign) // Left boundary
+		{
+			pos.x = leftAlign; // Clamp position
+			if (velocity.x < 0) // Reverse only if moving left
+				velocity.x = std::abs(velocity.x); // Move right
+		}
+		else if (pos.x + getSize().x > rightAlign) // Right boundary
+		{
+			pos.x = rightAlign - getSize().x; // Clamp position
+			if (velocity.x > 0) // Reverse only if moving right
+				velocity.x = -std::abs(velocity.x); // Move left
+		}
+
+		// Handle vertical bouncing
+		if (pos.y < topAlign) // Top boundary
+		{
+			pos.y = topAlign; // Clamp position
+			if (velocity.y < 0) // Reverse only if moving up
+				velocity.y = std::abs(velocity.y); // Move down
+		}
+		else if (pos.y + getSize().y > bottomAlign) // Bottom boundary
+		{
+			pos.y = bottomAlign - getSize().y; // Clamp position
+			if (velocity.y > 0) // Reverse only if moving down
+				velocity.y = -std::abs(velocity.y); // Move up
+		}
+
+		// Update the position after corrections
+		setPosition(pos);
 	}
+
+
 };
 
 class ItemBlock : public BaseBlock
@@ -177,6 +242,36 @@ public:
 	}
 };
 
+class TemporaryBlock : public BaseBlock
+{
+private:
+	float lifeTime;
+	bool isDying;
+	bool dead;
+public:
+	TemporaryBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK) : BaseBlock(pos, size, color)
+	{
+		isDying = false;
+		dead = false;
+		lifeTime = 1.5;
+	}
+	BlockType getBlockType() const override { return TEMPBLOCK; };
+	void update()
+	{
+		if (!dead)
+		if (isDying)
+		{
+			float deltaTime = GetFrameTime();
+			lifeTime -= deltaTime;
+			if (lifeTime <= 0)
+			{
+				dead = true;
+
+			}
+		}
+	}
+
+};
 /*Entity* BaseBlock::spikeMario() {
 	for (Entity* entity : entity managing = quản lý trong entity) {Có va chạm trả về entity}
 	Ko va chạm trả về nullptr
