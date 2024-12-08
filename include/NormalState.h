@@ -3,5 +3,7 @@
 
 class NormalState : public CharacterState {
 public:
+    virtual ~NormalState() = default;
 
+    virtual void update(const Character* character) override {};
 };

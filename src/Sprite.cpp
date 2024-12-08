@@ -1,13 +1,5 @@
 #include "../include/Sprite.h"
 
-Sprite::Sprite() 
-    : Entity(Vector2(0 , 0), Vector2(1, 1), WHITE),
-	velocity({ 0, 0 }),
-	acceleration({ 0, 0 }),
-	maxSpeed({ 100, 100 }),
-	isDead(false)
-{}
-
 Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     : Entity(pos, size, color),
     velocity({ 0, 0 }), 
