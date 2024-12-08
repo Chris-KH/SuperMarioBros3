@@ -1,0 +1,50 @@
+$item_block
+0 0 16 16 999
+
+$wood_block
+16 0 16 16 999
+
+$gold_brick_block
+32 0 16 16 999
+
+$bush_block
+48 0 16 16 999
+
+$wood_floor_block
+64 0 16 16 999
+
+$deep_wood_block
+80 0 16 16 999
+
+$cloud_block
+96 0 16 16 999
+
+$brick_block
+112 0 16 16 999
+
+$pipe_block_head
+0 16 32 32 999
+
+$pipe_block_body
+32 16 32 32 999
+
+$coin_item
+0 48 16 16 999
+
+$red_mushroom_item
+16 48 16 16 999
+
+$green_mushroom_item
+32 48 16 16 999
+
+$gold_star_item
+48 48 16 16 999
+
+$fire_flower_item
+64 49 16 16 999
+
+$fly_leaf_item
+80 48 16 16 999
+
+$blue_star_item
+98 49 16 16 999
