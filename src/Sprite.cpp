@@ -1,4 +1,4 @@
-#include "../include/Sprite.h"
+﻿#include "../include/Sprite.h"
 
 Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     : Entity(pos, size, color),
@@ -18,17 +18,41 @@ Sprite::Sprite(const Sprite& other)
 
 
 // Movement and physics methods
-Vector2 Sprite::getVelocity() const { return velocity; }
+const Vector2& Sprite::getVelocity() const { return velocity; }
 
 void Sprite::setVelocity(Vector2 vel) { velocity = vel; }
 
-Vector2 Sprite::getAcceleration() const { return acceleration; }
+const Vector2& Sprite::getAcceleration() const { return acceleration; }
 
 void Sprite::setAcceleration(Vector2 acc) { acceleration = acc; }
 
-Vector2 Sprite::getMaxSpeed() const { return maxSpeed; }
+const Vector2& Sprite::getMaxSpeed() const { return maxSpeed; }
 
 void Sprite::setMaxSpeed(Vector2 max) { maxSpeed = max; }
+
+void Sprite::setXVelocity(float vx) {
+    velocity.x = vx;
+}
+
+void Sprite::setYVelocity(float vy) {
+    velocity.y = vy;
+}
+
+void Sprite::setXAcceleration(float ax) {
+    acceleration.x = ax;
+}
+
+void Sprite::setYAcceleration(float ay) {
+    acceleration.y = ay;
+}
+
+void Sprite::setXMaxSpeed(float maxX) {
+    maxSpeed.x = maxX;
+}
+
+void Sprite::setYMaxSpeed(float maxY) {
+    maxSpeed.y = maxY;
+}
 
 void Sprite::update(float deltaTime) {
     velocity.x += acceleration.x * deltaTime;

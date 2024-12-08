@@ -18,14 +18,21 @@ public:
     virtual EntityType getType() const = 0;
 
     // Movement and physics methods
-    Vector2 getVelocity() const;
+    const Vector2& getVelocity() const;
     void setVelocity(Vector2 vel);
 
-    Vector2 getAcceleration() const;
+    const Vector2& getAcceleration() const;
     void setAcceleration(Vector2 acc);
 
-    Vector2 getMaxSpeed() const;
+    const Vector2& getMaxSpeed() const;
     void setMaxSpeed(Vector2 max);
+
+    void setXVelocity(float vx);
+    void setYVelocity(float vx);
+    void setXAcceleration(float ax);
+    void setYAcceleration(float yx);
+    void setXMaxSpeed(float maxX);
+    void setYMaxSpeed(float maxY);
 
     void update(float deltaTime);
 

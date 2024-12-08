@@ -4,10 +4,10 @@
 class SuperState : public CharacterState {
 	friend class Character;
 public:
-	virtual ~SuperState() = default;
+	~SuperState();
 
-	virtual void update(const Character* character, float deltaTime) override {};
-	virtual STATE getState() const override {
+	void update(const Character* character, float deltaTime) override {};
+	STATE getState() const override {
 		return SUPER;
 	}
 };

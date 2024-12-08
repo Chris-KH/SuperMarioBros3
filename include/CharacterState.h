@@ -15,7 +15,6 @@ public:
         FIRE,
         STAR
     };
-    virtual ~CharacterState() = 0;
 
     virtual void update(const Character* character, float deltaTime) = 0;
     virtual STATE getState() const = 0;

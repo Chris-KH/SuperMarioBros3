@@ -4,10 +4,10 @@
 class NormalState : public CharacterState {
     friend class Character;
 public:
-    virtual ~NormalState() = default;
+    ~NormalState();
 
-    virtual void update(const Character* character, float deltaTime) override {};
-    virtual STATE getState() const override {
+    void update(const Character* character, float deltaTime) override {};
+    STATE getState() const override {
         return NORMAL;
     }
 };
