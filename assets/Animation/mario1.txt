@@ -2,8 +2,8 @@ $mario_idle_left
 11 18 12 16 1
 
 $mario_walk_left
-11 18 12 16 0.15
-43 17 15 16 0.15
+11 18 12 16 0.1
+43 17 15 16 0.1
 
 $mario_jump_left
 108 17 16 16 1
@@ -15,14 +15,25 @@ $mario_idle_right
 11 51 12 16 1
 
 $mario_walk_right
-11 51 12 16 0.15
-42 50 15 16 0.15
+11 51 12 16 0.1
+42 50 15 16 0.1
 
 $mario_jump_right
 108 50 16 16 1
 
 $mario_stop_right
 142 17 14 16 1
+
+$mario_run_left
+174 17 16 16 0.01
+207 17 16 16 0.01
+
+$mario_run_right
+174 50 16 16 0.01
+207 50 16 16 0.01
+
+$mario_dead
+537 50 16 16 1
 
 $supermario_idle_left
 636 6 14 27 1
@@ -31,12 +42,12 @@ $supermario_idle_right
 638 39 14 27 1
 
 $supermario_walk_left
-636 6 14 27 0.15
-669 6 16 27 0.15
+636 6 14 27 0.1
+669 6 16 27 0.1
 
 $supermario_walk_right
-638 39 14 27 0.15
-669 39 16 27 0.15
+638 39 14 27 0.1
+669 39 16 27 0.1
 
 $supermario_jump_left
 801 6 16 26 1
@@ -55,3 +66,17 @@ $supermario_stop_right
 
 $supermario_stop_left
 834 38 16 28 1
+
+$supermario_sit_left
+735 15 14 18 1
+
+$supermario_sit_right
+737 48 14 18 1
+
+$supermario_run_left
+933 5 19 27 0.01
+966 5 19 27 0.01
+
+$supermario_run_right
+930 38 19 27 0.01
+963 38 19 27 0.01

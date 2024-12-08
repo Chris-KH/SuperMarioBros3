@@ -27,7 +27,7 @@ public:
         : position(position), size(size), texture(texture), inputManager(inputMgr) {
         velocity = Vector2(0, 0);
         maxSpeed = Vector2(1000, 600);
-        acceleration = Vector2(500, 500);
+        acceleration = Vector2(1000, 500);
         isJumping = false;
 
         inputManager.addListener(*this);  // Đăng ký Object làm listener
@@ -61,6 +61,10 @@ public:
                 if (isJumping == false) {
                     cur = RESOURCE_MANAGER.getAnimation("supermario_walk_right");
                     this->size = cur->getSize();
+                    if (velocity.x >= maxSpeed.x) {
+                        cur = RESOURCE_MANAGER.getAnimation("supermario_run_right");
+                        this->size = cur->getSize();
+                    }
                 }
             }
         }
@@ -75,6 +79,10 @@ public:
                 if (isJumping == false) {
                     cur = RESOURCE_MANAGER.getAnimation("supermario_walk_left");
                     this->size = cur->getSize();
+                    if (abs(velocity.x) >= maxSpeed.x) {
+                        cur = RESOURCE_MANAGER.getAnimation("supermario_run_left");
+                        this->size = cur->getSize();
+                    }
                 }
             }
             
