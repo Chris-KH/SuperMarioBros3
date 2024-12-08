@@ -9,8 +9,7 @@ protected:
     Vector2 maxSpeed;      // Maximum speed (x, y)
     bool isDead;           // Indicates if the sprite is "dead"
 
-    static constexpr float GRAVITY = 2000.f;
-
+    const float GRAVITY = 2000.f;
 public:
     Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
     Sprite(const Sprite& other);

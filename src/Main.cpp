@@ -171,19 +171,17 @@ int main() {
     InitWindow(1280, 800, "Super Mario Bros");
     
     RESOURCE_MANAGER.loadAllResource();
+    INPUT_MANAGER.bindKey(KEY_A);
+    INPUT_MANAGER.bindKey(KEY_D);
+    INPUT_MANAGER.bindKey(KEY_S);
+    INPUT_MANAGER.bindKey(KEY_SPACE);
+    INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
 
     // Tải texture cho vật thể
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
-    // Tạo InputManager
-    InputManager inputManager;
-    inputManager.bindKey(KEY_A);
-    inputManager.bindKey(KEY_D);
-    inputManager.bindKey(KEY_S);
-    inputManager.bindKey(KEY_SPACE);
-
     // Tạo một vật thể với texture và InputManager
-    Object object(Vector2{ 0, 750 }, Vector2{ 0, 0 }, texture, inputManager);
+    Object object(Vector2{ 0, 750 }, Vector2{ 0, 0 }, texture, INPUT_MANAGER);
 
 
     RESOURCE_MANAGER.playMusic("World1.mp3");
