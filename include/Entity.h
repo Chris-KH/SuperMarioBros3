@@ -13,10 +13,7 @@ enum EntityType {
 
 };
 
-//enum class CHACRACTER {
-//    Mario,
-//    Luigi
-//};
+
 //
 //enum class ITEM {
 //    Coin,
@@ -45,7 +42,7 @@ protected:
 
     const ResourceManager* resourceManager;
 public:
-    Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK);
+    Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
     Entity(const Entity& other);
 
     virtual ~Entity() {}

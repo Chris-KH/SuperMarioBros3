@@ -2,47 +2,38 @@
 #include "Animation.h"
 #include "Sprite.h"
 //#include "Hitbox.h"
+#include"InputManager.h"
+#include"CharacterState.h"
 
-class Character : public Sprite {
+class Character : public Sprite, public InputManager::Listener  {
 protected:
-    Animation idleAnimation;
-    Animation runAnimation;
-    Animation jumpAnimation;
-    Animation fallAnimation;
-    Animation duckAnimation;
-    Animation slideAnimation;
-    Animation attackAnimation;
-    Animation powerUpAnimation;
-    Animation deathAnimation;
-    Animation victoryAnimation;
-
-    // Another animation
-    Animation swimmingAnimation;
-    Animation climbingAnimation;
-    Animation hurtAnimation;
-    Animation transformAnimation;
-    Animation crouchJumpAnimation;
-    Animation victoryDanceAnimation;
-    Animation collectCoinAnimation;
-    Animation dashAnimation;
-    Animation fallingAnimation;
-    Animation specialMoveAnimation;
-
+    CharacterState* state;
+    InputManager* inputManager;
+    bool orientation; //True for right, false for left
+    bool jumping;
+    bool dead; //Character dead or not
+    
+    int score; // Score
+    int coins; // Coin count
+    int lives; // Live count
 public:
-    //Character(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
+    enum class CHACRACTER {
+        MARIO,
+        LUIGI
+    };
 
-    //virtual EntityType getType() const override { return EntityType::CHACRACTER; }
+    //Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE) {};
+    //virtual ~Character();
     //
-    //// Override draw to use animations
-    //void draw() const;
+    //virtual EntityType getType() const override { return EntityType::CHACRACTER; }
 
-    //// Method to handle movement (keyboard input)
-    //void move(float deltaTime);
+    //virtual CHACRACTER getCharacterType() const = 0;
 
-    //// Method to handle jumping
-    //void jump();
+    //virtual void update(float deltaTime) = 0;
+    //    
+    //virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
-    //// Method to switch between animations
-    //void switchAnimation(Animation& animation);
+    //virtual bool isJumping() const { return jumping; };
+    //virtual bool isDead() const { return dead; };
 };
 

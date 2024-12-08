@@ -27,11 +27,11 @@ public:
         : position(position), size(size), texture(texture), inputManager(inputMgr) {
         velocity = Vector2(0, 0);
         maxSpeed = Vector2(1000, 600);
-        acceleration = Vector2(500, 500);
+        acceleration = Vector2(1000, 500);
         isJumping = false;
 
         inputManager.addListener(*this);  // Đăng ký Object làm listener
-        cur = RESOURCE_MANAGER.getAnimation("mario_idle_right");
+        cur = RESOURCE_MANAGER.getAnimation("supermario_idle_right");
         this->size = cur->getSize();
         this->position.y = 800.f - this->size.y;
         cur->reset();
@@ -52,29 +52,37 @@ public:
         // Di chuyển theo trục X
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {  // Nhấn D (phải) nhưng không nhấn A (trái)
             if (velocity.x < 0) {  // Đang di chuyển sang trái, hãm lại
-                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_left");
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("supermario_stop_left");
                 velocity.x += deceleration * deltaTime;
                 if (velocity.x > 0) velocity.x = 0; // Dừng hoàn toàn trước khi đổi hướng
             }
             else {
                 velocity.x += acceleration.x * deltaTime; // Tiếp tục tăng tốc khi đi phải
                 if (isJumping == false) {
-                    cur = RESOURCE_MANAGER.getAnimation("mario_walk_right");
+                    cur = RESOURCE_MANAGER.getAnimation("supermario_walk_right");
                     this->size = cur->getSize();
+                    if (velocity.x >= maxSpeed.x) {
+                        cur = RESOURCE_MANAGER.getAnimation("supermario_run_right");
+                        this->size = cur->getSize();
+                    }
                 }
             }
         }
         else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {  // Nhấn A (trái) nhưng không nhấn D (phải)
             if (velocity.x > 0) {  // Đang di chuyển sang phải, hãm lại
-                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_right");
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("supermario_stop_right");
                 velocity.x -= deceleration * deltaTime;
                 if (velocity.x < 0) velocity.x = 0; // Dừng hoàn toàn trước khi đổi hướng
             }
             else {
                 velocity.x -= acceleration.x * deltaTime; // Tiếp tục tăng tốc khi đi trái
                 if (isJumping == false) {
-                    cur = RESOURCE_MANAGER.getAnimation("mario_walk_left");
+                    cur = RESOURCE_MANAGER.getAnimation("supermario_walk_left");
                     this->size = cur->getSize();
+                    if (abs(velocity.x) >= maxSpeed.x) {
+                        cur = RESOURCE_MANAGER.getAnimation("supermario_run_left");
+                        this->size = cur->getSize();
+                    }
                 }
             }
             
@@ -83,12 +91,12 @@ public:
             if (velocity.x > 0) {
                 velocity.x -= deceleration * deltaTime;
                 if (velocity.x < 0) velocity.x = 0;
-                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_right");
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("supermario_stop_right");
             }
             else if (velocity.x < 0) {
                 velocity.x += deceleration * deltaTime;
                 if (velocity.x > 0) velocity.x = 0;
-                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("mario_stop_left");
+                if (isJumping == false) cur = RESOURCE_MANAGER.getAnimation("supermario_stop_left");
             }
         }
 
@@ -96,7 +104,7 @@ public:
         else if (velocity.x < 0) horizontalOrientation = false;
 
         // Kiểm tra nhảy khi nhấn phím SPACE và đang không nhảy
-        if (IsKeyDown(KEY_SPACE) && !isJumping && onGround()) {
+        if (IsKeyDown(KEY_SPACE) && !isJumping) {
             velocity.y = -jumpForce;  // Đẩy lên
             isJumping = true;  // Đánh dấu là đang nhảy
             PlaySound(*RESOURCE_MANAGER.getSound("jump.wav"));
@@ -119,14 +127,14 @@ public:
         }
 
         if (isJumping) {
-            if (horizontalOrientation) cur = RESOURCE_MANAGER.getAnimation("mario_jump_right");
-            else cur = RESOURCE_MANAGER.getAnimation("mario_jump_left");
+            if (horizontalOrientation) cur = RESOURCE_MANAGER.getAnimation("supermario_jump_right");
+            else cur = RESOURCE_MANAGER.getAnimation("supermario_jump_left");
             this->size = cur->getSize();
         }
 
-        if (isIdle() && onGround()) {
-            if (horizontalOrientation) cur = RESOURCE_MANAGER.getAnimation("mario_idle_right");
-            else cur = RESOURCE_MANAGER.getAnimation("mario_idle_left");
+        if (isIdle() && !isJumping) {
+            if (horizontalOrientation) cur = RESOURCE_MANAGER.getAnimation("supermario_idle_right");
+            else cur = RESOURCE_MANAGER.getAnimation("supermario_idle_left");
             this->size = cur->getSize();
         }
 
