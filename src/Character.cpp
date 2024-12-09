@@ -1,13 +1,19 @@
 #include "../include/Character.h"
+#include"../include/NormalState.h"
+#include"../include/SuperState.h"
+#include"../include/FireState.h"
+#include"../include/StarState.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
     scores = 0;
     coins = 0;
     lives = 5;
-    state = new NormalState;
-
+   
     reset();
+
+    state = new NormalState;
+    state->setState(this);
 };
 
 EntityType Character::getType() const { return EntityType::CHACRACTER; }
