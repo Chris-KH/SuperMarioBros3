@@ -4,10 +4,12 @@
 //#include "Hitbox.h"
 #include"Global.h"
 #include"CharacterState.h"
-#include"NormalState.h"
-#include"SuperState.h"
-#include"FireState.h"
-#include"StarState.h"
+
+class CharacterState;
+class NormalState;
+class SuperState;
+class FireState;
+class StarState;
 
 class Character : public Sprite, public InputManager::Listener  {
     friend class CharacterState;
@@ -17,6 +19,20 @@ class Character : public Sprite, public InputManager::Listener  {
     friend class StarState;
 
 protected:
+    Animation* idleLeft;
+    Animation* walkLeft;
+    Animation* runLeft;
+    Animation* stopLeft;
+    Animation* jumpLeft;
+    Animation* fallLeft;
+
+    Animation* idleRight;
+    Animation* walkRight;
+    Animation* runRight;
+    Animation* stopRight;
+    Animation* jumpRight;
+    Animation* fallRight;
+
     CharacterState* state;
     InputManager& inputManager;
     bool orientation; //True for right, false for left
@@ -50,6 +66,9 @@ public:
         
     virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
+    virtual void setState() {
+        state->setState(this);
+    }
     virtual void reset();
 
     virtual CharacterState::STATE getState() const;
