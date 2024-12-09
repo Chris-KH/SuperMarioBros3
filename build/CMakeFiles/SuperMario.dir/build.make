@@ -71,29 +71,29 @@ include CMakeFiles/SuperMario.dir/flags.make
 CMakeFiles/SuperMario.dir/codegen:
 .PHONY : CMakeFiles/SuperMario.dir/codegen
 
-CMakeFiles/SuperMario.dir/src/main.cpp.obj: CMakeFiles/SuperMario.dir/flags.make
-CMakeFiles/SuperMario.dir/src/main.cpp.obj: CMakeFiles/SuperMario.dir/includes_CXX.rsp
-CMakeFiles/SuperMario.dir/src/main.cpp.obj: C:/Users/Dell/Downloads/CS202-SuperMario/src/main.cpp
-CMakeFiles/SuperMario.dir/src/main.cpp.obj: CMakeFiles/SuperMario.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Dell\Downloads\CS202-SuperMario\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SuperMario.dir/src/main.cpp.obj"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SuperMario.dir/src/main.cpp.obj -MF CMakeFiles\SuperMario.dir\src\main.cpp.obj.d -o CMakeFiles\SuperMario.dir\src\main.cpp.obj -c C:\Users\Dell\Downloads\CS202-SuperMario\src\main.cpp
+CMakeFiles/SuperMario.dir/src/Main.cpp.obj: CMakeFiles/SuperMario.dir/flags.make
+CMakeFiles/SuperMario.dir/src/Main.cpp.obj: CMakeFiles/SuperMario.dir/includes_CXX.rsp
+CMakeFiles/SuperMario.dir/src/Main.cpp.obj: C:/Users/Dell/Downloads/CS202-SuperMario/src/Main.cpp
+CMakeFiles/SuperMario.dir/src/Main.cpp.obj: CMakeFiles/SuperMario.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Dell\Downloads\CS202-SuperMario\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SuperMario.dir/src/Main.cpp.obj"
+	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SuperMario.dir/src/Main.cpp.obj -MF CMakeFiles\SuperMario.dir\src\Main.cpp.obj.d -o CMakeFiles\SuperMario.dir\src\Main.cpp.obj -c C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp
 
-CMakeFiles/SuperMario.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SuperMario.dir/src/main.cpp.i"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Dell\Downloads\CS202-SuperMario\src\main.cpp > CMakeFiles\SuperMario.dir\src\main.cpp.i
+CMakeFiles/SuperMario.dir/src/Main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SuperMario.dir/src/Main.cpp.i"
+	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp > CMakeFiles\SuperMario.dir\src\Main.cpp.i
 
-CMakeFiles/SuperMario.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SuperMario.dir/src/main.cpp.s"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Dell\Downloads\CS202-SuperMario\src\main.cpp -o CMakeFiles\SuperMario.dir\src\main.cpp.s
+CMakeFiles/SuperMario.dir/src/Main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SuperMario.dir/src/Main.cpp.s"
+	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp -o CMakeFiles\SuperMario.dir\src\Main.cpp.s
 
 # Object files for target SuperMario
 SuperMario_OBJECTS = \
-"CMakeFiles/SuperMario.dir/src/main.cpp.obj"
+"CMakeFiles/SuperMario.dir/src/Main.cpp.obj"
 
 # External object files for target SuperMario
 SuperMario_EXTERNAL_OBJECTS =
 
-SuperMario.exe: CMakeFiles/SuperMario.dir/src/main.cpp.obj
+SuperMario.exe: CMakeFiles/SuperMario.dir/src/Main.cpp.obj
 SuperMario.exe: CMakeFiles/SuperMario.dir/build.make
 SuperMario.exe: CMakeFiles/SuperMario.dir/linkLibs.rsp
 SuperMario.exe: CMakeFiles/SuperMario.dir/objects1.rsp

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-running project(SuperMario)
+//project(CS202-SuperMario)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -15,7 +15,7 @@ set(SOURCES
 
 )
 
-add_executable(SuperMario ${SOURCES})
+add_executable(SuperMario src/Main.cpp)
 
 target_link_libraries(SuperMario raylib)
 target_link_libraries(SuperMario raylib opengl32 gdi32)

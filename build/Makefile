@@ -128,29 +128,29 @@ SuperMario/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SuperMario.dir\build.make CMakeFiles/SuperMario.dir/build
 .PHONY : SuperMario/fast
 
-src/main.obj: src/main.cpp.obj
-.PHONY : src/main.obj
+src/Main.obj: src/Main.cpp.obj
+.PHONY : src/Main.obj
 
 # target to build an object file
-src/main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\SuperMario.dir\build.make CMakeFiles/SuperMario.dir/src/main.cpp.obj
-.PHONY : src/main.cpp.obj
+src/Main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SuperMario.dir\build.make CMakeFiles/SuperMario.dir/src/Main.cpp.obj
+.PHONY : src/Main.cpp.obj
 
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
+src/Main.i: src/Main.cpp.i
+.PHONY : src/Main.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\SuperMario.dir\build.make CMakeFiles/SuperMario.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/Main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SuperMario.dir\build.make CMakeFiles/SuperMario.dir/src/Main.cpp.i
+.PHONY : src/Main.cpp.i
 
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
+src/Main.s: src/Main.cpp.s
+.PHONY : src/Main.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\SuperMario.dir\build.make CMakeFiles/SuperMario.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/Main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SuperMario.dir\build.make CMakeFiles/SuperMario.dir/src/Main.cpp.s
+.PHONY : src/Main.cpp.s
 
 # Help Target
 help:
@@ -161,9 +161,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... SuperMario
-	@echo ... src/main.obj
-	@echo ... src/main.i
-	@echo ... src/main.s
+	@echo ... src/Main.obj
+	@echo ... src/Main.i
+	@echo ... src/Main.s
 .PHONY : help
 
 
