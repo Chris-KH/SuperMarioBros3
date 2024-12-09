@@ -27,8 +27,7 @@ public:
             BlockType blockType = stringToBlockType(blockTypeStr);
 
             BaseBlock* block = BlockFactory::getInstance().createBlock(
-                blockType, { x, y }, { width, height }
-            );
+                blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
 
             if (block) {
                 blocks.push_back(block);
@@ -60,6 +59,21 @@ public:
     }
 
 private:
+    static Color getDefaultColorForBlockType(BlockType blockType) {
+        switch (blockType) {
+        case FLOOR:      return GREEN;
+        case BRICK:      return BROWN;
+        case SOLIDBLOCK: return DARKBROWN;
+        case MOVINGBLOCK: return DARKGRAY;
+        case ITEMBLOCK:  return YELLOW;
+        case HIDDEN:     return WHITE;
+        case SPIKE:      return BLACK;
+        case PIPE:       return DARKGREEN;
+        case TEMPBLOCK:  return BLANK;
+        case DECOR:      return LIGHTGRAY;
+        default:         return ORANGE;
+        }
+    }
     static BlockType stringToBlockType(const std::string& typeStr) {
         if (typeStr == "FLOOR") return FLOOR;
         if (typeStr == "BRICK") return BRICK;

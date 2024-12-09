@@ -38,7 +38,7 @@ private:
     BlockFactory& operator=(const BlockFactory&) = delete;
 };
 
-void registerBlocks() {
+inline void registerBlocks() {
     BlockFactory& factory = BlockFactory::getInstance();
 
     factory.registerBlock(FLOOR, [](Vector2 pos, Vector2 size, Color color) {
