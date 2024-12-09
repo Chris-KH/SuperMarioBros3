@@ -203,7 +203,6 @@
     <ClCompile Include="..\src\Plant.cpp" />
     <ClCompile Include="..\src\Bloober.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
-    <ClCompile Include="..\src\CharacterState.cpp" />
     <ClCompile Include="..\src\Thwomp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
