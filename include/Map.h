@@ -8,8 +8,9 @@
 
 class MapHelper {
 public:
-    static std::vector<BaseBlock*> loadFromTextFile(const std::string& filename) {
-        std::vector<BaseBlock*> blocks;
+    // Load entities from a text file
+    static std::vector<Entity*> loadFromTextFile(const std::string& filename) {
+        std::vector<Entity*> entities;
         std::ifstream file(filename);
 
         if (!file.is_open()) {
@@ -22,43 +23,56 @@ public:
             std::string blockTypeStr;
             float x, y, width, height;
 
-            stream >> blockTypeStr >> x >> y >> width >> height;
+            // Read block data
+            if (!(stream >> blockTypeStr >> x >> y >> width >> height)) {
+                throw std::runtime_error("Malformed line in file: " + line);
+            }
 
+            // Convert block type string to BlockType enum
             BlockType blockType = stringToBlockType(blockTypeStr);
 
+            // Create block using the factory
             BaseBlock* block = BlockFactory::getInstance().createBlock(
                 blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
 
-            if (block) {
-                blocks.push_back(block);
-            }
-            else {
+            // Ensure the block was successfully created
+            if (!block) {
                 throw std::runtime_error("Unknown block type: " + blockTypeStr);
             }
+
+            // Store as Entity*
+            entities.push_back(static_cast<Entity*>(block));
         }
 
-        return blocks;
+        return entities;
     }
 
-    static void saveToTextFile(const std::string& filename, const std::vector<BaseBlock*>& blocks) {
+    // Save entities to a text file
+    static void saveToTextFile(const std::string& filename, const std::vector<Entity*>& entities) {
         std::ofstream file(filename);
 
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filename);
         }
 
-        for (BaseBlock* block : blocks) {
-            if (block) {
-                file << blockTypeToString(block->getBlockType()) << " "
-                    << block->getPosition().x << " "
-                    << block->getPosition().y << " "
-                    << block->getSize().x << " "
-                    << block->getSize().y << "\n";
+        for (Entity* entity : entities) {
+            // Attempt to cast the Entity* back to BaseBlock*
+            BaseBlock* block = dynamic_cast<BaseBlock*>(entity);
+            if (!block) {
+                throw std::runtime_error("Invalid entity type: Cannot save non-block entities.");
             }
+
+            // Write block data to the file
+            file << blockTypeToString(block->getBlockType()) << " "
+                << block->getPosition().x << " "
+                << block->getPosition().y << " "
+                << block->getSize().x << " "
+                << block->getSize().y << "\n";
         }
     }
 
 private:
+    // Get default color for a given block type
     static Color getDefaultColorForBlockType(BlockType blockType) {
         switch (blockType) {
         case FLOOR:      return GREEN;
@@ -74,70 +88,85 @@ private:
         default:         return ORANGE;
         }
     }
+
+    // Convert string to BlockType enum
     static BlockType stringToBlockType(const std::string& typeStr) {
-        if (typeStr == "FLOOR") return FLOOR;
-        if (typeStr == "BRICK") return BRICK;
+        if (typeStr == "FLOOR")      return FLOOR;
+        if (typeStr == "BRICK")      return BRICK;
         if (typeStr == "SOLIDBLOCK") return SOLIDBLOCK;
         if (typeStr == "MOVINGBLOCK") return MOVINGBLOCK;
-        if (typeStr == "ITEMBLOCK") return ITEMBLOCK;
-        if (typeStr == "HIDDEN") return HIDDEN;
-        if (typeStr == "SPIKE") return SPIKE;
-        if (typeStr == "PIPE") return PIPE;
-        if (typeStr == "TEMPBLOCK") return TEMPBLOCK;
-        if (typeStr == "DECOR") return DECOR;
+        if (typeStr == "ITEMBLOCK")  return ITEMBLOCK;
+        if (typeStr == "HIDDEN")     return HIDDEN;
+        if (typeStr == "SPIKE")      return SPIKE;
+        if (typeStr == "PIPE")       return PIPE;
+        if (typeStr == "TEMPBLOCK")  return TEMPBLOCK;
+        if (typeStr == "DECOR")      return DECOR;
 
         throw std::invalid_argument("Invalid block type string: " + typeStr);
     }
 
+    // Convert BlockType enum to string
     static std::string blockTypeToString(BlockType type) {
         switch (type) {
-        case FLOOR: return "FLOOR";
-        case BRICK: return "BRICK";
+        case FLOOR:      return "FLOOR";
+        case BRICK:      return "BRICK";
         case SOLIDBLOCK: return "SOLIDBLOCK";
         case MOVINGBLOCK: return "MOVINGBLOCK";
-        case ITEMBLOCK: return "ITEMBLOCK";
-        case HIDDEN: return "HIDDEN";
-        case SPIKE: return "SPIKE";
-        case PIPE: return "PIPE";
-        case TEMPBLOCK: return "TEMPBLOCK";
-        case DECOR: return "DECOR";
-        default: return "UNKNOWN";
+        case ITEMBLOCK:  return "ITEMBLOCK";
+        case HIDDEN:     return "HIDDEN";
+        case SPIKE:      return "SPIKE";
+        case PIPE:       return "PIPE";
+        case TEMPBLOCK:  return "TEMPBLOCK";
+        case DECOR:      return "DECOR";
+        default:         return "UNKNOWN";
         }
     }
 };
+
 class Map {
 public:
     ~Map() {
         clearBlocks();
     }
 
-    void addBlock(BaseBlock* block) {
-        blocks.push_back(block);
+    void addEntity(Entity* entity) {
+        entities.push_back(entity);
     }
 
     void loadFromFile(const std::string& filename) {
         clearBlocks();
-        blocks = MapHelper::loadFromTextFile(filename);
+        entities = MapHelper::loadFromTextFile(filename);
     }
 
     void saveToFile(const std::string& filename) const {
-        MapHelper::saveToTextFile(filename, blocks);
+        MapHelper::saveToTextFile(filename, entities);
     }
 
-    const std::vector<BaseBlock*>& getBlocks() const {
+    const std::vector<Entity*>& getEntities() const {
+        return entities;
+    }
+
+    std::vector<BaseBlock*> getBlocks() const {
+        std::vector<BaseBlock*> blocks;
+        for (Entity* entity : entities) {
+            if (BaseBlock* block = dynamic_cast<BaseBlock*>(entity)) {
+                blocks.push_back(block);
+            }
+        }
         return blocks;
     }
 
 private:
-    std::vector<BaseBlock*> blocks;
+    std::vector<Entity*> entities;
 
     void clearBlocks() {
-        for (BaseBlock* block : blocks) {
-            delete block;
+        for (Entity* entity : entities) {
+            delete entity;
         }
-        blocks.clear();
+        entities.clear();
     }
 };
+
 
 //
 //class Map {
