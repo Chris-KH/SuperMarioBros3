@@ -77,6 +77,10 @@ public:
 		isLoaded = false;
 		//blocks.clear();
 	}
+	void clear()
+	{
+		blocks.clear();
+	}
 
 	void render() const {
 		if (isLoaded) {

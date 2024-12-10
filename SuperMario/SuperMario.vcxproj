@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\BlockFactory.h" />
     <ClInclude Include="..\include\FileHandle.h" />
     <ClInclude Include="..\include\FPSManager.h" />
     <ClInclude Include="..\include\Global.h" />
