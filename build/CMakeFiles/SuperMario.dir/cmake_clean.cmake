@@ -3,8 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/SuperMario.dir/src/Main.cpp.obj.d"
   "SuperMario.exe"
   "SuperMario.exe.manifest"
+  "SuperMario.lib"
   "SuperMario.pdb"
-  "libSuperMario.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

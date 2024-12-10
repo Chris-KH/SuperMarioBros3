@@ -1,0 +1,79 @@
+$luigi_idle_left
+11 18 22 31 1
+
+$luigi_walk_left
+11 18 23 31 0.1
+43 17 22 32 0.1
+
+$luigi_jump_left
+107 17 25 30 1
+
+$luigi_stop_left
+141 50 28 32 1
+
+$luigi_idle_right
+10 50 24 33 1
+
+$luigi_walk_right
+10 50 24 33 0.1
+41 50 25 31 0.1
+
+$luigi_jump_right
+107 50 23 32 1
+
+$luigi_stop_right
+142 17 20 33 1
+
+$luigi_run_left
+173 17 24 33 0.001
+206 17 16 33 0.01
+
+$luigi_run_right
+173 50 27 31 0.01
+206 50 21 31 0.01
+
+$superluigi_idle_left
+635 2 26 30 1
+
+$superluigi_idle_right
+637 35 14 31 1
+
+$superluigi_walk_left
+635 2 14 31 0.1
+668 2 16 31 0.1
+
+$superluigi_walk_right
+637 35 14 31 0.1
+668 35 16 31 0.1
+
+$superluigi_jump_left
+800 2 16 30 1
+
+$superluigi_jump_right
+800 35 16 30 1
+
+$superluigi_fall_left
+701 2 16 30 1
+
+$superluigi_fall_right
+701 35 16 30 1
+
+$superluigi_stop_right
+833 1 16 32 1
+
+$superluigi_stop_left
+833 34 16 32 1
+
+$superluigi_sit_left
+734 13 14 19 1
+
+$superluigi_sit_right
+736 46 14 19 1
+
+$superluigi_run_left
+932 2 25 31 0.01
+965 2 26 31 0.01
+
+$superluigi_run_right
+929 35 19 31 0.01
+962 35 19 31 0.01

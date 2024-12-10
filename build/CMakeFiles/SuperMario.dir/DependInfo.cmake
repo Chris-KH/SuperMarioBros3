@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Dell/Downloads/CS202-SuperMario/src/Main.cpp" "CMakeFiles/SuperMario.dir/src/Main.cpp.obj" "gcc" "CMakeFiles/SuperMario.dir/src/Main.cpp.obj.d"
+  "C:/Users/Dell/Downloads/CS202-SuperMario/src/Main.cpp" "CMakeFiles/SuperMario.dir/src/Main.cpp.obj" "msvc" "CMakeFiles/SuperMario.dir/src/Main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
