@@ -3,6 +3,7 @@
 #include "../include/InputManager.h"
 #include "../include/Global.h"
 #include "../include/Animation.h"
+#include "../include/GameEngine.h"
 
 using namespace std;
 
@@ -166,6 +167,49 @@ public:
     }
 };
 
+//int main() {
+//    InitAudioDevice();
+//    InitWindow(1280, 800, "Super Mario Bros");
+//    
+//    RESOURCE_MANAGER.loadAllResource();
+//    INPUT_MANAGER.bindKey(KEY_A);
+//    INPUT_MANAGER.bindKey(KEY_D);
+//    INPUT_MANAGER.bindKey(KEY_S);
+//    INPUT_MANAGER.bindKey(KEY_SPACE);
+//    INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
+//
+//    // Tải texture cho vật thể
+//    Texture2D texture = LoadTexture("../SuperMario/images.png");
+//
+//    // Tạo một vật thể với texture và InputManager
+//    Object object(Vector2{ 0, 750 }, Vector2{ 0, 0 }, texture, INPUT_MANAGER);
+//
+//
+//    RESOURCE_MANAGER.playMusic("World1.mp3");
+//
+//    while (!WindowShouldClose()) {
+//        if (FPS_MANAGER.update()) {
+//            // Update music stream
+//            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+//
+//            BeginDrawing();
+//            ClearBackground(GRAY);
+//
+//            // Vẽ vật thể
+//            float deltaTime = GetFrameTime();
+//            //inputManager.update();
+//            object.update(deltaTime);
+//            object.draw();
+//
+//            EndDrawing();
+//        }
+//    }
+//
+//    CloseWindow();
+//    CloseAudioDevice();
+//
+//    return 0;
+//}
 int main() {
     InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
@@ -176,15 +220,19 @@ int main() {
     INPUT_MANAGER.bindKey(KEY_S);
     INPUT_MANAGER.bindKey(KEY_SPACE);
     INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
-
+    registerBlocks();
     // Tải texture cho vật thể
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
     // Tạo một vật thể với texture và InputManager
     Object object(Vector2{ 0, 750 }, Vector2{ 0, 0 }, texture, INPUT_MANAGER);
-
-
     RESOURCE_MANAGER.playMusic("World1.mp3");
+
+    Map map1;
+    map1.loadFromFile("../assets/Map/Map1-1.txt");
+    map1.loadBackground("../assets/Map/Map1-1.png");
+
+
 
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
@@ -193,12 +241,15 @@ int main() {
 
             BeginDrawing();
             ClearBackground(GRAY);
+            map1.renderBackground();
+
 
             // Vẽ vật thể
             float deltaTime = GetFrameTime();
             //inputManager.update();
             object.update(deltaTime);
             object.draw();
+            map1.renderAllBlock();
 
             EndDrawing();
         }
