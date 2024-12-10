@@ -14,6 +14,7 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
 
     state = new NormalState;
     state->setState(this);
+    setAnimation(idleRight);
 };
 
 EntityType Character::getType() const { return EntityType::CHACRACTER; }

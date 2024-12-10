@@ -169,6 +169,8 @@ public:
 int main() {
     InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
+    Image icon = LoadImage("../SuperMario/images.png");
+    SetWindowIcon(icon);
     
     RESOURCE_MANAGER.loadAllResource();
     INPUT_MANAGER.bindKey(KEY_A);

@@ -9,7 +9,7 @@ private:
 	const float MAX_WALK_VELOCITY = 400.f;
 	const float MAX_RUN_VELOCITY = 1000.f;
 
-	const float JUMP_VELOCITY = 800.f;
+	const float JUMP_VELOCITY = 700.f;
 public:
 	Mario(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE) : Character(pos, size, col) {};
 
@@ -18,7 +18,7 @@ public:
 	}
 
 	void update(float deltaTime) override {
-
+		state->update(this, deltaTime);
 	}
 
 	void onKey(KeyboardKey key, bool pressed) override {

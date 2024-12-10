@@ -38,7 +38,6 @@ private:
     Color color;      // RGBA color of the entity
 protected:
     Animation* currentAnimation; 
-    Animation* nextAnimation;
 
 public:
     Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
@@ -66,7 +65,12 @@ public:
     // Pure virtual draw function
     virtual void draw() const = 0;
     virtual void update(float deltaTime) = 0;
-    //virtual void setAnimation(Animation* animation);
+    virtual void setAnimation(Animation* animation);
+    virtual void setAnimation(const string& name);
+
+    /*virtual Animation* getAnimation(const std::string& name) const {
+        return RESOURCE_MANAGER.getAnimation(name);
+    }*/
 
     //Collision detection 
     //virtual void checkCollision(const Entity& other);

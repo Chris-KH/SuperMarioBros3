@@ -2,10 +2,12 @@
 
 Entity::Entity(Vector2 pos, Vector2 size, Color color)
     : position(pos), size(size), color(color) {
+    currentAnimation = nullptr;
 }
 
 Entity::Entity(const Entity& other)
     : position(other.position), size(other.size), color(other.color) {
+    currentAnimation = nullptr;
 }
 
 float Entity::getX() const { return position.x; }
@@ -37,3 +39,13 @@ void Entity::setPosition(Vector2 pos) { position = pos; }
 void Entity::setSize(Vector2 sz) { size = sz; }
 
 void Entity::setColor(Color col) { color = col; }
+
+void Entity::setAnimation(Animation* animation) {
+    if (currentAnimation != nullptr && currentAnimation != animation) currentAnimation->reset();
+    currentAnimation = animation;
+};
+
+void Entity::setAnimation(const string& name) {
+    Animation* cur = RESOURCE_MANAGER.getAnimation(name);
+    setAnimation(cur);
+}
