@@ -105,25 +105,13 @@
     <ClInclude Include="..\include\Enemy.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\BoomBoom.h">
-      <Filter>Header Files\Entity\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\GoomBa.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\include\KoopaTroopa.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Firesnake.h">
-      <Filter>Header Files\Entity\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Plant.h">
-      <Filter>Header Files\Entity\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Bloober.h">
-      <Filter>Header Files\Entity\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Thwomp.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GameEngine.h">
@@ -165,6 +153,9 @@
     <ClInclude Include="..\include\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\BlockFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
@@ -200,12 +191,6 @@
     <ClCompile Include="..\src\StarState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Bloober.cpp">
-      <Filter>Source Files\Entity\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\BoomBoom.cpp">
-      <Filter>Source Files\Entity\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\GoomBa.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
@@ -215,13 +200,7 @@
     <ClCompile Include="..\src\KoopaTroopa.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Firesnake.cpp">
-      <Filter>Source Files\Entity\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Plant.cpp">
-      <Filter>Source Files\Entity\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Thwomp.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Character.cpp">

@@ -125,8 +125,12 @@ private:
 
 class Map {
 public:
+    Map() : background({ 0 }) {}
     ~Map() {
         clearBlocks();
+        if (background.id > 0) {
+            UnloadTexture(background);
+        }
     }
 
     void addEntity(Entity* entity) {
@@ -155,10 +159,29 @@ public:
         }
         return blocks;
     }
+    void loadBackground(const std::string& filePath) {
+        if (background.id > 0) {
+            UnloadTexture(background);
+        }
+        background = LoadTexture(filePath.c_str());
+        if (background.id == 0) {
+            throw std::runtime_error("Failed to load background texture: " + filePath);
+        }
+    }
+    void renderAllBlock()
+    {
+        for (Entity* entity : entities)
+            entity->draw();
 
+    }
+    void renderBackground() const {
+        if (background.id > 0) {
+            DrawTexture(background, 0, 0, WHITE);
+        }
+    }
 private:
     std::vector<Entity*> entities;
-
+    Texture2D background;
     void clearBlocks() {
         for (Entity* entity : entities) {
             delete entity;
