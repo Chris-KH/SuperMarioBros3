@@ -40,7 +40,7 @@ public:
 
 	}
 	void render() const {
-		Rectangle sourceRec = { cameraX, cameraY, cameraWidth, cameraHeight };
+		Rectangle sourceRec = { cameraX, cameraY, cameraWidth, -cameraHeight };
 		Rectangle destRec = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
 
 		DrawTexturePro(renderTexture.texture, sourceRec, destRec, Vector2{ 0, 0 }, 0.0f, WHITE);
@@ -109,7 +109,7 @@ public:
 };
 class GameEngine {
 private:
-	Map map;
+	Map* map;
 	//vector<Chunk> chunks; 
 
 	//int chunkSize;        // Size of each chunk in pixels
@@ -130,7 +130,7 @@ public:
 	//	//}
 	//}
 	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map)
-		: camera(screenWidth, screenHeight, mapWidth, screenHeight), map(map) {};
+		: camera(screenWidth, screenHeight, mapWidth, screenHeight), map(&map) {};
 	// implement later
    /* void loadMap(const string& filePath) {
 		map.loadFromFile(filePath);
@@ -143,7 +143,10 @@ public:
 			}
 		}
 	}*/
-
+	~GameEngine()
+	{
+		map = nullptr;
+	}
 	void resolveCollision() {};
 
 	void update() {
@@ -177,8 +180,8 @@ public:
 
 	void render() {
 		camera.beginDrawing();
-		map.renderBackground();
-		map.renderAllBlock();
+		map->renderBackground();
+		map->renderAllBlock();
 		// Render active chunks
 		//for (const auto& chunk : chunks) {
 		//	chunk.render();
@@ -196,6 +199,7 @@ public:
 	}
 
 	void run() {
+
 		while (!WindowShouldClose()) {
 			update();
 			render();
