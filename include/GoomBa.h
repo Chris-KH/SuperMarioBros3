@@ -8,8 +8,7 @@ public:
 		NORMAL_GoomBa,
 		REDPARA_GoomBa,
 		BROWNPARA_GoomBa,
-		MICRO_GoomBa,
-		PileDriverMICRO_GoomBa
+		MICRO_GoomBa
 	};
 private:
 

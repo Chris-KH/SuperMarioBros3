@@ -140,7 +140,6 @@
     <ClInclude Include="..\include\Singleton.h" />
     <ClInclude Include="..\include\SuperLeaf.h" />
     <ClInclude Include="..\include\Block.h" />
-    <ClInclude Include="..\include\BoomBoom.h" />
     <ClInclude Include="..\include\Coin.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\Animation.h" />
@@ -156,16 +155,13 @@
     <ClInclude Include="..\include\Item.h" />
     <ClInclude Include="..\include\FireState.h" />
     <ClInclude Include="..\include\KoopaTroopa.h" />
-    <ClInclude Include="..\include\Firesnake.h" />
     <ClInclude Include="..\include\Luigi.h" />
     <ClInclude Include="..\include\Map.h" />
     <ClInclude Include="..\include\Mario.h" />
     <ClInclude Include="..\include\StarState.h" />
     <ClInclude Include="..\include\Plant.h" />
-    <ClInclude Include="..\include\Bloober.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\CharacterState.h" />
-    <ClInclude Include="..\include\Thwomp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
@@ -179,7 +175,6 @@
     <ClCompile Include="..\src\Settings.cpp" />
     <ClCompile Include="..\src\SuperLeaf.cpp" />
     <ClCompile Include="..\src\Block.cpp" />
-    <ClCompile Include="..\src\BoomBoom.cpp" />
     <ClCompile Include="..\src\Coin.cpp" />
     <ClCompile Include="..\src\Collision.cpp" />
     <ClCompile Include="..\src\Entity.cpp" />
@@ -195,16 +190,13 @@
     <ClCompile Include="..\src\Item.cpp" />
     <ClCompile Include="..\src\FireState.cpp" />
     <ClCompile Include="..\src\KoopaTroopa.cpp" />
-    <ClCompile Include="..\src\Firesnake.cpp" />
     <ClCompile Include="..\src\Luigi.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Map.cpp" />
     <ClCompile Include="..\src\Mario.cpp" />
     <ClCompile Include="..\src\StarState.cpp" />
     <ClCompile Include="..\src\Plant.cpp" />
-    <ClCompile Include="..\src\Bloober.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
-    <ClCompile Include="..\src\Thwomp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
