@@ -109,25 +109,28 @@ public:
 };
 class GameEngine {
 private:
-	//Map map;
-	vector<Chunk> chunks; 
-	int chunkSize;        // Size of each chunk in pixels
+	Map map;
+	//vector<Chunk> chunks; 
+
+	//int chunkSize;        // Size of each chunk in pixels
 	GameCamera camera;
-	float characterX;
-	int CenterChunk; /// later
+	//float characterX;
+	//int CenterChunk; /// later
 
 public:
-	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, int chunkSize)
-		: /*map(mapWidth, mapHeight)*/
-		camera(screenWidth, screenHeight, mapWidth, screenHeight), chunkSize(chunkSize),
-		characterX(500) {
-		CenterChunk = (int)(characterX / chunkSize);
-		int numChunks = int(mapWidth / chunkSize);
-		chunks.reserve(numChunks);
-		for (int i = 0; i < numChunks; ++i) {
-			chunks.emplace_back(i);
-		}
-	}
+	//GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, int chunkSize)
+	//	: /*map(mapWidth, mapHeight)*/
+	//	camera(screenWidth, screenHeight, mapWidth, screenHeight), chunkSize(chunkSize),
+	//	characterX(500) {
+	//	//CenterChunk = (int)(characterX / chunkSize);
+	//	int numChunks = int(mapWidth / chunkSize);
+	//	//chunks.reserve(numChunks);
+	//	//for (int i = 0; i < numChunks; ++i) {
+	//	//	chunks.emplace_back(i);
+	//	//}
+	//}
+	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map)
+		: camera(screenWidth, screenHeight, mapWidth, screenHeight), map(map) {};
 	// implement later
    /* void loadMap(const string& filePath) {
 		map.loadFromFile(filePath);
@@ -147,38 +150,39 @@ public:
 		// 
 		// follow character
 
-		int currentChunk = (int)(characterX / chunkSize); // get current chunk
-		updateChunks(currentChunk);
-		for (int i = 0; i < chunks.size(); ++i)
-		{
-			chunks[i].update();
-		}
-		camera.update(characterX, 0);
+		//int currentChunk = (int)(characterX / chunkSize); // get current chunk
+		//updateChunks(currentChunk);
+		//for (int i = 0; i < chunks.size(); ++i)
+		//{
+		//	chunks[i].update();
+		//}
+		//camera.update(characterX, 0);
 	}
 
-	void updateChunks(int characterChunk) {
-		// Load and keep chunks within range
-		for (int i = characterChunk - 1; i <= characterChunk + 1; ++i) {
-			if (i >= 0 && i < chunks.size() && !chunks[i].isLoaded) {
-				chunks[i].load();
-			}
-		}
+	//void updateChunks(int characterChunk) {
+	//	// Load and keep chunks within range
+	//	for (int i = characterChunk - 1; i <= characterChunk + 1; ++i) {
+	//		if (i >= 0 && i < chunks.size() && !chunks[i].isLoaded) {
+	//			chunks[i].load();
+	//		}
+	//	}
 
-		// Unload chunks outside the range
-		for (int i = 0; i < chunks.size(); ++i) {
-			if (chunks[i].isLoaded && (i < characterChunk - 1 || i > characterChunk + 1)) {
-				chunks[i].unload();
-			}
-		}
-	}
+	//	// Unload chunks outside the range
+	//	for (int i = 0; i < chunks.size(); ++i) {
+	//		if (chunks[i].isLoaded && (i < characterChunk - 1 || i > characterChunk + 1)) {
+	//			chunks[i].unload();
+	//		}
+	//	}
+	//}
 
 	void render() {
 		camera.beginDrawing();
-
+		map.renderBackground();
+		map.renderAllBlock();
 		// Render active chunks
-		for (const auto& chunk : chunks) {
-			chunk.render();
-		}
+		//for (const auto& chunk : chunks) {
+		//	chunk.render();
+		//}
 
 		// Render character
 		//DrawRectangle((int)characterX - 10, 500 - 10, 20, 20, RED);
