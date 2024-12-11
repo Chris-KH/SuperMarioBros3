@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <vector>
+#include <string>
 
 class MapHelper {
 public:
@@ -159,6 +161,7 @@ public:
         }
         return blocks;
     }
+
     void loadBackground(const std::string& filePath) {
         if (background.id > 0) {
             UnloadTexture(background);
@@ -168,17 +171,19 @@ public:
             throw std::runtime_error("Failed to load background texture: " + filePath);
         }
     }
-    void renderAllBlock()
-    {
+
+    void renderAllBlock() {
         for (Entity* entity : entities)
             entity->draw();
 
     }
+    
     void renderBackground() const {
         if (background.id > 0) {
             DrawTexture(background, 0, 0, WHITE);
         }
     }
+
 private:
     std::vector<Entity*> entities;
     Texture2D background;
@@ -248,3 +253,149 @@ private:
 //        }
 //    }
 //};
+
+class MapHelper {
+public:
+    // Load entities from a bitmap file
+    static std::vector<Entity*> loadFromBitmap(const std::string& filename) {
+        std::vector<Entity*> entities;
+        int width, height, channels;
+        unsigned char* data = stbi_load(filename.c_str(), &width, &height, &channels, 3); // Load dưới dạng RGB
+        if (!data) {
+            throw std::runtime_error("Failed to load bitmap file: " + filename);
+        }
+        // Iterate over the bitmap pixels
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                // Get pixel color
+                int index = (y * width + x) * 3; // Each pixel has 3 channels (R, G, B)
+                Color pixelColor = { data[index], data[index + 1], data[index + 2], 255 };
+                // Determine blockType based on pixel color
+                BlockType blockType = colorToBlockType(pixelColor);
+                if (blockType) {
+                    BaseBlock* block = BlockFactory::getInstance().createBlock(blockType, { static_cast<float>(x), static_cast<float>(y) }, { 1.0f, 1.0f }, pixelColor);
+                    if (block) {
+                        entities.push_back(static_cast<Entity*>(block));
+                    }
+                }
+            }
+        }
+        stbi_image_free(data); //Giải phóng data
+        return entities;
+    }
+
+private:
+    // Map pixel colors to block types
+    static BlockType colorToBlockType(const Color& color) {
+        if (color == GREEN) return FLOOR;
+        if (color == BROWN) return BRICK;
+        if (color == DARKBROWN) return SOLIDBLOCK;
+        if (color == DARKGRAY) return MOVINGBLOCK;
+        if (color == YELLOW) return ITEMBLOCK;
+        if (color == WHITE) return HIDDEN;
+        if (color == BLACK) return SPIKE;
+        if (color == DARKGREEN) return PIPE;
+        if (color == BLANK) return TEMPBLOCK;
+        if (color == LIGHTGRAY) return DECOR;
+    }
+
+    // Convert BlockType enum to string
+    static std::string blockTypeToString(BlockType type) {
+        switch (type) {
+        case FLOOR:      return "FLOOR";
+        case BRICK:      return "BRICK";
+        case SOLIDBLOCK: return "SOLIDBLOCK";
+        case MOVINGBLOCK: return "MOVINGBLOCK";
+        case ITEMBLOCK:  return "ITEMBLOCK";
+        case HIDDEN:     return "HIDDEN";
+        case SPIKE:      return "SPIKE";
+        case PIPE:       return "PIPE";
+        case TEMPBLOCK:  return "TEMPBLOCK";
+        case DECOR:      return "DECOR";
+        default:         return "UNKNOWN";
+        }
+    }
+};
+
+class Map {
+public:
+    Map() : background({ 0 }) {}
+    ~Map() {
+        clearBlocks();
+        if (background.id > 0) {
+            UnloadTexture(background);
+        }
+    }
+
+    void addEntity(Entity* entity) {
+        entities.push_back(entity);
+    }
+
+    void loadFromBitmapFile(const std::string& filename) {
+        clearBlocks();
+        entities = MapHelper::loadFromBitmap(filename);
+    }
+
+    void save2TextFile(const std::string &filename, std::vector<Entity*>& Entities) {
+        std::ofstream file(filename);
+        if (!file.is_open()) {
+            throw std::runtime_error("Failed to open file: " + filename);
+        }
+        for (Entity* entity : entities) {
+            BaseBlock* block = dynamic_cast<BaseBlock*>(entity);
+            file << blockTypeToString(block->getBlockType()) << " "
+                 << block->getPosition().x << " "
+                 << block->getPosition().y << " "
+                 << block->getSize().x << " "
+                 << block->getSize().y << "\n";
+        }
+        file.close();
+    }
+
+    const std::vector<Entity*>& getEntities() const {
+        return entities;
+    }
+
+    std::vector<BaseBlock*> getBlocks() const {
+        std::vector<BaseBlock*> blocks;
+        for (Entity* entity : entities) {
+            if (BaseBlock* block = dynamic_cast<BaseBlock*>(entity)) {
+                blocks.push_back(block);
+            }
+        }
+        return blocks;
+    }
+
+    void loadBackground(const std::string& filePath) {
+        if (background.id > 0) {
+            UnloadTexture(background);
+        }
+        background = LoadTexture(filePath.c_str());
+        if (background.id == 0) {
+            throw std::runtime_error("Failed to load background texture: " + filePath);
+        }
+    }
+
+    void renderAllBlock() {
+        for (Entity* entity : entities)
+            entity->draw();
+
+    }
+
+    void renderBackground() const {
+        if (background.id > 0) {
+            DrawTexture(background, 0, 0, WHITE);
+        }
+    }
+
+private:
+    std::vector<Entity*> entities;
+    Texture2D background;
+    void clearBlocks() {
+        for (Entity* entity : entities) {
+            delete entity;
+        }
+        entities.clear();
+    }
+};
+
