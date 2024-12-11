@@ -25,29 +25,48 @@ public:
 		UnloadRenderTexture(renderTexture);
 	}
 
-	void updatePosition(float characterX, float characterY) {
-		cameraX = characterX - cameraWidth / 2;
-		cameraY = characterY - cameraHeight / 2;
+	void update(float characterX, float characterY) {
+		// Calculate scaled dimensions
+		float scaledWidth = cameraWidth / scale;
+		float scaledHeight = cameraHeight / scale;
 
+		// Update the camera's position to center on the character
+		cameraX = characterX - scaledWidth / 2;
+		cameraY = renderTexture.texture.height - (characterY + cameraHeight / scale);
+
+
+		// Clamp the camera to ensure it stays within the map bounds
 		if (cameraX < 0) cameraX = 0;
+		if (cameraX + scaledWidth > renderTexture.texture.width)
+			cameraX = renderTexture.texture.width - scaledWidth;
 		if (cameraY < 0) cameraY = 0;
-		if (cameraX + cameraWidth > renderTexture.texture.width)
-			cameraX = renderTexture.texture.width - cameraWidth;
-		if (cameraY + cameraHeight > renderTexture.texture.height)
-			cameraY = renderTexture.texture.height - cameraHeight;
+		if (cameraY + scaledHeight > renderTexture.texture.height)
+			cameraY = renderTexture.texture.height - scaledHeight;
+		/*std::cout << "Camera: (" << cameraX << ", " << cameraY << "), Scale: " << scale << std::endl;
+		std::cout << "Character: (" << characterX << ", " << characterY << ")" << std::endl;*/
 	}
 
+
+
+
+
 	void render() const {
-		Rectangle sourceRec = { cameraX, cameraY, cameraWidth, -cameraHeight }; // Negative height to flip vertically
+		Rectangle sourceRec = {
+			cameraX,
+			cameraY,
+			cameraWidth / scale,
+			-cameraHeight / scale // Negative height to flip vertically
+		};
+
 		Rectangle destRec = {
-			0,
-			0,
-			(float)GetScreenWidth() * scale,
-			(float)GetScreenHeight() * scale
+			0, 0,                        // Render starting at the screen's top-left
+			(float)GetScreenWidth(),     // Scale to fit the screen width
+			(float)GetScreenHeight()     // Scale to fit the screen height
 		};
 
 		DrawTexturePro(renderTexture.texture, sourceRec, destRec, Vector2{ 0, 0 }, 0.0f, WHITE);
 	}
+
 
 	void beginDrawing() {
 		BeginTextureMode(renderTexture);
@@ -91,7 +110,7 @@ public:
 		inputManager.addListener(*this);  // Đăng ký Object làm listener
 		cur = RESOURCE_MANAGER.getAnimation("superluigi_idle_right");
 		this->size = cur->getSize();
-		this->position.y = 800.f - this->size.y;
+		this->position.y = 512.f - this->size.y;
 		cur->reset();
 	}
 
@@ -173,7 +192,7 @@ public:
 			velocity.y += gravity * deltaTime; // Gia tốc trọng trường tác động
 			// Kiểm tra đối tượng đã chạm mặt đất chưa
 			if (onGround()) {
-				position.y = 800.f - size.y;  // Giới hạn trên mặt đất
+				position.y = 512.f - size.y;  // Giới hạn trên mặt đất
 				velocity.y = 0;  // Dừng chuyển động dọc trục Y
 				isJumping = false;  // Không còn nhảy nữa
 			}
@@ -215,7 +234,7 @@ public:
 	}
 
 	bool onGround() const {
-		if (position.y + size.y >= 800.f) return true;
+		if (position.y + size.y >= 512.f) return true;
 		return false;
 	}
 
@@ -296,7 +315,7 @@ public:
 	//	//}
 	//}
 	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map,Object& object)
-		: camera(screenWidth, screenHeight, mapWidth, screenHeight), map(&map),testObject(&object) {};
+		: camera(screenWidth, screenHeight, mapWidth, screenHeight,1.25), map(&map),testObject(&object) {};
 	// implement later
    /* void loadMap(const string& filePath) {
 		map.loadFromFile(filePath);
@@ -329,7 +348,7 @@ public:
 		//	chunks[i].update();
 		//}
 		//camera.update(characterX, 0);
-		camera.updatePosition(testObject->getRectangle().x, testObject->getRectangle().y);
+		camera.update(testObject->getRectangle().x, testObject->getRectangle().y);
 	}
 
 	//void updateChunks(int characterChunk) {
@@ -376,6 +395,8 @@ public:
 				UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
 				update();
 				render();
+
+
 			}
 		}
 	}
