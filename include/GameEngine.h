@@ -8,15 +8,16 @@
 
 class GameCamera {
 public:
-	float cameraX;          // GameCamera position on the X-axis
-	float cameraY;          // GameCamera position on the Y-axis
-	float cameraWidth;      // Width of the camera view
-	float cameraHeight;     // Height of the camera view
+	float cameraX;
+	float cameraY;
+	float cameraWidth;
+	float cameraHeight;
+	float scale; // New: scaling factor
 
-	RenderTexture2D renderTexture; // Off-screen render texture
+	RenderTexture2D renderTexture;
 
-	GameCamera(float width, float height, int mapWidth, int mapHeight)
-		: cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0) {
+	GameCamera(float width, float height, int mapWidth, int mapHeight, float initialScale = 1.0f)
+		: cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0), scale(initialScale) {
 		renderTexture = LoadRenderTexture(mapWidth, mapHeight);
 	}
 
@@ -24,39 +25,45 @@ public:
 		UnloadRenderTexture(renderTexture);
 	}
 
-	void update(float characterX, float characterY) {
-		// Calculate the offset needed to center the camera on the character
+	void updatePosition(float characterX, float characterY) {
 		cameraX = characterX - cameraWidth / 2;
 		cameraY = characterY - cameraHeight / 2;
 
-		// Clamp the camera position so it doesn't go out of map bounds
 		if (cameraX < 0) cameraX = 0;
 		if (cameraY < 0) cameraY = 0;
 		if (cameraX + cameraWidth > renderTexture.texture.width)
 			cameraX = renderTexture.texture.width - cameraWidth;
 		if (cameraY + cameraHeight > renderTexture.texture.height)
 			cameraY = renderTexture.texture.height - cameraHeight;
-
-
 	}
+
 	void render() const {
-		Rectangle sourceRec = { cameraX, cameraY, cameraWidth, -cameraHeight };
-		Rectangle destRec = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+		Rectangle sourceRec = { cameraX, cameraY, cameraWidth, -cameraHeight }; // Negative height to flip vertically
+		Rectangle destRec = {
+			0,
+			0,
+			(float)GetScreenWidth() * scale,
+			(float)GetScreenHeight() * scale
+		};
 
 		DrawTexturePro(renderTexture.texture, sourceRec, destRec, Vector2{ 0, 0 }, 0.0f, WHITE);
 	}
 
-	// Begin drawing to the off-screen texture
 	void beginDrawing() {
 		BeginTextureMode(renderTexture);
 		ClearBackground(RAYWHITE);
 	}
 
-	// End drawing to the off-screen texture
 	void endDrawing() {
 		EndTextureMode();
 	}
+
+	void setScale(float newScale) {
+		scale = newScale;
+		if (scale < 0.1f) scale = 0.1f; // Prevent too small scale
+	}
 };
+
 class Object : public InputManager::Listener {
 private:
 	Animation* cur = nullptr;
@@ -322,6 +329,7 @@ public:
 		//	chunks[i].update();
 		//}
 		//camera.update(characterX, 0);
+		camera.updatePosition(testObject->getRectangle().x, testObject->getRectangle().y);
 	}
 
 	//void updateChunks(int characterChunk) {
