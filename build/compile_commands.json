@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP  -IC:\\Users\\Dell\\Downloads\\CS202-SuperMario\\lib\\include /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /FoCMakeFiles\\SuperMario.dir\\src\\Main.cpp.obj /FdCMakeFiles\\SuperMario.dir\\ /FS -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Main.cpp",
+  "file": "C:/Users/Dell/Downloads/CS202-SuperMario/src/Main.cpp",
+  "output": "CMakeFiles/SuperMario.dir/src/Main.cpp.obj"
+}
+]
