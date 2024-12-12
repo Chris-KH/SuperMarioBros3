@@ -113,7 +113,14 @@ public:
             else if (mario->velocity.x < 0) mario->orientation = false;
 
 
-            if (mario->isJumping()) {
+            if (IsKeyDown(KEY_SPACE) && mario->isJumping() == false) {
+                mario->setYVelocity(-mario->JUMP_VELOCITY);
+                if (mario->velocity.x > 0) mario->setAnimation(mario->jumpRight);
+                else if (mario->velocity.x < 0) mario->setAnimation(mario->jumpLeft);
+                mario->jumping = true;
+                RESOURCE_MANAGER.playSound("jump.wav");
+            }
+            else if (mario->isJumping()) {
                 mario->setYVelocity(mario->getVelocity().y + gravity * deltaTime);
                 
                 if (mario->onGround()) {
@@ -128,14 +135,7 @@ public:
                 mario->setXVelocity((mario->velocity.x > 0) ? mario->MAX_RUN_VELOCITY : -mario->MAX_RUN_VELOCITY);
             }
 
-            if (IsKeyDown(KEY_SPACE) && mario->isJumping() == false) {
-                mario->setYVelocity(-mario->JUMP_VELOCITY);
-                if (mario->velocity.x > 0) mario->setAnimation(mario->jumpRight);
-                else if (mario->velocity.x < 0) mario->setAnimation(mario->jumpLeft);
-                mario->jumping = true;
-                RESOURCE_MANAGER.playSound("jump.wav");
-            }
-            else if (mario->isJumping()) {
+            if (mario->isJumping()) {
                 if (mario->orientation) mario->setAnimation(mario->jumpRight);
                 else mario->setAnimation(mario->jumpLeft);
             }
@@ -209,7 +209,14 @@ public:
             else if (luigi->velocity.x < 0) luigi->orientation = false;
 
 
-            if (luigi->isJumping()) {
+            if (IsKeyDown(KEY_SPACE) && luigi->isJumping() == false) {
+                luigi->setYVelocity(-luigi->JUMP_VELOCITY);
+                if (luigi->velocity.x > 0) luigi->setAnimation(luigi->jumpRight);
+                else if (luigi->velocity.x < 0) luigi->setAnimation(luigi->jumpLeft);
+                luigi->jumping = true;
+                RESOURCE_MANAGER.playSound("jump.wav");
+            }
+            else if (luigi->isJumping()) {
                 luigi->setYVelocity(luigi->getVelocity().y + gravity * deltaTime);
 
                 if (luigi->onGround()) {
@@ -224,14 +231,7 @@ public:
                 luigi->setXVelocity((luigi->velocity.x > 0) ? luigi->MAX_RUN_VELOCITY : -luigi->MAX_RUN_VELOCITY);
             }
 
-            if (IsKeyDown(KEY_SPACE) && luigi->isJumping() == false) {
-                luigi->setYVelocity(-luigi->JUMP_VELOCITY);
-                if (luigi->velocity.x > 0) luigi->setAnimation(luigi->jumpRight);
-                else if (luigi->velocity.x < 0) luigi->setAnimation(luigi->jumpLeft);
-                luigi->jumping = true;
-                RESOURCE_MANAGER.playSound("jump.wav");
-            }
-            else if (luigi->isJumping()) {
+            if (luigi->isJumping()) {
                 if (luigi->orientation) luigi->setAnimation(luigi->jumpRight);
                 else luigi->setAnimation(luigi->jumpLeft);
             }

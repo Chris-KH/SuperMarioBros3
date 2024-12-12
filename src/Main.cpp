@@ -9,6 +9,48 @@
 
 using namespace std;
 
+int main() {
+    InitAudioDevice();
+    InitWindow(1280, 800, "Super Mario Bros");
+    Image icon = LoadImage("../SuperMario/images.png");
+    SetWindowIcon(icon);
+    
+    RESOURCE_MANAGER.loadAllResource();
+    INPUT_MANAGER.bindKey(KEY_A);
+    INPUT_MANAGER.bindKey(KEY_D);
+    INPUT_MANAGER.bindKey(KEY_S);
+    INPUT_MANAGER.bindKey(KEY_SPACE);
+    INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
+
+    Character* mario = new Mario();
+
+    RESOURCE_MANAGER.playMusic("World1.mp3");
+
+    while (!WindowShouldClose()) {
+        if (FPS_MANAGER.update()) {
+            // Update music stream
+            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+
+            BeginDrawing();
+            ClearBackground(GRAY);
+
+            // Vẽ vật thể
+            float deltaTime = GetFrameTime();
+            //inputManager.update();
+            mario->update(deltaTime);
+            mario->draw();
+
+            EndDrawing();
+        }
+    }
+
+    delete mario;
+    CloseWindow();
+    CloseAudioDevice();
+
+    return 0;
+}
+
 //class Object : public InputManager::Listener {
 //private:
 //    Animation* cur = nullptr;
@@ -168,50 +210,3 @@ using namespace std;
 //        return (velocity.x == 0.f && velocity.y == 0.f);
 //    }
 //};
-
-int main() {
-    InitAudioDevice();
-    InitWindow(1280, 800, "Super Mario Bros");
-    Image icon = LoadImage("../SuperMario/images.png");
-    SetWindowIcon(icon);
-    
-    RESOURCE_MANAGER.loadAllResource();
-    INPUT_MANAGER.bindKey(KEY_A);
-    INPUT_MANAGER.bindKey(KEY_D);
-    INPUT_MANAGER.bindKey(KEY_S);
-    INPUT_MANAGER.bindKey(KEY_SPACE);
-    INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
-
-    // Tải texture cho vật thể
-    Texture2D texture = LoadTexture("../SuperMario/images.png");
-
-    // Tạo một vật thể với texture và InputManager
-    //Object object(Vector2{ 0, 750 }, Vector2{ 0, 0 }, texture, INPUT_MANAGER);
-
-    Character* mario = new Luigi();
-
-    RESOURCE_MANAGER.playMusic("World1.mp3");
-
-    while (!WindowShouldClose()) {
-        if (FPS_MANAGER.update()) {
-            // Update music stream
-            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
-
-            BeginDrawing();
-            ClearBackground(GRAY);
-
-            // Vẽ vật thể
-            float deltaTime = GetFrameTime();
-            //inputManager.update();
-            mario->update(deltaTime);
-            mario->draw();
-
-            EndDrawing();
-        }
-    }
-
-    CloseWindow();
-    CloseAudioDevice();
-
-    return 0;
-}

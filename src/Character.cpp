@@ -11,10 +11,10 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     lives = 5;
    
     reset();
-
 };
 
 Character::~Character() {
+    delete state;
     INPUT_MANAGER.removeListener(*this);
 }
 
