@@ -43,9 +43,12 @@ void Entity::setColor(Color col) { color = col; }
 void Entity::setAnimation(Animation* animation) {
     if (currentAnimation != nullptr && currentAnimation != animation) currentAnimation->reset();
     currentAnimation = animation;
+    if (currentAnimation == nullptr) return;
+    this->setSize(currentAnimation->getSize());
 };
 
 void Entity::setAnimation(const string& name) {
     Animation* cur = RESOURCE_MANAGER.getAnimation(name);
+    if (cur == nullptr) return;
     setAnimation(cur);
 }

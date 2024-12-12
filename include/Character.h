@@ -55,7 +55,7 @@ public:
     };
 
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
-    virtual ~Character() = default;
+    virtual ~Character();
     
     virtual EntityType getType() const override;
 
@@ -66,15 +66,20 @@ public:
         
     virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
-    virtual void setState() {
-        state->setState(this);
-    }
+    void draw();
+
+    virtual void setState();
     virtual void reset();
+    bool onGround() const {
+        if (this->getPosition().y + this->getSize().y >= 800.f) return true;
+        return false;
+    }
 
     virtual CharacterState::STATE getState() const;
     virtual bool isJumping() const;
     virtual bool isDead() const;
     virtual bool isInvicible() const;
+    virtual bool isIdle() const;
     virtual int getLives() const;
     virtual int getCoins() const;
     virtual int getScores() const;
