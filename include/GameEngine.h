@@ -315,7 +315,7 @@ public:
 	//	//}
 	//}
 	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map,Object& object)
-		: camera(screenWidth, screenHeight, mapWidth, screenHeight,1.25), map(&map),testObject(&object) {};
+		: camera(screenWidth, screenHeight, mapWidth, screenHeight,2), map(&map),testObject(&object) {};
 	// implement later
    /* void loadMap(const string& filePath) {
 		map.loadFromFile(filePath);
