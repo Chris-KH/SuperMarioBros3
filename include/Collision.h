@@ -96,23 +96,15 @@ public:
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
 
-        // Collision detection
-        bool isOnGround = CheckCollisionRecs(playerRect, floorRect);
+       bool isOnGround = CheckCollisionRecs(playerRect, floorRect);
         if (isOnGround) {
-            // Snap player to the top of the floor
-            player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.002));
+            player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.05));
             player->setVelocity(Vector2(player->getVelocity().x, 0));
             player->setJumping(false);
         }
         else {
-            // Handle jumping logic if not on ground
             player->setJumping(true);
         }
-
-        // Debug logging
-        cout << "Player Position: " << player->getRectangle().x << ", " << player->getRectangle().y << endl;
-        cout << "isOnGround: " << isOnGround << endl;
-        cout << "isJumping: " << player->isJumping() << endl;
     }
 
 

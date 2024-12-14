@@ -5,6 +5,7 @@
 #include "../include/Animation.h"
 #include "../include/GameEngine.h"
 #include "../include/Mario.h"
+#include "../include/Luigi.h"
 using namespace std;
 
 
