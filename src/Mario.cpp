@@ -9,7 +9,7 @@ Mario::Mario(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
-	this->setPosition(Vector2(this->getPosition().x, 800.f - this->getSize().y));
+	this->setPosition(Vector2(this->getPosition().x, this->getPosition().y));
 };
 
 Character::CHACRACTER Mario::getCharacterType() const {

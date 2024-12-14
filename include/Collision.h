@@ -61,6 +61,31 @@ public:
     //        }
     //    }
     //}
+ /*   void resolve(Entity& entityA, Entity& entityB) override {
+        Character* player = dynamic_cast<Character*>(&entityA);
+        Floor* floor = dynamic_cast<Floor*>(&entityB);
+
+        if (!player || !floor)
+            return;
+
+        Rectangle playerRect = player->getRectangle();
+        Rectangle floorRect = floor->getRectangle();
+
+        bool isOnGround = false;
+        if (player->getVelocity().y == 0)
+        {
+            player->setJumping(false);
+        }
+        if (CheckCollisionRecs(playerRect, floorRect)) {
+            if (playerRect.y + playerRect.height >= floorRect.y) {
+                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
+                player->setVelocity(Vector2(player->getVelocity().x, 0));
+                isOnGround = true;
+            }
+        }
+        player->setJumping(!isOnGround);
+        cout << (player->isJumping())<< endl;
+    }*/
     void resolve(Entity& entityA, Entity& entityB) override {
         Character* player = dynamic_cast<Character*>(&entityA);
         Floor* floor = dynamic_cast<Floor*>(&entityB);
@@ -71,19 +96,17 @@ public:
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
 
-        bool isOnGround = true;
-
-        if (CheckCollisionRecs(playerRect, floorRect)) {
-            if (playerRect.y + playerRect.height <= floorRect.y + 15 && player->getVelocity().y > 0) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
-
-                player->setVelocity(Vector2(player->getVelocity().x, 0));
-                isOnGround = false;
-
-            }
+       bool isOnGround = CheckCollisionRecs(playerRect, floorRect);
+        if (isOnGround) {
+            player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.05));
+            player->setVelocity(Vector2(player->getVelocity().x, 0));
+            player->setJumping(false);
         }
-        player->setJumping(isOnGround);
+        else {
+            player->setJumping(true);
+        }
     }
+
 
 
 

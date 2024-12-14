@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Collision.h"
 #include "Character.h"
+class CollisionInterface;
 class GameCamera {
 public:
 	float cameraX;
@@ -108,9 +109,8 @@ public:
 	void update() {
 		float deltaTime = GetFrameTime();
 		//inputManager.update();
-		handleCollision();
 		player->update(deltaTime);
-
+		handleCollision();
 		//int currentChunk = (int)(characterX / chunkSize); // get current chunk
 		//updateChunks(currentChunk);
 		//for (int i = 0; i < chunks.size(); ++i)
@@ -123,6 +123,7 @@ public:
 	void handleCollision()
 	{
 		CollisionInterface IColl;
+		player->setJumping(true);
 		for (Entity* block : *(blocks))
 		{
 			IColl.resolve(*player, *block);
@@ -174,7 +175,7 @@ public:
 				update();
 				render();
 
-
+				//cout << GetFrameTime() << endl;
 			}
 		}
 	}
