@@ -123,11 +123,11 @@ public:
             else if (mario->isJumping()) {
                 mario->setYVelocity(mario->getVelocity().y + gravity * deltaTime);
 
-                if (mario->onGround()) {
-                    mario->setPosition(Vector2(mario->getPosition().x, 800.f - mario->getSize().y));
-                    mario->setYVelocity(0.f);
-                    mario->jumping = false;
-                }
+                //if (mario->onGround()) {
+                //    mario->setPosition(Vector2(mario->getPosition().x, 800.f - mario->getSize().y));
+                //    mario->setYVelocity(0.f);
+                //    mario->jumping = false;
+                //}
             }
 
             // Giới hạn vận tốc (max speed)
@@ -225,11 +225,11 @@ public:
             else if (luigi->isJumping()) {
                 luigi->setYVelocity(luigi->getVelocity().y + gravity * deltaTime);
 
-                if (luigi->onGround()) {
+          /*      if (luigi->onGround()) {
                     luigi->setPosition(Vector2(luigi->getPosition().x, 800.f - luigi->getSize().y));
                     luigi->setYVelocity(0.f);
                     luigi->jumping = false;
-                }
+                }*/
             }
 
             // Giới hạn vận tốc (max speed)
