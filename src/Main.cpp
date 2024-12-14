@@ -24,35 +24,35 @@ int main() {
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
     // Tạo một vật thể với texture và InputManager
-    Character* player = new Mario(Vector2{1,1});
+    Character* player = new Luigi(Vector2{1,1});
     RESOURCE_MANAGER.playMusic("World1.mp3");
 
     Map map1;
     map1.loadFromFile("../assets/Map/Map1-1.txt");
     map1.loadBackground("../assets/Map/Map1-1.png");
 
-    /*GameEngine engine((float)1280, (float)800, (float)2779, (float)512, map1,player);
-    engine.run();*/
-    while (!WindowShouldClose()) {
-        if (FPS_MANAGER.update()) {
-           // Update music stream
-            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
-    
-           BeginDrawing();
-            ClearBackground(GRAY);
-           //map1.renderBackground();
-    
-    
-          // Vẽ vật thể
-            float deltaTime = GetFrameTime();
-            //inputManager.update();
-            player->update(deltaTime);
-            player->draw();
-          //map1.renderAllBlock();
-    
-           EndDrawing();
-        }
-    }
+    GameEngine engine((float)1280, (float)800, (float)2779, (float)512, map1,player);
+    engine.run();
+    //while (!WindowShouldClose()) {
+    //    if (FPS_MANAGER.update()) {
+    //       // Update music stream
+    //        UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+    //
+    //       BeginDrawing();
+    //        ClearBackground(GRAY);
+    //       //map1.renderBackground();
+    //
+    //
+    //      // Vẽ vật thể
+    //        float deltaTime = GetFrameTime();
+    //        //inputManager.update();
+    //        player->update(deltaTime);
+    //        player->draw();
+    //      //map1.renderAllBlock();
+    //
+    //       EndDrawing();
+    //    }
+    //}
 
     CloseWindow();
     CloseAudioDevice();

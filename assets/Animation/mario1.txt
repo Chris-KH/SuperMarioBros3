@@ -1,8 +1,8 @@
 $mario_idle_left
-11 18 12 16 1
+11 17 12 16 1
 
 $mario_walk_left
-10 18 13 15 0.1
+10 17 13 16 0.1
 43 17 15 16 0.1
 
 $mario_jump_left
@@ -15,7 +15,7 @@ $mario_idle_right
 11 51 12 16 1
 
 $mario_walk_right
-9 51 14 16 0.1
+9 50 14 16 0.1
 43 50 15 16 0.1
 
 $mario_jump_right

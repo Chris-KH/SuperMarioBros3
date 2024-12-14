@@ -99,7 +99,7 @@ public:
        bool isOnGround = CheckCollisionRecs(playerRect, floorRect);
         if (isOnGround) {
             player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.05));
-            player->setVelocity(Vector2(player->getVelocity().x, 0));
+            player->setYVelocity(0.f);
             player->setJumping(false);
         }
         else {
@@ -128,8 +128,8 @@ public:
         Rectangle blockRect = block->getRectangle();
 
         if (CheckCollisionRecs(playerRect, blockRect)) {
-            float overlapX = 0;
-            float overlapY = 0;
+            float overlapX = 0.f;
+            float overlapY = 0.f;
             bool isLeft = false;
             bool isUp = false;
 
@@ -167,7 +167,7 @@ public:
 
                 // Stop vertical movement if resolving vertical collision
                 if (isUp) {
-                    player->setVelocity(Vector2(player->getVelocity().x, 0));
+                    player->setVelocity(Vector2(player->getVelocity().x, 0.f));
 
                     // Update jumping state to indicate the player is grounded
                     player->setJumping(false);

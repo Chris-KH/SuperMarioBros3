@@ -88,7 +88,7 @@ public:
                 else {
                     mario->setXVelocity(mario->getVelocity().x - acceleration * deltaTime);
                     if (mario->isJumping() == false) {
-                        if (abs(mario->velocity.x) >= mario->MAX_RUN_VELOCITY) {
+                        if (fabs(mario->velocity.x) >= mario->MAX_RUN_VELOCITY) {
                             mario->setAnimation(mario->runLeft);
                         }
                         else mario->setAnimation(mario->walkLeft);
