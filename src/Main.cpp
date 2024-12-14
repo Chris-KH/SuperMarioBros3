@@ -30,28 +30,28 @@ int main() {
     map1.loadFromFile("../assets/Map/Map1-1.txt");
     map1.loadBackground("../assets/Map/Map1-1.png");
 
-    GameEngine engine((float)1280, (float)800, (float)2779, (float)512, map1,player);
-    engine.run();
-    //while (!WindowShouldClose()) {
-    //    if (FPS_MANAGER.update()) {
-    //       // Update music stream
-    //        UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
-
-    //       BeginDrawing();
-    //        ClearBackground(GRAY);
-    //       map1.renderBackground();
-
-
-    //      // Vẽ vật thể
-    //        float deltaTime = GetFrameTime();
-    //        //inputManager.update();
-    //        object.update(deltaTime);
-    //        object.draw();
-    //      map1.renderAllBlock();
-
-    //       EndDrawing();
-    //    }
-    //}
+    /*GameEngine engine((float)1280, (float)800, (float)2779, (float)512, map1,player);
+    engine.run();*/
+    while (!WindowShouldClose()) {
+        if (FPS_MANAGER.update()) {
+           // Update music stream
+            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+    
+           BeginDrawing();
+            ClearBackground(GRAY);
+           //map1.renderBackground();
+    
+    
+          // Vẽ vật thể
+            float deltaTime = GetFrameTime();
+            //inputManager.update();
+            player->update(deltaTime);
+            player->draw();
+          //map1.renderAllBlock();
+    
+           EndDrawing();
+        }
+    }
 
     CloseWindow();
     CloseAudioDevice();

@@ -8,13 +8,13 @@ class Mario : public Character {
 	friend class FireState;
 	friend class StarState;
 private:
-	const float GROUND_ACCELERATION = 700.f;
-	const float GROUND_DEACCELERATION = 2000.f;
+	const float GROUND_ACCELERATION = 500.f;
+	const float GROUND_DEACCELERATION = 1500.f;
 	
-	const float MAX_WALK_VELOCITY = 400.f;
-	const float MAX_RUN_VELOCITY = 800.f;
+	const float MAX_WALK_VELOCITY = 200.f;
+	const float MAX_RUN_VELOCITY = 600.f;
 
-	const float JUMP_VELOCITY = 800.f;
+	const float JUMP_VELOCITY = 600.f;
 public:
 	Mario(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
 

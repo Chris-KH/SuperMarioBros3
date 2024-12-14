@@ -168,6 +168,7 @@ public:
 
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
+				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
 				UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
 				update();
