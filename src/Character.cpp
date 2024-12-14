@@ -27,6 +27,11 @@ void Character::reset() {
     invicible = 0;
 }
 
+void Character::setJumping(bool value)
+{
+    jumping = value;
+}
+
 CharacterState::STATE Character::getState() const {
     return state->getState();
 }

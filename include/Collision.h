@@ -31,67 +31,137 @@ inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximi
 class PlayerFloorStrat : public CollisionStrategy
 {
 public:
-    void resolve(Entity& entityA, Entity& entityB) override
-    {
-        Floor* floor = dynamic_cast<Floor*>(&entityB);
-        Character* player = dynamic_cast<Character*>(&entityA);
+    //void resolve(Entity& entityA, Entity& entityB) override
+    //{
+    //    Floor* floor = dynamic_cast<Floor*>(&entityB);
+    //    Character* player = dynamic_cast<Character*>(&entityA);
 
-        if (!floor || !player)
+    //    if (!floor || !player)
+    //        return;
+
+    //    Rectangle playerRect = player->getRectangle();
+    //    Rectangle floorRect = floor->getRectangle();
+
+    //    Vector2 playerVelocity = player->getVelocity();
+    //    Rectangle futurePlayerRect = {
+    //        playerRect.x,
+    //        playerRect.y + playerVelocity.y,
+    //        playerRect.width,
+    //        playerRect.height
+    //    };
+
+    //    if (CheckCollisionRecs(futurePlayerRect, floorRect)) {
+    //        // Ensure the player was above the floor in the previous frame
+    //        if (playerRect.y + playerRect.height <= floorRect.y) {
+    //            // Snap the player to the top of the floor
+    //            player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
+
+    //            // Reset vertical velocity to prevent falling
+    //            player->setVelocity(Vector2(playerVelocity.x, 0));
+    //        }
+    //    }
+    //}
+    void resolve(Entity& entityA, Entity& entityB) override {
+        Character* player = dynamic_cast<Character*>(&entityA);
+        Floor* floor = dynamic_cast<Floor*>(&entityB);
+
+        if (!player || !floor)
             return;
 
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
 
-        Vector2 playerVelocity = player->getVelocity();
-        Rectangle futurePlayerRect = {
-            playerRect.x,
-            playerRect.y + playerVelocity.y,
-            playerRect.width,
-            playerRect.height
-        };
+        bool isOnGround = true;
 
-        if (CheckCollisionRecs(futurePlayerRect, floorRect)) {
-            // Ensure the player was above the floor in the previous frame
-            if (playerRect.y + playerRect.height <= floorRect.y) {
-                // Snap the player to the top of the floor
+        if (CheckCollisionRecs(playerRect, floorRect)) {
+            if (playerRect.y + playerRect.height <= floorRect.y + 15 && player->getVelocity().y > 0) {
                 player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
 
-                // Reset vertical velocity to prevent falling
-                player->setVelocity(Vector2(playerVelocity.x, 0));
+                player->setVelocity(Vector2(player->getVelocity().x, 0));
+                isOnGround = false;
+
             }
         }
+        player->setJumping(isOnGround);
     }
+
+
+
+
 
 };
 class PlayerBlockStrat : public CollisionStrategy {
 public:
-    void resolve(Entity& player, Entity& block) override {
-        Rectangle playerRect = player.getRectangle();
-        Rectangle blockRect = block.getRectangle();
+    void resolve(Entity& entityA, Entity& entityB) override {
+        // Dynamic cast to identify the specific types of entities
+        Character* player = dynamic_cast<Character*>(&entityA);
+        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+
+        // Ensure the entities are of the expected types
+        if (!player || !block)
+            return;
+
+        Rectangle playerRect = player->getRectangle();
+        Rectangle blockRect = block->getRectangle();
 
         if (CheckCollisionRecs(playerRect, blockRect)) {
             float overlapX = 0;
             float overlapY = 0;
             bool isLeft = false;
             bool isUp = false;
+
+            // Calculate horizontal overlap
             if (playerRect.x < blockRect.x) {
                 overlapX = (playerRect.x + playerRect.width) - blockRect.x;
                 isLeft = true;
             }
-            else 
+            else {
                 overlapX = (blockRect.x + blockRect.width) - playerRect.x;
+            }
+
+            // Calculate vertical overlap
             if (playerRect.y < blockRect.y) {
                 overlapY = (playerRect.y + playerRect.height) - blockRect.y;
                 isUp = true;
             }
-            else 
+            else {
                 overlapY = (blockRect.y + blockRect.height) - playerRect.y;
-            if (std::abs(overlapX) < std::abs(overlapY)) 
-                player.setPosition(Vector2(playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), playerRect.y));
-            else if (isUp)
-                player.setPosition(Vector2(playerRect.x, playerRect.y - std::abs(overlapY)));
+            }
+
+            // Resolve based on the smallest overlap
+            if (std::abs(overlapX) < std::abs(overlapY)) {
+                // Horizontal resolution
+                float newPosX = playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX));
+                player->setPosition(Vector2(newPosX, playerRect.y));
+
+                // Stop horizontal movement
+                player->setVelocity(Vector2(0, player->getVelocity().y));
+            }
+            else {
+                // Vertical resolution
+                float newPosY = playerRect.y + ((isUp) ? -std::abs(overlapY) : std::abs(overlapY));
+                player->setPosition(Vector2(playerRect.x, newPosY));
+
+                // Stop vertical movement if resolving vertical collision
+                if (isUp) {
+                    player->setVelocity(Vector2(player->getVelocity().x, 0));
+
+                    // Update jumping state to indicate the player is grounded
+                    player->setJumping(false);
+                }
+                else {
+                    // Handle downward collision with blocks (e.g., bouncing effect)
+                    player->setVelocity(Vector2(player->getVelocity().x, -(player->getVelocity().y) / 3));
+                }
+            }
+        }
+        else {
+            // If no collision, ensure the player remains in the air
+            player->setJumping(true);
         }
     }
+
+
 };
 class EnemyBlockStrat : public CollisionStrategy {
 public:
