@@ -129,7 +129,7 @@ public:
 			int k = 0;
 			if (IColl.resolve(*player, *block))
 			{
-				if (k++ >= 2)
+				if (k++ >= 1)
 					break;
 			}
 		}
