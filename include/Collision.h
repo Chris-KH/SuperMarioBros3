@@ -42,17 +42,17 @@ public:
         Rectangle floorRect = floor->getRectangle();
 
         if (CheckCollisionRecs(playerRect, floorRect)) {
-            if (playerRect.y + playerRect.height <= floorRect.y + 16 && player->getVelocity().y >= 0) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005));
+            if (playerRect.y + playerRect.height <= floorRect.y + 16 && player->getVelocity().y >= 0.f) {
+                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
                 player->setYVelocity(0.f);
                 player->setJumping(false);
                 return true;
             }
         }
-        else {
-            player->setJumping(true);
-            return false;
-        }
+        //else {
+        player->setJumping(true);
+        return false;
+        //}
     }
 };
 class PlayerBlockStrat : public CollisionStrategy {
@@ -96,7 +96,7 @@ public:
                 player->setVelocity(Vector2(0, player->getVelocity().y));
             }
             else {
-                float newPosY = playerRect.y + ((isUp) ? ( - std::abs(overlapY)+0.005) : std::abs(overlapY));
+                float newPosY = playerRect.y + ((isUp) ? ( - std::abs(overlapY) + 0.005f) : std::abs(overlapY));
                 player->setPosition(Vector2(playerRect.x, newPosY));
                 if (isUp) {
                     player->setVelocity(Vector2(player->getVelocity().x, 0.f));

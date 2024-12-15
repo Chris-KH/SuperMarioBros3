@@ -11,10 +11,10 @@ private:
 	const float GROUND_ACCELERATION = 200.f;
 	const float GROUND_DEACCELERATION = 1000.f;
 
-	const float MAX_WALK_VELOCITY = 150.f;
-	const float MAX_RUN_VELOCITY = 450.f;
+	const float MAX_WALK_VELOCITY = 100.f;
+	const float MAX_RUN_VELOCITY = 350.f;
 
-	const float JUMP_VELOCITY = 700.f;
+	const float JUMP_VELOCITY = 550.f;
 public:
 	Luigi(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
 

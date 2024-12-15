@@ -15,7 +15,7 @@ public:
 
 	RenderTexture2D renderTexture;
 
-	GameCamera(float width, float height, int mapWidth, int mapHeight, float initialScale = 1.0f);
+	GameCamera(float width, float height, float mapWidth, float mapHeight, float initialScale = 1.0f);
 	~GameCamera();
 
 	void update(float characterX, float characterY);
@@ -96,7 +96,7 @@ public:
 	//	//}
 	//}
 	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map,Character*& player)
-		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75), map(&map), player(player) {
+		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75f), map(&map), player(player) {
 		blocks = map.returnBlockArray();
 	};
 	~GameEngine()

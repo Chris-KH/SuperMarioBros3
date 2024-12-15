@@ -1,8 +1,8 @@
 #include "../include/GameEngine.h"
 
-GameCamera::GameCamera(float width, float height, int mapWidth, int mapHeight, float initialScale)
+GameCamera::GameCamera(float width, float height, float mapWidth, float mapHeight, float initialScale)
     : cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0), scale(initialScale) {
-    renderTexture = LoadRenderTexture(mapWidth, mapHeight);
+    renderTexture = LoadRenderTexture((int)mapWidth, (int)mapHeight);
 }
 
 GameCamera::~GameCamera() {
