@@ -24,14 +24,14 @@ int main() {
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
     // Tạo một vật thể với texture và InputManager
-    Character* player = new Mario(Vector2{1,1});
+    Character* player = new Mario(Vector2{0,0});
     RESOURCE_MANAGER.playMusic("World1.mp3");
 
     Map map1;
     map1.loadFromFile("../assets/Map/Map1-1.txt");
     map1.loadBackground("../assets/Map/Map1-1.png");
 
-    GameEngine engine((float)1280, (float)800, (float)2779, (float)512, map1,player);
+    GameEngine engine((float)820, (float)530, (float)2779, (float)512, map1,player);
     engine.run();
     //while (!WindowShouldClose()) {
     //    if (FPS_MANAGER.update()) {

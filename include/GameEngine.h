@@ -96,7 +96,7 @@ public:
 	//	//}
 	//}
 	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map,Character*& player)
-		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1), map(&map), player(player) {
+		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75), map(&map), player(player) {
 		blocks = map.returnBlockArray();
 	};
 	~GameEngine()
@@ -126,7 +126,12 @@ public:
 		player->setJumping(true);
 		for (Entity* block : *(blocks))
 		{
-			IColl.resolve(*player, *block);
+			int k = 0;
+			if (IColl.resolve(*player, *block))
+			{
+				if (k++ >= 2)
+					break;
+			}
 		}
 	}
 	//void updateChunks(int characterChunk) {

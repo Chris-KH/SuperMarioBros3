@@ -13,8 +13,8 @@ void GameCamera::update(float characterX, float characterY) {
     float scaledWidth = cameraWidth / scale;
     float scaledHeight = cameraHeight / scale;
 
-    cameraX = characterX - scaledWidth / 2;
-    cameraY = renderTexture.texture.height - (characterY + cameraHeight / scale);
+    cameraX = characterX - scaledWidth /2;
+    cameraY = renderTexture.texture.height - (characterY + cameraHeight / scale) + 100;
 
     // Clamp the camera to ensure it stays within the map bounds
     if (cameraX < 0) cameraX = 0;
