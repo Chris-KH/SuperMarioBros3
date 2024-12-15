@@ -71,10 +71,8 @@ public:
     virtual void setState();
     virtual void reset();
     void setJumping(bool value);
-    bool onGround() const {
-        if (this->getPosition().y + this->getSize().y >= 800.f) return true;
-        return false;
-    }
+    
+    void setAnimation(Animation* animation);
 
     virtual CharacterState::STATE getState() const;
     virtual bool isJumping() const;

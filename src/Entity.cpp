@@ -36,6 +36,10 @@ Color Entity::getColor() const {
 
 void Entity::setPosition(Vector2 pos) { position = pos; }
 
+void Entity::setXPosition(float x) { position.x = x; }
+
+void Entity::setYPosition(float y) { position.y = y; }
+
 void Entity::setSize(Vector2 sz) { size = sz; }
 
 void Entity::setColor(Color col) { color = col; }

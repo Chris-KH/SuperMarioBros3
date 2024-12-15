@@ -5,7 +5,8 @@
 class GoomBa : public Enemy {
 public:
 	enum GoomBaType {
-		NORMAL_GoomBa,
+		BROWN_GoomBa,
+		RED_GoomBa,
 		REDPARA_GoomBa,
 		BROWNPARA_GoomBa,
 		MICRO_GoomBa

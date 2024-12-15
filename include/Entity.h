@@ -59,6 +59,8 @@ public:
 
     // Setters
     virtual void setPosition(Vector2 pos);
+    virtual void setXPosition(float x);
+    virtual void setYPosition(float y);
     virtual void setSize(Vector2 sz);
     virtual void setColor(Color col);
     

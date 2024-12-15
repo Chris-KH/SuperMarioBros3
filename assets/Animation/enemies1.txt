@@ -1,0 +1,136 @@
+$brown_goomba
+15 4 16 16 0.15
+65 4 16 16 0.15
+
+$brown_paragoomba
+213 2 20 19 0.15
+263 2 20 19 0.15
+
+$brown_paragoomba_jump
+113 0 20 24 0.1
+163 0 20 24 0.1
+
+$brown_goomba_dead
+315 6 16 9 999
+
+$red_goomba
+15 54 16 16 0.15
+65 54 16 16 0.15
+
+$red_paragoomba
+213 52 20 19 0.15
+263 52 20 19 0.15
+
+$red_paragoomba_jump
+113 50 20 24 0.1
+163 50 20 24 0.1
+
+$red_goomba_dead
+315 56 16 9 999
+
+$green_KoopaTroopa_walkLeft
+165 99 16 26 0.15
+125 98 16 27 0.15
+
+$green_KoopaTroopa_walkRight
+215 99 16 26 0.15
+255 98 16 27 0.15
+
+$green_paraKoopaTroopa_walkLeft
+85 149 16 26 0.15
+45 148 16 27 0.15
+
+$green_paraKoopaTroopa_walkRight
+295 149 16 26 0.15
+335 148 16 27 0.15
+
+$green_paraKoopaTroopa_jumpLeft
+165 148 16 27 0.15
+125 148 16 28 0.15
+
+$green_paraKoopaTroopa_jumpRight
+215 148 16 27 0.15
+255 148 16 28 0.15
+
+$green_paraKoopaTroopa_spin
+50 104 16 16 0.05
+15 104 16 16 0.05
+15 129 16 16 0.05
+15 154 16 16 0.05
+
+$green_KoopaTroopa_shell
+50 104 16 16 999
+
+$green_KoopaTroopa_outShell
+50 104 16 16 0.02
+84 103 18 17 0.02
+
+$red_KoopaTroopa_walkLeft
+165 199 16 26 0.15
+125 198 16 27 0.15
+
+$red_KoopaTroopa_walkRight
+215 199 16 26 0.15
+255 198 16 27 0.15
+
+$red_paraKoopaTroopa_walkLeft
+85 249 16 26 0.15
+45 248 16 27 0.15
+
+$red_paraKoopaTroopa_walkRight
+295 249 16 26 0.15
+335 248 16 27 0.15
+
+$red_paraKoopaTroopa_jumpLeft
+165 248 16 27 0.15
+125 248 16 28 0.15
+
+$red_paraKoopaTroopa_jumpRight
+215 248 16 27 0.15
+255 248 16 28 0.15
+
+$red_paraKoopaTroopa_spin
+50 204 16 16 0.05
+15 204 16 16 0.05
+15 229 16 16 0.05
+15 254 16 16 0.05
+
+$red_KoopaTroopa_shell
+50 204 16 16 0.05
+
+$red_KoopaTroopa_outShell
+50 204 16 16 0.05
+84 203 18 17 0.05
+
+$green_piranha
+15 349 16 25 999
+65 350 16 24 999
+
+$green_firepiranha_downLeftAttack
+15 399 16 25 999
+
+$green_firepiranha_upLeftAttack
+64 399 17 25 999
+
+$green_firepiranha_downLeft
+115 399 16 25 999
+
+$green_firepiranha_upLeft
+164 399 17 25 999
+
+$green_firepiranha_upRight
+214 399 17 25 999
+
+$green_firepiranha_downRight
+264 399 16 25 999
+
+$green_firepiranha_upRightAttack
+314 399 17 25 999
+
+$green_firepiranha_downRightAttack
+364 399 16 25 999
+
+
+
+
+

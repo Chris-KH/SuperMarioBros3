@@ -44,6 +44,17 @@ void Character::setState() {
     state->setState(this);
 }
 
+void Character::setAnimation(Animation* animation) {
+    if (currentAnimation != nullptr && currentAnimation != animation) currentAnimation->reset();
+    currentAnimation = animation;
+    if (currentAnimation == nullptr) return;
+
+    float diffHeight = this->getSize().y - currentAnimation->getSize().y;
+
+    this->setYPosition(this->getPosition().y + diffHeight);
+    this->setSize(currentAnimation->getSize());
+};
+
 bool Character::isJumping() const { return jumping; }
 
 bool Character::isDead() const { return dead; }

@@ -4,8 +4,10 @@
 class Plant : public Enemy {
 public:
 	enum PlantType {
-		PIRANHA_Plant,
-		FIREPIRANHA_Plant
+		RED_PIRANHA,
+		RED_FIREPIRANHA,
+		GREEN_PIRANHA,
+		GREEN_FIREPIRANHA
 	};
 private:
 
