@@ -52,210 +52,132 @@ public:
             return; // Avoid dereferencing a null pointer
         }
 
+        float deceleration, acceleration, gravity, jump_velocity, max_run_velocity, max_walk_velocity;
+        gravity = character->GRAVITY;
         if (dynamic_cast<Mario*>(character) != nullptr) {
             Mario* mario = dynamic_cast<Mario*>(character);
-
-            const float deceleration = mario->GROUND_DEACCELERATION;
-            const float acceleration = mario->GROUND_ACCELERATION;
-            const float gravity = mario->GRAVITY;
-
-            /*mario->setPosition(Vector2(mario->getPosition().x + mario->velocity.x * deltaTime, mario->getPosition().y + mario->velocity.y * deltaTime));
-            mario->draw();*/
-
-            if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
-                if (mario->velocity.x < 0) {
-                    if (mario->isJumping() == false) mario->setAnimation(mario->stopLeft);
-                    mario->setXVelocity(mario->getVelocity().x + deceleration * deltaTime);
-                    if (mario->velocity.x > 0) mario->setXVelocity(0.f);
-                }
-                else {
-                    mario->setXVelocity(mario->getVelocity().x + acceleration * deltaTime);
-                    if (mario->isJumping() == false) {
-                        if (mario->velocity.x >= mario->MAX_RUN_VELOCITY) {
-                            mario->setAnimation(mario->runRight);
-                        }
-                        else mario->setAnimation(mario->walkRight);
-                    }
-
-                }
-            }
-            else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
-                if (mario->velocity.x > 0) {
-                    if (mario->isJumping() == false) mario->setAnimation(mario->stopRight);
-                    mario->setXVelocity(mario->getVelocity().x - deceleration * deltaTime);
-                    if (mario->velocity.x < 0) mario->setXVelocity(0.f);
-                }
-                else {
-                    mario->setXVelocity(mario->getVelocity().x - acceleration * deltaTime);
-                    if (mario->isJumping() == false) {
-                        if (abs(mario->velocity.x) >= mario->MAX_RUN_VELOCITY) {
-                            mario->setAnimation(mario->runLeft);
-                        }
-                        else mario->setAnimation(mario->walkLeft);
-                    }
-                }
-
-            }
-            else {
-                if (mario->velocity.x > 0) {
-                    mario->setXVelocity(mario->getVelocity().x - deceleration * deltaTime);
-                    if (mario->velocity.x < 0) mario->setXVelocity(0.f);
-                    if (mario->isJumping() == false) mario->setAnimation(mario->stopRight);
-                }
-                else if (mario->velocity.x < 0) {
-                    mario->setXVelocity(mario->getVelocity().x + deceleration * deltaTime);
-                    if (mario->velocity.x > 0) mario->setXVelocity(0.f);
-                    if (mario->isJumping() == false) mario->setAnimation(mario->stopLeft);
-                }
-            }
-
-            if (mario->velocity.x > 0) mario->orientation = true;
-            else if (mario->velocity.x < 0) mario->orientation = false;
-
-
-            if (IsKeyDown(KEY_SPACE) && mario->isJumping() == false) {
-                mario->setYVelocity(-mario->JUMP_VELOCITY);
-                if (mario->velocity.x > 0) mario->setAnimation(mario->jumpRight);
-                else if (mario->velocity.x < 0) mario->setAnimation(mario->jumpLeft);
-                mario->jumping = true;
-                RESOURCE_MANAGER.playSound("jump.wav");
-            }
-            else if (mario->isJumping()) {
-                mario->setYVelocity(mario->getVelocity().y + gravity * deltaTime);
-
-                //if (mario->onGround()) {
-                //    mario->setPosition(Vector2(mario->getPosition().x, 800.f - mario->getSize().y));
-                //    mario->setYVelocity(0.f);
-                //    mario->jumping = false;
-                //}
-            }
-
-            // Giới hạn vận tốc (max speed)
-            if (fabs(mario->velocity.x) > mario->MAX_RUN_VELOCITY) {
-                mario->setXVelocity((mario->velocity.x > 0) ? mario->MAX_RUN_VELOCITY : -mario->MAX_RUN_VELOCITY);
-            }
-
-            if (mario->isJumping()) {
-                if (mario->velocity.y < 0) {
-                    if (mario->orientation) mario->setAnimation(mario->jumpRight);
-                    else mario->setAnimation(mario->jumpLeft);
-                }
-                else if (mario->velocity.y >= 0) {
-                    if (mario->orientation) mario->setAnimation(mario->fallRight);
-                    else mario->setAnimation(mario->fallLeft);
-                }
-            }
-
-            if (mario->isIdle()) {
-                if (mario->orientation) mario->setAnimation(mario->idleRight);
-                else mario->setAnimation(mario->idleLeft);
-            }
-
-            mario->setPosition(Vector2(mario->getPosition().x + mario->velocity.x * deltaTime, mario->getPosition().y + mario->velocity.y * deltaTime));
-
+            deceleration = mario->GROUND_DEACCELERATION;
+            acceleration = mario->GROUND_ACCELERATION;
+            jump_velocity = mario->JUMP_VELOCITY;
+            max_run_velocity = mario->MAX_RUN_VELOCITY;
+            max_walk_velocity = mario->MAX_WALK_VELOCITY;
         }
         else if (dynamic_cast<Luigi*>(character) != nullptr) {
             Luigi* luigi = dynamic_cast<Luigi*>(character);
+            deceleration = luigi->GROUND_DEACCELERATION;
+            acceleration = luigi->GROUND_ACCELERATION;
+            jump_velocity = luigi->JUMP_VELOCITY;
+            max_run_velocity = luigi->MAX_RUN_VELOCITY;
+            max_walk_velocity = luigi->MAX_WALK_VELOCITY;
+        }
 
-            const float deceleration = luigi->GROUND_DEACCELERATION;
-            const float acceleration = luigi->GROUND_ACCELERATION;
-            const float gravity = luigi->GRAVITY;
-
-            /*luigi->setPosition(Vector2(luigi->getPosition().x + luigi->velocity.x * deltaTime, luigi->getPosition().y + luigi->velocity.y * deltaTime));
-            luigi->draw();*/
-
-            if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
-                if (luigi->velocity.x < 0) {
-                    if (luigi->isJumping() == false) luigi->setAnimation(luigi->stopLeft);
-                    luigi->setXVelocity(luigi->getVelocity().x + deceleration * deltaTime);
-                    if (luigi->velocity.x > 0) luigi->setXVelocity(0.f);
-                }
-                else {
-                    luigi->setXVelocity(luigi->getVelocity().x + acceleration * deltaTime);
-                    if (luigi->isJumping() == false) {
-                        if (luigi->velocity.x >= luigi->MAX_RUN_VELOCITY) {
-                            luigi->setAnimation(luigi->runRight);
-                        }
-                        else luigi->setAnimation(luigi->walkRight);
-                    }
-
-                }
-            }
-            else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
-                if (luigi->velocity.x > 0) {
-                    if (luigi->isJumping() == false) luigi->setAnimation(luigi->stopRight);
-                    luigi->setXVelocity(luigi->getVelocity().x - deceleration * deltaTime);
-                    if (luigi->velocity.x < 0) luigi->setXVelocity(0.f);
-                }
-                else {
-                    luigi->setXVelocity(luigi->getVelocity().x - acceleration * deltaTime);
-                    if (luigi->isJumping() == false) {
-                        if (abs(luigi->velocity.x) >= luigi->MAX_RUN_VELOCITY) {
-                            luigi->setAnimation(luigi->runLeft);
-                        }
-                        else luigi->setAnimation(luigi->walkLeft);
-                    }
-                }
-
+        //Logic update
+        if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
+            if (character->velocity.x < 0) {
+                if (character->isJumping() == false) character->setAnimation(character->stopLeft);
+                character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
+                if (character->velocity.x > 0) character->setXVelocity(max_walk_velocity);
             }
             else {
-                if (luigi->velocity.x > 0) {
-                    luigi->setXVelocity(luigi->getVelocity().x - deceleration * deltaTime);
-                    if (luigi->velocity.x < 0) luigi->setXVelocity(0.f);
-                    if (luigi->isJumping() == false) luigi->setAnimation(luigi->stopRight);
+                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
+                else character->setXVelocity(max(character->getVelocity().x, max_walk_velocity));
+                if (character->isJumping() == false) {
+                    if (character->velocity.x >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
+                        character->setAnimation(character->runRight);
+                    }
+                    else character->setAnimation(character->walkRight);
                 }
-                else if (luigi->velocity.x < 0) {
-                    luigi->setXVelocity(luigi->getVelocity().x + deceleration * deltaTime);
-                    if (luigi->velocity.x > 0) luigi->setXVelocity(0.f);
-                    if (luigi->isJumping() == false) luigi->setAnimation(luigi->stopLeft);
-                }
+
             }
-
-            if (luigi->velocity.x > 0) luigi->orientation = true;
-            else if (luigi->velocity.x < 0) luigi->orientation = false;
-
-
-            if (IsKeyDown(KEY_SPACE) && luigi->isJumping() == false) {
-                luigi->setYVelocity(-luigi->JUMP_VELOCITY);
-                if (luigi->velocity.x > 0) luigi->setAnimation(luigi->jumpRight);
-                else if (luigi->velocity.x < 0) luigi->setAnimation(luigi->jumpLeft);
-                luigi->jumping = true;
-                RESOURCE_MANAGER.playSound("jump.wav");
-            }
-            else if (luigi->isJumping()) {
-                luigi->setYVelocity(luigi->getVelocity().y + gravity * deltaTime);
-
-          /*      if (luigi->onGround()) {
-                    luigi->setPosition(Vector2(luigi->getPosition().x, 800.f - luigi->getSize().y));
-                    luigi->setYVelocity(0.f);
-                    luigi->jumping = false;
-                }*/
-            }
-
-            // Giới hạn vận tốc (max speed)
-            if (fabs(luigi->velocity.x) > luigi->MAX_RUN_VELOCITY) {
-                luigi->setXVelocity((luigi->velocity.x > 0) ? luigi->MAX_RUN_VELOCITY : -luigi->MAX_RUN_VELOCITY);
-            }
-
-            
-            if (luigi->isJumping()) {
-                if (luigi->velocity.y < 0) {
-                    if (luigi->orientation) luigi->setAnimation(luigi->jumpRight);
-                    else luigi->setAnimation(luigi->jumpLeft);
-                }
-                else if (luigi->velocity.y >= 0) {
-                    if (luigi->orientation) luigi->setAnimation(luigi->fallRight);
-                    else luigi->setAnimation(luigi->fallLeft);
-                }
-            }
-
-            if (luigi->isIdle()) {
-                if (luigi->orientation) luigi->setAnimation(luigi->idleRight);
-                else luigi->setAnimation(luigi->idleLeft);
-            }
-
-            luigi->setPosition(Vector2(luigi->getPosition().x + luigi->velocity.x * deltaTime, luigi->getPosition().y + luigi->velocity.y * deltaTime));
         }
+        else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
+            if (character->velocity.x > 0) {
+                if (character->isJumping() == false) character->setAnimation(character->stopRight);
+                character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
+                if (character->velocity.x < 0) character->setXVelocity(-max_walk_velocity);
+            }
+            else {
+                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
+                else character->setXVelocity(min(character->getVelocity().x, -max_walk_velocity));
+                if (character->isJumping() == false) {
+                    if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
+                        character->setAnimation(character->runLeft);
+                    }
+                    else character->setAnimation(character->walkLeft);
+                }
+            }
+
+        }
+        else {
+            if (character->velocity.x > 0) {
+                character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
+                if (character->velocity.x < 0) character->setXVelocity(0.f);
+                if (character->isJumping() == false) character->setAnimation(character->stopRight);
+            }
+            else if (character->velocity.x < 0) {
+                character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
+                if (character->velocity.x > 0) character->setXVelocity(0.f);
+                if (character->isJumping() == false) character->setAnimation(character->stopLeft);
+            }
+        }
+
+        if (character->velocity.x > 0) character->orientation = true;
+        else if (character->velocity.x < 0) character->orientation = false;
+
+
+        if (IsKeyDown(KEY_SPACE) && character->isJumping() == false) {
+            character->setYVelocity(-jump_velocity);
+            if (character->velocity.x > 0) character->setAnimation(character->jumpRight);
+            else if (character->velocity.x < 0) character->setAnimation(character->jumpLeft);
+            character->jumping = true;
+            RESOURCE_MANAGER.playSound("jump.wav");
+        }
+        else if (character->isJumping()) {
+            character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
+
+            //if (character->onGround()) {
+            //    character->setPosition(Vector2(character->getPosition().x, 800.f - character->getSize().y));
+            //    character->setYVelocity(0.f);
+            //    character->jumping = false;  
+            //}
+        }
+
+        if (IsKeyUp(KEY_LEFT_SHIFT) && fabs(character->velocity.x) > max_walk_velocity) {
+            if (character->velocity.x > 0) {
+                character->setXVelocity(max(character->getVelocity().x - acceleration * deltaTime, max_walk_velocity));
+            }
+            else if (character->velocity.x < 0) {
+                character->setXVelocity(min(character->getVelocity().x + acceleration * deltaTime, -max_walk_velocity));
+            }
+        }
+        else if (IsKeyDown(KEY_LEFT_SHIFT) && fabs(character->velocity.x) > max_run_velocity) {
+            character->setXVelocity((character->velocity.x > 0) ? max_run_velocity : -max_run_velocity);
+        }
+
+
+        if (character->isJumping()) {
+            if (character->velocity.y < 0) {
+                if (character->orientation) character->setAnimation(character->jumpRight);
+                else character->setAnimation(character->jumpLeft);
+            }
+            else if (character->velocity.y >= 0) {
+                if (character->orientation) character->setAnimation(character->fallRight);
+                else character->setAnimation(character->fallLeft);
+            }
+        }
+
+        if (character->isIdle()) {
+            if (character->orientation) character->setAnimation(character->idleRight);
+            else character->setAnimation(character->idleLeft);
+        }
+
+
+        if (!character->isJumping() && fabs(character->getVelocity().x) >= max_run_velocity) {
+            if (!RESOURCE_MANAGER.isSoundPlaying("pmeter.wav")) RESOURCE_MANAGER.playSound("pmeter.wav");
+        }
+        else RESOURCE_MANAGER.stopSound("pmeter.wav");
+
+        character->setPosition(Vector2(character->getPosition().x + character->velocity.x * deltaTime, character->getPosition().y + character->velocity.y * deltaTime));
     }
 
 	STATE getState() const override {

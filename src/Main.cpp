@@ -24,7 +24,7 @@ int main() {
     Texture2D texture = LoadTexture("../SuperMario/images.png");
 
     // Tạo một vật thể với texture và InputManager
-    Character* player = new Luigi(Vector2{1,1});
+    Character* player = new Mario(Vector2{1,1});
     RESOURCE_MANAGER.playMusic("World1.mp3");
 
     Map map1;

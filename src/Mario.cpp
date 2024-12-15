@@ -5,7 +5,7 @@
 #include"../include/StarState.h"
 
 Mario::Mario(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
-	state = new NormalState;
+	state = new SuperState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);

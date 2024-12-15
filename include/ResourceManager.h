@@ -63,9 +63,13 @@ public:
 
     // Play a music track
     void playMusic(const string& trackName) const; 
+    bool isMusicPlaying(const string& musicName) const;
+    void stopMusic(const string& musicName) const;
 
     // Play a sound effect
     void playSound(const string& soundName) const; 
+    bool isSoundPlaying(const string& soundName) const;
+    void stopSound(const string& soundName) const;
 };
 
 
