@@ -42,7 +42,7 @@ public:
         Rectangle floorRect = floor->getRectangle();
 
         if (CheckCollisionRecs(playerRect, floorRect)) {
-            if (playerRect.y + playerRect.height <= floorRect.y + 16 && player->getVelocity().y >= 0.f) {
+            if (playerRect.y + playerRect.height <= floorRect.y + 7 && player->getVelocity().y >= 0.f) {
                 player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
                 player->setYVelocity(0.f);
                 player->setJumping(false);
