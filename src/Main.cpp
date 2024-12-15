@@ -6,33 +6,37 @@
 #include "../include/GameEngine.h"
 #include "../include/Mario.h"
 #include "../include/Luigi.h"
+#include "../include/Menu.h"
 using namespace std;
 
 
 int main() {
-    InitAudioDevice();
-    InitWindow(1280, 800, "Super Mario Bros");
-    
-    RESOURCE_MANAGER.loadAllResource();
-    INPUT_MANAGER.bindKey(KEY_A);
-    INPUT_MANAGER.bindKey(KEY_D);
-    INPUT_MANAGER.bindKey(KEY_S);
-    INPUT_MANAGER.bindKey(KEY_SPACE);
-    INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
-    registerBlocks();
-    // Tải texture cho vật thể
-    Texture2D texture = LoadTexture("../SuperMario/images.png");
+    //InitAudioDevice();
+    //InitWindow(1280, 800, "Super Mario Bros");
+    //
+    //RESOURCE_MANAGER.loadAllResource();
+    //INPUT_MANAGER.bindKey(KEY_A);
+    //INPUT_MANAGER.bindKey(KEY_D);
+    //INPUT_MANAGER.bindKey(KEY_S);
+    //INPUT_MANAGER.bindKey(KEY_SPACE);
+    //INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
+    //registerBlocks();
+    //// Tải texture cho vật thể
+    //Texture2D texture = LoadTexture("../SuperMario/images.png");
 
-    // Tạo một vật thể với texture và InputManager
-    Character* player = new Mario(Vector2{0,0});
-    RESOURCE_MANAGER.playMusic("World1.mp3");
+    //// Tạo một vật thể với texture và InputManager
+    //Character* player = new Mario(Vector2{0,0});
+    //RESOURCE_MANAGER.playMusic("World1.mp3");
 
-    Map map1;
-    map1.loadFromFile("../assets/Map/Map1-1.txt");
-    map1.loadBackground("../assets/Map/Map1-1.png");
+    //Map map1;
+    //map1.loadFromFile("../assets/Map/Map1-1.txt");
+    //map1.loadBackground("../assets/Map/Map1-1.png");
 
-    GameEngine engine((float)820, (float)530, (float)2779, (float)512, map1,player);
-    engine.run();
+    //GameEngine engine((float)820, (float)530, (float)2779, (float)512, map1,player);
+    //engine.run();
+    // 
+    // 
+    // 
     //while (!WindowShouldClose()) {
     //    if (FPS_MANAGER.update()) {
     //       // Update music stream
@@ -53,9 +57,10 @@ int main() {
     //       EndDrawing();
     //    }
     //}
-
-    CloseWindow();
-    CloseAudioDevice();
+    Menu menu;
+    menu.run();
+    //CloseWindow();
+    //CloseAudioDevice();
 
     return 0;
 }

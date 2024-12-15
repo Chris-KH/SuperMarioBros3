@@ -30,11 +30,11 @@ void Menu::run() {
     Map map1;
     map1.loadFromFile("../assets/Map/Map1-1.txt");
     map1.loadBackground("../assets/Map/Map1-1.png");
-    this->map = map;
+    this->map = &map1;
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(WHITE);
-
+        //ClearBackground(WHITE);
+        
         if (currentState) {
             currentState->draw();
             currentState->handleInput();
@@ -94,17 +94,14 @@ MainMenuState::MainMenuState(Menu* menu) {
 }
 
 void MainMenuState::draw() {
-    BeginDrawing();
-    ClearBackground(WHITE);
+    ClearBackground(RAYWHITE);
 
     DrawText("Main Menu", 300, 100, 40, BLACK);
-    DrawText("Start", 300, 200, 40, BLACK);
+    DrawText("Start", 300, 200, 30, BLACK);
     DrawText("Settings", 300, 250, 30, BLACK);
     DrawText("Select Character", 300, 300, 30, BLACK);
     DrawText("Select Map", 300, 350, 30, BLACK);
-    DrawText("Exit", 300, 400, 30, BLACK);
-
-    EndDrawing();
+    //DrawText("Exit", 300, 400, 30, BLACK);
 }
 
 void MainMenuState::handleInput() {
@@ -132,7 +129,6 @@ SettingState::SettingState(Menu* menu) {
 }
 
 void SettingState::draw() {
-    BeginDrawing();
     ClearBackground(RAYWHITE);
 
     DrawText("Settings", 300, 100, 40, BLACK);
@@ -142,14 +138,15 @@ void SettingState::draw() {
     DrawText("Press 2 to Toggle Music", 300, 330, 20, DARKGRAY);
     DrawText("Press 3 to Return to Main Menu", 300, 360, 20, DARKGRAY);
 
-    EndDrawing();
 }
 
 void SettingState::handleInput() {
     if (IsKeyPressed(KEY_ONE)) {
+        SETTINGS.setSound(!menu->isAudioEnabled());
         menu->configureSettings(!menu->isAudioEnabled(), menu->isMusicEnabled());
     }
     else if (IsKeyPressed(KEY_TWO)) {
+        SETTINGS.setMusic(!menu->isMusicEnabled());
         menu->configureSettings(menu->isAudioEnabled(), !menu->isMusicEnabled());
     }
     else if (IsKeyPressed(KEY_THREE)) {
@@ -163,25 +160,26 @@ CharSelection::CharSelection(Menu* menu) {
 }
 
 void CharSelection::draw() {
-    BeginDrawing();
     ClearBackground(RAYWHITE);
 
     DrawText("Character Selection", 300, 100, 40, BLACK);
-    DrawText("1. Warrior", 300, 200, 30, BLACK);
-    DrawText("2. Mage", 300, 250, 30, BLACK);
-    DrawText("3. Archer", 300, 300, 30, BLACK);
-    DrawText(TextFormat("Current Selection: %d", menu->getSelectedCharacter()), 300, 350, 30, DARKGRAY);
+    DrawText("Mario", 300, 200, 30, BLACK);
+    DrawText("Luigi", 300, 250, 30, BLACK);
+    DrawText(TextFormat("Current Selection: %d", menu->player->getCharacterType()), 300, 350, 30, DARKGRAY);
 
-    EndDrawing();
 }
 
 void CharSelection::handleInput() {
     if (IsKeyPressed(KEY_ONE)) {
-        //menu->selectCharacter(1);
+        delete menu->player;
+        Character* newPlayer = new Mario(Vector2{ 0,0 });
+        menu->player = newPlayer;
         menu->returnToMainMenu();
     }
     else if (IsKeyPressed(KEY_TWO)) {
-        //menu->selectCharacter(2);
+        delete menu->player;
+        Character* newPlayer = new Luigi(Vector2{ 0,0 });
+        menu->player = newPlayer;        
         menu->returnToMainMenu();
     }
     else if (IsKeyPressed(KEY_THREE)) {
@@ -196,7 +194,6 @@ MapSelection::MapSelection(Menu* menu) {
 }
 
 void MapSelection::draw() {
-    BeginDrawing();
     ClearBackground(RAYWHITE);
 
     DrawText("Map Selection", 300, 100, 40, BLACK);
@@ -205,7 +202,6 @@ void MapSelection::draw() {
     DrawText("3. Castle", 300, 300, 30, BLACK);
     DrawText(TextFormat("Current Selection: %d", menu->getSelectedMap()), 300, 350, 30, DARKGRAY);
 
-    EndDrawing();
 }
 
 void MapSelection::handleInput() {
