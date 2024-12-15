@@ -6,7 +6,7 @@
 
 class CollisionStrategy {
 public:
-    virtual void resolve(Entity& entityA, Entity& entityB) = 0;
+    virtual bool resolve(Entity& entityA, Entity& entityB) = 0;
     virtual ~CollisionStrategy() = default;
 };
 
@@ -31,67 +31,12 @@ inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximi
 class PlayerFloorStrat : public CollisionStrategy
 {
 public:
-    //void resolve(Entity& entityA, Entity& entityB) override
-    //{
-    //    Floor* floor = dynamic_cast<Floor*>(&entityB);
-    //    Character* player = dynamic_cast<Character*>(&entityA);
-
-    //    if (!floor || !player)
-    //        return;
-
-    //    Rectangle playerRect = player->getRectangle();
-    //    Rectangle floorRect = floor->getRectangle();
-
-    //    Vector2 playerVelocity = player->getVelocity();
-    //    Rectangle futurePlayerRect = {
-    //        playerRect.x,
-    //        playerRect.y + playerVelocity.y,
-    //        playerRect.width,
-    //        playerRect.height
-    //    };
-
-    //    if (CheckCollisionRecs(futurePlayerRect, floorRect)) {
-    //        // Ensure the player was above the floor in the previous frame
-    //        if (playerRect.y + playerRect.height <= floorRect.y) {
-    //            // Snap the player to the top of the floor
-    //            player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
-
-    //            // Reset vertical velocity to prevent falling
-    //            player->setVelocity(Vector2(playerVelocity.x, 0));
-    //        }
-    //    }
-    //}
- /*   void resolve(Entity& entityA, Entity& entityB) override {
+    bool resolve(Entity& entityA, Entity& entityB) override {
         Character* player = dynamic_cast<Character*>(&entityA);
         Floor* floor = dynamic_cast<Floor*>(&entityB);
 
         if (!player || !floor)
-            return;
-
-        Rectangle playerRect = player->getRectangle();
-        Rectangle floorRect = floor->getRectangle();
-
-        bool isOnGround = false;
-        if (player->getVelocity().y == 0)
-        {
-            player->setJumping(false);
-        }
-        if (CheckCollisionRecs(playerRect, floorRect)) {
-            if (playerRect.y + playerRect.height >= floorRect.y) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
-                player->setVelocity(Vector2(player->getVelocity().x, 0));
-                isOnGround = true;
-            }
-        }
-        player->setJumping(!isOnGround);
-        cout << (player->isJumping())<< endl;
-    }*/
-    void resolve(Entity& entityA, Entity& entityB) override {
-        Character* player = dynamic_cast<Character*>(&entityA);
-        Floor* floor = dynamic_cast<Floor*>(&entityB);
-
-        if (!player || !floor)
-            return;
+            return false;
 
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
@@ -101,21 +46,23 @@ public:
                 player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005));
                 player->setYVelocity(0.f);
                 player->setJumping(false);
+                return true;
             }
         }
         else {
             player->setJumping(true);
+            return false;
         }
     }
 };
 class PlayerBlockStrat : public CollisionStrategy {
 public:
-    void resolve(Entity& entityA, Entity& entityB) override {
+    bool resolve(Entity& entityA, Entity& entityB) override {
         Character* player = dynamic_cast<Character*>(&entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
 
         if (!player || !block)
-            return;
+            return false;
 
         Rectangle playerRect = player->getRectangle();
         Rectangle blockRect = block->getRectangle();
@@ -159,9 +106,11 @@ public:
                     player->setVelocity(Vector2(player->getVelocity().x, -(player->getVelocity().y) / 3));
                 }
             }
+            return true;
         }
         else {
             player->setJumping(true);
+            return false;
         }
     }
 
@@ -169,7 +118,7 @@ public:
 };
 class EnemyBlockStrat : public CollisionStrategy {
 public:
-    void resolve(Entity& enemy, Entity& block) override {
+    bool resolve(Entity& enemy, Entity& block) override {
         Rectangle enemyRect = enemy.getRectangle();
         Rectangle blockRect = block.getRectangle();
 
@@ -196,6 +145,8 @@ public:
             else 
                 enemy.setPosition(Vector2(enemyRect.x, enemyRect.y + ((isUp) ? -std::abs(overlapY) : std::abs(overlapY))));
         }
+        return false;
+
     }
 };
 
@@ -229,9 +180,9 @@ public:
 };
 class CollisionInterface {
 public:
-    void resolve(Entity& entityA, Entity& entityB) {
+    bool resolve(Entity& entityA, Entity& entityB) {
         if (!shouldCheckCollision(entityA, entityB)) {
-            return; // Skip unnecessary checks
+            return false; // Skip unnecessary checks
         }
         auto typeA = entityA.getType();
         auto typeB = entityB.getType();
@@ -242,11 +193,12 @@ public:
             strategy = CollisionStrategySelector::getStrategy(typeB, typeA, dynamic_cast<BaseBlock*>(&entityA));
         }
         if (strategy) {
-            strategy->resolve(entityA, entityB);
+            return strategy->resolve(entityA, entityB);
         }
         else {
             std::cout << "No collision strategy found for entities: "
                 << static_cast<int>(typeA) << " and " << static_cast<int>(typeB) << std::endl;
         }
+        return false;
     }
 };

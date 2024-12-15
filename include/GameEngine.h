@@ -126,7 +126,12 @@ public:
 		player->setJumping(true);
 		for (Entity* block : *(blocks))
 		{
-			IColl.resolve(*player, *block);
+			int k = 0;
+			if (IColl.resolve(*player, *block))
+			{
+				if (k++ >= 2)
+					break;
+			}
 		}
 	}
 	//void updateChunks(int characterChunk) {
