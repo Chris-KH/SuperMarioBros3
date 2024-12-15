@@ -96,7 +96,7 @@ public:
 	//	//}
 	//}
 	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map,Character*& player)
-		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1), map(&map), player(player) {
+		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75), map(&map), player(player) {
 		blocks = map.returnBlockArray();
 	};
 	~GameEngine()
