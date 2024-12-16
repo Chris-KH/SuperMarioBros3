@@ -8,7 +8,7 @@ protected:
     Vector2 acceleration;  // Acceleration vector (ax, ay)
     Vector2 maxSpeed;      // Maximum speed (x, y)
     bool isDead;           // Indicates if the sprite is "dead"
-
+    bool jumping;
     const float GRAVITY = 1000.f;
 public:
     Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
@@ -34,8 +34,9 @@ public:
     void setXMaxSpeed(float maxX);
     void setYMaxSpeed(float maxY);
 
-    void update(float deltaTime);
+    virtual bool isJumping() const;
+    virtual void setJumping(bool value);
 
-    // Draw method override
-    virtual void draw() const override;
+    virtual void update(float deltaTime);
+    virtual void draw() const;
 };

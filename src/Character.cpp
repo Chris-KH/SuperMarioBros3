@@ -27,11 +27,6 @@ void Character::reset() {
     invicible = 0;
 }
 
-void Character::setJumping(bool value)
-{
-    jumping = value;
-}
-
 CharacterState::STATE Character::getState() const {
     return state->getState();
 }
@@ -55,7 +50,6 @@ void Character::setAnimation(Animation* animation) {
     this->setSize(currentAnimation->getSize());
 };
 
-bool Character::isJumping() const { return jumping; }
 
 bool Character::isDead() const { return dead; }
 

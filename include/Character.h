@@ -36,7 +36,6 @@ protected:
     CharacterState* state;
     InputManager& inputManager;
     bool orientation; //True for right, false for left
-    bool jumping;
     bool dead; //Character dead or not
     
     int scores; // Score
@@ -62,20 +61,18 @@ public:
     virtual CHACRACTER getCharacterType() const = 0;
 
     
-    virtual void update(float deltaTime) = 0;
+    virtual void update(float deltaTime) {};
         
     virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
-    void draw();
+    virtual void draw();
 
     virtual void setState();
     virtual void reset();
-    void setJumping(bool value);
     
     void setAnimation(Animation* animation);
 
     virtual CharacterState::STATE getState() const;
-    virtual bool isJumping() const;
     virtual bool isDead() const;
     virtual bool isInvicible() const;
     virtual bool isIdle() const;

@@ -254,7 +254,7 @@
     <ClCompile Include="..\src\Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\menu.cpp">
+    <ClCompile Include="..\src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

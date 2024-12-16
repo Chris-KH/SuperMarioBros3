@@ -170,7 +170,7 @@
     <ClCompile Include="..\src\FPSManager.cpp" />
     <ClCompile Include="..\src\Global.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
-    <ClCompile Include="..\src\menu.cpp" />
+    <ClCompile Include="..\src\Menu.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Settings.cpp" />
     <ClCompile Include="..\src\SuperLeaf.cpp" />

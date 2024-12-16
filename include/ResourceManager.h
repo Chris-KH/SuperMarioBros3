@@ -32,7 +32,6 @@ private:
     void loadTextures();
     void loadAnimationFromFile(const string& filePath, const string& fileName);
     void loadAnimation();  // Load animation resources
-    void loadBackground(); // Load background resources
     void loadFont();      // Load font resources
     void loadMusic();     // Load music resources
     void loadSound();     // Load sound effect resources

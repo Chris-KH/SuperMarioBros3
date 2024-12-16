@@ -93,7 +93,7 @@ void ResourceManager::loadAnimationFromFile(const string& filePath, const string
             }
 
             Rectangle source = { (float)x, (float)y, (float)width, (float)height };
-            Vector2 offset = { 0.0f, 0.0f }; // Offset mặc định
+            Vector2 offset = { 0.0f, 0.0f }; 
             animationResource[animationName]->addFrame(source, offset, duration);
         }
     }
