@@ -19,7 +19,7 @@ inline Rectangle getProximityRectangle(Entity& entity, float radius) {
         rect.height + 2 * radius
     };
 }
-inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 5.0f) {
+inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 40.0f) {
     Rectangle proximityRectA = getProximityRectangle(entityA, proximityRadius);
     Rectangle proximityRectB = entityB.getRectangle(); // Unmovable entities stay static
 
@@ -105,8 +105,8 @@ public:
             else {
                 overlapY = (blockRect.y + blockRect.height) - playerRect.y;
             }
-
-            if (std::abs(overlapX) < std::abs(overlapY)) {
+            Vector2 velocity = player->getVelocity();
+            if (std::abs(overlapX) < std::abs(overlapY) || velocity.y < 0 && isUp) {
                 float newPosX = playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX));
                 player->setPosition(Vector2(newPosX, playerRect.y));
 
