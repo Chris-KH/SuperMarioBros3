@@ -124,15 +124,17 @@ public:
 	{
 		CollisionInterface IColl;
 		player->setJumping(true);
-		bool isGrounded = false;
+		//bool isGrounded = false;
 		for (Entity* block : *(blocks))
 		{
 			if (IColl.resolve(*player, *block))
 			{
-				isGrounded = true;
+				//isGrounded = true;
+				player->setJumping(false);
+				break;
 			}
 		}
-		player->setJumping(!isGrounded);
+		//player->setJumping(!isGrounded);
 	}
 	//void updateChunks(int characterChunk) {
 	//	// Load and keep chunks within range

@@ -40,16 +40,13 @@ public:
         float deltaTime = GetFrameTime();
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
-        // normal logic
         if (CheckCollisionRecs(playerRect, floorRect)) {
             if (playerRect.y + playerRect.height <= floorRect.y + 9.f && player->getVelocity().y >= 0.f) {
                 player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
                 player->setYVelocity(0.f);
-                player->setJumping(false);
                 return true;
             }
         }
-        // swept logic. use for cases that is too fast
         if (player->getVelocity().y >= 600.f) {
             Vector2 prevPosition = player->getPosition();
             Vector2 nextPosition = {
@@ -64,20 +61,14 @@ public:
                 nextPosition.y - prevPosition.y
             };
 
-            // Check if swept rectangle intersects the floor
             if (CheckCollisionRecs(sweptRect, floorRect)) {
-                // Snap the player to the floor
                 player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
                 player->setYVelocity(0.f);
-                player->setJumping(false);
                 return true;
             }
         }
-        //else {
-        player->setJumping(true);
-
+     
         return false;
-        //}
 
     }
 };
@@ -122,25 +113,21 @@ public:
                 player->setVelocity(Vector2(0, player->getVelocity().y));
             }
             else {
-                float newPosY = playerRect.y + ((isUp) ? ( - std::abs(overlapY) + 0.005f) : std::abs(overlapY));
+                float newPosY = playerRect.y + ((isUp) ? (-std::abs(overlapY) + 0.005f) : std::abs(overlapY));
                 player->setPosition(Vector2(playerRect.x, newPosY));
                 if (isUp) {
                     player->setVelocity(Vector2(player->getVelocity().x, 0.f));
-                    player->setJumping(false);
+                    return true;
                 }
                 else {
-                    player->setVelocity(Vector2(player->getVelocity().x, -(player->getVelocity().y) / 3));
+                    player->setVelocity(Vector2(player->getVelocity().x, -(player->getVelocity().y) / 4));
                 }
+                return false;
             }
-            return true;
-        }
-        else {
-            player->setJumping(true);
             return false;
         }
+
     }
-
-
 };
 class EnemyBlockStrat : public CollisionStrategy {
 public:
@@ -227,4 +214,5 @@ public:
         }
         return false;
     }
+
 };
