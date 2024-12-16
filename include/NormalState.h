@@ -21,6 +21,7 @@ public:
             character->runLeft = RESOURCE_MANAGER.getAnimation("mario_run_left");
             character->stopLeft = RESOURCE_MANAGER.getAnimation("mario_stop_left");
             character->jumpLeft = RESOURCE_MANAGER.getAnimation("mario_jump_left");
+            character->flyLeft = RESOURCE_MANAGER.getAnimation("mario_fly_left");
             character->fallLeft = nullptr;
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("mario_idle_right");
@@ -28,6 +29,7 @@ public:
             character->runRight = RESOURCE_MANAGER.getAnimation("mario_run_right");
             character->stopRight = RESOURCE_MANAGER.getAnimation("mario_stop_right");
             character->jumpRight = RESOURCE_MANAGER.getAnimation("mario_jump_right");
+            character->flyRight = RESOURCE_MANAGER.getAnimation("mario_fly_right");
             character->fallRight = nullptr;
         }
         else if (dynamic_cast<Luigi*>(character) != nullptr) {
@@ -36,6 +38,7 @@ public:
             character->runLeft = RESOURCE_MANAGER.getAnimation("luigi_run_left");
             character->stopLeft = RESOURCE_MANAGER.getAnimation("luigi_stop_left");
             character->jumpLeft = RESOURCE_MANAGER.getAnimation("luigi_jump_left");
+            character->flyLeft = RESOURCE_MANAGER.getAnimation("luigi_fly_left");
             character->fallLeft = nullptr;
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("luigi_idle_right");
@@ -43,6 +46,7 @@ public:
             character->runRight = RESOURCE_MANAGER.getAnimation("luigi_run_right");
             character->stopRight = RESOURCE_MANAGER.getAnimation("luigi_stop_right");
             character->jumpRight = RESOURCE_MANAGER.getAnimation("luigi_jump_right");
+            character->flyRight = RESOURCE_MANAGER.getAnimation("luigi_fly_right");
             character->fallRight = nullptr;
         }
     }
@@ -128,8 +132,6 @@ public:
 
         if (IsKeyDown(KEY_SPACE) && character->isJumping() == false) {
             character->setYVelocity(-jump_velocity);
-            if (character->velocity.x > 0) character->setAnimation(character->jumpRight);
-            else if (character->velocity.x < 0) character->setAnimation(character->jumpLeft);
             character->jumping = true;
             RESOURCE_MANAGER.playSound("jump.wav");
         }
@@ -157,8 +159,14 @@ public:
             
             
         if (character->isJumping()) {
-            if (character->orientation) character->setAnimation(character->jumpRight);
-            else character->setAnimation(character->jumpLeft);
+            if (fabs(character->getVelocity().x) >= max_run_velocity) {
+                if (character->orientation) character->setAnimation(character->flyRight);
+                else character->setAnimation(character->flyLeft);
+            }
+            else {
+                if (character->orientation) character->setAnimation(character->jumpRight);
+                else character->setAnimation(character->jumpLeft);
+            }
         }
 
         if (character->isIdle()) {

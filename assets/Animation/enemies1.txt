@@ -129,8 +129,3 @@ $green_firepiranha_upRightAttack
 
 $green_firepiranha_downRightAttack
 364 399 16 25 999
-
-
-
-
-

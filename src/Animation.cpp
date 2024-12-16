@@ -46,14 +46,14 @@ void Animation::render(Vector2 position) const {
     Rectangle source = frame.source;
 
 
-    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
+    DrawTexturePro(texture, source, dest, {0.f, 0.f}, 0.0f, WHITE);
 }
 
 void Animation::render(const Frame& frame) const {
     Rectangle dest = {frame.source.x, frame.source.y, frame.source.width * scale, frame.source.height * scale };
     Rectangle source = frame.source;
 
-    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, BLANK);
+    DrawTexturePro(texture, source, dest, { 0.f, 0.f }, 0.0f, BLANK);
 }
 
 void Animation::render(int frameNumber) const {

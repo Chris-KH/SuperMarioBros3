@@ -25,6 +25,7 @@ protected:
     Animation* stopLeft;
     Animation* jumpLeft;
     Animation* fallLeft;
+    Animation* flyLeft;
 
     Animation* idleRight;
     Animation* walkRight;
@@ -32,6 +33,7 @@ protected:
     Animation* stopRight;
     Animation* jumpRight;
     Animation* fallRight;
+    Animation* flyRight;
 
     CharacterState* state;
     InputManager& inputManager;

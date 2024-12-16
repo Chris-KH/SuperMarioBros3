@@ -32,6 +32,12 @@ $mario_run_right
 174 50 16 16 0.01
 207 50 16 16 0.01
 
+$mario_fly_left
+240 17 16 16 1
+
+$mario_fly_right
+240 50 16 16 1
+
 $mario_dead
 537 50 16 16 1
 
@@ -80,3 +86,9 @@ $supermario_run_left
 $supermario_run_right
 930 38 19 27 0.01
 963 38 19 27 0.01
+
+$supermario_fly_left
+1032 6 19 26 1
+
+$supermario_fly_right
+1029 39 19 26 1
