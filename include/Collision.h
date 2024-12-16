@@ -37,12 +37,36 @@ public:
 
         if (!player || !floor)
             return false;
-
+        float deltaTime = GetFrameTime();
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
-
+        // normal logic
         if (CheckCollisionRecs(playerRect, floorRect)) {
-            if (playerRect.y + playerRect.height <= floorRect.y + 7 && player->getVelocity().y >= 0.f) {
+            if (playerRect.y + playerRect.height <= floorRect.y + 9.f && player->getVelocity().y >= 0.f) {
+                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
+                player->setYVelocity(0.f);
+                player->setJumping(false);
+                return true;
+            }
+        }
+        // swept logic. use for cases that is too fast
+        if (player->getVelocity().y >= 600.f) {
+            Vector2 prevPosition = player->getPosition();
+            Vector2 nextPosition = {
+                prevPosition.x,
+                prevPosition.y + player->getVelocity().y * deltaTime
+            };
+
+            Rectangle sweptRect = {
+                prevPosition.x,
+                prevPosition.y,
+                playerRect.width,
+                nextPosition.y - prevPosition.y
+            };
+
+            // Check if swept rectangle intersects the floor
+            if (CheckCollisionRecs(sweptRect, floorRect)) {
+                // Snap the player to the floor
                 player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
                 player->setYVelocity(0.f);
                 player->setJumping(false);
@@ -51,8 +75,10 @@ public:
         }
         //else {
         player->setJumping(true);
+
         return false;
         //}
+
     }
 };
 class PlayerBlockStrat : public CollisionStrategy {
