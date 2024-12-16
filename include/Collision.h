@@ -41,13 +41,13 @@ public:
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
         if (CheckCollisionRecs(playerRect, floorRect)) {
-            if (playerRect.y + playerRect.height <= floorRect.y + 9.f && player->getVelocity().y >= 0.f) {
+            if (playerRect.y + playerRect.height <= floorRect.y + 5.f && player->getVelocity().y >= 0.f) {
                 player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
                 player->setYVelocity(0.f);
                 return true;
             }
         }
-        if (player->getVelocity().y >= 600.f) {
+        if (player->getVelocity().y >= 800.f) {
             Vector2 prevPosition = player->getPosition();
             Vector2 nextPosition = {
                 prevPosition.x,

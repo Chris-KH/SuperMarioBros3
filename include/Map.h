@@ -75,9 +75,9 @@ private:
     // Get default color for a given block type
     static Color getDefaultColorForBlockType(BlockType blockType) {
         switch (blockType) {
-        case FLOOR:      return GREEN;
+        case FLOOR:      return BLANK;
         case BRICK:      return BROWN;
-        case SOLIDBLOCK: return DARKBROWN;
+        case SOLIDBLOCK: return BROWN;
         case MOVINGBLOCK: return DARKGRAY;
         case ITEMBLOCK:  return YELLOW;
         case HIDDEN:     return WHITE;
