@@ -9,6 +9,9 @@ protected:
     Vector2 maxSpeed;      // Maximum speed (x, y)
     bool isDead;           // Indicates if the sprite is "dead"
     bool jumping;
+
+    bool gravityAvailable;
+
     const float GRAVITY = 1000.f;
 public:
     Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
@@ -36,6 +39,7 @@ public:
 
     virtual bool isJumping() const;
     virtual void setJumping(bool value);
+    virtual void setGravity(bool gravityAvailable);
 
     virtual void update(float deltaTime);
     virtual void draw() const;

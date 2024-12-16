@@ -2,4 +2,5 @@
 
 Coin::Coin() : Item(POINT) {
 	setAnimation("coin_item");
+	setGravity(false);
 }

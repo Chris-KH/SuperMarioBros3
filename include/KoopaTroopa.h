@@ -9,4 +9,12 @@ public:
 		GREEN_KoopaParaTroopa,
 		RED_KoopaParaTroopa
 	};
+
+	KoopaTroopa() = default;
+	KoopaTroopa(KoopaTroopaType type) {
+		this->type = type;
+
+	}
+private:
+	KoopaTroopaType type;
 };

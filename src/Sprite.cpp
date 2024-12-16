@@ -6,7 +6,8 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     acceleration({ 0, 0 }),
     maxSpeed({ 300, 500 }), 
     isDead(false),
-    jumping(false)
+    jumping(false),
+    gravityAvailable(true)
 {}
 
 Sprite::Sprite(const Sprite& other)
@@ -15,7 +16,8 @@ Sprite::Sprite(const Sprite& other)
     acceleration(other.acceleration),
     maxSpeed(other.maxSpeed),
     isDead(other.isDead),
-    jumping(other.jumping)
+    jumping(other.jumping),
+    gravityAvailable(other.gravityAvailable)
 {}
 
 
@@ -70,3 +72,7 @@ void Sprite::setJumping(bool value) {
 }
 
 bool Sprite::isJumping() const { return jumping; }
+
+void Sprite::setGravity(bool gravityAvailable) {
+    this->gravityAvailable = gravityAvailable;
+}

@@ -9,6 +9,12 @@ public:
 		GREEN_PIRANHA,
 		GREEN_FIREPIRANHA
 	};
-private:
 
+	Plant() = default;
+	Plant(PlantType type) {
+		this->type = type;
+
+	}
+private:
+	PlantType type;
 };

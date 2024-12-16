@@ -11,6 +11,12 @@ public:
 		BROWNPARA_GoomBa,
 		MICRO_GoomBa
 	};
-private:
 
+	GoomBa() = default;
+	GoomBa(GoomBaType type) {
+		this->type = type;
+
+	}
+private:
+	GoomBaType type;
 };
