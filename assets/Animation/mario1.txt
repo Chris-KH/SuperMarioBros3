@@ -1,94 +1,94 @@
 $mario_idle_left
-11 18 12 15 1
+11 18 12 15 1 0 0 12 15
 
 $mario_walk_left
-10 18 13 15 0.1
-43 17 15 16 0.1
+11 18 12 15 0.1 0 0 12 15
+43 17 15 16 0.1 1 0 12 16
 
 $mario_jump_left
-108 17 16 16 1
+108 17 16 16 1 2 0 12 16
 
 $mario_stop_left
-142 50 14 16 1
-
-$mario_idle_right
-11 51 12 15 1
-
-$mario_walk_right
-9 51 14 15 0.1
-43 50 15 16 0.1
-
-$mario_jump_right
-108 50 16 16 1
-
-$mario_stop_right
-142 17 14 16 1
+142 50 14 16 1 0 0 9 16
 
 $mario_run_left
-174 17 16 16 0.01
-207 17 16 16 0.01
-
-$mario_run_right
-174 50 16 16 0.01
-207 50 16 16 0.01
+174 17 16 16 0.01 2 0 12 16
+207 17 16 16 0.01 2 0 12 16
 
 $mario_fly_left
-240 17 16 16 1
+240 17 16 16 1 2 0 12 16
+
+$mario_idle_right
+11 51 12 15 1 0 0 12 15
+
+$mario_walk_right
+11 51 12 15 0.1 0 0 12 15
+43 50 15 16 0.1 2 0 12 16
+
+$mario_jump_right
+108 50 16 16 1 2 0 12 16
+
+$mario_stop_right
+142 17 14 16 1 5 0 9 16
+
+$mario_run_right
+174 50 16 16 0.01 2 0 12 16
+207 50 16 16 0.01 2 0 12 16
 
 $mario_fly_right
-240 50 16 16 1
+240 50 16 16 1 2 0 12 16
 
 $mario_dead
-537 50 16 16 1
+537 50 16 16 1 2 0 12 16
 
 $supermario_idle_left
-636 6 14 27 1
+636 6 14 27 1 0 0 14 27
 
 $supermario_idle_right
-638 39 14 27 1
+638 39 14 27 1 0 0 14 27
 
 $supermario_walk_left
-636 6 14 27 0.1
-669 6 16 27 0.1
+636 6 14 27 0.1 0 0 14 27
+669 6 16 27 0.1 1 0 14 27
 
 $supermario_walk_right
-638 39 14 27 0.1
-669 39 16 27 0.1
+638 39 14 27 0.1 0 0 14 27
+669 39 16 27 0.1 1 0 14 27
 
 $supermario_jump_left
-801 6 16 26 1
+801 6 16 26 1 2 0 14 27
 
 $supermario_jump_right
-801 39 16 26 1
+801 39 16 26 1 0 0 14 27
 
 $supermario_fall_left
-702 6 16 26 1
+702 6 16 26 1 2 0 14 27
 
 $supermario_fall_right
-702 39 16 26 1
+702 39 16 26 1 0 0 14 27
 
 $supermario_stop_right
-834 5 16 28 1
+834 5 16 28 1 4 0 12 27
 
 $supermario_stop_left
-834 38 16 28 1
+834 38 16 28 1 0 0 12 27
 
 $supermario_sit_left
-735 15 14 18 1
+735 15 14 18 1 0 0 14 18
 
 $supermario_sit_right
-737 48 14 18 1
+737 48 14 18 1 0 0 14 18
 
 $supermario_run_left
-933 5 19 27 0.01
-966 5 19 27 0.01
+933 5 19 27 0.01 2 0 14 27
+966 5 19 27 0.01 2 0 14 27
 
 $supermario_run_right
-930 38 19 27 0.01
-963 38 19 27 0.01
+930 38 19 27 0.01 3 0 14 27
+963 38 19 27 0.01 3 0 14 27
 
 $supermario_fly_left
-1032 6 19 26 1
+1032 6 19 26 1 2 0 14 27
 
 $supermario_fly_right
-1029 39 19 26 1
+1029 39 19 26 1 3 0 14 27

@@ -85,16 +85,18 @@ void ResourceManager::loadAnimationFromFile(const string& filePath, const string
         }
         else {
             istringstream iss(line);
+            Vector2 offset = { 0.0f, 0.0f }; 
+            Vector2 size = { 0.0f, 0.0f };
             int x, y, width, height;
             float duration;
-            if (!(iss >> x >> y >> width >> height >> duration)) {
+            if (!(iss >> x >> y >> width >> height >> duration >> offset.x >> offset.y >> size.x >> size.y)) {
                 cerr << "Invalid frame data in file: " << filePath << '\n';
                 continue;
             }
 
             Rectangle source = { (float)x, (float)y, (float)width, (float)height };
-            Vector2 offset = { 0.0f, 0.0f }; 
-            animationResource[animationName]->addFrame(source, offset, duration);
+            
+            animationResource[animationName]->addFrame(source, offset, size, duration);
         }
     }
 

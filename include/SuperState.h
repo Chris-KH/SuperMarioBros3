@@ -129,7 +129,7 @@ public:
         else if (character->velocity.x < 0) character->orientation = false;
 
 
-        if (IsKeyDown(KEY_SPACE) && character->isJumping() == false) {
+        if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
             character->setYVelocity(-jump_velocity);
             if (character->velocity.x > 0) character->setAnimation(character->jumpRight);
             else if (character->velocity.x < 0) character->setAnimation(character->jumpLeft);

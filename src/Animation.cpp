@@ -8,8 +8,8 @@ Animation::Animation(const Texture2D& texture) :
     scale(1.f)
 {}
 
-void Animation::addFrame(const Rectangle& source, const Vector2& offset, float duration) {
-    frames.push_back({ source, offset, duration });
+void Animation::addFrame(const Rectangle& source, const Vector2& offset, const Vector2& size, float duration) {
+    frames.push_back({ source, offset, size, duration });
 }
 
 const Animation::Frame& Animation::getFrame(int frameNumber) const { 
@@ -46,14 +46,14 @@ void Animation::render(Vector2 position) const {
     Rectangle source = frame.source;
 
 
-    DrawTexturePro(texture, source, dest, {0.f, 0.f}, 0.0f, WHITE);
+    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
 }
 
 void Animation::render(const Frame& frame) const {
     Rectangle dest = {frame.source.x, frame.source.y, frame.source.width * scale, frame.source.height * scale };
     Rectangle source = frame.source;
 
-    DrawTexturePro(texture, source, dest, { 0.f, 0.f }, 0.0f, BLANK);
+    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, BLANK);
 }
 
 void Animation::render(int frameNumber) const {
@@ -73,8 +73,8 @@ bool Animation::isFinished() const {
 }
 
 //Hitbox
-const Vector2& Animation::getSize() const {
-    return { scale * frames[currentFrame].source.width, scale * frames[currentFrame].source.height };
+const Vector2 Animation::getSize() const {
+    return { scale * frames[currentFrame].size.x, scale * frames[currentFrame].size.y };
 }
 
 void Animation::setScale(float scale) {

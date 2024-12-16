@@ -130,7 +130,7 @@ public:
         else if (character->velocity.x < 0) character->orientation = false;
 
 
-        if (IsKeyDown(KEY_SPACE) && character->isJumping() == false) {
+        if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
             character->setYVelocity(-jump_velocity);
             character->jumping = true;
             RESOURCE_MANAGER.playSound("jump.wav");
