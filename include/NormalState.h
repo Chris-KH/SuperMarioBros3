@@ -83,11 +83,10 @@ public:
             if (character->velocity.x < 0) {
                 if (character->isJumping() == false) character->setAnimation(character->stopLeft);
                 character->setXVelocity(character->getVelocity().x + skid_deceleration * deltaTime);
-                if (character->velocity.x > 0) character->setXVelocity(max_walk_velocity);
+                if (character->velocity.x > 0) character->setXVelocity(0.f);
             }
             else {
-                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
-                else character->setXVelocity(max(character->getVelocity().x, max_walk_velocity));
+                character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
                 if (character->isJumping() == false) {
                     if (character->velocity.x >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runRight);
@@ -101,11 +100,10 @@ public:
             if (character->velocity.x > 0) {
                 if (character->isJumping() == false) character->setAnimation(character->stopRight);
                 character->setXVelocity(character->getVelocity().x - skid_deceleration * deltaTime);
-                if (character->velocity.x < 0) character->setXVelocity(-max_walk_velocity);
+                if (character->velocity.x < 0) character->setXVelocity(0.f);
             }
             else {
-                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
-                else character->setXVelocity(min(character->getVelocity().x, -max_walk_velocity));
+                character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
                 if (character->isJumping() == false) {
                     if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runLeft);
@@ -157,17 +155,20 @@ public:
             else character->setAnimation(character->idleLeft);
         }
             
-        character->setYVelocity(character->getVelocity().y + gravity * deltaTime);    
+            
         if (character->isJumping()) {
             if (fabs(character->getVelocity().x) >= max_run_velocity) {
-                if (character->orientation) character->setAnimation(character->flyRight);
-                else character->setAnimation(character->flyLeft);
+                character->setFlyAnimation();
             }
             else {
-                if (character->orientation) character->setAnimation(character->jumpRight);
-                else character->setAnimation(character->jumpLeft);
+                character->setJumpAnimation();
+                if (character->velocity.y < 0) {
+                    if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(0.f);
+                }
             }
         }
+
+        character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
             
         if (!character->isJumping() && fabs(character->getVelocity().x) >= max_run_velocity) {
             if (!RESOURCE_MANAGER.isSoundPlaying("pmeter.wav")) RESOURCE_MANAGER.playSound("pmeter.wav");

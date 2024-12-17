@@ -79,7 +79,7 @@ public:
             jump_velocity = luigi->JUMP_VELOCITY;
             max_run_velocity = luigi->MAX_RUN_VELOCITY;
             max_walk_velocity = luigi->MAX_WALK_VELOCITY;
-        }
+        }       
 
         //Logic update
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
@@ -87,11 +87,10 @@ public:
             if (character->velocity.x < 0) {
                 if (character->isJumping() == false) character->setAnimation(character->stopLeft);
                 character->setXVelocity(character->getVelocity().x + skid_deceleration * deltaTime);
-                if (character->velocity.x > 0) character->setXVelocity(max_walk_velocity);
+                if (character->velocity.x > 0) character->setXVelocity(0.f);
             }
             else {
-                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
-                else character->setXVelocity(max(character->getVelocity().x, max_walk_velocity));
+                character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
                 if (character->isJumping() == false) {
                     if (character->velocity.x >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runRight);
@@ -106,11 +105,10 @@ public:
             if (character->velocity.x > 0) {
                 if (character->isJumping() == false) character->setAnimation(character->stopRight);
                 character->setXVelocity(character->getVelocity().x - skid_deceleration * deltaTime);
-                if (character->velocity.x < 0) character->setXVelocity(-max_walk_velocity);
+                if (character->velocity.x < 0) character->setXVelocity(0.f);
             }
             else {
-                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
-                else character->setXVelocity(min(character->getVelocity().x, -max_walk_velocity));
+                character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
                 if (character->isJumping() == false) {
                     if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runLeft);
@@ -158,7 +156,7 @@ public:
             character->setIdleAnimation();
         }
 
-        character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
+        
         if (character->isJumping()) {
             character->setSitting(false);
             if (fabs(character->getVelocity().x) >= max_run_velocity) {
@@ -167,12 +165,15 @@ public:
             else {
                 if (character->velocity.y < 0) {
                     character->setJumpAnimation();
+                    if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(0.f);
                 }
-                else if (character->velocity.y >= 0) {
+                if (character->velocity.y >= 0) {
                     character->setFallAnimation();
                 }
             }
         }
+
+        character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
 
         if (character->isSitting()) {
             character->setSitAnimation();

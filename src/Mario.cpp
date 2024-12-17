@@ -5,7 +5,7 @@
 #include"../include/StarState.h"
 
 Mario::Mario(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
-	state = new SuperState;
+	state = new NormalState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
@@ -20,7 +20,6 @@ void Mario::update(float deltaTime) {
 	INPUT_MANAGER.update();
 	state->update(this, deltaTime);
 	currentAnimation->update(deltaTime);
-	
 }
 
 void Mario::onKey(KeyboardKey key, bool pressed) {
