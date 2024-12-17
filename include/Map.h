@@ -77,7 +77,7 @@ private:
         switch (blockType) {
         case FLOOR:      return BLANK;
         case BRICK:      return BROWN;
-        case SOLIDBLOCK: return BROWN;
+        case SOLIDBLOCK: return BLANK;
         case MOVINGBLOCK: return DARKGRAY;
         case ITEMBLOCK:  return YELLOW;
         case HIDDEN:     return WHITE;
