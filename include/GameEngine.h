@@ -140,6 +140,13 @@ public:
 				//break;
 			}
 		}
+		for (Entity* things : testEntities)
+		{
+			if (IColl.resolve(*player, *things));
+			{
+				isGrounded = true;
+			}
+		}
 		player->setJumping(!isGrounded);
 	}
 	//void updateChunks(int characterChunk) {
@@ -162,10 +169,10 @@ public:
 		camera.beginDrawing();
 		map->renderBackground();
 		map->renderAllBlock();
-		//for (Entity* i : testEntities)
-		//{
-		//	i->draw();
-		//}
+		for (Entity* i : testEntities)
+		{
+			i->draw();
+		}
 		// Render active chunks
 		//for (const auto& chunk : chunks) {
 		//	chunk.render();
@@ -184,8 +191,8 @@ public:
 
 	void run() {
 
-		MovingBlock testBlock(Vector2(100, 300), Vector2(100, 32), BLACK);
-		testBlock.setBounds(400, 400, 200, 400);
+		MovingBlock testBlock(Vector2(900, 400), Vector2(100, 32), BLACK);
+		testBlock.setBounds(850, 1000, 300, 500);
 		testBlock.setVelocity(Vector2(0, 50));
 		MovingBlock* blo = &testBlock;
 		testEntities.push_back(blo);
