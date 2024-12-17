@@ -11,10 +11,12 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     lives = 5;
    
     reset();
-
-    state = new NormalState;
-    state->setState(this);
 };
+
+Character::~Character() {
+    delete state;
+    INPUT_MANAGER.removeListener(*this);
+}
 
 EntityType Character::getType() const { return EntityType::CHACRACTER; }
 
@@ -29,11 +31,33 @@ CharacterState::STATE Character::getState() const {
     return state->getState();
 }
 
-bool Character::isJumping() const { return jumping; }
+void Character::draw() {
+    currentAnimation->render(getPosition());
+}
+
+void Character::setState() {
+    state->setState(this);
+}
+
+void Character::setAnimation(Animation* animation) {
+    if (currentAnimation != nullptr && currentAnimation != animation) currentAnimation->reset();
+    currentAnimation = animation;
+    if (currentAnimation == nullptr) return;
+
+    float diffHeight = this->getSize().y - currentAnimation->getSize().y;
+
+    this->setYPosition(this->getPosition().y + diffHeight);
+    this->setSize(currentAnimation->getSize());
+};
+
 
 bool Character::isDead() const { return dead; }
 
 bool Character::isInvicible() const { return invicible > 1e-9; }
+
+bool Character::isIdle() const {
+    return (velocity.x == 0.f && velocity.y == 0.f && !isJumping());
+}
 
 int Character::getLives() const { return lives; }
 

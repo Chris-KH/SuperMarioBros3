@@ -4,9 +4,21 @@
 class Plant : public Enemy {
 public:
 	enum PlantType {
-		PIRANHA_Plant,
-		FIREPIRANHA_Plant
+		RED_PIRANHA,
+		RED_FIREPIRANHA,
+		GREEN_PIRANHA,
+		GREEN_FIREPIRANHA
 	};
-private:
 
+	Plant() = default;
+	Plant(PlantType type) {
+		this->type = type;
+
+	}
+
+	void update(float deltaTime) override {
+
+	}
+private:
+	PlantType type;
 };

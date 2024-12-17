@@ -6,23 +6,16 @@ enum MushroomType{
 	MUSHROOM_1UP //Provides an extra life.
 };
 
-//class Mushroom : public Item {
-//private:
-//	MushroomType type;
-//public:
-//	static constexpr float SPEED = 0.f;
-// 
-//	//Create new mushroom
-//	Mushroom(MushroomType type = MUSHROOM_SUPER);
-//
-//	//Get type of mush room
-//	MushroomType getType() const;
-//};
-//
-//Mushroom::Mushroom(MushroomType type = MUSHROOM_SUPER) {
-//
-//}
-//
-//MushroomType Mushroom::getType() const {
-//	return this->type;
-//}
+class Mushroom : public Item {
+private:
+	MushroomType type;
+public:
+	const int POINT = 1000;
+	const float SPEED = 70.f;
+ 
+	//Create new mushroom
+	Mushroom(MushroomType type = MUSHROOM_SUPER);
+
+	//Get type of mush room
+	MushroomType getItemType() const;
+};

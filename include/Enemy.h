@@ -4,31 +4,28 @@
 
 class Enemy : public Sprite {
 protected:
-    Animation walkAnimation;
-    Animation attackAnimation;
-    Animation idleAnimation;
-    Animation jumpAnimation;
-    Animation* currentAnimation;
-
-    bool isJumping;
-    bool isAttacking;
-    bool isWalking;
-
-    float x, y; //position
-    float speed;
-    bool isAlive;
-
+    bool stompable;
+    bool kickable;
 public:
-    //Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
+    Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE) {
 
-    //virtual EntityType getType() const override { return EntityType::ENEMY; }
+    };
 
-    //// Override draw to use animations
-    //void draw() const;
+    virtual ~Enemy() {
 
-    //// Method to move enemy (AI-controlled)
-    //void move(float deltaTime);
+    }
+    
+    virtual EntityType getType() const override { return EntityType::ENEMY; }
+    
+    // Override draw to use animations
+    virtual void draw() const {
+        if (currentAnimation == nullptr) return;
+        currentAnimation->render(getPosition());
+    }
+    
+    // Method to move enemy (AI-controlled)
+    virtual void update(float deltaTime) {}
 
-    //// Method to switch between animations
-    //void switchAnimation(Animation& animation);
+    void stomped();
+    void attacked();
 };

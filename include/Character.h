@@ -25,6 +25,7 @@ protected:
     Animation* stopLeft;
     Animation* jumpLeft;
     Animation* fallLeft;
+    Animation* flyLeft;
 
     Animation* idleRight;
     Animation* walkRight;
@@ -32,11 +33,11 @@ protected:
     Animation* stopRight;
     Animation* jumpRight;
     Animation* fallRight;
+    Animation* flyRight;
 
     CharacterState* state;
     InputManager& inputManager;
     bool orientation; //True for right, false for left
-    bool jumping;
     bool dead; //Character dead or not
     
     int scores; // Score
@@ -55,26 +56,28 @@ public:
     };
 
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
-    virtual ~Character() = default;
+    virtual ~Character();
     
     virtual EntityType getType() const override;
 
     virtual CHACRACTER getCharacterType() const = 0;
 
     
-    virtual void update(float deltaTime) = 0;
+    virtual void update(float deltaTime) {};
         
     virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
-    virtual void setState() {
-        state->setState(this);
-    }
+    virtual void draw();
+
+    virtual void setState();
     virtual void reset();
+    
+    void setAnimation(Animation* animation);
 
     virtual CharacterState::STATE getState() const;
-    virtual bool isJumping() const;
     virtual bool isDead() const;
     virtual bool isInvicible() const;
+    virtual bool isIdle() const;
     virtual int getLives() const;
     virtual int getCoins() const;
     virtual int getScores() const;

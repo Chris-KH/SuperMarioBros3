@@ -77,9 +77,9 @@ private:
     // Get default color for a given block type
     static Color getDefaultColorForBlockType(BlockType blockType) {
         switch (blockType) {
-        case FLOOR:      return GREEN;
+        case FLOOR:      return BLANK;
         case BRICK:      return BROWN;
-        case SOLIDBLOCK: return DARKBROWN;
+        case SOLIDBLOCK: return BLANK;
         case MOVINGBLOCK: return DARKGRAY;
         case ITEMBLOCK:  return YELLOW;
         case HIDDEN:     return WHITE;
@@ -136,25 +136,25 @@ public:
     }
 
     void addEntity(Entity* entity) {
-        entities.push_back(entity);
+        blockArray.push_back(entity);
     }
 
     void loadFromFile(const std::string& filename) {
         clearBlocks();
-        entities = MapHelper::loadFromTextFile(filename);
+        blockArray = MapHelper::loadFromTextFile(filename);
     }
 
     void saveToFile(const std::string& filename) const {
-        MapHelper::saveToTextFile(filename, entities);
+        MapHelper::saveToTextFile(filename, blockArray);
     }
 
     const std::vector<Entity*>& getEntities() const {
-        return entities;
+        return blockArray;
     }
 
     std::vector<BaseBlock*> getBlocks() const {
         std::vector<BaseBlock*> blocks;
-        for (Entity* entity : entities) {
+        for (Entity* entity : blockArray) {
             if (BaseBlock* block = dynamic_cast<BaseBlock*>(entity)) {
                 blocks.push_back(block);
             }
@@ -171,9 +171,13 @@ public:
             throw std::runtime_error("Failed to load background texture: " + filePath);
         }
     }
-
-    void renderAllBlock() {
-        for (Entity* entity : entities)
+    vector<Entity*>* returnBlockArray()
+    {
+        return &blockArray;
+    }
+    void renderAllBlock()
+    {
+        for (Entity* entity : blockArray)
             entity->draw();
 
     }
@@ -185,12 +189,12 @@ public:
     }
 
 private:
-    std::vector<Entity*> entities;
+    std::vector<Entity*> blockArray;
     Texture2D background;
     void clearBlocks() {
-        for (Entity* entity : entities) {
+        for (Entity* entity : blockArray) {
             delete entity;
         }
-        entities.clear();
+        blockArray.clear();
     }
 };

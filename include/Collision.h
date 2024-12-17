@@ -6,7 +6,7 @@
 
 class CollisionStrategy {
 public:
-    virtual void resolve(Entity& entityA, Entity& entityB) = 0;
+    virtual bool resolve(Entity& entityA, Entity& entityB) = 0;
     virtual ~CollisionStrategy() = default;
 };
 
@@ -19,7 +19,7 @@ inline Rectangle getProximityRectangle(Entity& entity, float radius) {
         rect.height + 2 * radius
     };
 }
-inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 10.0f) {
+inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 40.0f) {
     Rectangle proximityRectA = getProximityRectangle(entityA, proximityRadius);
     Rectangle proximityRectB = entityB.getRectangle(); // Unmovable entities stay static
 
@@ -31,71 +31,107 @@ inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximi
 class PlayerFloorStrat : public CollisionStrategy
 {
 public:
-    void resolve(Entity& entityA, Entity& entityB) override
-    {
-        Floor* floor = dynamic_cast<Floor*>(&entityB);
+    bool resolve(Entity& entityA, Entity& entityB) override {
         Character* player = dynamic_cast<Character*>(&entityA);
+        Floor* floor = dynamic_cast<Floor*>(&entityB);
 
-        if (!floor || !player)
-            return;
-
+        if (!player || !floor)
+            return false;
+        float deltaTime = GetFrameTime();
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
-
-        Vector2 playerVelocity = player->getVelocity();
-        Rectangle futurePlayerRect = {
-            playerRect.x,
-            playerRect.y + playerVelocity.y,
-            playerRect.width,
-            playerRect.height
-        };
-
-        if (CheckCollisionRecs(futurePlayerRect, floorRect)) {
-            // Ensure the player was above the floor in the previous frame
-            if (playerRect.y + playerRect.height <= floorRect.y) {
-                // Snap the player to the top of the floor
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
-
-                // Reset vertical velocity to prevent falling
-                player->setVelocity(Vector2(playerVelocity.x, 0));
+        if (CheckCollisionRecs(playerRect, floorRect)) {
+            if (playerRect.y + playerRect.height <= floorRect.y + 5.f && player->getVelocity().y >= 0.f) {
+                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
+                player->setYVelocity(0.f);
+                return true;
             }
         }
-    }
+        if (player->getVelocity().y >= 800.f) {
+            Vector2 prevPosition = player->getPosition();
+            Vector2 nextPosition = {
+                prevPosition.x,
+                prevPosition.y + player->getVelocity().y * deltaTime
+            };
 
+            Rectangle sweptRect = {
+                prevPosition.x,
+                prevPosition.y,
+                playerRect.width,
+                nextPosition.y - prevPosition.y
+            };
+
+            if (CheckCollisionRecs(sweptRect, floorRect)) {
+                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
+                player->setYVelocity(0.f);
+                return true;
+            }
+        }
+     
+        return false;
+
+    }
 };
 class PlayerBlockStrat : public CollisionStrategy {
 public:
-    void resolve(Entity& player, Entity& block) override {
-        Rectangle playerRect = player.getRectangle();
-        Rectangle blockRect = block.getRectangle();
+    bool resolve(Entity& entityA, Entity& entityB) override {
+        Character* player = dynamic_cast<Character*>(&entityA);
+        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+
+        if (!player || !block)
+            return false;
+
+        Rectangle playerRect = player->getRectangle();
+        Rectangle blockRect = block->getRectangle();
 
         if (CheckCollisionRecs(playerRect, blockRect)) {
-            float overlapX = 0;
-            float overlapY = 0;
+            float overlapX = 0.f;
+            float overlapY = 0.f;
             bool isLeft = false;
             bool isUp = false;
+
             if (playerRect.x < blockRect.x) {
                 overlapX = (playerRect.x + playerRect.width) - blockRect.x;
                 isLeft = true;
             }
-            else 
+            else {
                 overlapX = (blockRect.x + blockRect.width) - playerRect.x;
+            }
+
             if (playerRect.y < blockRect.y) {
                 overlapY = (playerRect.y + playerRect.height) - blockRect.y;
                 isUp = true;
             }
-            else 
+            else {
                 overlapY = (blockRect.y + blockRect.height) - playerRect.y;
-            if (std::abs(overlapX) < std::abs(overlapY)) 
-                player.setPosition(Vector2(playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), playerRect.y));
-            else if (isUp)
-                player.setPosition(Vector2(playerRect.x, playerRect.y - std::abs(overlapY)));
+            }
+            Vector2 velocity = player->getVelocity();
+            if (std::abs(overlapX) < std::abs(overlapY) || velocity.y < 0 && isUp) {
+                float newPosX = playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX));
+                player->setPosition(Vector2(newPosX, playerRect.y));
+
+                player->setVelocity(Vector2(0, player->getVelocity().y));
+            }
+            else {
+                float newPosY = playerRect.y + ((isUp) ? (-std::abs(overlapY) + 0.005f) : std::abs(overlapY));
+                player->setPosition(Vector2(playerRect.x, newPosY));
+                if (isUp) {
+                    player->setVelocity(Vector2(player->getVelocity().x, 0.f));
+                    return true;
+                }
+                else {
+                    player->setVelocity(Vector2(player->getVelocity().x, -(player->getVelocity().y) / 4));
+                }
+                return false;
+            }
+            return false;
         }
+
     }
 };
 class EnemyBlockStrat : public CollisionStrategy {
 public:
-    void resolve(Entity& enemy, Entity& block) override {
+    bool resolve(Entity& enemy, Entity& block) override {
         Rectangle enemyRect = enemy.getRectangle();
         Rectangle blockRect = block.getRectangle();
 
@@ -122,6 +158,8 @@ public:
             else 
                 enemy.setPosition(Vector2(enemyRect.x, enemyRect.y + ((isUp) ? -std::abs(overlapY) : std::abs(overlapY))));
         }
+        return false;
+
     }
 };
 
@@ -155,9 +193,9 @@ public:
 };
 class CollisionInterface {
 public:
-    void resolve(Entity& entityA, Entity& entityB) {
+    bool resolve(Entity& entityA, Entity& entityB) {
         if (!shouldCheckCollision(entityA, entityB)) {
-            return; // Skip unnecessary checks
+            return false; // Skip unnecessary checks
         }
         auto typeA = entityA.getType();
         auto typeB = entityB.getType();
@@ -168,11 +206,13 @@ public:
             strategy = CollisionStrategySelector::getStrategy(typeB, typeA, dynamic_cast<BaseBlock*>(&entityA));
         }
         if (strategy) {
-            strategy->resolve(entityA, entityB);
+            return strategy->resolve(entityA, entityB);
         }
         else {
             std::cout << "No collision strategy found for entities: "
                 << static_cast<int>(typeA) << " and " << static_cast<int>(typeB) << std::endl;
         }
+        return false;
     }
+
 };

@@ -2,7 +2,9 @@
 #include "../lib/raylib.h"
 #include <memory>
 #include <vector>
-
+#include "GameEngine.h"
+#include "Mario.h"
+#include "Luigi.h"
 // Forward declarations
 class MenuState;
 
@@ -10,17 +12,32 @@ class MenuState;
 class Menu {
 public:
     Menu();
+
     void run();
     void setState(std::unique_ptr<MenuState> newState);
 
-    // Configuration functions for settings, character, and maps
     void configureSettings(bool audioEnabled, bool musicEnabled);
     void selectCharacter(int characterIndex);
-    void selectMap(int mapIndex);
+    // void selectMap(int mapIndex);
 
+    // Accessors for settings
+    bool isAudioEnabled() const;
+    bool isMusicEnabled() const;
+    int getSelectedCharacter() const;
+    int getSelectedMap() const;
+
+    // State management
+    void returnToMainMenu();
+    Character* player;
+    Map* map;
 private:
+    bool audioEnabled;
+    bool musicEnabled;
+    int selectedCharacter;
+    int selectedMap;
     std::unique_ptr<MenuState> currentState;
 };
+
 
 // Base MenuState class
 class MenuState {
@@ -29,6 +46,8 @@ public:
     virtual void handleInput() = 0;
     virtual ~MenuState() = default;
 
+    void setMenu(Menu* menu) { this->menu = menu; }
+
 protected:
     Menu* menu;
 };
@@ -36,41 +55,29 @@ protected:
 // MainMenuState
 class MainMenuState : public MenuState {
 public:
-    explicit MainMenuState(Menu* menu);
+    explicit MainMenuState(Menu* menu); // Constructor declaration
     void draw() override;
     void handleInput() override;
 };
 
-// SettingState
 class SettingState : public MenuState {
 public:
     explicit SettingState(Menu* menu);
     void draw() override;
     void handleInput() override;
-
-private:
-    bool audioEnabled;
-    bool musicEnabled;
 };
 
-// CharacterState
 class CharSelection : public MenuState {
 public:
     explicit CharSelection(Menu* menu);
     void draw() override;
     void handleInput() override;
-
-private:
-    int currentCharacter;
 };
 
 // MapState
-class MapState : public MenuState {
+class MapSelection : public MenuState {
 public:
-    explicit MapState(Menu* menu);
+    explicit MapSelection(Menu* menu);
     void draw() override;
     void handleInput() override;
-
-private:
-    int currentMap;
 };

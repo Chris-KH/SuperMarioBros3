@@ -10,6 +10,7 @@ public:
     struct Frame {
         Rectangle source; ///< Position and size of the frame in the texture atlas.
         Vector2 offset;   ///< Offset for rendering the frame.
+        Vector2 size; //< Size of actual sprite
         float duration;   ///< Duration of the frame in seconds.
     };
 
@@ -19,7 +20,7 @@ public:
     Animation(const Texture2D& texture);
 
     //Add a new frame to the animation.
-    void addFrame(const Rectangle& source, const Vector2& offset, float duration = 1.f);
+    void addFrame(const Rectangle& source, const Vector2& offset, const Vector2& size, float duration = 1.f);
 
     //Get a frame from the animation.
     const Frame& getFrame(int frameNumber) const;
@@ -39,7 +40,7 @@ public:
     bool isFinished() const;
 
     //Hitbox
-    const Vector2& getSize() const;
+    const Vector2 getSize() const;
 
     void setScale(float scale);
 
@@ -51,7 +52,6 @@ private:
     vector<Frame> frames; ///< List of frames in the animation.
     int currentFrame; ///< Index of the current frame.
     float frameTimeCounter; ///< Time counter for the current frame.
-    bool finished; ///< Whether the animation has finished playing.
     float scale;
 };
 

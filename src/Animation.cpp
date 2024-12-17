@@ -4,12 +4,11 @@ Animation::Animation(const Texture2D& texture) :
     texture(texture),
     currentFrame(0),
     frameTimeCounter(0.0f),
-    finished(false),
     scale(1.f)
 {}
 
-void Animation::addFrame(const Rectangle& source, const Vector2& offset, float duration) {
-    frames.push_back({ source, offset, duration });
+void Animation::addFrame(const Rectangle& source, const Vector2& offset, const Vector2& size, float duration) {
+    frames.push_back({ source, offset, size, duration });
 }
 
 const Animation::Frame& Animation::getFrame(int frameNumber) const { 
@@ -21,19 +20,16 @@ const Animation::Frame& Animation::getFrame(int frameNumber) const {
 }
 
 void Animation::update(float deltaTime) {
-    if (frames.empty() || finished) return;
+    if (frames.empty()) return;
 
     frameTimeCounter += deltaTime;
 
-    if (frameTimeCounter >= frames[currentFrame].duration)
-    {
+    if (frameTimeCounter >= frames[currentFrame].duration) {
         frameTimeCounter -= frames[currentFrame].duration;
         currentFrame++;
 
-        if (currentFrame >= frames.size())
-        {
+        if (currentFrame >= frames.size()) {
             currentFrame = 0;
-            //finished = true; // Set finished for one-shot animations.
         }
     }
 }
@@ -65,16 +61,11 @@ void Animation::render(int frameNumber) const {
 void Animation::reset() {
     currentFrame = 0;
     frameTimeCounter = 0.0f;
-    finished = false;
-}
-
-bool Animation::isFinished() const {
-    return finished;
 }
 
 //Hitbox
-const Vector2& Animation::getSize() const {
-    return { scale * frames[currentFrame].source.width, scale * frames[currentFrame].source.height };
+const Vector2 Animation::getSize() const {
+    return { scale * frames[currentFrame].size.x, scale * frames[currentFrame].size.y };
 }
 
 void Animation::setScale(float scale) {

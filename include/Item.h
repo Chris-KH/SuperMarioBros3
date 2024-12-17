@@ -3,9 +3,12 @@
 
 class Item : public Sprite {
 private:
-
+	int point;
 public:
+	Item() = default;
+	Item(int point);
 
-	virtual EntityType getType() const override { return EntityType::ITEM; }
+	int getPoint() const;
+	virtual EntityType getType() const override;
 };
 

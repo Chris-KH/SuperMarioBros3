@@ -25,20 +25,20 @@ void ResourceManager::loadTextures() {
     string texturesFolder = "../assets/Textures";
 
     for (const auto& entry : fs::directory_iterator(texturesFolder)) {
-        if (entry.is_regular_file()) { // Chỉ xử lý tệp
-            string filePath = entry.path().string(); // Đường dẫn đầy đủ
-            string fileName = entry.path().stem().string(); // Tên tệp (không có đường dẫn)
-            // Kiểm tra định dạng tệp (chỉ lấy PNG và JPG)
+        if (entry.is_regular_file()) { 
+            string filePath = entry.path().string(); 
+            string fileName = entry.path().stem().string(); 
+
             if (filePath.ends_with(".png") || filePath.ends_with(".jpg") || filePath.ends_with(".jpeg")) {
                 Texture2D texture = LoadTexture(filePath.c_str());
 
-                // Kiểm tra xem texture có được tải thành công không
+               
                 if (texture.id != 0) {
-                    textures[fileName] = texture; // Thêm vào map với khóa là tên tệp
-                    cout << "Loaded texture: " << fileName << endl;
+                    textures[fileName] = texture; 
+                    cout << "Loaded texture: " << fileName << '\n';
                 }
                 else {
-                    cerr << "Failed to load texture: " << filePath << endl;
+                    cerr << "Failed to load texture: " << filePath << '\n';
                 }
             }
         }
@@ -61,13 +61,13 @@ void ResourceManager::loadAnimationFromFile(const string& filePath, const string
     ifstream file(filePath);
 
     if (!file.is_open()) {
-        cerr << "Failed to open animation file: " << filePath << endl;
+        cerr << "Failed to open animation file: " << filePath << '\n';
         return;
     }
 
     string textureName = fileName.substr(0, filePath.length() - 4);
     if (textures.find(textureName) == textures.end()) {
-        cerr << "!!!Texture invalid: " << textureName << endl;
+        cerr << "!!!Texture invalid: " << textureName << '\n';
         return;
     }
 
@@ -75,26 +75,28 @@ void ResourceManager::loadAnimationFromFile(const string& filePath, const string
     string animationName;
 
     while (getline(file, line)) {
-        if (line.empty() || line[0] == '#') continue; // Bỏ qua dòng trống hoặc comment
+        if (line.empty() || line[0] == '#') continue; 
 
         if (line[0] == '$') {
             animationName = line.substr(1);
             Animation animation = Animation(getTexture(textureName));
             animationResource[animationName] = make_unique<Animation>(move(animation));
-            animationResource[animationName]->setScale(4.f);
+            animationResource[animationName]->setScale(1.f);
         }
         else {
             istringstream iss(line);
+            Vector2 offset = { 0.0f, 0.0f }; 
+            Vector2 size = { 0.0f, 0.0f };
             int x, y, width, height;
             float duration;
-            if (!(iss >> x >> y >> width >> height >> duration)) {
-                cerr << "Invalid frame data in file: " << filePath << endl;
+            if (!(iss >> x >> y >> width >> height >> duration >> offset.x >> offset.y >> size.x >> size.y)) {
+                cerr << "Invalid frame data in file: " << filePath << '\n';
                 continue;
             }
 
             Rectangle source = { (float)x, (float)y, (float)width, (float)height };
-            Vector2 offset = { 0.0f, 0.0f }; // Offset mặc định
-            animationResource[animationName]->addFrame(source, offset, duration);
+            
+            animationResource[animationName]->addFrame(source, offset, size, duration);
         }
     }
 
@@ -111,10 +113,10 @@ void ResourceManager::loadFont() {
 
             if (font.texture.id != 0) {
                 fontResource[file] = make_unique<Font>(move(font));
-                cout << "Loaded font: " << file << endl;
+                cout << "Loaded font: " << file << '\n';
             }
             else {
-                cerr << "Failed to load font: " << entry.path() << endl;
+                cerr << "Failed to load font: " << entry.path() << '\n';
             }
         }
     }
@@ -132,7 +134,7 @@ void ResourceManager::loadSound() {
                 soundResource[file] = make_unique<Sound>(move(sound));
             }
             else {
-                cerr << "Failed to load sound: " << entry.path() << endl;
+                cerr << "Failed to load sound: " << entry.path() << '\n';
             }
         }
     }
@@ -150,7 +152,7 @@ void ResourceManager::loadMusic() {
                 musicResource[file] = make_unique<Music>(move(music));
             }
             else {
-                cerr << "Failed to load music: " << entry.path() << endl;
+                cerr << "Failed to load music: " << entry.path() << '\n';
             }
         }
     }
@@ -209,8 +211,27 @@ void ResourceManager::playMusic(const string& trackName) const {
     PlayMusicStream(*getMusic(trackName));
 }
 
+bool ResourceManager::isMusicPlaying(const string& musicName) const {
+    return IsMusicStreamPlaying(*getMusic(musicName));
+}
+
+void ResourceManager::stopMusic(const string& musicName) const {
+    if (isMusicPlaying(musicName)) StopMusicStream(*getMusic(musicName));
+}
+
 void ResourceManager::playSound(const string& soundName) const {
     if (SETTINGS.isSoundEnabled() == false) return;
 
     PlaySound(*getSound(soundName));
 }
+
+bool ResourceManager::isSoundPlaying(const string& soundName) const {
+    return IsSoundPlaying(*getSound(soundName));
+}
+
+void ResourceManager::stopSound(const string& soundName) const {
+    if (isSoundPlaying(soundName)) StopSound(*getSound(soundName));
+}
+
+
+
