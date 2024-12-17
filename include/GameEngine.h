@@ -129,7 +129,7 @@ public:
 	void handleCollision()
 	{
 		CollisionInterface IColl;
-		player->setJumping(true);
+		//player->setJumping(true);
 		bool isGrounded = false;
 		for (Entity* block : *(blocks))
 		{
@@ -142,7 +142,7 @@ public:
 		}
 		for (Entity* things : testEntities)
 		{
-			if (IColl.resolve(*player, *things));
+			if (IColl.resolve(*player, *things))
 			{
 				isGrounded = true;
 			}
