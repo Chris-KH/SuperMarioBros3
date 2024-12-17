@@ -77,7 +77,7 @@ class GameEngine {
 private:
 	Map* map;
 	Character* player;
-	vector<Entity*>* blocks; 
+	vector<Entity*>* blocks;
 	vector<Entity*> testEntities;
 	//int chunkSize;
 	GameCamera camera;
@@ -96,7 +96,7 @@ public:
 	//	//	chunks.emplace_back(i);
 	//	//}
 	//}
-	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map,Character*& player)
+	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map, Character*& player)
 		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75f), map(&map), player(player) {
 		blocks = map.returnBlockArray();
 	};
@@ -162,10 +162,10 @@ public:
 		camera.beginDrawing();
 		map->renderBackground();
 		map->renderAllBlock();
-		for (Entity* i : testEntities)
-		{
-			i->draw();
-		}
+		//for (Entity* i : testEntities)
+		//{
+		//	i->draw();
+		//}
 		// Render active chunks
 		//for (const auto& chunk : chunks) {
 		//	chunk.render();
@@ -185,7 +185,7 @@ public:
 	void run() {
 
 		MovingBlock testBlock(Vector2(100, 300), Vector2(100, 32), BLACK);
-		testBlock.setBounds(400, 400 ,200,400);
+		testBlock.setBounds(400, 400, 200, 400);
 		testBlock.setVelocity(Vector2(0, 50));
 		MovingBlock* blo = &testBlock;
 		testEntities.push_back(blo);
