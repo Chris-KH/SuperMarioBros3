@@ -82,8 +82,6 @@ public:
         }
 
         //Logic update
-        character->setSitting(IsKeyDown(KEY_S));
-
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
             character->setSitting(false);
             if (character->velocity.x < 0) {
@@ -125,10 +123,12 @@ public:
             if (character->velocity.x > 0) {
                 character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
                 if (character->velocity.x < 0) character->setXVelocity(0.f);
+                if (character->isJumping() == false) character->setAnimation(character->walkRight);
             }
             else if (character->velocity.x < 0) {
                 character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
                 if (character->velocity.x > 0) character->setXVelocity(0.f);
+                if (character->isJumping() == false) character->setAnimation(character->walkLeft);
             }
         }
 

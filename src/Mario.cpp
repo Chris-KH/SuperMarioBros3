@@ -5,7 +5,7 @@
 #include"../include/StarState.h"
 
 Mario::Mario(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
-	state = new NormalState;
+	state = new SuperState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
@@ -31,16 +31,13 @@ void Mario::onKey(KeyboardKey key, bool pressed) {
 			
 		}
 	}
-	else if (key == KEY_D) {
+	else if (key == KEY_S) {
 		if (pressed) {
-			orientation = true;
+			sitting = true;
 		}
+		else sitting = false;
 	}
-	else if (key == KEY_A) {
-		if (pressed) {
-			orientation = false;
-		}
-	}
+
 }
 
 void Mario::reset() {
