@@ -34,6 +34,30 @@ Color Entity::getColor() const {
     return this->color;
 }
 
+float Entity::getCenterX() const {
+    return position.x + size.x / 2.f;
+}
+
+float Entity::getCenterY() const {
+    return position.y + size.y / 2.f;
+}
+
+float Entity::getBottom() const {
+    return position.y + size.y;
+}
+
+float Entity::getLeft() const {
+    return position.x;
+}
+
+float Entity::getRight() const {
+    return position.x + size.x;
+}
+
+float Entity::getTop() const {
+    return position.y;
+}
+
 void Entity::setPosition(Vector2 pos) { position = pos; }
 
 void Entity::setXPosition(float x) { position.x = x; }

@@ -14,7 +14,7 @@ private:
 	const float MAX_WALK_VELOCITY = 100.f;
 	const float MAX_RUN_VELOCITY = 400.f;
 
-	const float JUMP_VELOCITY = 350.f;
+	const float JUMP_VELOCITY = 500.f;
 public:
 	Mario(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
 

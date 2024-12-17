@@ -9,8 +9,6 @@ enum EntityType {
     ENEMY,
     ITEM,
     BLOCK
-
-
 };
 
 class Entity {
@@ -37,7 +35,12 @@ public:
     virtual Vector2 getPosition() const;
     virtual Color getColor() const;
     virtual EntityType getType() const = 0;
-
+    virtual float getCenterX() const;
+    virtual float getCenterY() const;
+    virtual float getBottom() const;
+    virtual float getLeft() const;
+    virtual float getRight() const;
+    virtual float getTop() const;
 
     // Setters
     virtual void setPosition(Vector2 pos);
