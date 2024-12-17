@@ -117,12 +117,16 @@ public:
         }
         else {
             if (character->velocity.x > 0) {
+                character->orientation = true;
                 character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
                 if (character->velocity.x < 0) character->setXVelocity(0.f);
+                if (character->isJumping() == false) character->setAnimation(character->walkRight);
             }
             else if (character->velocity.x < 0) {
+                character->orientation = false;
                 character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
                 if (character->velocity.x > 0) character->setXVelocity(0.f);
+                if (character->isJumping() == false) character->setAnimation(character->walkLeft);
             }
         }
 
