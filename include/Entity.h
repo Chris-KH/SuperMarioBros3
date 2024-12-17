@@ -13,24 +13,6 @@ enum EntityType {
 
 };
 
-
-//
-//enum class ITEM {
-//    Coin,
-//    Mushroom
-//};
-//
-//enum class ENEMY {
-//    Beetle,
-//    Bowser,
-//    Goomba,
-//    Plant,
-//    Spiny,
-//    Thwomp,
-//    Lakitu,
-//    KoopaTroopa
-//};
-
 class Entity {
 private:
     Vector2 position; // Position of the entity
@@ -69,12 +51,5 @@ public:
     virtual void update(float deltaTime) = 0;
     virtual void setAnimation(Animation* animation);
     virtual void setAnimation(const string& name);
-
-    /*virtual Animation* getAnimation(const std::string& name) const {
-        return RESOURCE_MANAGER.getAnimation(name);
-    }*/
-
-    //Collision detection 
-    //virtual void checkCollision(const Entity& other);
      
 };

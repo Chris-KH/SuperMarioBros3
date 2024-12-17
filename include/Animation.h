@@ -52,7 +52,6 @@ private:
     vector<Frame> frames; ///< List of frames in the animation.
     int currentFrame; ///< Index of the current frame.
     float frameTimeCounter; ///< Time counter for the current frame.
-    bool finished; ///< Whether the animation has finished playing.
     float scale;
 };
 

@@ -15,6 +15,10 @@ public:
 		this->type = type;
 
 	}
+
+	void update(float deltaTime) override {
+
+	}
 private:
 	PlantType type;
 };

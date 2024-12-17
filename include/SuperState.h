@@ -138,12 +138,6 @@ public:
         }
         else if (character->isJumping()) {
             character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
-
-            //if (character->onGround()) {
-            //    character->setPosition(Vector2(character->getPosition().x, 800.f - character->getSize().y));
-            //    character->setYVelocity(0.f);
-            //    character->jumping = false;  
-            //}
         }
 
         if (IsKeyUp(KEY_LEFT_SHIFT) && fabs(character->velocity.x) > max_walk_velocity) {

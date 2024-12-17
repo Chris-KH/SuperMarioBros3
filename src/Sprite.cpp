@@ -4,7 +4,6 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     : Entity(pos, size, color),
     velocity({ 0, 0 }), 
     acceleration({ 0, 0 }),
-    maxSpeed({ 300, 500 }), 
     isDead(false),
     jumping(false),
     gravityAvailable(true)
@@ -14,7 +13,6 @@ Sprite::Sprite(const Sprite& other)
     : Entity(other),
     velocity(other.velocity),
     acceleration(other.acceleration),
-    maxSpeed(other.maxSpeed),
     isDead(other.isDead),
     jumping(other.jumping),
     gravityAvailable(other.gravityAvailable)
@@ -30,10 +28,6 @@ const Vector2& Sprite::getAcceleration() const { return acceleration; }
 
 void Sprite::setAcceleration(Vector2 acc) { acceleration = acc; }
 
-const Vector2& Sprite::getMaxSpeed() const { return maxSpeed; }
-
-void Sprite::setMaxSpeed(Vector2 max) { maxSpeed = max; }
-
 void Sprite::setXVelocity(float vx) {
     velocity.x = vx;
 }
@@ -48,14 +42,6 @@ void Sprite::setXAcceleration(float ax) {
 
 void Sprite::setYAcceleration(float ay) {
     acceleration.y = ay;
-}
-
-void Sprite::setXMaxSpeed(float maxX) {
-    maxSpeed.x = maxX;
-}
-
-void Sprite::setYMaxSpeed(float maxY) {
-    maxSpeed.y = maxY;
 }
 
 void Sprite::update(float deltaTime) {
