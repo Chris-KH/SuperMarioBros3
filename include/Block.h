@@ -86,88 +86,69 @@ public:
 		//solid brock bình thường cũng ko tác động làm thay đổi
 	}
 };
+
 class MovingBlock : public BaseBlock
 {
 private:
-	Vector2 velocity = { 50.0f, 50.0f }; // diagonal velocity
-	float leftAlign, rightAlign;       // horizontal bounds
-	float topAlign, bottomAlign;       // vertical bounds
+	Vector2 velocity = { 50.0f, 50.0f }; // Movement speed
+	float boundLeft, boundRight;       // Horizontal bounds
+	float boundTop, boundBottom;       // Vertical bounds
 
 public:
-	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKGRAY)
-		: BaseBlock(pos, size, color)
-	{
-		velocity = { 50, 50 };
-		leftAlign = 0;
-		topAlign = 0;
-		rightAlign = 0;
-		bottomAlign = 0;
-	}
+	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 16, 16 }, Color color = DARKGRAY)
+		: BaseBlock(pos, size, color),
+		boundLeft(pos.x), boundRight(pos.x),
+		boundTop(pos.y), boundBottom(pos.y) {}
 
 	BlockType getBlockType() const override { return MOVINGBLOCK; }
 
-	void setHorizontalBounds(float left, float right)
+	void setBounds(float left, float right, float top, float bottom)
 	{
-		leftAlign = left;
-		rightAlign = right;
+		Vector2 pos = getPosition(); // Get the current position of the block
+
+		// If any bound is invalid, default to the current position
+		if (left >= right || top >= bottom)
+		{
+			TraceLog(LOG_WARNING, "Invalid bounds! Defaulting to block's current position.");
+			boundLeft = pos.x;
+			boundRight = pos.x;
+			boundTop = pos.y;
+			boundBottom = pos.y;
+		}
+		else
+		{
+			boundLeft = left;
+			boundRight = right;
+			boundTop = top;
+			boundBottom = bottom;
+		}
 	}
 
-	void setVerticalBounds(float top, float bottom)
-	{
-		topAlign = top;
-		bottomAlign = bottom;
-	}
-	Vector2 getVelocity()
-	{
-		return velocity;
-	}
-	void setVelocity(Vector2 newVelocity)
-	{
-		velocity = newVelocity;
-	}
+	Vector2 getVelocity() const { return velocity; }
+	void setVelocity(Vector2 newVelocity) { velocity = newVelocity; }
 
 	void update(float deltaTime)
 	{
 		Vector2 pos = getPosition();
 
-		// Update position based on velocity
 		pos.x += velocity.x * deltaTime;
 		pos.y += velocity.y * deltaTime;
 
-		// Handle horizontal bouncing
-		if (pos.x < leftAlign) // Left boundary
+		if (pos.x <= boundLeft || pos.x + getSize().x >= boundRight)
 		{
-			pos.x = leftAlign; // Clamp position
-			if (velocity.x < 0) // Reverse only if moving left
-				velocity.x = std::abs(velocity.x); // Move right
-		}
-		else if (pos.x + getSize().x > rightAlign) // Right boundary
-		{
-			pos.x = rightAlign - getSize().x; // Clamp position
-			if (velocity.x > 0) // Reverse only if moving right
-				velocity.x = -std::abs(velocity.x); // Move left
+			velocity.x = -velocity.x;
 		}
 
-		// Handle vertical bouncing
-		if (pos.y < topAlign) // Top boundary
+		// Vertical bounds check
+		if (pos.y <= boundTop || pos.y + getSize().y >= boundBottom)
 		{
-			pos.y = topAlign; // Clamp position
-			if (velocity.y < 0) // Reverse only if moving up
-				velocity.y = std::abs(velocity.y); // Move down
-		}
-		else if (pos.y + getSize().y > bottomAlign) // Bottom boundary
-		{
-			pos.y = bottomAlign - getSize().y; // Clamp position
-			if (velocity.y > 0) // Reverse only if moving down
-				velocity.y = -std::abs(velocity.y); // Move up
+			velocity.y = -velocity.y;
 		}
 
-		// Update the position after corrections
 		setPosition(pos);
 	}
-
-
 };
+
 
 class ItemBlock : public BaseBlock
 {

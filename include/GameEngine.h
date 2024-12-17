@@ -78,6 +78,7 @@ private:
 	Map* map;
 	Character* player;
 	vector<Entity*>* blocks; 
+	vector<Entity*> testEntities;
 	//int chunkSize;
 	GameCamera camera;
 	//float characterX;
@@ -111,6 +112,10 @@ public:
 		//inputManager.update();
 		player->update(deltaTime);
 		handleCollision();
+		for (Entity* i : testEntities)
+		{
+			i->update(deltaTime);
+		}
 		//int currentChunk = (int)(characterX / chunkSize); // get current chunk
 		//updateChunks(currentChunk);
 		//for (int i = 0; i < chunks.size(); ++i)
@@ -157,6 +162,10 @@ public:
 		camera.beginDrawing();
 		map->renderBackground();
 		map->renderAllBlock();
+		for (Entity* i : testEntities)
+		{
+			i->draw();
+		}
 		// Render active chunks
 		//for (const auto& chunk : chunks) {
 		//	chunk.render();
@@ -175,6 +184,11 @@ public:
 
 	void run() {
 
+		MovingBlock testBlock(Vector2(100, 300), Vector2(100, 32), BLACK);
+		testBlock.setBounds(400, 400 ,200,400);
+		testBlock.setVelocity(Vector2(0, 50));
+		MovingBlock* blo = &testBlock;
+		testEntities.push_back(blo);
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
