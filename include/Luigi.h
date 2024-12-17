@@ -9,7 +9,8 @@ class Luigi : public Character {
 	friend class StarState;
 private:
 	const float GROUND_ACCELERATION = 200.f;
-	const float GROUND_DEACCELERATION = 800.f;
+	const float GROUND_DECCELERATION = 200.f;
+	const float GROUND_SKID_DECELERATION = 700.f;
 
 	const float MAX_WALK_VELOCITY = 100.f;
 	const float MAX_RUN_VELOCITY = 350.f;

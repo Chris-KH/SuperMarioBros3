@@ -45,10 +45,10 @@ void Sprite::setYAcceleration(float ay) {
 }
 
 void Sprite::update(float deltaTime) {
-    
+
 }
 
-void Sprite::draw() const {
+void Sprite::draw(float deltaTime) const {
     if (currentAnimation == nullptr) return;
     currentAnimation->render(this->getPosition());
 }

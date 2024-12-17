@@ -14,7 +14,7 @@ public:
 	const float JUMP_SPEED = 200.f;
 
 	KoopaTroopa() = default;
-	KoopaTroopa(KoopaTroopaType type) {
+	KoopaTroopa(KoopaTroopaType type, Vector2 position) {
 		this->type = type;
 		setXVelocity(SPEED);
 		if (type == GREEN_KoopaTroopa) {

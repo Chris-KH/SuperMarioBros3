@@ -4,6 +4,8 @@
 #include "Map.h"
 #include "Collision.h"
 #include "Character.h"
+#include "GoomBa.h"
+
 class CollisionInterface;
 class GameCamera {
 public:
@@ -51,7 +53,7 @@ public:
 //	void render() const {
 //		if (isLoaded) {
 //			for (const Entity* entity : blocks,enemies,items)
-//				entity->draw();
+//				entity->draw(float deltaTime = GetFrameTime());
 //		}
 //	}
 //	void update()
@@ -109,8 +111,10 @@ public:
 	void update() {
 		float deltaTime = GetFrameTime();
 		//inputManager.update();
+		
 		player->update(deltaTime);
 		handleCollision();
+		
 		//int currentChunk = (int)(characterX / chunkSize); // get current chunk
 		//updateChunks(currentChunk);
 		//for (int i = 0; i < chunks.size(); ++i)
@@ -124,7 +128,7 @@ public:
 	void handleCollision()
 	{
 		CollisionInterface IColl;
-		player->setJumping(true);
+		//player->setJumping(true);
 		bool isGrounded = false;
 		for (Entity* block : *(blocks))
 		{
@@ -174,11 +178,12 @@ public:
 	}
 
 	void run() {
-
+		
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
+				
 				UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
 				update();
 				render();

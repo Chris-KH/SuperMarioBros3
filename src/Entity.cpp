@@ -69,9 +69,14 @@ void Entity::setSize(Vector2 sz) { size = sz; }
 void Entity::setColor(Color col) { color = col; }
 
 void Entity::setAnimation(Animation* animation) {
-    if (currentAnimation != nullptr && currentAnimation != animation) currentAnimation->reset();
+    float diffHeight = 0.f;
+    if (currentAnimation != nullptr && currentAnimation != animation) {
+        diffHeight = currentAnimation->getSize().y - animation->getSize().y;
+        currentAnimation->reset();
+    }
     currentAnimation = animation;
     if (currentAnimation == nullptr) return;
+    this->setYPosition(position.y + diffHeight);
     this->setSize(currentAnimation->getSize());
 };
 

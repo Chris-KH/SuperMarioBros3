@@ -40,5 +40,5 @@ public:
     virtual void setGravity(bool gravityAvailable);
 
     virtual void update(float deltaTime);
-    virtual void draw() const;
+    virtual void draw(float deltaTime = GetFrameTime()) const;
 };

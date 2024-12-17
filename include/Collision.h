@@ -40,14 +40,14 @@ public:
         float deltaTime = GetFrameTime();
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
-        if (CheckCollisionRecs(playerRect, floorRect)) {
-            if (playerRect.y + playerRect.height <= floorRect.y + 5.f && player->getVelocity().y >= 0.f) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
-                player->setYVelocity(0.f);
-                return true;
-            }
-        }
-        if (player->getVelocity().y >= 800.f) {
+        //if (CheckCollisionRecs(playerRect, floorRect)) {
+        //    if (playerRect.y + playerRect.height <= floorRect.y + 5.f && player->getVelocity().y >= 0.f) {
+        //        player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
+        //        player->setYVelocity(0.f);
+        //        return true;
+        //    }
+        //}
+        if (player->getVelocity().y > 0.f) {
             Vector2 prevPosition = player->getPosition();
             Vector2 nextPosition = {
                 prevPosition.x,
@@ -56,13 +56,13 @@ public:
 
             Rectangle sweptRect = {
                 prevPosition.x,
-                prevPosition.y,
+                nextPosition.y,
                 playerRect.width,
-                nextPosition.y - prevPosition.y
+                playerRect.height
             };
 
-            if (CheckCollisionRecs(sweptRect, floorRect)) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
+            if (CheckCollisionRecs(sweptRect, floorRect) && player->getBottom() <= floorRect.y) {
+                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
                 player->setYVelocity(0.f);
                 return true;
             }
@@ -80,6 +80,14 @@ public:
 
         if (!player || !block)
             return false;
+        float deltaTime = GetFrameTime();
+
+        /*Rectangle prePlayer = player->getRectangle();
+        Rectangle playerRect = {prePlayer.x + player->getVelocity().x * deltaTime,
+                                prePlayer.y + player->getVelocity().y * deltaTime,
+                                prePlayer.width,
+                                prePlayer.height};*/
+
 
         Rectangle playerRect = player->getRectangle();
         Rectangle blockRect = block->getRectangle();
@@ -120,7 +128,7 @@ public:
                     return true;
                 }
                 else {
-                    player->setVelocity(Vector2(player->getVelocity().x, -(player->getVelocity().y) / 4));
+                    player->setVelocity(Vector2(player->getVelocity().x, 0.f));
                 }
                 return false;
             }

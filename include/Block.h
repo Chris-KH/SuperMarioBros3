@@ -34,7 +34,7 @@ public:
 		return BLOCK;
 	}
 	virtual BlockType getBlockType()const = 0;
-	virtual void draw() const// may be deleted in future
+	virtual void draw(float deltaTime = GetFrameTime()) const// may be deleted in future
 	{
 		Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
 		Rectangle srcRect = { 0, 0, getSize().x, getSize().y };

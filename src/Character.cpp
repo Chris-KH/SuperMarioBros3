@@ -25,13 +25,15 @@ void Character::reset() {
     jumping = false;
     dead = false;
     invicible = 0;
+    sitting = false;
 }
 
 CharacterState::STATE Character::getState() const {
     return state->getState();
 }
 
-void Character::draw() {
+void Character::draw(float deltaTime) {
+    setPosition(Vector2(getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime));
     currentAnimation->render(getPosition());
 }
 

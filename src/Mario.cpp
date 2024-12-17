@@ -18,8 +18,9 @@ Character::CHACRACTER Mario::getCharacterType() const {
 
 void Mario::update(float deltaTime) {
 	INPUT_MANAGER.update();
-	currentAnimation->update(deltaTime);
 	state->update(this, deltaTime);
+	currentAnimation->update(deltaTime);
+	
 }
 
 void Mario::onKey(KeyboardKey key, bool pressed) {

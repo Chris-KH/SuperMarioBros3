@@ -2,23 +2,26 @@
 #include "Enemy.h"
 #include "Collision.h"
 
+enum GoomBaType {
+	BROWN_GoomBa,
+	RED_GoomBa,
+	REDPARA_GoomBa,
+	BROWNPARA_GoomBa,
+	MICRO_GoomBa
+};
+
 class GoomBa : public Enemy {
 public:
-	enum GoomBaType {
-		BROWN_GoomBa,
-		RED_GoomBa,
-		REDPARA_GoomBa,
-		BROWNPARA_GoomBa,
-		MICRO_GoomBa
-	};
-
 	const float SPEED = 50.f;
 	const float JUMP_SPEED = 200.f;
 
 	GoomBa() = default;
-	GoomBa(GoomBaType type) {
+	GoomBa(GoomBaType type, Vector2 position) {
 		this->type = type;
 		setXVelocity(SPEED);
+		setYVelocity(0.f);
+		setPosition(position);
+		jumping = true;
 		if (type == BROWN_GoomBa) {
 			setAnimation("brown_goomba");
 		}
@@ -31,10 +34,6 @@ public:
 		else if (type == REDPARA_GoomBa) {
 			setAnimation("red_paragoomba");
 		}
-	}
-
-	void update(float deltaTime) override {
-
 	}
 
 private:

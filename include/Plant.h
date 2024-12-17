@@ -11,7 +11,7 @@ public:
 	};
 
 	Plant() = default;
-	Plant(PlantType type) {
+	Plant(PlantType type, Vector2 position) {
 		this->type = type;
 
 	}
