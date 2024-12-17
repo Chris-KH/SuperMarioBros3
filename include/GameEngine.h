@@ -4,8 +4,6 @@
 #include "Map.h"
 #include "Collision.h"
 #include "Character.h"
-#include "GoomBa.h"
-
 class CollisionInterface;
 class GameCamera {
 public:
@@ -53,7 +51,7 @@ public:
 //	void render() const {
 //		if (isLoaded) {
 //			for (const Entity* entity : blocks,enemies,items)
-//				entity->draw(float deltaTime = GetFrameTime());
+//				entity->draw();
 //		}
 //	}
 //	void update()
@@ -79,7 +77,8 @@ class GameEngine {
 private:
 	Map* map;
 	Character* player;
-	vector<Entity*>* blocks; 
+	vector<Entity*>* blocks;
+	vector<Entity*> testEntities;
 	//int chunkSize;
 	GameCamera camera;
 	//float characterX;
@@ -97,7 +96,7 @@ public:
 	//	//	chunks.emplace_back(i);
 	//	//}
 	//}
-	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map,Character*& player)
+	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map, Character*& player)
 		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75f), map(&map), player(player) {
 		blocks = map.returnBlockArray();
 	};
@@ -111,10 +110,12 @@ public:
 	void update() {
 		float deltaTime = GetFrameTime();
 		//inputManager.update();
-		
 		player->update(deltaTime);
 		handleCollision();
-		
+		for (Entity* i : testEntities)
+		{
+			i->update(deltaTime);
+		}
 		//int currentChunk = (int)(characterX / chunkSize); // get current chunk
 		//updateChunks(currentChunk);
 		//for (int i = 0; i < chunks.size(); ++i)
@@ -128,7 +129,7 @@ public:
 	void handleCollision()
 	{
 		CollisionInterface IColl;
-		//player->setJumping(true);
+		player->setJumping(true);
 		bool isGrounded = false;
 		for (Entity* block : *(blocks))
 		{
@@ -161,6 +162,10 @@ public:
 		camera.beginDrawing();
 		map->renderBackground();
 		map->renderAllBlock();
+		//for (Entity* i : testEntities)
+		//{
+		//	i->draw();
+		//}
 		// Render active chunks
 		//for (const auto& chunk : chunks) {
 		//	chunk.render();
@@ -178,12 +183,16 @@ public:
 	}
 
 	void run() {
-		
+
+		MovingBlock testBlock(Vector2(100, 300), Vector2(100, 32), BLACK);
+		testBlock.setBounds(400, 400, 200, 400);
+		testBlock.setVelocity(Vector2(0, 50));
+		MovingBlock* blo = &testBlock;
+		testEntities.push_back(blo);
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
-				
 				UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
 				update();
 				render();
