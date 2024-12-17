@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"Entity.h"
 #include"Block.h"
 #include"Character.h"
@@ -40,13 +40,6 @@ public:
         float deltaTime = GetFrameTime();
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
-        //if (CheckCollisionRecs(playerRect, floorRect)) {
-        //    if (playerRect.y + playerRect.height <= floorRect.y + 5.f && player->getVelocity().y >= 0.f) {
-        //        player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
-        //        player->setYVelocity(0.f);
-        //        return true;
-        //    }
-        //}
         if (player->getVelocity().y > 0.f) {
             Vector2 prevPosition = player->getPosition();
             Vector2 nextPosition = {
@@ -80,63 +73,60 @@ public:
 
         if (!player || !block)
             return false;
+
         float deltaTime = GetFrameTime();
 
-        /*Rectangle prePlayer = player->getRectangle();
-        Rectangle playerRect = {prePlayer.x + player->getVelocity().x * deltaTime,
-                                prePlayer.y + player->getVelocity().y * deltaTime,
-                                prePlayer.width,
-                                prePlayer.height};*/
-
-
+        Vector2 velocity = player->getVelocity();
         Rectangle playerRect = player->getRectangle();
         Rectangle blockRect = block->getRectangle();
 
-        if (CheckCollisionRecs(playerRect, blockRect)) {
-            float overlapX = 0.f;
-            float overlapY = 0.f;
-            bool isLeft = false;
-            bool isUp = false;
+        // thay vì để 1 future rect, chia 2 trường hợp để dễ check hơn.
 
-            if (playerRect.x < blockRect.x) {
-                overlapX = (playerRect.x + playerRect.width) - blockRect.x;
-                isLeft = true;
-            }
-            else {
-                overlapX = (blockRect.x + blockRect.width) - playerRect.x;
-            }
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                playerRect.x + velocity.x * deltaTime,
+                playerRect.y,
+                playerRect.width,
+                playerRect.height
+            };
 
-            if (playerRect.y < blockRect.y) {
-                overlapY = (playerRect.y + playerRect.height) - blockRect.y;
-                isUp = true;
+            if (CheckCollisionRecs(horizontalRect, blockRect)) 
+            {
+                if (velocity.x > 0)
+                    player->setPosition(Vector2(blockRect.x - playerRect.width, playerRect.y));
+                else if (velocity.x < 0) 
+                    player->setPosition(Vector2(blockRect.x + blockRect.width, playerRect.y));
+                player->setXVelocity(0.f); 
             }
-            else {
-                overlapY = (blockRect.y + blockRect.height) - playerRect.y;
-            }
-            Vector2 velocity = player->getVelocity();
-            if (std::abs(overlapX) < std::abs(overlapY) || velocity.y < 0 && isUp) {
-                float newPosX = playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX));
-                player->setPosition(Vector2(newPosX, playerRect.y));
-
-                player->setVelocity(Vector2(0, player->getVelocity().y));
-            }
-            else {
-                float newPosY = playerRect.y + ((isUp) ? (-std::abs(overlapY) + 0.005f) : std::abs(overlapY));
-                player->setPosition(Vector2(playerRect.x, newPosY));
-                if (isUp) {
-                    player->setVelocity(Vector2(player->getVelocity().x, 0.f));
-                    return true;
-                }
-                else {
-                    player->setVelocity(Vector2(player->getVelocity().x, 0.f));
-                }
-                return false;
-            }
-            return false;
         }
 
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                playerRect.x,
+                playerRect.y + velocity.y * deltaTime,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
+                    player->setYVelocity(0.f);
+                    return true;
+                }
+                else if (velocity.y < 0) { 
+                    player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
+                    player->setYVelocity(0.f);
+                }
+            }
+        }
+
+        return false;
     }
 };
+
+
+
 class EnemyBlockStrat : public CollisionStrategy {
 public:
     bool resolve(Entity& enemy, Entity& block) override {
