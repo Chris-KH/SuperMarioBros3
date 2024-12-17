@@ -4,19 +4,20 @@ project(CS202-SuperMario)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(RAYLIB_DIR "C:/Users/Dell/Downloads/CS202-SuperMario/lib")
+set(RAYLIB_DIR "C:/raylib-5.5")
 
+include_directories(${RAYLIB_DIR}/src)
+link_directories(${RAYLIB_DIR}/src)
 
-include_directories(${RAYLIB_DIR}/include)
-
-link_directories(${RAYLIB_DIR}/lib)
-
-set(SOURCES
-    src/main.cpp
-
+add_executable(Main
+    src/Main.cpp
 )
 
-add_executable(SuperMario ${SOURCES})
+target_link_libraries(Main raylib opengl32 gdi32 kernel32 winmm)
 
-target_link_libraries(SuperMario raylib opengl32 gdi32)
+set(CMAKE_SYSTEM_INCLUDE_PATH "C:/Program Files (x86)/Windows Kits/10/Include/10.0.20348.0/ucrt")
+set(CMAKE_SYSTEM_LIBRARY_PATH "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.20348.0/ucrt/x64")
 
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MD")
+endif()

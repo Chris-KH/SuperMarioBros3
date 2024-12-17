@@ -1,4 +1,4 @@
-#include "../include/Menu.h"s
+#include "../include/Menu.h"
 #include <memory>
 #include <utility>
 
@@ -125,4 +125,10 @@ void MapState::handleInput() {
         menu->setState(std::make_unique<MainMenuState>(menu));
     }
     // Additional map selection logic
+}
+
+int main() {
+    Menu menu;
+    menu.run();
+    return 0;
 }

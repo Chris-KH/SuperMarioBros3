@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include"../include/Singleton.h"
 #include"../include/ResourceManager.h"
 #include"../include/FPSManager.h"

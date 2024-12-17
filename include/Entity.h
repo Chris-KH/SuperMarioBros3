@@ -1,5 +1,5 @@
 #pragma once
-#include <raylib.h>
+#include "../lib/raylib.h"
 #include "Animation.h"
 #include "CharacterState.h"
 #include "ResourceManager.h"

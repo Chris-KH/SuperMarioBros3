@@ -1,7 +1,7 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 
-#include "raylib.h"
+#include "../lib/raylib.h"
 
 class Hitbox {
 public:
