@@ -8,42 +8,29 @@
 #include <unordered_map>
 #include <functional>
 
-enum BlockType {
-    FLOOR,
-    BRICK, // breakable
-    SOLIDBLOCK, // unmovable, unbreakable
-    MOVINGBLOCK,
-    ITEMBLOCK,
-    HIDDEN,
-    SPIKE,
-    PIPE,
-	TEMPBLOCK,
-    DECOR
-};
+//I move all enum type to Global.h
 
-class BaseBlock : public Entity
-{
+class BaseBlock : public Entity {
 public:
 	BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE) : Entity(pos,size,color), sprite(nullptr) {}
-	virtual ~BaseBlock(){};
-	void setSprite(const Animation* blockAnimation)
-	{
-		sprite = blockAnimation;
-	}
+	virtual ~BaseBlock(){
+		if (sprite)
+			delete sprite;
+	};
 	EntityType getType() const {
 		return BLOCK;
 	}
 	virtual BlockType getBlockType()const = 0;
-	virtual void draw(float deltaTime = GetFrameTime()) const// may be deleted in future
+	virtual void draw(float deltaTime) // may be deleted in future
 	{
-		Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
-		Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
-		DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
+		//Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
+		//Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
+		//DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
 		//current Animation rendering
 	}
 	virtual void update(float deltaTime) override {} // moving,.... implement in derived classes
 protected:
-	const Animation* sprite = nullptr;
+	 Animation* sprite = nullptr;
 };
 class Floor : public BaseBlock
 {
@@ -61,14 +48,20 @@ class Brick : public BaseBlock
 private:
 	bool isBroken = false;
 public:
-	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) {}
+	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) 
+	{
+		sprite = RESOURCE_MANAGER.getAnimation("gold_brick_block")->clone();
+		setAnimation(sprite);
+	}
+	void draw(float deltaTime) override
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	BlockType getBlockType() const override { return BRICK; }
 	void update(float deltaTime) override
 	{
-		if (isBroken) {
-			setColor(BLANK);
-			setSize({0, 0});
-		}
+		currentAnimation->update(deltaTime);
 	}
 	void breakBrick() {
 		isBroken = true;
@@ -97,11 +90,18 @@ private:
 public:
 	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 16, 16 }, Color color = DARKGRAY)
 		: BaseBlock(pos, size, color),
-		boundLeft(pos.x), boundRight(pos.x),
-		boundTop(pos.y), boundBottom(pos.y) {}
+		boundLeft(pos.x), boundRight(pos.x),boundTop(pos.y), boundBottom(pos.y) 
+	{
+		sprite = RESOURCE_MANAGER.getAnimation("moving_platform_block")->clone();
+		setAnimation(sprite);
+	}
 
 	BlockType getBlockType() const override { return MOVINGBLOCK; }
-
+	void draw(float deltaTime) override
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	void setBounds(float left, float right, float top, float bottom)
 	{
 		Vector2 pos = getPosition(); // Get the current position of the block
@@ -146,6 +146,7 @@ public:
 		}
 
 		setPosition(pos);
+		currentAnimation->update(deltaTime);
 	}
 };
 
@@ -155,15 +156,19 @@ class ItemBlock : public BaseBlock
 private:
 	bool hasItem = true;
 public:
-	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW) : BaseBlock(pos, size, color) {}
+	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW) : BaseBlock(pos, size, color) {
+		sprite = RESOURCE_MANAGER.getAnimation("item_block")->clone();
+		setAnimation(sprite);
+	}
 	BlockType getBlockType() const override { return ITEMBLOCK; }
-	void update(float deltaTime)
+	void draw(float deltaTime) override
 	{
-		if (hasItem) {
-			//xử lý Item
-			hasItem = false;
-		}
-
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
+	void update(float deltaTime) override
+	{
+		currentAnimation->update(deltaTime);
 	}
 };
 

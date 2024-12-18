@@ -2,9 +2,9 @@
 #include"../include/NormalState.h"
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
-#include"../include/StarState.h"
+#include"../include/StarmanState.h"
 
-Luigi::Luigi(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
+Luigi::Luigi(Vector2 pos) : Character(pos) {
 	state = new NormalState;
 	state->setState(this);
 	setAnimation(idleRight);
@@ -13,8 +13,8 @@ Luigi::Luigi(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
 	this->setPosition(vector2);
 };
 
-Character::CHACRACTER Luigi::getCharacterType() const  {
-	return CHACRACTER::LUIGI;
+CharacterType Luigi::getCharacterType() const  {
+	return CharacterType::LUIGI;
 }
 
 void Luigi::update(float deltaTime) {

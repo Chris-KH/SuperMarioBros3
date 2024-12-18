@@ -63,9 +63,6 @@
     <ClInclude Include="..\include\Map.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Hitbox.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Sprite.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
@@ -87,7 +84,7 @@
     <ClInclude Include="..\include\FireState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\StarState.h">
+    <ClInclude Include="..\include\StarmanState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CharacterState.h">
@@ -154,7 +151,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\BlockFactory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +185,7 @@
     <ClCompile Include="..\src\FireState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\StarState.cpp">
+    <ClCompile Include="..\src\StarmanState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GoomBa.cpp">
@@ -221,12 +218,6 @@
     <ClCompile Include="..\src\Block.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Hitbox.cpp">
-      <Filter>Source Files\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\Background.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -256,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Menu.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\Background.h">
+      <Filter>Header Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

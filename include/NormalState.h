@@ -14,7 +14,7 @@ public:
             return; // Avoid dereferencing a null pointer
         }
 
-        if (dynamic_cast<Mario*>(character) != nullptr) {
+        if (character->getCharacterType() == MARIO) {
             character->idleLeft = RESOURCE_MANAGER.getAnimation("mario_idle_left");
             character->walkLeft = RESOURCE_MANAGER.getAnimation("mario_walk_left");
             character->runLeft = RESOURCE_MANAGER.getAnimation("mario_run_left");
@@ -29,7 +29,7 @@ public:
             character->jumpRight = RESOURCE_MANAGER.getAnimation("mario_jump_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("mario_fly_right");
         }
-        else if (dynamic_cast<Luigi*>(character) != nullptr) {
+        else if (character->getCharacterType() == LUIGI) {
             character->idleLeft = RESOURCE_MANAGER.getAnimation("luigi_idle_left");
             character->walkLeft = RESOURCE_MANAGER.getAnimation("luigi_walk_left");
             character->runLeft = RESOURCE_MANAGER.getAnimation("luigi_run_left");
@@ -115,21 +115,19 @@ public:
         }
         else {
             if (character->velocity.x > 0) {
-                character->orientation = true;
                 character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
                 if (character->velocity.x < 0) character->setXVelocity(0.f);
                 if (character->isJumping() == false) character->setAnimation(character->walkRight);
             }
             else if (character->velocity.x < 0) {
-                character->orientation = false;
                 character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
                 if (character->velocity.x > 0) character->setXVelocity(0.f);
                 if (character->isJumping() == false) character->setAnimation(character->walkLeft);
             }
         }
 
-        if (character->velocity.x > 0) character->orientation = true;
-        else if (character->velocity.x < 0) character->orientation = false;
+        if (character->velocity.x > 0) character->orientation = RIGHT;
+        else if (character->velocity.x < 0) character->orientation = LEFT;
 
 
         if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
@@ -151,8 +149,7 @@ public:
         }
 
         if (character->isIdle()) {
-            if (character->orientation) character->setAnimation(character->idleRight);
-            else character->setAnimation(character->idleLeft);
+            character->setIdleAnimation();
         }
             
             
@@ -179,6 +176,6 @@ public:
     }
 
     STATE getState() const override {
-        return NORMAL;
+        return STATE::NORMAL;
     }
 };

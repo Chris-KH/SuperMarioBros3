@@ -48,8 +48,10 @@ void Sprite::update(float deltaTime) {
 
 }
 
-void Sprite::draw(float deltaTime) const {
+void Sprite::draw(float deltaTime) {
     if (currentAnimation == nullptr) return;
+    setXPosition(getPosition().x + velocity.x * deltaTime);
+    setYPosition(getPosition().y + velocity.y * deltaTime);
     currentAnimation->render(this->getPosition());
 }
 
@@ -59,6 +61,18 @@ void Sprite::setJumping(bool value) {
 
 bool Sprite::isJumping() const { return jumping; }
 
-void Sprite::setGravity(bool gravityAvailable) {
+void Sprite::setGravityAvailable(bool gravityAvailable) {
     this->gravityAvailable = gravityAvailable;
+}
+
+bool Sprite::isGravityAvailable() const {
+    return this->gravityAvailable;
+}
+
+void Sprite::setOrientation(Orientation orientation) {
+    this->orientation = orientation;
+}
+
+Orientation Sprite::getOrientation() const {
+    return orientation;
 }

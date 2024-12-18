@@ -12,13 +12,6 @@ class Enemy;
 class CharacterState {
     friend class Character;
 public:
-    enum STATE {
-        NORMAL,
-        SUPER,
-        FIRE,
-        STAR
-    };
-
     virtual void setState(Character* character) = 0;
     virtual void update(Character* character, float deltaTime) = 0;
     virtual STATE getState() const = 0;

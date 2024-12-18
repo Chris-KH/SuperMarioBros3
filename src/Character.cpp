@@ -2,7 +2,7 @@
 #include"../include/NormalState.h"
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
-#include"../include/StarState.h"
+#include"../include/StarmanState.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -14,27 +14,29 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
 };
 
 Character::~Character() {
-    delete state;
+    free(state);
+    state = nullptr;
     INPUT_MANAGER.removeListener(*this);
 }
 
 EntityType Character::getType() const { return EntityType::CHACRACTER; }
 
 void Character::reset() {
-    orientation = true;
+    orientation = RIGHT;
     jumping = false;
     dead = false;
     invicible = 0;
     sitting = false;
 }
 
-CharacterState::STATE Character::getState() const {
+STATE Character::getState() const {
     return state->getState();
 }
 
 void Character::draw(float deltaTime) {
-    Vector2 vector2 = {getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime};
-    setPosition(vector2);
+    if (currentAnimation == nullptr) return;
+    setXPosition(getPosition().x + velocity.x * deltaTime);
+    setYPosition(getPosition().y + velocity.y * deltaTime);
     currentAnimation->render(getPosition());
 }
 

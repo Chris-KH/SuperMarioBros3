@@ -112,7 +112,7 @@ public:
 		//inputManager.update();
 		player->update(deltaTime);
 		handleCollision();
-		for (Entity* i : testEntities)
+		for (Entity* i : *(blocks))
 		{
 			i->update(deltaTime);
 		}
@@ -129,7 +129,7 @@ public:
 	void handleCollision()
 	{
 		CollisionInterface IColl;
-		player->setJumping(true);
+		//player->setJumping(true);
 		bool isGrounded = false;
 		for (Entity* block : *(blocks))
 		{
@@ -138,6 +138,13 @@ public:
 				isGrounded = true;
 				//player->setJumping(false);
 				//break;
+			}
+		}
+		for (Entity* things : testEntities)
+		{
+			if (IColl.resolve(*player, *things))
+			{
+				isGrounded = true;
 			}
 		}
 		player->setJumping(!isGrounded);
@@ -162,10 +169,10 @@ public:
 		camera.beginDrawing();
 		map->renderBackground();
 		map->renderAllBlock();
-		//for (Entity* i : testEntities)
-		//{
-		//	i->draw();
-		//}
+		for (Entity* i : testEntities)
+		{
+			i->draw();
+		}
 		// Render active chunks
 		//for (const auto& chunk : chunks) {
 		//	chunk.render();
@@ -183,12 +190,12 @@ public:
 	}
 
 	void run() {
-		Vector2 vector1 = {100, 300}, vector2 = {100, 32}, vector3 = {0, 50};
-		MovingBlock testBlock(vector1, vector2, BLACK);
-		testBlock.setBounds(400, 400, 200, 400);
-		testBlock.setVelocity(vector3);
+
+		/*MovingBlock testBlock(Vector2(850, 300), Vector2(100, 32), BLACK);
+		testBlock.setBounds(850, 1000, 300, 500);
+		testBlock.setVelocity(Vector2(50, 50));
 		MovingBlock* blo = &testBlock;
-		testEntities.push_back(blo);
+		testEntities.push_back(blo);*/
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';

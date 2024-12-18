@@ -1,4 +1,4 @@
-#include "../include/Menu.h"
+﻿#include "../include/Menu.h"
 #include <memory>
 #include <utility>
 // Menu implementation
@@ -16,11 +16,15 @@ Menu::Menu() {
 void Menu::run() {
     InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
+    Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
+    Image gameIconImage = LoadImageFromTexture(gameIcon);
+    SetWindowIcon(gameIconImage);
 
     RESOURCE_MANAGER.loadAllResource();
     INPUT_MANAGER.bindKey(KEY_A);
     INPUT_MANAGER.bindKey(KEY_D);
     INPUT_MANAGER.bindKey(KEY_S);
+    INPUT_MANAGER.bindKey(KEY_R);
     INPUT_MANAGER.bindKey(KEY_SPACE);
     INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
     registerBlocks();

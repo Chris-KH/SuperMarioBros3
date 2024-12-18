@@ -14,7 +14,7 @@ public:
             return; // Avoid dereferencing a null pointer
         }
 
-        if (dynamic_cast<Mario*>(character) != nullptr) {
+        if (character->getCharacterType() == MARIO) {
             //character->idle = RESOURCE_MANAGER.getAnimation("supermario_idle")
             character->idleLeft = RESOURCE_MANAGER.getAnimation("supermario_idle_left");
             character->walkLeft = RESOURCE_MANAGER.getAnimation("supermario_walk_left");
@@ -34,7 +34,7 @@ public:
             character->flyRight = RESOURCE_MANAGER.getAnimation("supermario_fly_right");
             character->sitRight = RESOURCE_MANAGER.getAnimation("supermario_sit_right");
         }
-        else if (dynamic_cast<Luigi*>(character) != nullptr) {
+        else if (character->getCharacterType() == LUIGI) {
             character->idleLeft = RESOURCE_MANAGER.getAnimation("superluigi_idle_left");
             character->walkLeft = RESOURCE_MANAGER.getAnimation("superluigi_walk_left");
             character->runLeft = RESOURCE_MANAGER.getAnimation("superluigi_run_left");
@@ -130,8 +130,8 @@ public:
             }
         }
 
-        if (character->velocity.x > 0.f) character->orientation = true;
-        else if (character->velocity.x < 0.f) character->orientation = false;
+        if (character->velocity.x > 0.f) character->orientation = RIGHT;
+        else if (character->velocity.x < 0.f) character->orientation = LEFT;
 
 
         if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
@@ -188,6 +188,6 @@ public:
     }
 
 	STATE getState() const override {
-		return SUPER;
+		return STATE::SUPER;
 	}
 };
