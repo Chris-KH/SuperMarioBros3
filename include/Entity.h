@@ -34,6 +34,7 @@ public:
     virtual float getLeft() const;
     virtual float getRight() const;
     virtual float getTop() const;
+    virtual Vector2 getCenter() const;
 
     // Setters
     virtual void setPosition(Vector2 pos);
@@ -41,6 +42,7 @@ public:
     virtual void setYPosition(float y);
     virtual void setSize(Vector2 sz);
     virtual void setColor(Color col);
+    virtual void setCenter(Vector2 center);
     
     // Pure virtual draw function
     virtual void draw(float deltaTime = GetFrameTime()) = 0;

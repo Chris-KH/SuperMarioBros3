@@ -38,9 +38,11 @@ public:
 
     //Hitbox
     const Vector2 getSize() const;
-
     void setScale(float scale);
 
+    //Time of all frame
+    float getAnimationTime() const;
+        
     // **Prototype Pattern: clone method**
     Animation* clone() const;
 

@@ -50,13 +50,13 @@ public:
 
     Animation* getAnimation(const string& name) const; 
 
-    const Background* getBackground(const string& name) const; 
+    Background* getBackground(const string& name) const; 
 
     const Music* getMusic(const string& name) const;
 
-    const Sound*getSound(const string& name) const;
+    const Sound* getSound(const string& name) const;
 
-    const Font* getFont(const string& name) const;
+    Font* getFont(const string& name) const;
 
     const Texture2D& getTexture(const string& name) const;
 

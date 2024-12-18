@@ -39,6 +39,8 @@ enum EntityType {
 	CHACRACTER,
 	ENEMY,
 	ITEM,
+	FIREBALL,
+	EFFECT,
 	BLOCK
 };
 

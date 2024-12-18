@@ -58,6 +58,10 @@ float Entity::getTop() const {
     return position.y;
 }
 
+Vector2 Entity::getCenter() const {
+    return { getCenterX(), getCenterY() };
+}
+
 void Entity::setPosition(Vector2 pos) { position = pos; }
 
 void Entity::setXPosition(float x) { position.x = x; }
@@ -67,6 +71,11 @@ void Entity::setYPosition(float y) { position.y = y; }
 void Entity::setSize(Vector2 sz) { size = sz; }
 
 void Entity::setColor(Color col) { color = col; }
+
+void Entity::setCenter(Vector2 center) {
+    Vector2 oldCenter = getCenter();
+    setPosition({ position.x + center.x - oldCenter.x, position.y + center.y - oldCenter.y });
+}
 
 void Entity::setAnimation(Animation* animation) {
     float diffHeight = 0.f;

@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Manager">
       <UniqueIdentifier>{b745ced1-3a99-4dee-b13c-14181ceabbe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entity\Effect">
+      <UniqueIdentifier>{5d4db3b0-b7b2-4548-8af1-396c0f6ec31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity\Effect">
+      <UniqueIdentifier>{54b99ef7-15b5-49ec-8a08-f18f4f44dc9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Entity.h">
@@ -156,6 +162,12 @@
     <ClInclude Include="..\include\Fireball.h">
       <Filter>Header Files\Entity\Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Effect.h">
+      <Filter>Header Files\Entity\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TextEffect.h">
+      <Filter>Header Files\Entity\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
@@ -256,6 +268,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Fireball.cpp">
       <Filter>Source Files\Entity\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Effect.cpp">
+      <Filter>Source Files\Entity\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TextEffect.cpp">
+      <Filter>Source Files\Entity\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

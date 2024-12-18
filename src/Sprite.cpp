@@ -44,6 +44,10 @@ void Sprite::setYAcceleration(float ay) {
     acceleration.y = ay;
 }
 
+void Sprite::destroySprite() {
+    this->isDead = true;
+}
+
 void Sprite::update(float deltaTime) {
 
 }
@@ -67,6 +71,14 @@ void Sprite::setGravityAvailable(bool gravityAvailable) {
 
 bool Sprite::isGravityAvailable() const {
     return this->gravityAvailable;
+}
+
+void Sprite::setCollisionAvailable(bool collisionAvailable) {
+    this->collisionAvailable = collisionAvailable;
+}
+
+bool Sprite::isCollisionAvailable() const {
+    return this->collisionAvailable;
 }
 
 void Sprite::setOrientation(Orientation orientation) {

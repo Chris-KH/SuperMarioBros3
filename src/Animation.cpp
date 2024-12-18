@@ -62,7 +62,6 @@ void Animation::reset() {
     frameTimeCounter = 0.0f;
 }
 
-//Hitbox
 const Vector2 Animation::getSize() const {
     return { scale * frames[currentFrame].size.x, scale * frames[currentFrame].size.y };
 }
@@ -71,7 +70,14 @@ void Animation::setScale(float scale) {
     this->scale = scale;
 }
 
-// **Prototype Pattern: clone method**
+float Animation::getAnimationTime() const {
+    float time = 0.f;
+    for (auto& frame : frames) {
+        time += frame.duration;
+    }
+    return time;
+}
+
 Animation* Animation::clone() const {
     Animation* copy = new Animation(texture); // Clone with the same texture
     copy->frames = frames;    // Copy frames
