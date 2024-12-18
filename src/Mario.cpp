@@ -2,9 +2,9 @@
 #include"../include/NormalState.h"
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
-#include"../include/StarState.h"
+#include"../include/StarmanState.h"
 
-Mario::Mario(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
+Mario::Mario(Vector2 pos) : Character(pos) {
 	state = new NormalState;
 	state->setState(this);
 	setAnimation(idleRight);
@@ -12,8 +12,8 @@ Mario::Mario(Vector2 pos, Vector2 size, Color col) : Character(pos, size, col) {
 	this->setPosition(Vector2(this->getPosition().x, this->getPosition().y));
 };
 
-Character::CHACRACTER Mario::getCharacterType() const {
-	return CHACRACTER::MARIO;
+CharacterType Mario::getCharacterType() const {
+	return CharacterType::MARIO;
 }
 
 void Mario::update(float deltaTime) {

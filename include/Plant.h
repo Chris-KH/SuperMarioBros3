@@ -3,21 +3,14 @@
 
 class Plant : public Enemy {
 public:
-	enum PlantType {
-		RED_PIRANHA,
-		RED_FIREPIRANHA,
-		GREEN_PIRANHA,
-		GREEN_FIREPIRANHA
-	};
-
 	Plant() = default;
-	Plant(PlantType type, Vector2 position) {
+	Plant(PlantType type = GREEN_PIRANHA, Vector2 position = {0.f, 0.f}) {
 		this->type = type;
 
 	}
 
-	void update(float deltaTime) override {
-
+	EnemyType getEnemyType() const override {
+		return EnemyType::PLANT;
 	}
 private:
 	PlantType type;

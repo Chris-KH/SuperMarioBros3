@@ -9,14 +9,14 @@ class CharacterState;
 class NormalState;
 class SuperState;
 class FireState;
-class StarState;
+class StarmanState;
 
 class Character : public Sprite, public InputManager::Listener  {
     friend class CharacterState;
     friend class NormalState;
     friend class SuperState;
     friend class FireState;
-    friend class StarState;
+    friend class StarmanState;
 
 protected:
     Animation* idleLeft;
@@ -39,7 +39,6 @@ protected:
 
     CharacterState* state;
     InputManager& inputManager;
-    bool orientation; //True for right, false for left
     bool dead; //Character dead or not
     bool sitting;
     
@@ -56,17 +55,12 @@ protected:
     const float INVICIBLE_TIME = 1.f;
     const float TRANSFORM_TIME = 1.f; 
 public:
-    enum class CHACRACTER {
-        MARIO,
-        LUIGI
-    };
-
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
     virtual ~Character();
     
     virtual EntityType getType() const override;
 
-    virtual CHACRACTER getCharacterType() const = 0;
+    virtual CharacterType getCharacterType() const = 0;
 
     
     virtual void update(float deltaTime) {};
@@ -80,7 +74,7 @@ public:
     
     void setAnimation(Animation* animation);
 
-    virtual CharacterState::STATE getState() const;
+    virtual STATE getState() const;
     bool isDead() const;
     bool isInvicible() const;
     bool isSitting() const {
@@ -92,43 +86,43 @@ public:
     int getScores() const;
 
     void setIdleAnimation() {
-        if (orientation) setAnimation(idleRight);
-        else setAnimation(idleLeft);
+        if (orientation == RIGHT) setAnimation(idleRight);
+        else if (orientation == LEFT) setAnimation(idleLeft);
     }
 
     void setWalkAnimation() {
-        if (orientation) setAnimation(walkRight);
-        else setAnimation(walkLeft);
+        if (orientation == RIGHT) setAnimation(walkRight);
+        else if (orientation == LEFT) setAnimation(walkLeft);
     }
 
     void setRunAnimation() {
-        if (orientation) setAnimation(runRight);
-        else setAnimation(runLeft);
+        if (orientation == RIGHT) setAnimation(runRight);
+        else if (orientation == LEFT) setAnimation(runLeft);
     }
 
     void setJumpAnimation() {
-        if (orientation) setAnimation(jumpRight);
-        else setAnimation(jumpLeft);
+        if (orientation == RIGHT) setAnimation(jumpRight);
+        else if (orientation == LEFT) setAnimation(jumpLeft);
     }
 
     void setStopAnimation() {
-        if (orientation) setAnimation(stopRight);
-        else setAnimation(stopLeft);
+        if (orientation == RIGHT) setAnimation(stopRight);
+        else if (orientation == LEFT) setAnimation(stopLeft);
     }
 
     void setFallAnimation() {
-        if (orientation) setAnimation(fallRight);
-        else setAnimation(fallLeft);
+        if (orientation == RIGHT) setAnimation(fallRight);
+        else if (orientation == LEFT) setAnimation(fallLeft);
     }
 
     void setSitAnimation() {
-        if (orientation) setAnimation(sitRight);
-        else setAnimation(sitLeft);
+        if (orientation == RIGHT) setAnimation(sitRight);
+        else if (orientation == LEFT) setAnimation(sitLeft);
     }
 
     void setFlyAnimation() {
-        if (orientation) setAnimation(flyRight);
-        else setAnimation(flyLeft);
+        if (orientation == RIGHT) setAnimation(flyRight);
+        else if (orientation == LEFT) setAnimation(flyLeft);
     }
 
     void setInvicible(bool invicible) {

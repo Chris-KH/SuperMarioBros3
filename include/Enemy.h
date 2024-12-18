@@ -19,9 +19,11 @@ public:
     }
     
     virtual EntityType getType() const override { return EntityType::ENEMY; }
+
+    virtual EnemyType getEnemyType() const = 0;
     
     // Override draw to use animations
-    virtual void draw(float deltaTime) const {
+    virtual void draw(float deltaTime = GetFrameTime()) const {
         if (currentAnimation == nullptr) return;
         currentAnimation->render(getPosition());
     }

@@ -48,6 +48,6 @@ public:
     }
 	void update(Character* character, float deltaTime) override {};
 	STATE getState() const override {
-		return FIRE;
+		return STATE::FIRE;
 	}
 };

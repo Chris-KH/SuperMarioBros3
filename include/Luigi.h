@@ -6,7 +6,7 @@ class Luigi : public Character {
 	friend class NormalState;
 	friend class SuperState;
 	friend class FireState;
-	friend class StarState;
+	friend class StarmanState;
 private:
 	const float GROUND_ACCELERATION = 200.f;
 	const float GROUND_DECCELERATION = 200.f;
@@ -17,9 +17,9 @@ private:
 
 	const float JUMP_VELOCITY = 330.f;
 public:
-	Luigi(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
+	Luigi(Vector2 pos = { 0, 0 });
 
-	CHACRACTER getCharacterType() const override;
+	CharacterType getCharacterType() const override;
 
 	void update(float deltaTime) override;
 

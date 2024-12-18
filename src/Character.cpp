@@ -2,7 +2,7 @@
 #include"../include/NormalState.h"
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
-#include"../include/StarState.h"
+#include"../include/StarmanState.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -21,14 +21,14 @@ Character::~Character() {
 EntityType Character::getType() const { return EntityType::CHACRACTER; }
 
 void Character::reset() {
-    orientation = true;
+    orientation = RIGHT;
     jumping = false;
     dead = false;
     invicible = 0;
     sitting = false;
 }
 
-CharacterState::STATE Character::getState() const {
+STATE Character::getState() const {
     return state->getState();
 }
 

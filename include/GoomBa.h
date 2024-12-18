@@ -2,40 +2,52 @@
 #include "Enemy.h"
 #include "Collision.h"
 
-enum GoomBaType {
-	BROWN_GoomBa,
-	RED_GoomBa,
-	REDPARA_GoomBa,
-	BROWNPARA_GoomBa,
-	MICRO_GoomBa
-};
-
 class GoomBa : public Enemy {
 public:
 	const float SPEED = 50.f;
 	const float JUMP_SPEED = 200.f;
 
 	GoomBa() = default;
-	GoomBa(GoomBaType type, Vector2 position) {
+	~GoomBa() {
+		delete walkAnimation;
+		delete jumpAnimation;
+		walkAnimation = nullptr;
+		jumpAnimation = nullptr;
+	}
+	GoomBa(GoomBaType type = BROWN_GoomBa, Vector2 position = {0.f, 0.f}) {
 		this->type = type;
 		setXVelocity(SPEED);
 		setYVelocity(0.f);
 		setPosition(position);
-		jumping = true;
+		jumping = false;
+
+		walkAnimation = nullptr;
+		jumpAnimation = nullptr;
+
 		if (type == BROWN_GoomBa) {
-			setAnimation("brown_goomba");
+			walkAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
 		}
 		else if (type == RED_GoomBa) {
-			setAnimation("brown_paragoomba");
+			walkAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
 		}
 		else if (type == BROWNPARA_GoomBa) {
-			setAnimation("red_goomba");
+			walkAnimation = RESOURCE_MANAGER.getAnimation("brown_paragoomba")->clone();
+			jumpAnimation = RESOURCE_MANAGER.getAnimation("brown_paragoomba_jump")->clone();
 		}
 		else if (type == REDPARA_GoomBa) {
-			setAnimation("red_paragoomba");
+			walkAnimation = RESOURCE_MANAGER.getAnimation("red_paragoomba")->clone();
+			jumpAnimation = RESOURCE_MANAGER.getAnimation("red_paragoomba_jump")->clone();
 		}
+
+		setAnimation(walkAnimation);
+	}
+
+	EnemyType getEnemyType() const override {
+		return EnemyType::GOOMBA;
 	}
 
 private:
 	GoomBaType type;
+	Animation* walkAnimation;
+	Animation* jumpAnimation;
 };

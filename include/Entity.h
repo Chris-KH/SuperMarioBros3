@@ -2,14 +2,7 @@
 #include <raylib.h>
 #include "Animation.h"
 #include "CharacterState.h"
-#include "ResourceManager.h"
-
-enum EntityType {
-    CHACRACTER,
-    ENEMY,
-    ITEM,
-    BLOCK
-};
+#include "Global.h"
 
 class Entity {
 private:

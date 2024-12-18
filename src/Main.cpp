@@ -32,7 +32,7 @@ int main() {
     //Map map1;
     //map1.loadFromFile("../assets/Map/Map1-1.txt");
     //map1.loadBackground("../assets/Map/Map1-1.png");
-    //Enemy* goomba = new GoomBa(BROWN_GoomBa, { 0.f, 0.f });
+    //Enemy* goomba = new GoomBa(BROWNPARA_GoomBa, { 0.f, 0.f });
     // 
     // 
     //while (!WindowShouldClose()) {
@@ -59,8 +59,8 @@ int main() {
     //}
     Menu menu;
     menu.run();
-    //CloseWindow();
-    //CloseAudioDevice();
+    /*CloseWindow();
+    CloseAudioDevice();*/
 
     return 0;
 }

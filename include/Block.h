@@ -8,21 +8,9 @@
 #include <unordered_map>
 #include <functional>
 
-enum BlockType {
-    FLOOR,
-    BRICK, // breakable
-    SOLIDBLOCK, // unmovable, unbreakable
-    MOVINGBLOCK,
-    ITEMBLOCK,
-    HIDDEN,
-    SPIKE,
-    PIPE,
-	TEMPBLOCK,
-    DECOR
-};
+//I move all enum type to Global.h
 
-class BaseBlock : public Entity
-{
+class BaseBlock : public Entity {
 public:
 	BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE) : Entity(pos,size,color), sprite(nullptr) {}
 	virtual ~BaseBlock(){};

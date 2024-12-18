@@ -4,10 +4,10 @@
 #include"Mario.h"
 #include"Luigi.h"
 
-class StarState : public CharacterState {
+class StarmanState : public CharacterState {
 	friend class Character;
 public:
-	~StarState();
+	~StarmanState();
 
     virtual void setState(Character* character) {
         if (character == nullptr) {
@@ -23,6 +23,6 @@ public:
     }
 	void update(Character* character, float deltaTime) override {};
 	STATE getState() const override {
-		return STAR;
+		return STATE::STARMAN;
 	}
 };
