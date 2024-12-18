@@ -7,6 +7,10 @@ Menu::Menu() {
     // Default configurations
     player = nullptr;
     map = nullptr;  // Assume a default constructor for the Map class
+    selectedCharacter = 1;
+    selectedMap = 1;
+    //Load background texture in Menu
+    titleScreen = LoadTexture("../assets/Background/TitleScreen.jpg");
 }
 
 void Menu::run() {
@@ -32,7 +36,8 @@ void Menu::run() {
     this->map = &map1;
     while (!WindowShouldClose()) {
         BeginDrawing();
-        //ClearBackground(WHITE);
+        ClearBackground(WHITE);
+        DrawTexturePro(titleScreen, {0, 0, (float)titleScreen.width, (float)titleScreen.height}, {0, 0, 1280, 800}, {0, 0}, 0.0f, WHITE);
         UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
         if (currentState) {
             currentState->draw();
@@ -40,7 +45,7 @@ void Menu::run() {
         }
         EndDrawing();
     }
-
+    UnloadTexture(titleScreen);
     CloseWindow();
     CloseAudioDevice();
 }
@@ -61,158 +66,146 @@ void Menu::selectCharacter(int characterIndex) {
     this->selectedCharacter = characterIndex;
 }
 
-//void Menu::selectMap(int mapIndex) {
-//    // Set the selected map
-//    this->selectedMap = mapIndex;
-//}
-
-bool Menu::isAudioEnabled() const {
-    return audioEnabled;
+void Menu::selectMap(int mapIndex) {
+    //Set the selected map
+    this->selectedMap = mapIndex;
 }
 
-bool Menu::isMusicEnabled() const {
-    return musicEnabled;
-}
+bool Menu::isAudioEnabled() const { return audioEnabled; }
 
-int Menu::getSelectedCharacter() const {
-    return selectedCharacter;
-}
+bool Menu::isMusicEnabled() const { return musicEnabled; }
 
-int Menu::getSelectedMap() const {
-    return selectedMap;
-}
+int Menu::getSelectedCharacter() const { return selectedCharacter; }
 
-void Menu::returnToMainMenu()
-{
+int Menu::getSelectedMap() const { return selectedMap; }
+
+void Menu::returnToMainMenu() {
     setState(std::make_unique<MainMenuState>(this));
 }
 
-MainMenuState::MainMenuState(Menu* menu) {
-    this->menu = menu;
-}
+MainMenuState::MainMenuState(Menu* menu) { this->menu = menu; }
 
 void MainMenuState::draw() {
     ClearBackground(RAYWHITE);
+    
+    int titleHeight = 150; // Height of the title area
+    int buttonSpacing = 60; // Vertical spacing between buttons
+    float buttonStartY = titleHeight + 50; // Position buttons below the title
 
-    DrawText("Main Menu", 300, 100, 40, BLACK);
-    DrawText("Start", 300, 200, 30, BLACK);
-    DrawText("Settings", 300, 250, 30, BLACK);
-    DrawText("Select Character", 300, 300, 30, BLACK);
-    DrawText("Select Map", 300, 350, 30, BLACK);
-    //DrawText("Exit", 300, 400, 30, BLACK);
+    // Main Menu Title (just for additional emphasis, optional)
+    DrawText("Main Menu", 500, titleHeight - 80, 40, BLACK);
+    // Draw Buttons
+    startButton = {440, buttonStartY, 400, 50};
+    DrawRectangleRec(startButton, LIGHTGRAY);
+    DrawText("Start", 560, buttonStartY + 10, 30, BLACK);
+
+    settingsButton = {440, buttonStartY + buttonSpacing, 400, 50};
+    DrawRectangleRec(settingsButton, LIGHTGRAY);
+    DrawText("Settings", 540, buttonStartY + buttonSpacing + 10, 30, BLACK);
+
+    charSelectionButton = {440, buttonStartY + buttonSpacing * 2, 400, 50};
+    DrawRectangleRec(charSelectionButton, LIGHTGRAY);
+    DrawText("Select Character", 500, buttonStartY + buttonSpacing * 2 + 10, 30, BLACK);
+
+    mapSelectionButton = {440, buttonStartY + buttonSpacing * 3, 400, 50};
+    DrawRectangleRec(mapSelectionButton, LIGHTGRAY);
+    DrawText("Select Map", 530, buttonStartY + buttonSpacing * 3 + 10, 30, BLACK);
 }
 
 void MainMenuState::handleInput() {
-    if (IsKeyPressed(KEY_ONE)) {
-        GameEngine game((float)820, (float)530, (float)2779, (float)512, *menu->map, menu->player);
-        game.run();
-    }
-    if (IsKeyPressed(KEY_TWO)) {
-        menu->setState(std::make_unique<SettingState>(menu));
-    }
-    else if (IsKeyPressed(KEY_THREE)) {
-        menu->setState(std::make_unique<CharSelection>(menu));
-    }
-    else if (IsKeyPressed(KEY_FOUR)) {
-        menu->setState(std::make_unique<MapSelection>(menu));
-    }
-    else if (IsKeyPressed(KEY_FIVE)) {
-        CloseWindow(); 
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        Vector2 mousePos = GetMousePosition();
+        if (CheckCollisionPointRec(mousePos, startButton)) {
+            GameEngine game(820.0f, 530.0f, 2779.0f, 512.0f, *menu->map, menu->player);
+            game.run();
+        } else if (CheckCollisionPointRec(mousePos, settingsButton)) {
+            menu->setState(std::make_unique<SettingState>(menu));
+        } else if (CheckCollisionPointRec(mousePos, charSelectionButton)) {
+            menu->setState(std::make_unique<CharSelection>(menu));
+        } else if (CheckCollisionPointRec(mousePos, mapSelectionButton)) {
+            menu->setState(std::make_unique<MapSelection>(menu));
+        }
     }
 }
 
 // SettingState implementation
-SettingState::SettingState(Menu* menu) {
-    this->menu = menu;
-}
+SettingState::SettingState(Menu* menu) { this->menu = menu; }
 
 void SettingState::draw() {
     ClearBackground(RAYWHITE);
 
     DrawText("Settings", 300, 100, 40, BLACK);
-    DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 300, 200, 30, BLACK);
-    DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 300, 250, 30, BLACK);
-    DrawText("Press 1 to Toggle Audio", 300, 300, 20, DARKGRAY);
-    DrawText("Press 2 to Toggle Music", 300, 330, 20, DARKGRAY);
-    DrawText("Press 3 to Return to Main Menu", 300, 360, 20, DARKGRAY);
-
+    DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
+    DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
+    DrawText("Return to Main Menu", 310, 310, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 }
 
 void SettingState::handleInput() {
-    if (IsKeyPressed(KEY_ONE)) {
-        SETTINGS.setSound(!menu->isAudioEnabled());
-        menu->configureSettings(!menu->isAudioEnabled(), menu->isMusicEnabled());
-    }
-    else if (IsKeyPressed(KEY_TWO)) {
-        SETTINGS.setMusic(!menu->isMusicEnabled());
-        menu->configureSettings(menu->isAudioEnabled(), !menu->isMusicEnabled());
-    }
-    else if (IsKeyPressed(KEY_THREE)) {
-        menu->returnToMainMenu();
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        Vector2 mousePos = GetMousePosition();
+        if (CheckCollisionPointRec(mousePos, audioButton)) {
+            menu->configureSettings(!menu->isAudioEnabled(), menu->isMusicEnabled());
+        } else if (CheckCollisionPointRec(mousePos, musicButton)) {
+            menu->configureSettings(menu->isAudioEnabled(), !menu->isMusicEnabled());
+        } else if (CheckCollisionPointRec(mousePos, backButton)) {
+            menu->returnToMainMenu();
+        }
     }
 }
 
 // CharacterState implementation
-CharSelection::CharSelection(Menu* menu) {
-    this->menu = menu;
-}
+CharSelection::CharSelection(Menu* menu) { this->menu = menu; }
 
 void CharSelection::draw() {
     ClearBackground(RAYWHITE);
 
     DrawText("Character Selection", 300, 100, 40, BLACK);
-    DrawText("Mario", 300, 200, 30, BLACK);
-    DrawText("Luigi", 300, 250, 30, BLACK);
-    DrawText(TextFormat("Current Selection: %d", menu->player->getCharacterType()), 300, 350, 30, DARKGRAY);
+    DrawText("Mario", 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), marioButton) ? LIGHTGRAY : BLACK);
+    DrawText("Luigi", 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), luigiButton) ? LIGHTGRAY : BLACK);
 
 }
 
 void CharSelection::handleInput() {
-    if (IsKeyPressed(KEY_ONE)) {
-        delete menu->player;
-        Character* newPlayer = new Mario(Vector2{ 0,0 });
-        menu->player = newPlayer;
-        menu->returnToMainMenu();
-    }
-    else if (IsKeyPressed(KEY_TWO)) {
-        delete menu->player;
-        Character* newPlayer = new Luigi(Vector2{ 0,0 });
-        menu->player = newPlayer;        
-        menu->returnToMainMenu();
-    }
-    else if (IsKeyPressed(KEY_THREE)) {
-        //menu->selectCharacter(3);
-        menu->returnToMainMenu();
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        Vector2 mousePos = GetMousePosition();
+        if (CheckCollisionPointRec(mousePos, marioButton)) {
+            menu->player = new Mario(Vector2{0, 0});
+            menu->returnToMainMenu();
+        } else if (CheckCollisionPointRec(mousePos, luigiButton)) {
+            menu->player = new Luigi(Vector2{0, 0});
+            menu->returnToMainMenu();
+        }
     }
 }
 
 // MapState implementation
-MapSelection::MapSelection(Menu* menu) {
-    this->menu = menu;
-}
+MapSelection::MapSelection(Menu* menu) { this->menu = menu; }
 
 void MapSelection::draw() {
     ClearBackground(RAYWHITE);
 
     DrawText("Map Selection", 300, 100, 40, BLACK);
-    DrawText("1. Forest", 300, 200, 30, BLACK);
-    DrawText("2. Desert", 300, 250, 30, BLACK);
-    DrawText("3. Castle", 300, 300, 30, BLACK);
-    DrawText(TextFormat("Current Selection: %d", menu->getSelectedMap()), 300, 350, 30, DARKGRAY);
+    DrawText("Map1", 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), map1Button) ? LIGHTGRAY : BLACK);
+    DrawText("Map2", 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), map2Button) ? LIGHTGRAY : BLACK);
+    DrawText("Map3", 310, 310, 30, CheckCollisionPointRec(GetMousePosition(), map3Button) ? LIGHTGRAY : BLACK);
+    DrawText("Return to Main Menu", 310, 360, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 
 }
 
 void MapSelection::handleInput() {
-    if (IsKeyPressed(KEY_ONE)) {
-        //menu->selectMap(1);
-        menu->returnToMainMenu();
-    }
-    else if (IsKeyPressed(KEY_TWO)) {
-        //menu->selectMap(2);
-        menu->returnToMainMenu();
-    }
-    else if (IsKeyPressed(KEY_THREE)) {
-        //menu->selectMap(3);
-        menu->returnToMainMenu();
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        Vector2 mousePos = GetMousePosition();
+        if (CheckCollisionPointRec(mousePos, map1Button)) {
+            menu->selectMap(1);
+            menu->returnToMainMenu();
+        } else if (CheckCollisionPointRec(mousePos, map2Button)) {
+            menu->selectMap(2);
+            menu->returnToMainMenu();
+        } else if (CheckCollisionPointRec(mousePos, map3Button)) {
+            menu->selectMap(3);
+            menu->returnToMainMenu();
+        } else if (CheckCollisionPointRec(mousePos, backButton)) {
+            menu->returnToMainMenu();
+        }
     }
 }
