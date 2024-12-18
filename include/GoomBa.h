@@ -43,6 +43,10 @@ public:
 		return EnemyType::GOOMBA;
 	}
 
+	void update(float deltaTime) override {
+
+	}
+
 private:
 	GoomBaType type;
 	Animation* walkAnimation;

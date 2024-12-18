@@ -29,7 +29,7 @@ void Menu::run() {
 
     // Tạo một vật thể với texture và InputManager
     Character* player = new Mario(Vector2{ 0,0 });
-    RESOURCE_MANAGER.playMusic("World1.mp3");
+    RESOURCE_MANAGER.playMusic("Overworld.mp3");
     this->player = player;
     Map map1;
     map1.loadFromFile("../assets/Map/Map1-1.txt");
@@ -38,7 +38,7 @@ void Menu::run() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         //ClearBackground(WHITE);
-        UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+        UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
         if (currentState) {
             currentState->draw();
             currentState->handleInput();

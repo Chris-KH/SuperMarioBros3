@@ -15,7 +15,6 @@ public:
         }
 
         if (character->getCharacterType() == MARIO) {
-            //character->idle = RESOURCE_MANAGER.getAnimation("supermario_idle")
             character->idleLeft = RESOURCE_MANAGER.getAnimation("supermario_idle_left");
             character->walkLeft = RESOURCE_MANAGER.getAnimation("supermario_walk_left");
             character->runLeft = RESOURCE_MANAGER.getAnimation("supermario_run_left");

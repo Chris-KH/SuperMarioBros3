@@ -35,6 +35,11 @@ public:
 	EnemyType getEnemyType() const override {
 		return EnemyType::PLANT;
 	}
+
+	void update(float deltaTime) override {
+
+	}
+
 private:
 	PlantType type;
 	Animation* piranha;

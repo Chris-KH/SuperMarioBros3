@@ -8,7 +8,7 @@ protected:
     Vector2 acceleration;  // Acceleration vector (ax, ay)
     bool isDead;           // Indicates if the sprite is "dead"
     bool jumping;
-    Orientation orientation; //True for right, false for left
+    Orientation orientation; 
 
     bool gravityAvailable;
 
