@@ -245,7 +245,6 @@ private:
     Texture2D background;
     void clearBlocks() {
         for (Entity* entity : blockArray) {
-            //if(entity)
             delete entity;
         }
         blockArray.clear();

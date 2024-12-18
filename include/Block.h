@@ -13,11 +13,10 @@
 class BaseBlock : public Entity {
 public:
 	BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE) : Entity(pos,size,color), sprite(nullptr) {}
-	virtual ~BaseBlock(){};
-	void setSprite(const Animation* blockAnimation)
-	{
-		sprite = blockAnimation;
-	}
+	virtual ~BaseBlock(){
+		if (sprite)
+			delete sprite;
+	};
 	EntityType getType() const {
 		return BLOCK;
 	}
@@ -31,7 +30,7 @@ public:
 	}
 	virtual void update(float deltaTime) override {} // moving,.... implement in derived classes
 protected:
-	const Animation* sprite = nullptr;
+	 Animation* sprite = nullptr;
 };
 class Floor : public BaseBlock
 {
@@ -143,15 +142,19 @@ class ItemBlock : public BaseBlock
 private:
 	bool hasItem = true;
 public:
-	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW) : BaseBlock(pos, size, color) {}
+	ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW) : BaseBlock(pos, size, color) {
+		sprite = RESOURCE_MANAGER.getAnimation("item_block")->clone();
+		setAnimation(sprite);
+	}
 	BlockType getBlockType() const override { return ITEMBLOCK; }
+	void draw(float deltaTime = GetFrameTime()) const
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	void update(float deltaTime)
 	{
-		if (hasItem) {
-			//xử lý Item
-			hasItem = false;
-		}
-
+		currentAnimation->update(deltaTime);
 	}
 };
 

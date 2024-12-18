@@ -263,10 +263,10 @@ public:
         if (typeA == CHACRACTER && typeB == BLOCK) {
             if (block && block->getBlockType() == FLOOR)
                 return std::make_unique<PlayerFloorStrat>();
-            if (block && block->getBlockType() == SOLIDBLOCK)
-                return std::make_unique<PlayerBlockStrat>();
             if(block && block->getBlockType() == MOVINGBLOCK)
                 return std::make_unique<PlayerMovingBlockStrat>();
+            //if (block && block->getBlockType() == SOLIDBLOCK)
+            return std::make_unique<PlayerBlockStrat>();
         }
         if (typeA == ENEMY && typeB == BLOCK)
         {
