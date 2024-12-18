@@ -84,11 +84,18 @@ private:
 public:
 	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 16, 16 }, Color color = DARKGRAY)
 		: BaseBlock(pos, size, color),
-		boundLeft(pos.x), boundRight(pos.x),
-		boundTop(pos.y), boundBottom(pos.y) {}
+		boundLeft(pos.x), boundRight(pos.x),boundTop(pos.y), boundBottom(pos.y) 
+	{
+		sprite = RESOURCE_MANAGER.getAnimation("moving_platform_block")->clone();
+		setAnimation(sprite);
+	}
 
 	BlockType getBlockType() const override { return MOVINGBLOCK; }
-
+	void draw(float deltaTime) override
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	void setBounds(float left, float right, float top, float bottom)
 	{
 		Vector2 pos = getPosition(); // Get the current position of the block
@@ -133,6 +140,7 @@ public:
 		}
 
 		setPosition(pos);
+		currentAnimation->update(deltaTime);
 	}
 };
 
@@ -147,7 +155,7 @@ public:
 		setAnimation(sprite);
 	}
 	BlockType getBlockType() const override { return ITEMBLOCK; }
-	virtual void draw(float deltaTime) override
+	void draw(float deltaTime) override
 	{
 		if (currentAnimation == nullptr) return;
 		currentAnimation->render(this->getPosition());
