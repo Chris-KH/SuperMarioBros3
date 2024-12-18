@@ -193,7 +193,7 @@ public:
 
 		MovingBlock testBlock(Vector2(900, 400), Vector2(100, 32), BLACK);
 		testBlock.setBounds(850, 1000, 300, 500);
-		testBlock.setVelocity(Vector2(0, 50));
+		testBlock.setVelocity(Vector2(50, 50));
 		MovingBlock* blo = &testBlock;
 		testEntities.push_back(blo);
 		while (!WindowShouldClose()) {
