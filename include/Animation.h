@@ -30,14 +30,11 @@ public:
 
     //Render the current frame of the animation.
     void render(Vector2 position) const;
-    void render(const Frame& frame) const;
-    void render(int frameNumber) const;
+    void render(Vector2 position, const Frame& frame) const;
+    void render(Vector2 position, int frameNumber) const;
 
     //Reset the animation to the first frame.
     void reset();
-
-    // Check if the animation has finished (useful for one-shot animations).
-    bool isFinished() const;
 
     //Hitbox
     const Vector2 getSize() const;
