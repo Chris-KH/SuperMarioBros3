@@ -112,7 +112,7 @@ public:
 		//inputManager.update();
 		player->update(deltaTime);
 		handleCollision();
-		for (Entity* i : testEntities)
+		for (Entity* i : *(blocks))
 		{
 			i->update(deltaTime);
 		}
@@ -191,11 +191,11 @@ public:
 
 	void run() {
 
-		MovingBlock testBlock(Vector2(900, 400), Vector2(100, 32), BLACK);
+		/*MovingBlock testBlock(Vector2(850, 300), Vector2(100, 32), BLACK);
 		testBlock.setBounds(850, 1000, 300, 500);
 		testBlock.setVelocity(Vector2(50, 50));
 		MovingBlock* blo = &testBlock;
-		testEntities.push_back(blo);
+		testEntities.push_back(blo);*/
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
