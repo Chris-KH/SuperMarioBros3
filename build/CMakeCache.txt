@@ -200,9 +200,6 @@ CS202-SuperMario_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 CS202-SuperMario_SOURCE_DIR:STATIC=C:/Users/Dell/Downloads/CS202-SuperMario
 
-//No help, variable specified on the command line.
-RAUDIO_SUPPORT:UNINITIALIZED=OFF
-
 
 ########################
 # INTERNAL cache entries
