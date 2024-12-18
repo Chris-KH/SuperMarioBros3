@@ -151,7 +151,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\BlockFactory.h">
-      <Filter>Header Files\Map</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Fireball.h">
+      <Filter>Header Files\Entity\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +221,9 @@
     <ClCompile Include="..\src\Block.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="..\include\Background.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\Background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -248,8 +254,8 @@
     <ClCompile Include="..\src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\Background.h">
-      <Filter>Header Files\Map</Filter>
+    <ClCompile Include="..\src\Fireball.cpp">
+      <Filter>Source Files\Entity\Item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,6 +2,8 @@
 #include "Sprite.h"
 #include "Animation.h"
 
+class Character;
+
 class Enemy : public Sprite {
 protected:
     bool stompable;
@@ -11,63 +13,25 @@ protected:
 
     const float GROUND = 800.f;
 public:
-    Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE) {
-        stompable = false;
-        kickable = false;
-        jumping = false;
+    Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
 
-        boudary = { 0.f, 0.f, 0.f, 0.f };
-        setPosition(pos);
-    };
-
-    virtual ~Enemy() {
-
-    }
+    virtual ~Enemy() = default;
     
-    virtual EntityType getType() const override { return EntityType::ENEMY; }
+    virtual EntityType getType() const override;
 
     virtual EnemyType getEnemyType() const = 0;
     
     // Override draw to use animations
-    virtual void draw(float deltaTime = GetFrameTime()) {
-        if (currentAnimation == nullptr) return;
-        setXPosition(getPosition().x + velocity.x * deltaTime);
-        setYPosition(getPosition().y + velocity.y * deltaTime);
-        currentAnimation->render(getPosition());
-    }
+    virtual void draw(float deltaTime = GetFrameTime());
     
     // Method to move enemy (AI-controlled)
-    virtual void update(float deltaTime) {
-        currentAnimation->update(deltaTime);
-        if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
+    virtual void update(float deltaTime);
 
-        if (isJumping()) {
-            setYPosition(getPosition().y + velocity.y * deltaTime);
-        }
+    Orientation getRandomOrientation();
 
-        if (getBottom() >= 500.f) {
-            setYVelocity(0.f);
-            setYPosition(500.f - getSize().y);
-            jumping = false;
-        }
-    }
+    virtual void setBoudary(Rectangle rect);
 
-    Orientation getRandomOrientation() {
-        random_device rd;  
-        mt19937 gen(rd()); 
-        uniform_int_distribution<> distr(0, 1);
-
-        if (distr(gen) % 2 == 0) return RIGHT;
-        return LEFT;
-    }
-
-    virtual void setBoudary(Rectangle rect) {
-        this->boudary = rect;
-    }
-
-    virtual Rectangle getBoundary() const {
-        return boudary;
-    }
+    virtual Rectangle getBoundary() const;
 
     void stomped();
     void attacked();

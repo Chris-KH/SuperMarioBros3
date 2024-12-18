@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\BlockFactory.h" />
     <ClInclude Include="..\include\FileHandle.h" />
+    <ClInclude Include="..\include\Fireball.h" />
     <ClInclude Include="..\include\FPSManager.h" />
     <ClInclude Include="..\include\Global.h" />
     <ClInclude Include="..\include\InputManager.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\include\Background.h" />
     <ClCompile Include="..\src\Background.cpp" />
     <ClCompile Include="..\src\FileHandle.cpp" />
+    <ClCompile Include="..\src\Fireball.cpp" />
     <ClCompile Include="..\src\FPSManager.cpp" />
     <ClCompile Include="..\src\Global.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
