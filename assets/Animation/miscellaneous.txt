@@ -45,3 +45,6 @@ $blue_star_item
 
 $moving_platform_block
 0 64 48 16 999 0 0 48 16
+
+$empty_block
+48 64 16 16 999 0 0 16 16

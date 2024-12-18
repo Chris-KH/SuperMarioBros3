@@ -23,9 +23,9 @@ public:
 	virtual BlockType getBlockType()const = 0;
 	virtual void draw(float deltaTime) // may be deleted in future
 	{
-		Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
-		Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
-		DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
+		//Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
+		//Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
+		//DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
 		//current Animation rendering
 	}
 	virtual void update(float deltaTime) override {} // moving,.... implement in derived classes
@@ -48,14 +48,20 @@ class Brick : public BaseBlock
 private:
 	bool isBroken = false;
 public:
-	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) {}
+	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) 
+	{
+		sprite = RESOURCE_MANAGER.getAnimation("gold_brick_block")->clone();
+		setAnimation(sprite);
+	}
+	void draw(float deltaTime) override
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	BlockType getBlockType() const override { return BRICK; }
 	void update(float deltaTime) override
 	{
-		if (isBroken) {
-			setColor(BLANK);
-			setSize({0, 0});
-		}
+		currentAnimation->update(deltaTime);
 	}
 	void breakBrick() {
 		isBroken = true;
