@@ -6,20 +6,21 @@ public:
 	const float SPEED = 50.f;
 	const float JUMP_SPEED = 200.f;
 
-	KoopaTroopa() = default;
 	~KoopaTroopa() {
-		delete walkLeft;
-		delete walkRight;
-		delete jumpLeft;
-		delete jumpRight;
+		free(walkLeft);
+		free(walkRight);
+		free(jumpLeft);
+		free(jumpRight);
 		walkLeft = nullptr;
 		walkRight = nullptr;
 		jumpLeft = nullptr;
 		jumpRight = nullptr;
 	}
-	KoopaTroopa(KoopaTroopaType type = GREEN_KoopaTroopa, Vector2 position = {0.f, 0.f}) {
+	KoopaTroopa(KoopaTroopaType type = GREEN_KoopaTroopa, Vector2 position = {0.f, 0.f}) : Enemy(position) {
 		this->type = type;
-		setXVelocity(SPEED);
+		setXVelocity(orientation == RIGHT ? SPEED : -SPEED);
+		setYVelocity(0.f);
+
 		walkLeft = nullptr;
 		walkRight = nullptr;
 		jumpLeft = nullptr;

@@ -4,6 +4,10 @@
 #include"../include/FPSManager.h"
 #include"../include/InputManager.h"
 #include"../include/Settings.h"
+#include<random>
+#include<vector>
+#include<map>
+#include<unordered_map>
 
 
 extern const int GAME_FPS;
@@ -17,7 +21,11 @@ enum Orientation {
 	LEFT,
 	RIGHT,
 	UP,
-	DOWN
+	DOWN,
+	DOWNLEFT,
+	UPLEFT,
+	DOWNRIGHT,
+	UPRIGHT
 };
 
 enum Edge {

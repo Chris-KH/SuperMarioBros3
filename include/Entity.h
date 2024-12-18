@@ -43,7 +43,7 @@ public:
     virtual void setColor(Color col);
     
     // Pure virtual draw function
-    virtual void draw(float deltaTime = GetFrameTime()) const = 0;
+    virtual void draw(float deltaTime = GetFrameTime()) = 0;
     virtual void update(float deltaTime) = 0;
     virtual void setAnimation(Animation* animation);
     virtual void setAnimation(const string& name);

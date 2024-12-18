@@ -38,8 +38,11 @@ public:
 
     virtual bool isJumping() const;
     virtual void setJumping(bool value);
-    virtual void setGravity(bool gravityAvailable);
+    virtual void setGravityAvailable(bool gravityAvailable);
+    virtual bool isGravityAvailable() const;
+    virtual void setOrientation(Orientation orientation);
+    virtual Orientation getOrientation() const;
 
     virtual void update(float deltaTime);
-    virtual void draw(float deltaTime = GetFrameTime()) const;
+    virtual void draw(float deltaTime = GetFrameTime());
 };

@@ -14,7 +14,8 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
 };
 
 Character::~Character() {
-    delete state;
+    free(state);
+    state = nullptr;
     INPUT_MANAGER.removeListener(*this);
 }
 
@@ -33,7 +34,9 @@ STATE Character::getState() const {
 }
 
 void Character::draw(float deltaTime) {
-    setPosition(Vector2(getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime));
+    if (currentAnimation == nullptr) return;
+    setXPosition(getPosition().x + velocity.x * deltaTime);
+    setYPosition(getPosition().y + velocity.y * deltaTime);
     currentAnimation->render(getPosition());
 }
 

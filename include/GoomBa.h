@@ -7,19 +7,16 @@ public:
 	const float SPEED = 50.f;
 	const float JUMP_SPEED = 200.f;
 
-	GoomBa() = default;
 	~GoomBa() {
-		delete walkAnimation;
-		delete jumpAnimation;
+		free(walkAnimation);
+		free(jumpAnimation);
 		walkAnimation = nullptr;
 		jumpAnimation = nullptr;
 	}
-	GoomBa(GoomBaType type = BROWN_GoomBa, Vector2 position = {0.f, 0.f}) {
+	GoomBa(GoomBaType type = BROWN_GoomBa, Vector2 position = {0.f, 0.f}) : Enemy(position) {
 		this->type = type;
-		setXVelocity(SPEED);
+		setXVelocity(orientation == RIGHT ? SPEED : -SPEED);
 		setYVelocity(0.f);
-		setPosition(position);
-		jumping = false;
 
 		walkAnimation = nullptr;
 		jumpAnimation = nullptr;
