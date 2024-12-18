@@ -16,7 +16,7 @@ public:
     Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
     Entity(const Entity& other);
 
-    virtual ~Entity() {}
+    virtual ~Entity();
         
     // Getters
     virtual float getX() const;

@@ -3,27 +3,26 @@
 
 class Effect : public Sprite {
 protected:
-	Animation* effect;
 	float duration;
 	float delay;
 	bool destroyWhenFinish;
 public:
 	virtual ~Effect() {
-		free(effect);
-		effect = nullptr;
+		free(currentAnimation);
+		currentAnimation = nullptr;
 	}
 	Effect() = default;
 	Effect(Animation* animation, Vector2 position = {0.f, 0.f}, float duration = 0.f, float delay = 0.f) : Sprite(position) {
-		effect = animation;
+		currentAnimation = animation;
 		this->duration = duration;
 		this->delay = delay;
 		this->destroyWhenFinish = true;
 	}
 
 	Effect(Animation* animation, Vector2 position = { 0.f, 0.f }, bool destroyWhenFinish = true, float delay = 0.f) {
-		effect = animation;
+		currentAnimation = animation;
 		if (destroyWhenFinish == true) {
-			this->duration = effect->getAnimationTime();
+			this->duration = currentAnimation->getAnimationTime();
 		}
 		else this->duration = 0.f;
 		this->delay = delay;
