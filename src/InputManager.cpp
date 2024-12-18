@@ -22,14 +22,15 @@ void InputManager::update() {
 
     for (auto& [key, state] : keyStates) {
         bool isPressed = IsKeyDown(key);
+
         // If state has changed, notify listeners
-        if (isPressed != state) {
-            state = isPressed; // Update stored state
+        if (isPressed != state || isPressed == true) {
             for (auto listener : listeners) {
                 if (listener) {
                     listener->onKey(key, isPressed);
                 }
             }
+            state = isPressed; // Update stored state
         }
     }
 }

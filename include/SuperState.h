@@ -23,6 +23,7 @@ public:
             character->jumpLeft = RESOURCE_MANAGER.getAnimation("supermario_jump_left");
             character->fallLeft = RESOURCE_MANAGER.getAnimation("supermario_fall_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("supermario_fly_left");
+            character->sitLeft = RESOURCE_MANAGER.getAnimation("supermario_sit_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("supermario_idle_right");
             character->walkRight = RESOURCE_MANAGER.getAnimation("supermario_walk_right");
@@ -31,6 +32,7 @@ public:
             character->jumpRight = RESOURCE_MANAGER.getAnimation("supermario_jump_right");
             character->fallRight = RESOURCE_MANAGER.getAnimation("supermario_fall_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("supermario_fly_right");
+            character->sitRight = RESOURCE_MANAGER.getAnimation("supermario_sit_right");
         }
         else if (dynamic_cast<Luigi*>(character) != nullptr) {
             character->idleLeft = RESOURCE_MANAGER.getAnimation("superluigi_idle_left");
@@ -40,6 +42,7 @@ public:
             character->jumpLeft = RESOURCE_MANAGER.getAnimation("superluigi_jump_left");
             character->fallLeft = RESOURCE_MANAGER.getAnimation("superluigi_fall_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("superluigi_fly_left");
+            character->sitLeft = RESOURCE_MANAGER.getAnimation("superluigi_sit_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("superluigi_idle_right");
             character->walkRight = RESOURCE_MANAGER.getAnimation("superluigi_walk_right");
@@ -48,6 +51,7 @@ public:
             character->jumpRight = RESOURCE_MANAGER.getAnimation("superluigi_jump_right");
             character->fallRight = RESOURCE_MANAGER.getAnimation("superluigi_fall_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("superluigi_fly_right");
+            character->sitRight = RESOURCE_MANAGER.getAnimation("superluigi_sit_right");
         }
     }	
 
@@ -56,11 +60,12 @@ public:
             return; // Avoid dereferencing a null pointer
         }
 
-        float deceleration, acceleration, gravity, jump_velocity, max_run_velocity, max_walk_velocity;
+        float skid_deceleration, deceleration, acceleration, gravity, jump_velocity, max_run_velocity, max_walk_velocity;
         gravity = character->GRAVITY;
         if (dynamic_cast<Mario*>(character) != nullptr) {
             Mario* mario = dynamic_cast<Mario*>(character);
-            deceleration = mario->GROUND_DEACCELERATION;
+            skid_deceleration = mario->GROUND_SKID_DECELERATION;
+            deceleration = mario->GROUND_DECCELERATION;
             acceleration = mario->GROUND_ACCELERATION;
             jump_velocity = mario->JUMP_VELOCITY;
             max_run_velocity = mario->MAX_RUN_VELOCITY;
@@ -68,23 +73,24 @@ public:
         }
         else if (dynamic_cast<Luigi*>(character) != nullptr) {
             Luigi* luigi = dynamic_cast<Luigi*>(character);
-            deceleration = luigi->GROUND_DEACCELERATION;
+            skid_deceleration = luigi->GROUND_SKID_DECELERATION;
+            deceleration = luigi->GROUND_DECCELERATION;
             acceleration = luigi->GROUND_ACCELERATION;
             jump_velocity = luigi->JUMP_VELOCITY;
             max_run_velocity = luigi->MAX_RUN_VELOCITY;
             max_walk_velocity = luigi->MAX_WALK_VELOCITY;
-        }
+        }       
 
         //Logic update
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
+            character->setSitting(false);
             if (character->velocity.x < 0) {
                 if (character->isJumping() == false) character->setAnimation(character->stopLeft);
-                character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
-                if (character->velocity.x > 0) character->setXVelocity(max_walk_velocity);
+                character->setXVelocity(character->getVelocity().x + skid_deceleration * deltaTime);
+                if (character->velocity.x > 0) character->setXVelocity(0.f);
             }
             else {
-                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
-                else character->setXVelocity(max(character->getVelocity().x, max_walk_velocity));
+                character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
                 if (character->isJumping() == false) {
                     if (character->velocity.x >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runRight);
@@ -95,14 +101,14 @@ public:
             }
         }
         else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
+            character->setSitting(false);
             if (character->velocity.x > 0) {
                 if (character->isJumping() == false) character->setAnimation(character->stopRight);
-                character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
-                if (character->velocity.x < 0) character->setXVelocity(-max_walk_velocity);
+                character->setXVelocity(character->getVelocity().x - skid_deceleration * deltaTime);
+                if (character->velocity.x < 0) character->setXVelocity(0.f);
             }
             else {
-                if (IsKeyDown(KEY_LEFT_SHIFT)) character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
-                else character->setXVelocity(min(character->getVelocity().x, -max_walk_velocity));
+                character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
                 if (character->isJumping() == false) {
                     if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runLeft);
@@ -110,34 +116,28 @@ public:
                     else character->setAnimation(character->walkLeft);
                 }
             }
-
         }
         else {
             if (character->velocity.x > 0) {
                 character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
                 if (character->velocity.x < 0) character->setXVelocity(0.f);
-                if (character->isJumping() == false) character->setAnimation(character->stopRight);
+                if (character->isJumping() == false) character->setAnimation(character->walkRight);
             }
             else if (character->velocity.x < 0) {
                 character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
                 if (character->velocity.x > 0) character->setXVelocity(0.f);
-                if (character->isJumping() == false) character->setAnimation(character->stopLeft);
+                if (character->isJumping() == false) character->setAnimation(character->walkLeft);
             }
         }
 
-        if (character->velocity.x > 0) character->orientation = true;
-        else if (character->velocity.x < 0) character->orientation = false;
+        if (character->velocity.x > 0.f) character->orientation = true;
+        else if (character->velocity.x < 0.f) character->orientation = false;
 
 
         if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
             character->setYVelocity(-jump_velocity);
-            if (character->velocity.x > 0) character->setAnimation(character->jumpRight);
-            else if (character->velocity.x < 0) character->setAnimation(character->jumpLeft);
             character->jumping = true;
             RESOURCE_MANAGER.playSound("jump.wav");
-        }
-        else if (character->isJumping()) {
-            character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
         }
 
         if (IsKeyUp(KEY_LEFT_SHIFT) && fabs(character->velocity.x) > max_walk_velocity) {
@@ -152,36 +152,39 @@ public:
             character->setXVelocity((character->velocity.x > 0) ? max_run_velocity : -max_run_velocity);
         }
 
+        if (character->isIdle() && character->isSitting() == false) {
+            character->setIdleAnimation();
+        }
 
+        
         if (character->isJumping()) {
+            character->setSitting(false);
             if (fabs(character->getVelocity().x) >= max_run_velocity) {
-                if (character->orientation) character->setAnimation(character->flyRight);
-                else character->setAnimation(character->flyLeft);
+                character->setFlyAnimation();
             }
             else {
                 if (character->velocity.y < 0) {
-                    if (character->orientation) character->setAnimation(character->jumpRight);
-                    else character->setAnimation(character->jumpLeft);
+                    character->setJumpAnimation();
+                    if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(0.f);
                 }
-                else if (character->velocity.y >= 0) {
-                    if (character->orientation) character->setAnimation(character->fallRight);
-                    else character->setAnimation(character->fallLeft);
+                if (character->velocity.y >= 0) {
+                    character->setFallAnimation();
                 }
             }
         }
 
-        if (character->isIdle()) {
-            if (character->orientation) character->setAnimation(character->idleRight);
-            else character->setAnimation(character->idleLeft);
-        }
+        character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
 
+        if (character->isSitting()) {
+            character->setSitAnimation();
+        }
 
         if (!character->isJumping() && fabs(character->getVelocity().x) >= max_run_velocity) {
             if (!RESOURCE_MANAGER.isSoundPlaying("pmeter.wav")) RESOURCE_MANAGER.playSound("pmeter.wav");
         }
         else RESOURCE_MANAGER.stopSound("pmeter.wav");
-        Vector2 vector2 = {character->getPosition().x + character->velocity.x * deltaTime, character->getPosition().y + character->velocity.y * deltaTime};
-        character->setPosition(vector2);
+
+        //character->setPosition(Vector2(character->getPosition().x + character->velocity.x * deltaTime, character->getPosition().y + character->velocity.y * deltaTime));
     }
 
 	STATE getState() const override {

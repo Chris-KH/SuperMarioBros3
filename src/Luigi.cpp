@@ -19,8 +19,8 @@ Character::CHACRACTER Luigi::getCharacterType() const  {
 
 void Luigi::update(float deltaTime) {
 	INPUT_MANAGER.update();
-	currentAnimation->update(deltaTime);
 	state->update(this, deltaTime);
+	currentAnimation->update(deltaTime);
 }
 
 void Luigi::onKey(KeyboardKey key, bool pressed) {
@@ -31,15 +31,11 @@ void Luigi::onKey(KeyboardKey key, bool pressed) {
 			
 		}
 	}
-	else if (key == KEY_D) {
+	else if (key == KEY_S) {
 		if (pressed) {
-			orientation = true;
+			sitting = true;
 		}
-	}
-	else if (key == KEY_A) {
-		if (pressed) {
-			orientation = false;
-		}
+		else sitting = false;
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "../include/Mario.h"
 #include "../include/Luigi.h"
 #include "../include/Menu.h"
+#include "../include/GoomBa.h"
 using namespace std;
 
 
@@ -25,18 +26,15 @@ int main() {
     //registerBlocks();
     //// Tải texture cho vật thể
     //Texture2D texture = LoadTexture("../SuperMario/images.png");
-
+    //
     //// Tạo một vật thể với texture và InputManager
     //Character* player = new Mario(Vector2{0,0});
     //RESOURCE_MANAGER.playMusic("World1.mp3");
-
+    //
     //Map map1;
     //map1.loadFromFile("../assets/Map/Map1-1.txt");
     //map1.loadBackground("../assets/Map/Map1-1.png");
-
-    //GameEngine engine((float)820, (float)530, (float)2779, (float)512, map1,player);
-    //engine.run();
-    // 
+    //Enemy* goomba = new GoomBa(BROWN_GoomBa, { 0.f, 0.f });
     // 
     // 
     //while (!WindowShouldClose()) {
@@ -52,6 +50,8 @@ int main() {
     //      // Vẽ vật thể
     //        float deltaTime = GetFrameTime();
     //        //inputManager.update();
+    //        goomba->update(deltaTime);
+    //        goomba->draw();
     //        player->update(deltaTime);
     //        player->draw();
     //      //map1.renderAllBlock();

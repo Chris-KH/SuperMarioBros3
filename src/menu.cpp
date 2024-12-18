@@ -66,6 +66,7 @@ void Menu::run() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         //ClearBackground(WHITE);
+        UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
         if (currentState) {
             currentState->draw();
             currentState->handleInput();

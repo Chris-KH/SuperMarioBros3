@@ -41,7 +41,6 @@ void Animation::render(Vector2 position) const {
     Rectangle dest = { position.x, position.y, frame.source.width * scale, frame.source.height * scale };
     Rectangle source = frame.source;
 
-
     DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
 }
 
