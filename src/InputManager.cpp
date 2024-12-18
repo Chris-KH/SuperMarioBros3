@@ -1,5 +1,6 @@
 #include"../include/InputManager.h"
 
+
 void InputManager::bindKey(KeyboardKey key) {
     // Ensure the key is initialized in the map
     if (keyStates.find(key) == keyStates.end()) {
@@ -7,13 +8,13 @@ void InputManager::bindKey(KeyboardKey key) {
     }
 }
 
-void InputManager::addListener(InputManager::Listener& listener) {
-    if (find_if(listeners.begin(), listeners.end(), [&listener](Listener* l) { return l == &listener; }) == listeners.end()) {
+void InputManager::addListener(Listener& listener) {
+    if (find(listeners.begin(), listeners.end(), &listener) == listeners.end()) {
         listeners.push_back(&listener);
     }
 }
 
-void InputManager::removeListener(InputManager::Listener& listener) {
+void InputManager::removeListener(Listener& listener) {
     listeners.erase(remove(listeners.begin(), listeners.end(), &listener), listeners.end());
 }
 
@@ -21,6 +22,7 @@ void InputManager::update() {
     if (keyStates.empty()) return;
 
     for (auto& [key, state] : keyStates) {
+        // Check if key is currently pressed
         bool isPressed = IsKeyDown(key);
 
         // If state has changed, notify listeners

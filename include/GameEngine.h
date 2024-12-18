@@ -183,10 +183,10 @@ public:
 	}
 
 	void run() {
-
-		MovingBlock testBlock(Vector2(100, 300), Vector2(100, 32), BLACK);
+		Vector2 vector1 = {100, 300}, vector2 = {100, 32}, vector3 = {0, 50};
+		MovingBlock testBlock(vector1, vector2, BLACK);
 		testBlock.setBounds(400, 400, 200, 400);
-		testBlock.setVelocity(Vector2(0, 50));
+		testBlock.setVelocity(vector3);
 		MovingBlock* blo = &testBlock;
 		testEntities.push_back(blo);
 		while (!WindowShouldClose()) {

@@ -33,7 +33,8 @@ CharacterState::STATE Character::getState() const {
 }
 
 void Character::draw(float deltaTime) {
-    setPosition(Vector2(getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime));
+    Vector2 vector2 = {getPosition().x + velocity.x * deltaTime, getPosition().y + velocity.y * deltaTime};
+    setPosition(vector2);
     currentAnimation->render(getPosition());
 }
 

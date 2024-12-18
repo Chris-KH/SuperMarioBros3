@@ -55,7 +55,8 @@ public:
             };
 
             if (CheckCollisionRecs(sweptRect, floorRect) && player->getBottom() <= floorRect.y) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height));
+                Vector2 vector2 = {playerRect.x, floorRect.y - playerRect.height};
+                player->setPosition(vector2);
                 player->setYVelocity(0.f);
                 return true;
             }
@@ -92,10 +93,13 @@ public:
 
             if (CheckCollisionRecs(horizontalRect, blockRect)) 
             {
-                if (velocity.x > 0)
-                    player->setPosition(Vector2(blockRect.x - playerRect.width, playerRect.y));
-                else if (velocity.x < 0) 
-                    player->setPosition(Vector2(blockRect.x + blockRect.width, playerRect.y));
+                if (velocity.x > 0) {
+                    Vector2 vector2 = {blockRect.x - playerRect.width, playerRect.y};
+                    player->setPosition(vector2);
+                } else if (velocity.x < 0) {
+                    Vector2 vector2 = {blockRect.x + blockRect.width, playerRect.y};
+                    player->setPosition(vector2);
+                }
                 player->setXVelocity(0.f); 
             }
         }
@@ -110,21 +114,21 @@ public:
 
             if (CheckCollisionRecs(verticalRect, blockRect)) {
                 if (velocity.y > 0) {
-                    player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
+                    Vector2 vector2 = {playerRect.x, blockRect.y - playerRect.height};
+                    player->setPosition(vector2);
                     player->setYVelocity(0.f);
                     return true;
                 }
-                else if (velocity.y < 0) { 
-                    player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
+                else if (velocity.y < 0) {
+                    Vector2 vector2 = {playerRect.x, blockRect.y + blockRect.height};
+                    player->setPosition(vector2);
                     player->setYVelocity(0.f);
                 }
             }
         }
-
         return false;
     }
 };
-
 
 
 class EnemyBlockStrat : public CollisionStrategy {
