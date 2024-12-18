@@ -110,7 +110,7 @@ void MainMenuState::draw() {
 
 void MainMenuState::handleInput() {
     if (IsKeyPressed(KEY_ONE)) {
-        GameEngine game((float)820, (float)530, (float)2779, (float)512, *menu->map, menu->player);
+        GameEngine game((float)820, (float)512, (float)2779, (float)512, *menu->map, menu->player);
         game.run();
     }
     if (IsKeyPressed(KEY_TWO)) {

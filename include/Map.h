@@ -9,6 +9,43 @@
 class MapHelper {
 public:
     // Load entities from a text file
+    //static std::vector<Entity*> loadFromTextFile(const std::string& filename) {
+    //    std::vector<Entity*> entities;
+    //    std::ifstream file(filename);
+
+    //    if (!file.is_open()) {
+    //        throw std::runtime_error("Failed to open file: " + filename);
+    //    }
+
+    //    std::string line;
+    //    while (std::getline(file, line)) {
+    //        std::istringstream stream(line);
+    //        std::string blockTypeStr;
+    //        float x, y, width, height;
+
+    //        // Read block data
+    //        if (!(stream >> blockTypeStr >> x >> y >> width >> height)) {
+    //            throw std::runtime_error("Malformed line in file: " + line);
+    //        }
+
+    //        // Convert block type string to BlockType enum
+    //        BlockType blockType = stringToBlockType(blockTypeStr);
+
+    //        // Create block using the factory
+    //        BaseBlock* block = BlockFactory::getInstance().createBlock(
+    //            blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
+
+    //        // Ensure the block was successfully created
+    //        if (!block) {
+    //            throw std::runtime_error("Unknown block type: " + blockTypeStr);
+    //        }
+
+    //        // Store as Entity*
+    //        entities.push_back(static_cast<Entity*>(block));
+    //    }
+
+    //    return entities;
+    //}
     static std::vector<Entity*> loadFromTextFile(const std::string& filename) {
         std::vector<Entity*> entities;
         std::ifstream file(filename);
@@ -21,31 +58,51 @@ public:
         while (std::getline(file, line)) {
             std::istringstream stream(line);
             std::string blockTypeStr;
-            float x, y, width, height;
+            float x, y, width, height, boundRight, boundBottom, velocityX, velocityY;
 
-            // Read block data
-            if (!(stream >> blockTypeStr >> x >> y >> width >> height)) {
+            // Read the block type first
+            if (!(stream >> blockTypeStr)) {
                 throw std::runtime_error("Malformed line in file: " + line);
             }
-
-            // Convert block type string to BlockType enum
             BlockType blockType = stringToBlockType(blockTypeStr);
 
-            // Create block using the factory
-            BaseBlock* block = BlockFactory::getInstance().createBlock(
-                blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
+            if (blockType == MOVINGBLOCK) {
+                if (!(stream >> x >> y >> width >> height >> boundRight >> boundBottom >> velocityX >> velocityY)) {
+                    throw std::runtime_error("Malformed line for moving block: " + line);
+                }
+                MovingBlock* block = dynamic_cast<MovingBlock*>(
+                    BlockFactory::getInstance().createBlock(
+                        blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType)));
 
-            // Ensure the block was successfully created
-            if (!block) {
-                throw std::runtime_error("Unknown block type: " + blockTypeStr);
+                if (!block) {
+                    throw std::runtime_error("Failed to create moving block: " + blockTypeStr);
+                }
+
+                block->setBounds( x, boundRight,y, boundBottom );
+                block->setVelocity({ velocityX, velocityY });
+
+                entities.push_back(static_cast<Entity*>(block));
             }
+            else {
+                if (!(stream >> x >> y >> width >> height)) {
+                    throw std::runtime_error("Malformed line for static block: " + line);
+                }
 
-            // Store as Entity*
-            entities.push_back(static_cast<Entity*>(block));
+                BaseBlock* block = BlockFactory::getInstance().createBlock(
+                    blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
+
+                if (!block) {
+                    throw std::runtime_error("Failed to create static block: " + blockTypeStr);
+                }
+
+                entities.push_back(static_cast<Entity*>(block));
+            }
         }
 
         return entities;
     }
+
+
 
     // Save entities to a text file
     static void saveToTextFile(const std::string& filename, const std::vector<Entity*>& entities) {
@@ -188,6 +245,7 @@ private:
     Texture2D background;
     void clearBlocks() {
         for (Entity* entity : blockArray) {
+            //if(entity)
             delete entity;
         }
         blockArray.clear();

@@ -19,13 +19,23 @@ inline Rectangle getProximityRectangle(Entity& entity, float radius) {
         rect.height + 2 * radius
     };
 }
-inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 40.0f) {
-    Rectangle proximityRectA = getProximityRectangle(entityA, proximityRadius);
-    Rectangle proximityRectB = entityB.getRectangle(); // Unmovable entities stay static
+inline bool shouldCheckCollision(const Entity& entityA, const Entity& entityB, float proximityRadius = 20.0f) {
+    // Calculate proximity bounds for entityA directly
+    float leftA = entityA.getX() - proximityRadius;
+    float rightA = entityA.getX() + entityA.getWidth() + proximityRadius;
+    float topA = entityA.getY() - proximityRadius;
+    float bottomA = entityA.getY() + entityA.getHeight() + proximityRadius;
 
-    // Check if proximity rectangles overlap
-    return CheckCollisionRecs(proximityRectA, proximityRectB);
+    // Get bounds for entityB
+    float leftB = entityB.getX();
+    float rightB = entityB.getX() + entityB.getWidth();
+    float topB = entityB.getY();
+    float bottomB = entityB.getY() + entityB.getHeight();
+
+    // Check for overlap between the expanded rectangle of A and B
+    return (rightA > leftB && leftA < rightB && bottomA > topB && topA < bottomB);
 }
+
 
 
 class PlayerFloorStrat : public CollisionStrategy
@@ -125,6 +135,92 @@ public:
     }
 };
 
+class PlayerMovingBlockStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity& entityA, Entity& entityB) override {
+        Character* player = dynamic_cast<Character*>(&entityA);
+        MovingBlock* block = dynamic_cast<MovingBlock*>(&entityB);
+
+        if (!player || !block)
+            return false;
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 blockVelocity = block->getVelocity();
+        Vector2 playerVelocity = player->getVelocity();
+        Rectangle playerRect = player->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        Vector2 playerNextPos = {
+            playerRect.x + playerVelocity.x * deltaTime,
+            playerRect.y + playerVelocity.y * deltaTime
+        };
+
+        Rectangle futurePlayerRect = {
+            playerNextPos.x,
+            playerNextPos.y,
+            playerRect.width,
+            playerRect.height
+        };
+
+        bool isOnBlock = false;
+
+        // vertical collision detection (falling onto the block)
+        if (playerVelocity.y >= 0) {
+            if (CheckCollisionRecs(futurePlayerRect, blockRect) && player->getBottom() <= blockRect.y) {
+                player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
+                player->setYVelocity(0.f);
+                isOnBlock = true;
+            }
+        }
+
+        // horizontal
+        Rectangle horizontalRect = {
+            playerNextPos.x,
+            playerRect.y,
+            playerRect.width,
+            playerRect.height
+        };
+
+        if (CheckCollisionRecs(horizontalRect, blockRect)) {
+            if (playerVelocity.x > 0) {
+                float offset = blockVelocity.x * deltaTime;
+                player->setPosition(Vector2(blockRect.x - playerRect.width + offset, playerRect.y));
+            }
+            else if (playerVelocity.x < 0) {
+                float offset = blockVelocity.x * deltaTime;
+                player->setPosition(Vector2(blockRect.x + blockRect.width + offset, playerRect.y));
+            }
+            player->setXVelocity(0.f);
+        }
+
+        if (playerVelocity.y < 0) { // Jumping into the block from below
+            Rectangle verticalRect = {
+                playerRect.x,
+                playerNextPos.y,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect) && player->getTop() >= blockRect.y + blockRect.height) {
+                player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
+                player->setYVelocity(0.f);
+            }
+        }
+
+        if (isOnBlock) {
+            Vector2 newPos = player->getPosition();
+            newPos.x += blockVelocity.x * deltaTime; // Move horizontally with block
+            newPos.y += blockVelocity.y * deltaTime; // Move vertically with block
+            player->setPosition(newPos);
+        }
+
+        return isOnBlock;
+    }
+};
+
+
+
 
 
 class EnemyBlockStrat : public CollisionStrategy {
@@ -169,6 +265,8 @@ public:
                 return std::make_unique<PlayerFloorStrat>();
             if (block && block->getBlockType() == SOLIDBLOCK)
                 return std::make_unique<PlayerBlockStrat>();
+            if(block && block->getBlockType() == MOVINGBLOCK)
+                return std::make_unique<PlayerMovingBlockStrat>();
         }
         if (typeA == ENEMY && typeB == BLOCK)
         {
@@ -186,14 +284,14 @@ public:
 
 
 
-        return nullptr; // No applicable strategy
+        return nullptr; 
     }
 };
 class CollisionInterface {
 public:
     bool resolve(Entity& entityA, Entity& entityB) {
         if (!shouldCheckCollision(entityA, entityB)) {
-            return false; // Skip unnecessary checks
+            return false;
         }
         auto typeA = entityA.getType();
         auto typeB = entityB.getType();
