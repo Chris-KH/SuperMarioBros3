@@ -21,7 +21,7 @@ public:
 		return BLOCK;
 	}
 	virtual BlockType getBlockType()const = 0;
-	virtual void draw(float deltaTime = GetFrameTime()) // may be deleted in future
+	virtual void draw(float deltaTime) // may be deleted in future
 	{
 		Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
 		Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
@@ -147,12 +147,12 @@ public:
 		setAnimation(sprite);
 	}
 	BlockType getBlockType() const override { return ITEMBLOCK; }
-	void draw(float deltaTime = GetFrameTime()) const
+	virtual void draw(float deltaTime) override
 	{
 		if (currentAnimation == nullptr) return;
 		currentAnimation->render(this->getPosition());
 	}
-	void update(float deltaTime)
+	void update(float deltaTime) override
 	{
 		currentAnimation->update(deltaTime);
 	}
