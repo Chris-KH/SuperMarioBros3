@@ -146,13 +146,11 @@ public:
 
         float deltaTime = GetFrameTime();
 
-        // Retrieve block and player data
         Vector2 blockVelocity = block->getVelocity();
         Vector2 playerVelocity = player->getVelocity();
         Rectangle playerRect = player->getRectangle();
         Rectangle blockRect = block->getRectangle();
 
-        // Predict the player's next position
         Vector2 playerNextPos = {
             playerRect.x + playerVelocity.x * deltaTime,
             playerRect.y + playerVelocity.y * deltaTime
@@ -167,17 +165,16 @@ public:
 
         bool isOnBlock = false;
 
-        // **Vertical collision detection (falling onto the block)**
+        // vertical collision detection (falling onto the block)
         if (playerVelocity.y >= 0) {
             if (CheckCollisionRecs(futurePlayerRect, blockRect) && player->getBottom() <= blockRect.y) {
-                // Land on top of the block
                 player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
-                player->setYVelocity(0.f); // Stop downward velocity
+                player->setYVelocity(0.f);
                 isOnBlock = true;
             }
         }
 
-        // **Horizontal collision detection**
+        // horizontal
         Rectangle horizontalRect = {
             playerNextPos.x,
             playerRect.y,
@@ -186,20 +183,17 @@ public:
         };
 
         if (CheckCollisionRecs(horizontalRect, blockRect)) {
-            if (playerVelocity.x > 0) { // Moving right
-                // Prevent the player from getting pushed too far out
+            if (playerVelocity.x > 0) {
                 float offset = blockVelocity.x * deltaTime;
                 player->setPosition(Vector2(blockRect.x - playerRect.width + offset, playerRect.y));
             }
-            else if (playerVelocity.x < 0) { // Moving left
-                // Prevent the player from getting pushed too far out
+            else if (playerVelocity.x < 0) {
                 float offset = blockVelocity.x * deltaTime;
                 player->setPosition(Vector2(blockRect.x + blockRect.width + offset, playerRect.y));
             }
-            player->setXVelocity(0.f); // Stop horizontal movement
+            player->setXVelocity(0.f);
         }
 
-        // **Bottom collision detection**
         if (playerVelocity.y < 0) { // Jumping into the block from below
             Rectangle verticalRect = {
                 playerRect.x,
@@ -209,13 +203,11 @@ public:
             };
 
             if (CheckCollisionRecs(verticalRect, blockRect) && player->getTop() >= blockRect.y + blockRect.height) {
-                // Adjust position to just below the block
                 player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
-                player->setYVelocity(0.f); // Stop upward velocity
+                player->setYVelocity(0.f);
             }
         }
 
-        // **Apply block's velocity to the player if standing on it**
         if (isOnBlock) {
             Vector2 newPos = player->getPosition();
             newPos.x += blockVelocity.x * deltaTime; // Move horizontally with block
