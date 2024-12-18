@@ -19,12 +19,23 @@ inline Rectangle getProximityRectangle(Entity& entity, float radius) {
         rect.height + 2 * radius
     };
 }
-inline bool shouldCheckCollision(Entity& entityA, Entity& entityB, float proximityRadius = 20.0f) {
-    Rectangle proximityRectA = getProximityRectangle(entityA, proximityRadius);
-    Rectangle proximityRectB = entityB.getRectangle();
+inline bool shouldCheckCollision(const Entity& entityA, const Entity& entityB, float proximityRadius = 20.0f) {
+    // Calculate proximity bounds for entityA directly
+    float leftA = entityA.getX() - proximityRadius;
+    float rightA = entityA.getX() + entityA.getWidth() + proximityRadius;
+    float topA = entityA.getY() - proximityRadius;
+    float bottomA = entityA.getY() + entityA.getHeight() + proximityRadius;
 
-    return CheckCollisionRecs(proximityRectA, proximityRectB);
+    // Get bounds for entityB
+    float leftB = entityB.getX();
+    float rightB = entityB.getX() + entityB.getWidth();
+    float topB = entityB.getY();
+    float bottomB = entityB.getY() + entityB.getHeight();
+
+    // Check for overlap between the expanded rectangle of A and B
+    return (rightA > leftB && leftA < rightB && bottomA > topB && topA < bottomB);
 }
+
 
 
 class PlayerFloorStrat : public CollisionStrategy
