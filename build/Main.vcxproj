@@ -118,7 +118,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm/NODEFAULTLIB:MSVCRT.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -166,7 +166,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm/NODEFAULTLIB:MSVCRT.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -214,7 +214,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm/NODEFAULTLIB:MSVCRT.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -261,7 +261,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm/NODEFAULTLIB:MSVCRT.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -332,6 +332,38 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Animation.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Background.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Block.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Character.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Coin.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Collision.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Enemy.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Entity.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FileHandle.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FireState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FPSManager.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\GameEngine.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Global.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\GoomBa.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Hitbox.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\InputManager.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Item.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\KoopaTroopa.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Luigi.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Map.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Mario.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Mushroom.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\NormalState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Plant.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\ResourceManager.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Settings.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Sprite.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\StarState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SuperLeaf.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SuperState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\TailState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\menu.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp" />
   </ItemGroup>
   <ItemGroup />

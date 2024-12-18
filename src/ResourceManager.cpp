@@ -27,9 +27,9 @@ void ResourceManager::loadTextures() {
     for (const auto& entry : fs::directory_iterator(texturesFolder)) {
         if (entry.is_regular_file()) { 
             string filePath = entry.path().string(); 
-            string fileName = entry.path().stem().string(); 
+            string fileName = entry.path().stem().string();
 
-            if (filePath.ends_with(".png") || filePath.ends_with(".jpg") || filePath.ends_with(".jpeg")) {
+            if (filePath.rfind(".png") || filePath.rfind(".jpg") || filePath.rfind(".jpeg")) {
                 Texture2D texture = LoadTexture(filePath.c_str());
 
                

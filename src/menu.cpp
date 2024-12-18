@@ -11,22 +11,54 @@ Menu::Menu() {
 }
 
 void Menu::run() {
+    cout << "Initializing Audio and Window..." << endl;
     InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
 
+    cout << "Loading Resources..." << endl;
     RESOURCE_MANAGER.loadAllResource();
-    INPUT_MANAGER.bindKey(KEY_A);
-    INPUT_MANAGER.bindKey(KEY_D);
-    INPUT_MANAGER.bindKey(KEY_S);
-    INPUT_MANAGER.bindKey(KEY_SPACE);
-    INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
+    try {
+        INPUT_MANAGER.bindKey(KEY_A);
+        INPUT_MANAGER.bindKey(KEY_D);
+        INPUT_MANAGER.bindKey(KEY_S);
+        INPUT_MANAGER.bindKey(KEY_SPACE);
+        INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
+    } catch (const exception &e) {
+        cerr << "Error: Failed to bind input keys - " << e.what() << endl;
+        CloseWindow();
+        CloseAudioDevice();
+        return;
+    }
     registerBlocks();
+
     Texture2D texture = LoadTexture("../SuperMario/images.png");
+    if (texture.id == 0) {
+        cerr << "Error: Failed to load texture: ../SuperMario/images.png" << endl;
+        CloseWindow();
+        CloseAudioDevice();
+        return;
+    }
 
     // Tạo một vật thể với texture và InputManager
     Character* player = new Mario(Vector2{ 0,0 });
-    RESOURCE_MANAGER.playMusic("World1.mp3");
+    if (!player) {
+        cerr << "Error: Failed to create player character!" << endl;
+        CloseWindow();
+        CloseAudioDevice();
+        return;
+    }
+    try {
+        RESOURCE_MANAGER.playMusic("World1.mp3");
+    } catch (const exception &e) {
+        cerr << "Error: Failed to play music - " << e.what() << endl;
+        delete player;
+        CloseWindow();
+        CloseAudioDevice();
+        return;
+    }
+
     this->player = player;
+
     Map map1;
     map1.loadFromFile("../assets/Map/Map1-1.txt");
     map1.loadBackground("../assets/Map/Map1-1.png");
@@ -34,15 +66,16 @@ void Menu::run() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         //ClearBackground(WHITE);
-        
         if (currentState) {
             currentState->draw();
             currentState->handleInput();
+        } else {
+            cerr << "Error: currentState is null!" << endl;
         }
-
         EndDrawing();
     }
 
+    delete player;
     CloseWindow();
     CloseAudioDevice();
 }

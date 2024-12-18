@@ -15,6 +15,7 @@ public:
     };
 
     Animation() = default;
+    ~Animation() = default;
 
     //Constructor with texture.
     Animation(const Texture2D& texture);

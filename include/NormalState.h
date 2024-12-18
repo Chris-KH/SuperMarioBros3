@@ -173,8 +173,8 @@ public:
             if (!RESOURCE_MANAGER.isSoundPlaying("pmeter.wav")) RESOURCE_MANAGER.playSound("pmeter.wav");
         }
         else RESOURCE_MANAGER.stopSound("pmeter.wav");
-
-        character->setPosition(Vector2(character->getPosition().x + character->velocity.x * deltaTime, character->getPosition().y + character->velocity.y * deltaTime));
+        Vector2 vector2 = {character->getPosition().x + character->velocity.x * deltaTime, character->getPosition().y + character->velocity.y * deltaTime};
+        character->setPosition(vector2);
     }
 
     STATE getState() const override {

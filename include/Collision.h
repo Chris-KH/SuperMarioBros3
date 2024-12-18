@@ -42,7 +42,8 @@ public:
         Rectangle floorRect = floor->getRectangle();
         if (CheckCollisionRecs(playerRect, floorRect)) {
             if (playerRect.y + playerRect.height <= floorRect.y + 5.f && player->getVelocity().y >= 0.f) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
+                Vector2 vector2 = {playerRect.x, floorRect.y - playerRect.height + 0.005f};
+                player->setPosition(vector2);
                 player->setYVelocity(0.f);
                 return true;
             }
@@ -62,7 +63,8 @@ public:
             };
 
             if (CheckCollisionRecs(sweptRect, floorRect)) {
-                player->setPosition(Vector2(playerRect.x, floorRect.y - playerRect.height + 0.005f));
+                Vector2 vector2 = {playerRect.x, floorRect.y - playerRect.height + 0.005f};
+                player->setPosition(vector2);
                 player->setYVelocity(0.f);
                 return true;
             }
@@ -108,25 +110,29 @@ public:
             Vector2 velocity = player->getVelocity();
             if (std::abs(overlapX) < std::abs(overlapY) || velocity.y < 0 && isUp) {
                 float newPosX = playerRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX));
-                player->setPosition(Vector2(newPosX, playerRect.y));
-
-                player->setVelocity(Vector2(0, player->getVelocity().y));
+                Vector2 vector1 = {newPosX, playerRect.y};
+                player->setPosition(vector1);
+                Vector2 vector2 = {0, player->getVelocity().y};
+                player->setVelocity(vector2);
             }
             else {
                 float newPosY = playerRect.y + ((isUp) ? (-std::abs(overlapY) + 0.005f) : std::abs(overlapY));
-                player->setPosition(Vector2(playerRect.x, newPosY));
+                Vector2 vector2 = {playerRect.x, newPosY};
+                player->setPosition(vector2);
                 if (isUp) {
-                    player->setVelocity(Vector2(player->getVelocity().x, 0.f));
+                    Vector2 vector2 = {player->getVelocity().x, 0.f};
+                    player->setVelocity(vector2);
                     return true;
                 }
                 else {
-                    player->setVelocity(Vector2(player->getVelocity().x, -(player->getVelocity().y) / 4));
+                    Vector2 vector2 = {player->getVelocity().x, -(player->getVelocity().y) / 4};
+                    player->setVelocity(vector2);
                 }
                 return false;
             }
             return false;
         }
-
+        return false;
     }
 };
 class EnemyBlockStrat : public CollisionStrategy {
@@ -153,13 +159,15 @@ public:
             }
             else 
                 overlapY = (blockRect.y + blockRect.height) - enemyRect.y;
-            if (std::abs(overlapX) < std::abs(overlapY)) 
-                enemy.setPosition(Vector2(enemyRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), enemyRect.y));
-            else 
-                enemy.setPosition(Vector2(enemyRect.x, enemyRect.y + ((isUp) ? -std::abs(overlapY) : std::abs(overlapY))));
+            if (std::abs(overlapX) < std::abs(overlapY)) {
+                Vector2 vector2 = {enemyRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), enemyRect.y};
+                enemy.setPosition(vector2);
+            } else {
+                Vector2 vector2 = {enemyRect.x, enemyRect.y + ((isUp) ? -std::abs(overlapY) : std::abs(overlapY))};
+                enemy.setPosition(vector2);
+            }
         }
         return false;
-
     }
 };
 

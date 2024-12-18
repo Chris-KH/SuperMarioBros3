@@ -1,7 +1,8 @@
 #pragma once
 #include "../lib/raylib.h"
-#include<vector>
-#include<unordered_map>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,10 +25,10 @@ public:
     void bindKey(KeyboardKey key);
 
     // Add a listener for key events
-    void addListener(Listener& listener);
+    void addListener(InputManager::Listener& listener);
 
     // Remove a listener
-    void removeListener(Listener& listener);
+    void removeListener(InputManager::Listener& listener);
 
     // Update input state (should be called every frame)
     void update();
