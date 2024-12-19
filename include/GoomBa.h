@@ -51,7 +51,12 @@ public:
 
 	void update(float deltaTime) override {
 		if (isDead) return;
+
+		if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
+		else if (getPosition().x >= getBoundary().y) setOrientation(LEFT);
+
 		if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
+
 		if (jumpTime >= TIME_PER_JUMP && canJump) {
 			setYVelocity(-JUMP_SPEED);
 			setAnimation(jumpAnimation);

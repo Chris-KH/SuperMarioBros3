@@ -9,8 +9,7 @@ protected:
     bool stompable;
     bool kickable;
 
-    Rectangle boudary; //The rectangle that enemy can move
-
+    Vector2 boudary; //The witdth that enemy can move
     const float GROUND = 800.f;
 public:
     Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
@@ -29,9 +28,9 @@ public:
 
     Orientation getRandomOrientation();
 
-    virtual void setBoudary(Rectangle rect);
+    virtual void setBoudary(Vector2 boundary);
 
-    virtual Rectangle getBoundary() const;
+    virtual const Vector2& getBoundary() const;
 
     virtual void stomped();
     virtual void attacked();

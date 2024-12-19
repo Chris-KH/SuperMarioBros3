@@ -43,11 +43,11 @@ Orientation Enemy::getRandomOrientation() {
     return LEFT;
 }
 
-void Enemy::setBoudary(Rectangle rect) {
-    this->boudary = rect;
+void Enemy::setBoudary(Vector2 boudary) {
+    this->boudary = boudary;
 }
 
-Rectangle Enemy::getBoundary() const {
+const Vector2& Enemy::getBoundary() const {
     return boudary;
 }
 
