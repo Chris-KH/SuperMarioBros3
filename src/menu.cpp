@@ -96,7 +96,6 @@ void MainMenuState::draw() {
     int buttonSpacing = 60; // Vertical spacing between buttons
     float buttonStartY = titleHeight + 50; // Position buttons below the title
 
-    // Main Menu Title (just for additional emphasis, optional)
     DrawText("Main Menu", 500, titleHeight - 80, 40, BLACK);
     // Draw Buttons
     startButton = {440, buttonStartY, 400, 50};
@@ -142,7 +141,7 @@ void SettingState::draw() {
     DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
     DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
     DrawText("Return to Main Menu", 310, 310, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
-    
+
 }
 
 void SettingState::handleInput() {
