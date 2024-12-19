@@ -260,7 +260,7 @@ public:
 class CollisionStrategySelector {
 public:
     static std::unique_ptr<CollisionStrategy> getStrategy(EntityType typeA, EntityType typeB, BaseBlock* block = nullptr) {
-        if (typeA == CHACRACTER && typeB == BLOCK) {
+        if (typeA == CHARACTER && typeB == BLOCK) {
             if (block && block->getBlockType() == FLOOR)
                 return std::make_unique<PlayerFloorStrat>();
             if(block && block->getBlockType() == MOVINGBLOCK)
@@ -273,11 +273,11 @@ public:
             if (block && block->getBlockType() == SOLIDBLOCK)
                 return make_unique<EnemyBlockStrat>();
         }
-        if (typeA == CHACRACTER && typeB == ENEMY)
+        if (typeA == CHARACTER && typeB == ENEMY)
         {
 
         }
-        if (typeA == CHACRACTER && ITEM)
+        if (typeA == CHARACTER && ITEM)
         {
 
         }

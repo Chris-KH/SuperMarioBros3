@@ -130,7 +130,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BlockFactory.h" />
+    <ClInclude Include="..\include\Effect.h" />
     <ClInclude Include="..\include\FileHandle.h" />
+    <ClInclude Include="..\include\Fireball.h" />
     <ClInclude Include="..\include\FPSManager.h" />
     <ClInclude Include="..\include\Global.h" />
     <ClInclude Include="..\include\InputManager.h" />
@@ -161,11 +163,14 @@
     <ClInclude Include="..\include\Plant.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\CharacterState.h" />
+    <ClInclude Include="..\include\TextEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
     <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\src\Effect.cpp" />
     <ClCompile Include="..\src\FileHandle.cpp" />
+    <ClCompile Include="..\src\Fireball.cpp" />
     <ClCompile Include="..\src\FPSManager.cpp" />
     <ClCompile Include="..\src\Global.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
@@ -195,6 +200,7 @@
     <ClCompile Include="..\src\StarmanState.cpp" />
     <ClCompile Include="..\src\Plant.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
+    <ClCompile Include="..\src\TextEffect.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

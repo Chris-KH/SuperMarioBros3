@@ -10,7 +10,6 @@ class Enemy;
 
 // State Interface: all states will implement this interface
 class CharacterState {
-    friend class Character;
 public:
     virtual void setState(Character* character) = 0;
     virtual void update(Character* character, float deltaTime) = 0;

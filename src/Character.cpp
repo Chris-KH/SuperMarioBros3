@@ -19,7 +19,7 @@ Character::~Character() {
     INPUT_MANAGER.removeListener(*this);
 }
 
-EntityType Character::getType() const { return EntityType::CHACRACTER; }
+EntityType Character::getType() const { return EntityType::CHARACTER; }
 
 void Character::reset() {
     orientation = RIGHT;

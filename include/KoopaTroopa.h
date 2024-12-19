@@ -53,6 +53,11 @@ public:
 	EnemyType getEnemyType() const override {
 		return EnemyType::KOOPATROOPA;
 	}
+
+	void update(float deltaTime) override {
+
+	}
+
 private:
 	KoopaTroopaType type;
 	Animation* walkLeft;

@@ -8,9 +8,10 @@ protected:
     Vector2 acceleration;  // Acceleration vector (ax, ay)
     bool isDead;           // Indicates if the sprite is "dead"
     bool jumping;
-    Orientation orientation; //True for right, false for left
+    Orientation orientation; 
 
     bool gravityAvailable;
+    bool collisionAvailable;
 
     const float GRAVITY = 600.f;
 public:
@@ -32,14 +33,14 @@ public:
     void setXAcceleration(float ax);
     void setYAcceleration(float yx);
 
-    void destroySprite() {
-        this->isDead = true;
-    }
+    void destroySprite();
 
     virtual bool isJumping() const;
     virtual void setJumping(bool value);
     virtual void setGravityAvailable(bool gravityAvailable);
     virtual bool isGravityAvailable() const;
+    virtual void setCollisionAvailable(bool collisionAvailable);
+    virtual bool isCollisionAvailable() const;
     virtual void setOrientation(Orientation orientation);
     virtual Orientation getOrientation() const;
 

@@ -162,11 +162,11 @@ Animation* ResourceManager::getAnimation(const string& name) const {
     return animationResource.at(name).get();
 }
 
-const Background* ResourceManager::getBackground(const string& name) const {
+Background* ResourceManager::getBackground(const string& name) const {
     return backgroundResource.at(name).get();
 }
 
-const Font* ResourceManager::getFont(const string& name) const {
+Font* ResourceManager::getFont(const string& name) const {
     return fontResource.at(name).get();
 }
 
