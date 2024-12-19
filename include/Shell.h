@@ -58,6 +58,9 @@ public:
 		if (isKicked) inShellTime = 0.f;
 		else inShellTime += deltaTime;
 
+		if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
+		else if (getPosition().x >= getBoundary().y) setOrientation(LEFT);
+
 		if (inShellTime >= IN_SHELL_TIME) {
 			destroySprite();
 			//Create an Koopa Troopa 
@@ -76,6 +79,13 @@ public:
 				setAnimation(inShell);
 			}
 		}
+
+		//TEST
+		//if (getBottom() >= 500.f) {
+		//	setYVelocity(0.f);
+		//	setYPosition(500.f - getSize().y);
+		//	jumping = false;
+		//}
 
 		if (inShellTime >= IN_SHELL_TIME - OUT_SHELL_TIME) {
 			setAnimation(outShell);

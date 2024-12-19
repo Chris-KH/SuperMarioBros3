@@ -64,11 +64,11 @@ public:
 			setJumping(true);
 			jumpTime = 0.f;
 		}
-		else if (getBottom() >= 500.f) {
+		/*else if (getBottom() >= 500.f) {
 			setYVelocity(0.f);
 			setYPosition(500.f - getSize().y);
 			jumping = false;
-		}
+		}*/
 
 		if (orientation) setXVelocity(SPEED);
 		else setXVelocity(-SPEED);
@@ -83,20 +83,25 @@ public:
 	void stomped() override {
 		if (type == BROWN_GoomBa || type == RED_GoomBa) {
 			destroySprite();
+			//Create a dead Effect
 		}
 		else if (type == REDPARA_GoomBa) {
+			type = RED_GoomBa;
+			free(jumpAnimation);
+			free(walkAnimation);
+			jumpAnimation = nullptr;
 			walkAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
 			canJump = false;
 			jumpTime = 0.f;
-			free(jumpAnimation);
-			jumpAnimation = nullptr;
 		}
 		else if (type == BROWNPARA_GoomBa) {
+			type = BROWN_GoomBa;
+			free(jumpAnimation);
+			free(walkAnimation);
+			jumpAnimation = nullptr;
 			walkAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
 			canJump = false;
 			jumpTime = 0.f;
-			free(jumpAnimation);
-			jumpAnimation = nullptr;
 		}
 	}
 
