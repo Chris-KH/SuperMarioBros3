@@ -271,7 +271,6 @@ void SettingState::handleInput() {
     }
 }
 
-// CharacterState implementation
 CharSelection::CharSelection(Menu* menu) { this->menu = menu; }
 
 void CharSelection::draw() {
