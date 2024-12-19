@@ -270,7 +270,7 @@ void CharSelection::draw() {
     ClearBackground(RAYWHITE);
 
     // Title
-    DrawText("Character Selection", 200, 100, 40, BLACK);
+    //DrawText("Character Selection", 200, 100, 40, BLACK);
 
     // Mario Button
     DrawRectangleRec(marioButton, ORANGE);
@@ -320,7 +320,7 @@ void MapSelection::draw() {
     ClearBackground(RAYWHITE);
 
     // Title
-    DrawText("Map Selection", 200, 100, 40, BLACK);
+    //DrawText("Map Selection", 200, 100, 40, BLACK);
 
     // Map1 Button
     DrawRectangleRec(map1Button, ORANGE);
