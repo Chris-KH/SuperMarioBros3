@@ -15,9 +15,9 @@ public:
 
 	RenderTexture2D renderTexture;
 
-	GameCamera(float width, float height, float mapWidth, float mapHeight, float initialScale = 1.0f);
+	GameCamera(float width, float height, float initialScale = 1.0f);
 	~GameCamera();
-
+	void loadRenderTexture(Vector2 size);
 	void update(float characterX, float characterY);
 	void render() const;
 	void beginDrawing();
@@ -27,25 +27,35 @@ public:
 
 class GameEngine {
 private:
-	Map* map;
+	Level* level;
+	Map map;
 	Character* player;
-	vector<Entity*>* blocks;
+	vector<Entity*> blocks;
+	vector<Entity*> enemies;
+	vector<Entity*> items;
 	vector<Entity*> testEntities;
 	int score;
 	GameCamera camera;
-	//float characterX;
-	//int CenterChunk; /// later
 
 public:
 
-	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map, Character*& player)
-		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75f), map(&map), player(player) {
-		blocks = map.returnBlockArray(); score = 0;
+	GameEngine(float screenWidth, float screenHeight, Level& level, Character*& player)
+		: camera(screenWidth, screenHeight, 1.75f), level(&level), player(player)
+	{
+		map.loadFromFile(level.getMapPath());
+		map.loadBackground(level.getBackGroundPath());
+		Vector2 Msize = map.getMapSize();
+		camera.loadRenderTexture(Msize);
+		blocks = map.getBlocks();
+		enemies = map.getEnemies();
+		score = 0;
 	};
 	~GameEngine()
 	{
-		map = nullptr;
 		player = NULL;
+		blocks.clear();
+		blocks.clear();
+		blocks.clear();
 	}
 	void resolveCollision() {};
 
@@ -54,7 +64,11 @@ public:
 		//inputManager.update();
 		player->update(deltaTime);
 		handleCollision();
-		for (Entity* i : *(blocks))
+		for (Entity* i : (blocks))
+		{
+			i->update(deltaTime);
+		}
+		for (Entity* i : (enemies))
 		{
 			i->update(deltaTime);
 		}
@@ -73,7 +87,7 @@ public:
 		CollisionInterface IColl;
 		//player->setJumping(true);
 		bool isGrounded = false;
-		for (Entity* block : *(blocks))
+		for (Entity* block : (blocks))
 		{
 			if (IColl.resolve(*player, *block))
 			{
@@ -109,39 +123,39 @@ public:
 
 	void render() {
 		camera.beginDrawing();
-		map->renderBackground();
-		map->renderAllBlock();
-		for (Entity* i : testEntities)
+		map.renderBackground();
+		for (Entity* i : blocks)
 		{
 			i->draw();
 		}
-		// Render active chunks
-		//for (const auto& chunk : chunks) {
-		//	chunk.render();
-		//}
+		for (Entity* i : enemies)
+		{
+			i->draw();
+		}
+		for (Entity* i : items)
+		{
+			i->draw();
+		}
 		player->draw();
-		// Render character
-		//DrawRectangle((int)characterX - 10, 500 - 10, 20, 20, RED);
 
 		camera.endDrawing();
 
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		camera.render();
+
+
+		//////
 		char buffer[10];
 		sprintf_s(buffer, "%d", score);
 		DrawText("Score: ", 10, 10, 40, BLACK);
 		DrawText(buffer, 180, 10, 40, BLACK);
+		/////////
 		EndDrawing();
 	}
 
 	void run() {
 
-		/*MovingBlock testBlock(Vector2(850, 300), Vector2(100, 32), BLACK);
-		testBlock.setBounds(850, 1000, 300, 500);
-		testBlock.setVelocity(Vector2(50, 50));
-		MovingBlock* blo = &testBlock;
-		testEntities.push_back(blo);*/
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
@@ -156,5 +170,6 @@ public:
 		}
 	}
 };
+extern GameEngine* globalGameEngine;
 
 
