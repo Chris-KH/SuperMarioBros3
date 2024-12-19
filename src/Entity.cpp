@@ -3,11 +3,13 @@
 Entity::Entity(Vector2 pos, Vector2 size, Color color)
     : position(pos), size(size), color(color) {
     currentAnimation = nullptr;
+    playTime = 0.f;
 }
 
 Entity::Entity(const Entity& other)
     : position(other.position), size(other.size), color(other.color) {
     currentAnimation = nullptr;
+    playTime = 0.f;
 }
 
 Entity::~Entity() {
@@ -81,8 +83,16 @@ void Entity::setCenter(Vector2 center) {
     setPosition({ position.x + center.x - oldCenter.x, position.y + center.y - oldCenter.y });
 }
 
-void Entity::setAnimation(Animation* animation) {
+void Entity::updateTime(float deltaTime) {
+    this->playTime -= deltaTime;
+    this->playTime = max(0.f, this->playTime);
+}
+
+void Entity::setAnimation(Animation* animation, float time) {
+    if (playTime > 0.f) return;
+    if (animation == nullptr) return;
     if (currentAnimation == animation) return;
+    this->playTime = time;
     float diffHeight = 0.f;
     if (currentAnimation != nullptr && currentAnimation != animation) {
         diffHeight = currentAnimation->getSize().y - animation->getSize().y;
@@ -94,8 +104,8 @@ void Entity::setAnimation(Animation* animation) {
     this->setSize(currentAnimation->getSize());
 };
 
-void Entity::setAnimation(const string& name) {
+void Entity::setAnimation(const string& name, float time) {
     Animation* cur = RESOURCE_MANAGER.getAnimation(name);
     if (cur == nullptr) return;
-    setAnimation(cur);
+    setAnimation(cur, time);
 }

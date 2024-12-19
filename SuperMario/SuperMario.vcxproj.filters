@@ -168,6 +168,9 @@
     <ClInclude Include="..\include\TextEffect.h">
       <Filter>Header Files\Entity\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Shell.h">
+      <Filter>Header Files\Entity\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
@@ -274,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="..\src\TextEffect.cpp">
       <Filter>Source Files\Entity\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Shell.cpp">
+      <Filter>Source Files\Entity\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

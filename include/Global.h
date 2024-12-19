@@ -75,7 +75,8 @@ enum MushroomType {
 enum EnemyType {
 	GOOMBA,
 	KOOPATROOPA,
-	PLANT
+	PLANT,
+	SHELL
 };
 
 enum GoomBaType {
@@ -98,6 +99,11 @@ enum PlantType {
 	RED_FIREPIRANHA,
 	GREEN_PIRANHA,
 	GREEN_FIREPIRANHA
+};
+
+enum ShellType {
+	GREEN_SHELL,
+	RED_SHELL
 };
 
 //Block
