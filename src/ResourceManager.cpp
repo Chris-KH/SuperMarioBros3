@@ -81,7 +81,7 @@ void ResourceManager::loadAnimationFromFile(const string& filePath, const string
             animationName = line.substr(1);
             Animation animation = Animation(getTexture(textureName));
             animationResource[animationName] = make_unique<Animation>(move(animation));
-            animationResource[animationName]->setScale(1.f);
+            animationResource[animationName]->setScale(4.f);
         }
         else {
             istringstream iss(line);

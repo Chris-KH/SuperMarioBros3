@@ -10,6 +10,7 @@
 #include "../include/GoomBa.h"
 #include "../include/KoopaTroopa.h"
 #include "../include/Shell.h"
+#include "../include/Plant.h"
 using namespace std;
 
 
@@ -34,8 +35,8 @@ int main() {
     //Map map1;
     //map1.loadFromFile("../assets/Map/Map1-1.txt");
     //map1.loadBackground("../assets/Map/Map1-1.png");
-    //Enemy* goomba = new Shell(GREEN_SHELL, { 640.f, 0.f });
-    //goomba->setBoudary({ 0.f, 1200.f });
+    //Enemy* goomba = new Plant(GREEN_FIREPIRANHA, { 640.f, 400.f }, player);
+    //goomba->setBoudary({ goomba->getPosition().y - goomba->getHeight(), goomba->getPosition().y});
     // 
     // 
     //while (!WindowShouldClose()) {
