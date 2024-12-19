@@ -27,10 +27,10 @@ public:
     void returnToMainMenu();
     void setBackground(const std::string& imagePath);
     Character* player;
-    Map* map;
+    Level* map;
 
 private:
-    vector<Map*> loadedMap;
+    vector<Level*> loadedLevel;
     bool audioEnabled;
     bool musicEnabled;
     int selectedCharacter;
