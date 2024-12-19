@@ -24,81 +24,23 @@ public:
 	void endDrawing();
 	void setScale(float newScale);
 };
-//class Chunk {
-//private:
-//	vector<Entity*> blocks;
-//	vector<Entity*> enemies;
-//	vector<Entity*> items;
-//public:
-//	int x; //coord                   
-//	bool isLoaded;             // Whether this chunk is loaded
-//
-//	Chunk(int x) : x(x), isLoaded(false) {}
-//
-//	void load() {
-//		isLoaded = true;
-//	}
-//
-//	void unload() {
-//		isLoaded = false;
-//		//blocks.clear();
-//	}
-//	void clear()
-//	{
-//		blocks.clear();
-//	}
-//
-//	void render() const {
-//		if (isLoaded) {
-//			for (const Entity* entity : blocks,enemies,items)
-//				entity->draw();
-//		}
-//	}
-//	void update()
-//	{
-//		// enemy ai
-//
-//		// character update
-//
-//		// handle collision
-//		CollisionInterface IColl;
-//		for (Entity* enemy : enemies)
-//		{
-//			for (Entity* block : blocks)
-//				IColl.resolve(*enemy, *block);
-//			//
-//		}
-//
-//
-//		//animation update
-//	}
-//};
+
 class GameEngine {
 private:
 	Map* map;
 	Character* player;
 	vector<Entity*>* blocks;
 	vector<Entity*> testEntities;
-	//int chunkSize;
+	int score;
 	GameCamera camera;
 	//float characterX;
 	//int CenterChunk; /// later
 
 public:
-	//GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, int chunkSize)
-	//	: /*map(mapWidth, mapHeight)*/
-	//	camera(screenWidth, screenHeight, mapWidth, screenHeight), chunkSize(chunkSize),
-	//	characterX(500) {
-	//	//CenterChunk = (int)(characterX / chunkSize);
-	//	int numChunks = int(mapWidth / chunkSize);
-	//	//chunks.reserve(numChunks);
-	//	//for (int i = 0; i < numChunks; ++i) {
-	//	//	chunks.emplace_back(i);
-	//	//}
-	//}
+
 	GameEngine(float screenWidth, float screenHeight, float mapWidth, float mapHeight, Map& map, Character*& player)
 		: camera(screenWidth, screenHeight, mapWidth, screenHeight, 1.75f), map(&map), player(player) {
-		blocks = map.returnBlockArray();
+		blocks = map.returnBlockArray(); score = 0;
 	};
 	~GameEngine()
 	{
@@ -186,6 +128,10 @@ public:
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		camera.render();
+		char buffer[10];
+		sprintf_s(buffer, "%d", score);
+		DrawText("Score: ", 10, 10, 40, BLACK);
+		DrawText(buffer, 180, 10, 40, BLACK);
 		EndDrawing();
 	}
 
@@ -200,7 +146,8 @@ public:
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
-				UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+				if(SETTINGS.isMusicEnabled())
+					UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
 				update();
 				render();
 

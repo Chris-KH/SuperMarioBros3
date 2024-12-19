@@ -76,7 +76,6 @@ public:
 	BlockType getBlockType() const override { return SOLIDBLOCK; }
 	void update(float deltaTime) 
 	{
-		//solid brock bình thường cũng ko tác động làm thay đổi
 	}
 };
 
