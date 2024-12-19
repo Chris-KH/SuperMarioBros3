@@ -23,9 +23,9 @@ public:
 	virtual BlockType getBlockType()const = 0;
 	virtual void draw(float deltaTime) // may be deleted in future
 	{
-		Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
-		Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
-		DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
+		//Rectangle destRect = { getPosition().x, getPosition().y, getSize().x, getSize().y };
+		//Rectangle srcRect = { 0, 0, getSize().x, getSize().y };
+		//DrawRectangleRec(destRect, getColor()); // Replace with texture drawing
 		//current Animation rendering
 	}
 	virtual void update(float deltaTime) override {} // moving,.... implement in derived classes
@@ -48,14 +48,20 @@ class Brick : public BaseBlock
 private:
 	bool isBroken = false;
 public:
-	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) {}
+	Brick(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BROWN) : BaseBlock(pos, size, color) 
+	{
+		sprite = RESOURCE_MANAGER.getAnimation("gold_brick_block")->clone();
+		setAnimation(sprite);
+	}
+	void draw(float deltaTime) override
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	BlockType getBlockType() const override { return BRICK; }
 	void update(float deltaTime) override
 	{
-		if (isBroken) {
-			setColor(BLANK);
-			setSize({0, 0});
-		}
+		currentAnimation->update(deltaTime);
 	}
 	void breakBrick() {
 		isBroken = true;
@@ -70,7 +76,6 @@ public:
 	BlockType getBlockType() const override { return SOLIDBLOCK; }
 	void update(float deltaTime) 
 	{
-		//solid brock bình thường cũng ko tác động làm thay đổi
 	}
 };
 
@@ -84,11 +89,18 @@ private:
 public:
 	MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 16, 16 }, Color color = DARKGRAY)
 		: BaseBlock(pos, size, color),
-		boundLeft(pos.x), boundRight(pos.x),
-		boundTop(pos.y), boundBottom(pos.y) {}
+		boundLeft(pos.x), boundRight(pos.x),boundTop(pos.y), boundBottom(pos.y) 
+	{
+		sprite = RESOURCE_MANAGER.getAnimation("moving_platform_block")->clone();
+		setAnimation(sprite);
+	}
 
 	BlockType getBlockType() const override { return MOVINGBLOCK; }
-
+	void draw(float deltaTime) override
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	void setBounds(float left, float right, float top, float bottom)
 	{
 		Vector2 pos = getPosition(); // Get the current position of the block
@@ -133,6 +145,7 @@ public:
 		}
 
 		setPosition(pos);
+		currentAnimation->update(deltaTime);
 	}
 };
 
@@ -147,7 +160,7 @@ public:
 		setAnimation(sprite);
 	}
 	BlockType getBlockType() const override { return ITEMBLOCK; }
-	virtual void draw(float deltaTime) override
+	void draw(float deltaTime) override
 	{
 		if (currentAnimation == nullptr) return;
 		currentAnimation->render(this->getPosition());

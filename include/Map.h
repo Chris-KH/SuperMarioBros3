@@ -8,44 +8,7 @@
 
 class MapHelper {
 public:
-    // Load entities from a text file
-    //static std::vector<Entity*> loadFromTextFile(const std::string& filename) {
-    //    std::vector<Entity*> entities;
-    //    std::ifstream file(filename);
 
-    //    if (!file.is_open()) {
-    //        throw std::runtime_error("Failed to open file: " + filename);
-    //    }
-
-    //    std::string line;
-    //    while (std::getline(file, line)) {
-    //        std::istringstream stream(line);
-    //        std::string blockTypeStr;
-    //        float x, y, width, height;
-
-    //        // Read block data
-    //        if (!(stream >> blockTypeStr >> x >> y >> width >> height)) {
-    //            throw std::runtime_error("Malformed line in file: " + line);
-    //        }
-
-    //        // Convert block type string to BlockType enum
-    //        BlockType blockType = stringToBlockType(blockTypeStr);
-
-    //        // Create block using the factory
-    //        BaseBlock* block = BlockFactory::getInstance().createBlock(
-    //            blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
-
-    //        // Ensure the block was successfully created
-    //        if (!block) {
-    //            throw std::runtime_error("Unknown block type: " + blockTypeStr);
-    //        }
-
-    //        // Store as Entity*
-    //        entities.push_back(static_cast<Entity*>(block));
-    //    }
-
-    //    return entities;
-    //}
     static std::vector<Entity*> loadFromTextFile(const std::string& filename) {
         std::vector<Entity*> entities;
         std::ifstream file(filename);
@@ -184,10 +147,12 @@ class Map {
 public:
     Map() : background({ 0 }) {}
     ~Map() {
-        clearBlocks();
-        if (background.id > 0) {
+ /*       if (background.id > 0) {
             UnloadTexture(background);
-        }
+            background.id = 0;
+        }*/
+        clearBlocks();
+
     }
 
     void addEntity(Entity* entity) {

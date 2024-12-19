@@ -42,3 +42,9 @@ $fly_leaf_item
 
 $blue_star_item
 98 49 16 16 999 0 0 16 16
+
+$moving_platform_block
+0 64 48 16 999 0 0 48 16
+
+$empty_block
+48 64 16 16 999 0 0 16 16
