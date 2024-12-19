@@ -302,8 +302,8 @@ public:
     {
         if (background.id <= 0)
             throw std::runtime_error("error loading map");
-        float x = background.width;
-        float y = background.height;
+        float x = (float)background.width;
+        float y = (float)background.height;
         return { x,y };
     }
     void addEntity(Entity* entity) {

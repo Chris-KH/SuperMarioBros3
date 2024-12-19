@@ -1,7 +1,9 @@
 #include "../include/GameEngine.h"
 GameEngine* globalGameEngine = nullptr;
 GameCamera::GameCamera(float width, float height, float initialScale)
-    : cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0), scale(initialScale) {}
+    : cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0), scale(initialScale) {
+    renderTexture = LoadRenderTexture(0, 0);
+}
 
 GameCamera::~GameCamera() {
     UnloadRenderTexture(renderTexture);
@@ -9,7 +11,7 @@ GameCamera::~GameCamera() {
 
 void GameCamera::loadRenderTexture(Vector2 size)
 {
-    renderTexture = LoadRenderTexture(size.x, size.y);
+    renderTexture = LoadRenderTexture(static_cast<int>(round(size.x)), static_cast<int>(round(size.y)));
 }
 
 void GameCamera::update(float characterX, float characterY) {
