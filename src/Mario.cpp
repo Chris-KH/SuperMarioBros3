@@ -5,7 +5,7 @@
 #include"../include/StarmanState.h"
 
 Mario::Mario(Vector2 pos) : Character(pos) {
-	state = new SuperState;
+	state = new FireState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);

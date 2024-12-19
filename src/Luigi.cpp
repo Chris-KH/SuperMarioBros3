@@ -5,7 +5,7 @@
 #include"../include/StarmanState.h"
 
 Luigi::Luigi(Vector2 pos) : Character(pos) {
-	state = new NormalState;
+	state = new FireState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
