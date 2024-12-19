@@ -1,7 +1,8 @@
 #include "../include/Mushroom.h"
 
-Mushroom::Mushroom(MushroomType type) : Item(type == MUSHROOM_SUPER ? POINT : 0) {
+Mushroom::Mushroom(MushroomType type, Vector2 position) : Item(type == MUSHROOM_SUPER ? POINT : 0) {
 	this->type = type;
+	setPosition(position);
 
 	if (type == MUSHROOM_SUPER) {
 		setAnimation("red_mushroom_item");
@@ -13,6 +14,6 @@ Mushroom::Mushroom(MushroomType type) : Item(type == MUSHROOM_SUPER ? POINT : 0)
 	setXVelocity(SPEED);
 }
 
-MushroomType Mushroom::getItemType() const {
+const MushroomType& Mushroom::getMushroomType() const {
 	return this->type;
 }
