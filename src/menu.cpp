@@ -142,6 +142,7 @@ void SettingState::draw() {
     DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
     DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
     DrawText("Return to Main Menu", 310, 310, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
+    
 }
 
 void SettingState::handleInput() {
@@ -166,6 +167,7 @@ void CharSelection::draw() {
     DrawText("Character Selection", 300, 100, 40, BLACK);
     DrawText("Mario", 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), marioButton) ? LIGHTGRAY : BLACK);
     DrawText("Luigi", 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), luigiButton) ? LIGHTGRAY : BLACK);
+    DrawText("Return to Main Menu", 310, 310, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 
 }
 
@@ -177,6 +179,8 @@ void CharSelection::handleInput() {
             menu->returnToMainMenu();
         } else if (CheckCollisionPointRec(mousePos, luigiButton)) {
             menu->player = new Luigi(Vector2{0, 0});
+            menu->returnToMainMenu();
+        } else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
         }
     }
