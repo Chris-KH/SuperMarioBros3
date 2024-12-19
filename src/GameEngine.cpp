@@ -1,5 +1,5 @@
 #include "../include/GameEngine.h"
-
+GameEngine* globalGameEngine = nullptr;
 GameCamera::GameCamera(float width, float height, float initialScale)
     : cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0), scale(initialScale) {}
 

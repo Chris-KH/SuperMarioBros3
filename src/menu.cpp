@@ -42,10 +42,11 @@ void Menu::run() {
     INPUT_MANAGER.bindKey(KEY_SPACE);
     INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
     registerBlocks();
+    globalGameEngine = nullptr;
+    RESOURCE_MANAGER.playMusic("Overworld.mp3");
 
     // Tạo một vật thể với texture và InputManager
     Character* player = new Mario(Vector2{ 0,0 });
-    RESOURCE_MANAGER.playMusic("Overworld.mp3");
     this->player = player;
     Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png");
     Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png");
@@ -55,6 +56,8 @@ void Menu::run() {
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
     this->map = &level1;
+
+
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(WHITE);
@@ -74,7 +77,14 @@ void Menu::run() {
         }
         EndDrawing();
     }
+
+
     loadedLevel.clear();
+    if (globalGameEngine != nullptr)
+    {
+        delete globalGameEngine;
+        globalGameEngine = nullptr;
+    }
     CloseWindow();
     CloseAudioDevice();
 }
@@ -116,6 +126,11 @@ void Menu::selectMap(int mapIndex) {
     }
     default:
         break;
+    }
+    if (globalGameEngine != nullptr)
+    {
+        delete globalGameEngine;
+        globalGameEngine = nullptr;
     }
     this->selectedMap = mapIndex;
 }
@@ -200,14 +215,21 @@ void MainMenuState::handleInput() {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, continueButton)) {
-            GameEngine game(820.0f, 530.0f, *menu->map, menu->player);
-            game.run();
+           if(globalGameEngine != nullptr)
+             globalGameEngine->run();
         }
         else if (CheckCollisionPointRec(mousePos, startButton)) {
             menu->player->setPosition({ 0,0 });
             menu->player->setVelocity({ 0,0 });
-            GameEngine game(820.0f, 512.0f, *menu->map, menu->player);
-            game.run();
+            if (globalGameEngine != nullptr)
+            {
+                delete globalGameEngine;
+                globalGameEngine = nullptr;
+            }
+            GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
+            globalGameEngine = game;
+            if (globalGameEngine != nullptr)
+                globalGameEngine->run();
         } else if (CheckCollisionPointRec(mousePos, settingsButton)) {
             menu->setState(std::make_unique<SettingState>(menu));
         } else if (CheckCollisionPointRec(mousePos, charSelectionButton)) {
@@ -304,12 +326,27 @@ void CharSelection::handleInput() {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, marioButton)) {
+            delete menu->player;
             menu->player = new Mario(Vector2{0, 0});
+            if (globalGameEngine != nullptr)
+            {
+                delete globalGameEngine;
+                globalGameEngine = nullptr;
+            }
             menu->returnToMainMenu();
-        } else if (CheckCollisionPointRec(mousePos, luigiButton)) {
+        } 
+        else if (CheckCollisionPointRec(mousePos, luigiButton)) 
+        {
+            delete menu->player;
             menu->player = new Luigi(Vector2{0, 0});
+            if (globalGameEngine != nullptr)
+            {
+                delete globalGameEngine;
+                globalGameEngine = nullptr;
+            }
             menu->returnToMainMenu();
-        } else if (CheckCollisionPointRec(mousePos, backButton)) {
+        } 
+        else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
         }
     }

@@ -170,5 +170,6 @@ public:
 		}
 	}
 };
+extern GameEngine* globalGameEngine;
 
 
