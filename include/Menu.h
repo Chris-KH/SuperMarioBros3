@@ -39,6 +39,7 @@ public:
     Map* map;
 
 private:
+    vector<Map*> loadedMap;
     bool audioEnabled;
     bool musicEnabled;
     int selectedCharacter;

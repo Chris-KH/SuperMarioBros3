@@ -147,10 +147,12 @@ class Map {
 public:
     Map() : background({ 0 }) {}
     ~Map() {
-        clearBlocks();
-        if (background.id > 0) {
+ /*       if (background.id > 0) {
             UnloadTexture(background);
-        }
+            background.id = 0;
+        }*/
+        clearBlocks();
+
     }
 
     void addEntity(Entity* entity) {

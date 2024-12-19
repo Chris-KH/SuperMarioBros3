@@ -18,6 +18,7 @@ Menu::~Menu()
 {
     if (backgroundTexture.id != 0) {
         UnloadTexture(backgroundTexture);
+        backgroundTexture.id = 0;
     }
 }
 
@@ -48,7 +49,15 @@ void Menu::run() {
     Map map1;
     map1.loadFromFile("../assets/Map/Map1-1.txt");
     map1.loadBackground("../assets/Map/Map1-1.png");
-
+    Map map2;
+    map2.loadFromFile("../assets/Map/Map1-2.txt");
+    map2.loadBackground("../assets/Map/map1-2.png");
+    Map map3;
+    map3.loadFromFile("../assets/Map/Map1-3.txt");
+    map3.loadBackground("../assets/Map/map1-3.png");
+    loadedMap.push_back(&map1);
+    loadedMap.push_back(&map2);
+    loadedMap.push_back(&map3);
     this->map = &map1;
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -62,6 +71,7 @@ void Menu::run() {
         }
         EndDrawing();
     }
+    loadedMap.clear();
     CloseWindow();
     CloseAudioDevice();
 }
@@ -83,7 +93,27 @@ void Menu::selectCharacter(int characterIndex) {
 }
 
 void Menu::selectMap(int mapIndex) {
-    //Set the selected map
+    if (mapIndex > 3 || mapIndex <= 0)
+        return;
+    switch (mapIndex)
+    {case 1:
+    {     
+        this->map = loadedMap[0];
+        break;
+    }
+    case 2:
+    {
+        this->map = loadedMap[1];
+        break;
+    }
+    case 3:
+    {
+        this->map = loadedMap[2];
+        break;
+    }
+    default:
+        break;
+    }
     this->selectedMap = mapIndex;
 }
 
@@ -151,9 +181,9 @@ void SettingState::draw() {
     ClearBackground(RAYWHITE);
 
     DrawText("Settings", 300, 100, 40, BLACK);
-    DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
-    DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
-    DrawText("Return to Main Menu", 310, 310, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
+    DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 310, 300, 30, CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
+    DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 310, 350, 30, CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
+    DrawText("Return to Main Menu", 310, 400, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
     
 }
 
@@ -163,6 +193,7 @@ void SettingState::handleInput() {
         if (CheckCollisionPointRec(mousePos, audioButton)) {
             menu->configureSettings(!menu->isAudioEnabled(), menu->isMusicEnabled());
         } else if (CheckCollisionPointRec(mousePos, musicButton)) {
+            SETTINGS.setMusic(!menu->isMusicEnabled());
             menu->configureSettings(menu->isAudioEnabled(), !menu->isMusicEnabled());
         } else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
@@ -177,9 +208,9 @@ void CharSelection::draw() {
     ClearBackground(RAYWHITE);
 
     DrawText("Character Selection", 300, 100, 40, BLACK);
-    DrawText("Mario", 310, 210, 30, CheckCollisionPointRec(GetMousePosition(), marioButton) ? LIGHTGRAY : BLACK);
-    DrawText("Luigi", 310, 260, 30, CheckCollisionPointRec(GetMousePosition(), luigiButton) ? LIGHTGRAY : BLACK);
-    DrawText("Return to Main Menu", 310, 310, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
+    DrawText("Mario", 310, 200, 30, CheckCollisionPointRec(GetMousePosition(), marioButton) ? LIGHTGRAY : BLACK);
+    DrawText("Luigi", 310, 250, 30, CheckCollisionPointRec(GetMousePosition(), luigiButton) ? LIGHTGRAY : BLACK);
+    DrawText("Return to Main Menu", 310, 300, 20, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 
 }
 
