@@ -24,6 +24,7 @@ Menu::~Menu()
 
 void Menu::run() {
     InitAudioDevice();
+    //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT | FLAG_WINDOW_UNDECORATED);
     InitWindow(1280, 800, "Super Mario Bros");
     Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
     Image gameIconImage = LoadImageFromTexture(gameIcon);
@@ -57,7 +58,14 @@ void Menu::run() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(WHITE);
-        DrawTexturePro(backgroundTexture, {0, 0, (float)backgroundTexture.width, (float)backgroundTexture.height}, {0, 0, 1280, 800}, {0, 0}, 0.0f, WHITE);
+        DrawTexturePro(
+            backgroundTexture,
+            { 0, 0, (float)backgroundTexture.width, (float)backgroundTexture.height },
+            { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() },
+            { 0, 0 },
+            0.0f,
+            WHITE
+        );
         if (SETTINGS.isMusicEnabled())
             UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));       
         if (currentState) {

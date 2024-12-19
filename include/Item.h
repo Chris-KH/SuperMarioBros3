@@ -10,5 +10,6 @@ public:
 
 	int getPoint() const;
 	virtual EntityType getType() const override;
+	virtual ItemType getItemType() const = 0;
 };
 

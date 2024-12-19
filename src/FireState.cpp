@@ -78,7 +78,10 @@ void FireState::update(Character* character, float deltaTime) {
     if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
         character->setSitting(false);
         if (character->velocity.x < 0) {
-            if (character->isJumping() == false) character->setAnimation(character->stopLeft);
+            if (character->isJumping() == false) {
+                character->setAnimation(character->stopLeft);
+                RESOURCE_MANAGER.playSound("skid.wav");
+            }
             character->setXVelocity(character->getVelocity().x + skid_deceleration * deltaTime);
             if (character->velocity.x > 0) character->setXVelocity(0.f);
         }
@@ -96,7 +99,10 @@ void FireState::update(Character* character, float deltaTime) {
     else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
         character->setSitting(false);
         if (character->velocity.x > 0) {
-            if (character->isJumping() == false) character->setAnimation(character->stopRight);
+            if (character->isJumping() == false) {
+                character->setAnimation(character->stopRight);
+                RESOURCE_MANAGER.playSound("skid.wav");
+            }
             character->setXVelocity(character->getVelocity().x - skid_deceleration * deltaTime);
             if (character->velocity.x < 0) character->setXVelocity(0.f);
         }

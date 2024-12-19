@@ -9,8 +9,11 @@ public:
 	const float SPEED = 70.f;
  
 	//Create new mushroom
-	Mushroom(MushroomType type = MUSHROOM_SUPER);
+	Mushroom(MushroomType type = MUSHROOM_SUPER, Vector2 position = {0.f, 0.f});
 
 	//Get type of mush room
-	MushroomType getItemType() const;
+	const MushroomType& getMushroomType() const;
+	ItemType getItemType() const override {
+		return MUSHROOM;
+	}
 };

@@ -71,6 +71,11 @@ enum MushroomType {
 	MUSHROOM_1UP //Provides an extra life.
 };
 
+enum CoinType {
+	BLOCK_COIN,
+	STATIC_COIN
+};
+
 //Enemy
 enum EnemyType {
 	GOOMBA,

@@ -34,6 +34,10 @@ public:
 		else if (orientation == RIGHT) setAnimation(fireRight);
 	}
 
+	const FireballType& getFireballType() const {
+		this->type;
+	}
+
 	void update(float deltaTime) override {
 
 	}
