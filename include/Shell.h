@@ -80,8 +80,6 @@ public:
 		if (inShellTime >= IN_SHELL_TIME - OUT_SHELL_TIME) {
 			setAnimation(outShell);
 		}
-
-		currentAnimation->update(deltaTime);
 	}
 
 	void kicked(Orientation direction) override {

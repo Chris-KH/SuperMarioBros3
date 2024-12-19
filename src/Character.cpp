@@ -37,6 +37,8 @@ void Character::draw(float deltaTime) {
     if (currentAnimation == nullptr) return;
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
+    updateTime(deltaTime);
+    currentAnimation->update(deltaTime);
     currentAnimation->render(getPosition());
 }
 

@@ -90,8 +90,8 @@ enum GoomBaType {
 enum KoopaTroopaType {
 	GREEN_KoopaTroopa,
 	RED_KoopaTroopa,
-	GREEN_KoopaParaTroopa,
-	RED_KoopaParaTroopa
+	GREENPARA_KoopaTroopa,
+	REDPARA_KoopaTroopa
 };
 
 enum PlantType {

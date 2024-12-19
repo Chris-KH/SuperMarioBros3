@@ -15,10 +15,11 @@ public:
 		jumpAnimation = nullptr;
 	}
 
-	GoomBa(GoomBaType type = BROWN_GoomBa, Vector2 position = {0.f, 0.f}) : Enemy(position) {
+	GoomBa(GoomBaType type = BROWN_GoomBa, Vector2 position = {0.f, 0.f}, Orientation orientation = RIGHT) : Enemy(position) {
 		this->type = type;
 		this->jumpTime = 0.f;
 		this->canJump = false;
+		this->orientation = orientation;
 		setXVelocity(orientation == RIGHT ? SPEED : -SPEED);
 		setYVelocity(0.f);
 
@@ -51,21 +52,32 @@ public:
 
 	void update(float deltaTime) override {
 		if (isDead) return;
-
+	
 		if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
 		else if (getPosition().x >= getBoundary().y) setOrientation(LEFT);
-
+	
 		if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
-
+		
 		if (jumpTime >= TIME_PER_JUMP && canJump) {
 			setYVelocity(-JUMP_SPEED);
 			setAnimation(jumpAnimation);
 			setJumping(true);
 			jumpTime = 0.f;
 		}
+		else if (getBottom() >= 500.f) {
+			setYVelocity(0.f);
+			setYPosition(500.f - getSize().y);
+			jumping = false;
+		}
 
-		currentAnimation->update(deltaTime);
-		if (isJumping() == false) jumpTime += deltaTime;
+		if (orientation) setXVelocity(SPEED);
+		else setXVelocity(-SPEED);
+
+		
+		if (isJumping() == false) {
+			setAnimation(walkAnimation);
+			jumpTime += deltaTime;
+		}
 	}
 
 	void stomped() override {
@@ -92,6 +104,6 @@ private:
 	GoomBaType type;
 	Animation* walkAnimation;
 	Animation* jumpAnimation;
-	float canJump;
+	bool canJump;
 	float jumpTime;
 };

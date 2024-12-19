@@ -8,6 +8,7 @@
 #include "../include/Luigi.h"
 #include "../include/Menu.h"
 #include "../include/GoomBa.h"
+#include "../include/KoopaTroopa.h"
 using namespace std;
 
 
@@ -32,7 +33,8 @@ int main() {
     //Map map1;
     //map1.loadFromFile("../assets/Map/Map1-1.txt");
     //map1.loadBackground("../assets/Map/Map1-1.png");
-    //Enemy* goomba = new GoomBa(BROWNPARA_GoomBa, { 640.f, 0.f });
+    //Enemy* goomba = new KoopaTroopa(GREENPARA_KoopaTroopa, { 640.f, 0.f });
+    //goomba->setBoudary({ 0.f, 1200.f });
     // 
     // 
     //while (!WindowShouldClose()) {

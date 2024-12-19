@@ -19,8 +19,6 @@ CharacterType Luigi::getCharacterType() const  {
 void Luigi::update(float deltaTime) {
 	INPUT_MANAGER.update();
 	state->update(this, deltaTime);
-	currentAnimation->update(deltaTime);
-	updateTime(deltaTime);
 }
 
 void Luigi::onKey(KeyboardKey key, bool pressed) {
