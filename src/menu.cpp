@@ -10,13 +10,13 @@ Menu::Menu() {
     selectedCharacter = 1;
     selectedMap = 1;
     //Load background texture in Menu
-    titleScreen = LoadTexture("../assets/Background/TitleScreen.jpg");
+    titleScreen = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/TitleScreen.png");
 }
 
 void Menu::run() {
     InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
-    Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
+    Texture gameIcon = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Icon/GameIcon.png");
     Image gameIconImage = LoadImageFromTexture(gameIcon);
     SetWindowIcon(gameIconImage);
 
@@ -75,6 +75,16 @@ void Menu::selectMap(int mapIndex) {
     this->selectedMap = mapIndex;
 }
 
+void Menu::loadBackground(const std::string &filePath) {
+    if (titleScreen.id > 0) {
+        UnloadTexture(titleScreen);
+    }
+    titleScreen = LoadTexture(filePath.c_str());
+    if (titleScreen.id == 0) {
+        throw std::runtime_error("Failed to load texture!");
+    }
+}
+
 bool Menu::isAudioEnabled() const { return audioEnabled; }
 
 bool Menu::isMusicEnabled() const { return musicEnabled; }
@@ -94,25 +104,25 @@ void MainMenuState::draw() {
     
     int titleHeight = 150; // Height of the title area
     int buttonSpacing = 60; // Vertical spacing between buttons
-    float buttonStartY = titleHeight + 50; // Position buttons below the title
+    float buttonStartY = static_cast<float>(titleHeight + 50);// Position buttons below the title
 
     DrawText("Main Menu", 500, titleHeight - 80, 40, BLACK);
     // Draw Buttons
-    startButton = {440, buttonStartY, 400, 50};
+    startButton = {440.0f, buttonStartY, 400.0f, 50.0f};
     DrawRectangleRec(startButton, LIGHTGRAY);
-    DrawText("Start", 560, buttonStartY + 10, 30, BLACK);
+    DrawText("Start", 560, static_cast<int>(buttonStartY + 10), 30, BLACK);
 
-    settingsButton = {440, buttonStartY + buttonSpacing, 400, 50};
+    settingsButton = {440.0f, buttonStartY + buttonSpacing, 400.0f, 50.0f};
     DrawRectangleRec(settingsButton, LIGHTGRAY);
-    DrawText("Settings", 540, buttonStartY + buttonSpacing + 10, 30, BLACK);
+    DrawText("Settings", 540, static_cast<int>(buttonStartY + buttonSpacing + 10), 30, BLACK);
 
-    charSelectionButton = {440, buttonStartY + buttonSpacing * 2, 400, 50};
+    charSelectionButton = {440.0f, buttonStartY + buttonSpacing * 2, 400.0f, 50.0f};
     DrawRectangleRec(charSelectionButton, LIGHTGRAY);
-    DrawText("Select Character", 500, buttonStartY + buttonSpacing * 2 + 10, 30, BLACK);
+    DrawText("Select Character", 500, static_cast<int>(buttonStartY + buttonSpacing * 2 + 10), 30, BLACK);
 
-    mapSelectionButton = {440, buttonStartY + buttonSpacing * 3, 400, 50};
+    mapSelectionButton = {440.0f, buttonStartY + buttonSpacing * 3, 400.0f, 50.0f};
     DrawRectangleRec(mapSelectionButton, LIGHTGRAY);
-    DrawText("Select Map", 530, buttonStartY + buttonSpacing * 3 + 10, 30, BLACK);
+    DrawText("Select Map", 530, static_cast<int>(buttonStartY + buttonSpacing * 3 + 10), 30, BLACK);
 }
 
 void MainMenuState::handleInput() {

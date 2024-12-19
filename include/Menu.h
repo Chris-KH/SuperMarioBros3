@@ -19,6 +19,7 @@ public:
     void configureSettings(bool audioEnabled, bool musicEnabled);
     void selectCharacter(int characterIndex);
     void selectMap(int mapIndex);
+    void loadBackground(const std::string &filePath);
 
     // Accessors for settings
     bool isAudioEnabled() const;

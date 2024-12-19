@@ -10,7 +10,7 @@ private:
     Vector2 size;     // Size of the entity
     Color color;      // RGBA color of the entity
 protected:
-    Animation* currentAnimation; 
+    Animation* currentAnimation;
 
 public:
     Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);

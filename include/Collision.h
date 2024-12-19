@@ -173,7 +173,8 @@ public:
         // vertical collision detection (falling onto the block)
         if (playerVelocity.y >= 0) {
             if (CheckCollisionRecs(futurePlayerRect, blockRect) && player->getBottom() <= blockRect.y) {
-                player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
+                Vector2 vector2 = {playerRect.x, blockRect.y - playerRect.height};
+                player->setPosition(vector2);
                 player->setYVelocity(0.f);
                 isOnBlock = true;
             }
@@ -190,11 +191,13 @@ public:
         if (CheckCollisionRecs(horizontalRect, blockRect)) {
             if (playerVelocity.x > 0) {
                 float offset = blockVelocity.x * deltaTime;
-                player->setPosition(Vector2(blockRect.x - playerRect.width + offset, playerRect.y));
+                Vector2 vector2 = {blockRect.x - playerRect.width + offset, playerRect.y};
+                player->setPosition(vector2);
             }
             else if (playerVelocity.x < 0) {
                 float offset = blockVelocity.x * deltaTime;
-                player->setPosition(Vector2(blockRect.x + blockRect.width + offset, playerRect.y));
+                Vector2 vector2 = {blockRect.x + blockRect.width + offset, playerRect.y};
+                player->setPosition(vector2);
             }
             player->setXVelocity(0.f);
         }
@@ -208,7 +211,8 @@ public:
             };
 
             if (CheckCollisionRecs(verticalRect, blockRect) && player->getTop() >= blockRect.y + blockRect.height) {
-                player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
+                Vector2 vector2 = {playerRect.x, blockRect.y + blockRect.height};
+                player->setPosition(vector2);
                 player->setYVelocity(0.f);
             }
         }

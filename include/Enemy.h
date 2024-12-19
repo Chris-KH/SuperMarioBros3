@@ -69,6 +69,6 @@ public:
         return boudary;
     }
 
-    void stomped();
-    void attacked();
+    //void stomped();
+    //void attacked();
 };

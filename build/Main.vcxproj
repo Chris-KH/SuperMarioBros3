@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -101,16 +101,16 @@
       <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -118,8 +118,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>raylib_build\raylib\Debug\raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -133,7 +133,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -147,18 +147,18 @@
       <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -166,8 +166,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>raylib_build\raylib\Release\raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -181,7 +181,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -195,18 +195,18 @@
       <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -214,8 +214,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>raylib_build\raylib\MinSizeRel\raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -229,7 +229,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -244,16 +244,16 @@
       <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\raylib-5.5\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\raylib-5.5\src;C:\raylib-5.5\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -261,8 +261,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/raylib-5.5/src;C:/raylib-5.5/src/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>raylib_build\raylib\RelWithDebInfo\raylib.lib;opengl32.lib;gdi32.lib;kernel32.lib;winmm.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -333,37 +333,36 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Animation.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Background.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Block.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Background.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Character.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Coin.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Collision.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Enemy.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Entity.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FileHandle.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\NormalState.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FireState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\StarmanState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SuperState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\TailState.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\GoomBa.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\KoopaTroopa.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Plant.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Mushroom.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SuperLeaf.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Item.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Coin.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FPSManager.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\GameEngine.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Global.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\GoomBa.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Hitbox.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\InputManager.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Item.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\KoopaTroopa.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Luigi.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Map.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Mario.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Mushroom.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\NormalState.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Plant.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Map.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\ResourceManager.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Settings.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Sprite.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\StarState.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SuperLeaf.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SuperState.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\TailState.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\menu.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Menu.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp" />
   </ItemGroup>
   <ItemGroup />
@@ -373,6 +372,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Dell\Downloads\CS202-SuperMario\build\raylib_build\raylib\external\glfw\src\glfw.vcxproj">
+      <Project>{725DF600-953C-3541-BBC7-E084D7C9C812}</Project>
+      <Name>glfw</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Dell\Downloads\CS202-SuperMario\build\raylib_build\raylib\raylib.vcxproj">
+      <Project>{C6D7DEC0-E726-3B49-BC58-1D28574060A3}</Project>
+      <Name>raylib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
