@@ -11,29 +11,33 @@ Plant::~Plant() {
 	firePiranhaAttack = nullptr;
 }
 
-Plant::Plant(PlantType type, Vector2 position, Character* player) : Enemy(position) {
+Plant::Plant(PlantType type, Vector2 center, Character* player) {
 	this->type = type;
+	this->player = player;
+	this->timer = 0.f;
+
 	setXVelocity(0.f);
 	setYVelocity(0.f);
 	setGravityAvailable(false);
-	this->player = player;
-
-	piranha = nullptr;
-	firePiranhaRest = nullptr;
-	firePiranhaAttack = nullptr;
-	direction = UP;
-	orientation = UP;
+	
+	this->piranha = nullptr;
+	this->firePiranhaRest = nullptr;
+	this->firePiranhaAttack = nullptr;
+	this->direction = UPLEFT;
+	this->orientation = UP;
+	this->phase = WAIT_PHASE;
 
 	if (type == GREEN_PIRANHA) {
-		piranha = RESOURCE_MANAGER.getAnimation("green_piranha")->clone();
-		setAnimation(piranha);
+		this->piranha = RESOURCE_MANAGER.getAnimation("green_piranha")->clone();
+		setAnimation(this->piranha);
 	}
 	else if (type == GREEN_FIREPIRANHA) {
-		firePiranhaRest = RESOURCE_MANAGER.getAnimation("green_firepiranha")->clone();
-		firePiranhaAttack = RESOURCE_MANAGER.getAnimation("green_firepiranha_attack")->clone();
-		setDirection();
-		setAnimation(firePiranhaRest);
+		this->firePiranhaRest = RESOURCE_MANAGER.getAnimation("green_firepiranha")->clone();
+		this->firePiranhaAttack = RESOURCE_MANAGER.getAnimation("green_firepiranha_attack")->clone();
+		setAnimation(this->firePiranhaRest);
 	}
+
+	setCenter(center);
 }
 
 EnemyType Plant::getEnemyType() const {
@@ -41,7 +45,39 @@ EnemyType Plant::getEnemyType() const {
 }
 
 void Plant::update(float deltaTime) {
-	setDirection();
+	if (isDead) return;
+	
+	if (phase == EXIT_PHASE && getPosition().y <= getBoundary().x) {
+		phase = ATTACK_PHASE;
+		orientation = UP;
+		if (type == GREEN_FIREPIRANHA) {
+			setAnimation(firePiranhaAttack);
+			//Create a Fireball
+		}
+		setYVelocity(0.f);
+		setYPosition(getBoundary().x);
+	}
+	else if (phase == ENTER_PHASE && getPosition().y >= getBoundary().y) {
+		phase = WAIT_PHASE;
+		orientation = DOWN;
+		if (type == GREEN_FIREPIRANHA) setAnimation(firePiranhaRest);
+		setYVelocity(0.f);
+		setYPosition(getBoundary().y);
+	}
+	else if (timer >= WAIT_TIME && phase == WAIT_PHASE) {
+		setYVelocity(-SPEED);
+		phase = EXIT_PHASE;
+		timer = 0.f;
+	}
+	else if (timer >= ATTACK_TIME && phase == ATTACK_PHASE) {
+		setYVelocity(SPEED);
+		phase = ENTER_PHASE;
+		timer = 0.f;
+	}
+
+	if (getVelocity().y == 0.f) {
+		timer += deltaTime;
+	}
 }
 
 void Plant::draw(float deltaTime) {
@@ -50,14 +86,17 @@ void Plant::draw(float deltaTime) {
 	setYPosition(getPosition().y + velocity.y * deltaTime);
 	if (type == GREEN_FIREPIRANHA) {
 		int frame = 0;
+		setDirection();
 		if (direction == DOWNLEFT) frame = 0;
 		if (direction == UPLEFT) frame = 1;
 		if (direction == DOWNRIGHT) frame = 2;
 		if (direction == UPRIGHT) frame = 3;
 
+		currentAnimation->update(deltaTime);
 		currentAnimation->render(getPosition(), frame);
 	}
 	else if (type == GREEN_PIRANHA) {
+		currentAnimation->update(deltaTime);
 		currentAnimation->render(getPosition());
 	}
 }

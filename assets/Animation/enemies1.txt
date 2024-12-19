@@ -103,8 +103,8 @@ $red_KoopaTroopa_outShell
 84 203 18 17 0.1 1 0 16 17
 
 $green_piranha
-15 349 16 25 999 0 0 16 25
-65 350 16 24 999 0 0 16 24
+15 349 16 25 0.1 0 0 16 25
+65 349 16 24 0.1 0 0 16 25
 
 $green_firepiranha_downLeftAttack
 15 399 16 25 999 0 0 16 25

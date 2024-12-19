@@ -20,7 +20,6 @@ public:
 	}
 
 	Fireball(Vector2 center = {0.f, 0.f}, FireballType type = CHARACTER_FIREBALL, Orientation orientation = RIGHT) {
-		setCenter(center);
 		this->type = type;
 		this->orientation = orientation;
 
@@ -32,6 +31,8 @@ public:
 
 		if (orientation == LEFT) setAnimation(fireLeft);
 		else if (orientation == RIGHT) setAnimation(fireRight);
+
+		setCenter(center);
 	}
 
 	const FireballType& getFireballType() const {

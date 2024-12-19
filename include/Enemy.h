@@ -9,7 +9,7 @@ protected:
     bool stompable;
     bool kickable;
 
-    Vector2 boudary; //The witdth that enemy can move
+    Vector2 boudary; //The x-axis range that enemy can move (y-axis for vertical plant)
     const float GROUND = 800.f;
 public:
     Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
