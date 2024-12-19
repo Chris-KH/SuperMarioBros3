@@ -10,13 +10,13 @@ Menu::Menu() {
     selectedCharacter = 1;
     selectedMap = 1;
     //Load background texture in Menu
-    titleScreen = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/TitleScreen.png");
+    titleScreen = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/TitleScreen.png"); //Thay cái này bằng đường dẫn trong máy cụ thể từng người
 }
 
 void Menu::run() {
     InitAudioDevice();
     InitWindow(1280, 800, "Super Mario Bros");
-    Texture gameIcon = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Icon/GameIcon.png");
+    Texture gameIcon = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Icon/GameIcon.png"); //Thay cái này bằng đường dẫn trong máy cụ thể từng người
     Image gameIconImage = LoadImageFromTexture(gameIcon);
     SetWindowIcon(gameIconImage);
 
