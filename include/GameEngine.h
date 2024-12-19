@@ -147,7 +147,7 @@ public:
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
 				if(SETTINGS.isMusicEnabled())
-					UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+					UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));				
 				update();
 				render();
 

@@ -64,7 +64,7 @@ void Menu::run() {
         ClearBackground(WHITE);
         DrawTexturePro(backgroundTexture, {0, 0, (float)backgroundTexture.width, (float)backgroundTexture.height}, {0, 0, 1280, 800}, {0, 0}, 0.0f, WHITE);
         if (SETTINGS.isMusicEnabled())
-        UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
+            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));       
         if (currentState) {
             currentState->draw();
             currentState->handleInput();
