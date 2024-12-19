@@ -13,6 +13,7 @@ public:
 		walkAnimation = nullptr;
 		jumpAnimation = nullptr;
 	}
+
 	GoomBa(GoomBaType type = BROWN_GoomBa, Vector2 position = {0.f, 0.f}) : Enemy(position) {
 		this->type = type;
 		setXVelocity(orientation == RIGHT ? SPEED : -SPEED);
@@ -44,7 +45,29 @@ public:
 	}
 
 	void update(float deltaTime) override {
+		if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
 
+		if (isJumping()) {
+			setYPosition(getPosition().y + velocity.y * deltaTime);
+		}
+
+		currentAnimation->update(deltaTime);
+	}
+
+	void stomped() override {
+		if (type == BROWN_GoomBa || type == RED_GoomBa) {
+			destroySprite();
+		}
+		else if (type == REDPARA_GoomBa) {
+			walkAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
+			free(jumpAnimation);
+			jumpAnimation = nullptr;
+		}
+		else if (type == BROWNPARA_GoomBa) {
+			walkAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
+			free(jumpAnimation);
+			jumpAnimation = nullptr;
+		}
 	}
 
 private:

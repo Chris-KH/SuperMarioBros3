@@ -71,8 +71,6 @@ public:
 
     virtual void setState();
     virtual void reset();
-    
-    void setAnimation(Animation* animation);
 
     virtual STATE getState() const;
     bool isDead() const;

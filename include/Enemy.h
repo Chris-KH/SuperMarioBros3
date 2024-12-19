@@ -33,6 +33,7 @@ public:
 
     virtual Rectangle getBoundary() const;
 
-    void stomped();
-    void attacked();
+    virtual void stomped();
+    virtual void attacked();
+    virtual void kicked(Orientation direction) {};
 };

@@ -6,7 +6,9 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     acceleration({ 0, 0 }),
     isDead(false),
     jumping(false),
-    gravityAvailable(true)
+    gravityAvailable(true),
+    collisionAvailable(true),
+    orientation(RIGHT)
 {}
 
 Sprite::Sprite(const Sprite& other)
@@ -15,7 +17,9 @@ Sprite::Sprite(const Sprite& other)
     acceleration(other.acceleration),
     isDead(other.isDead),
     jumping(other.jumping),
-    gravityAvailable(other.gravityAvailable)
+    gravityAvailable(other.gravityAvailable),
+    collisionAvailable(other.collisionAvailable),
+    orientation(other.orientation)
 {}
 
 

@@ -11,7 +11,7 @@ private:
     Color color;      // RGBA color of the entity
 protected:
     Animation* currentAnimation; 
-
+    float playTime;
 public:
     Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
     Entity(const Entity& other);
@@ -47,7 +47,7 @@ public:
     // Pure virtual draw function
     virtual void draw(float deltaTime = GetFrameTime()) = 0;
     virtual void update(float deltaTime) = 0;
-    virtual void setAnimation(Animation* animation);
-    virtual void setAnimation(const string& name);
-     
+    virtual void setAnimation(Animation* animation, float time = 0.f);
+    virtual void setAnimation(const string& name, float time = 0.f);
+    virtual void updateTime(float deltaTime = GetFrameTime());
 };

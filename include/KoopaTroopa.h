@@ -55,7 +55,26 @@ public:
 	}
 
 	void update(float deltaTime) override {
+		
+		if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
 
+		if (isJumping()) {
+			setYPosition(getPosition().y + velocity.y * deltaTime);
+		}
+
+		currentAnimation->update(deltaTime);
+	}
+
+	void stomped() override {
+		if (type == GREEN_KoopaTroopa || type == RED_KoopaTroopa) {
+			destroySprite();
+		}
+		else if (type == GREEN_KoopaParaTroopa) {
+
+		}
+		else if (type == RED_KoopaParaTroopa) {
+
+		}
 	}
 
 private:
