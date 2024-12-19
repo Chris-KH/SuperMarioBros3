@@ -36,7 +36,7 @@ enum Edge {
 };
 
 enum EntityType {
-	CHACRACTER,
+	CHARACTER,
 	ENEMY,
 	ITEM,
 	FIREBALL,

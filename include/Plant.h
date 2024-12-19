@@ -1,6 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
+class Fireball;
+
 class Plant : public Enemy {
 public:
 	const float SPEED = 10.f;

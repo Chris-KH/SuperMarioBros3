@@ -1,5 +1,6 @@
 #include "../include/Plant.h"
 #include "../include/Character.h"
+#include "../include/Fireball.h"
 
 Plant::~Plant() {
 	free(piranha);
