@@ -9,61 +9,83 @@
 class MapHelper {
 public:
 
-    static std::vector<Entity*> loadFromTextFile(const std::string& filename) {
-        std::vector<Entity*> entities;
-        std::ifstream file(filename);
-
-        if (!file.is_open()) {
-            throw std::runtime_error("Failed to open file: " + filename);
-        }
-
+    static bool loadFromTextFile(std::ifstream& file, std::vector<Entity*>& blocks, std::vector<Entity*>& enemies, std::vector<Entity*>& items)
+    {
         std::string line;
+        std::string currentSection;
+
         while (std::getline(file, line)) {
-            std::istringstream stream(line);
-            std::string blockTypeStr;
-            float x, y, width, height, boundRight, boundBottom, velocityX, velocityY;
-
-            // Read the block type first
-            if (!(stream >> blockTypeStr)) {
-                throw std::runtime_error("Malformed line in file: " + line);
+            if (line.empty()) {
+                continue;
             }
-            BlockType blockType = stringToBlockType(blockTypeStr);
 
-            if (blockType == MOVINGBLOCK) {
-                if (!(stream >> x >> y >> width >> height >> boundRight >> boundBottom >> velocityX >> velocityY)) {
-                    throw std::runtime_error("Malformed line for moving block: " + line);
+            // Check for section marker
+            if (line == "block" || line == "enemy" || line == "item") {
+                currentSection = line;
+                continue;
+            }
+
+            if (currentSection == "block") {
+                std::istringstream stream(line);
+                std::string blockTypeStr;
+                float x, y, width, height, boundRight, boundBottom, velocityX, velocityY;
+
+                // Read the block type first
+                if (!(stream >> blockTypeStr)) {
+                    throw std::runtime_error("Malformed line in file: " + line);
                 }
-                MovingBlock* block = dynamic_cast<MovingBlock*>(
-                    BlockFactory::getInstance().createBlock(
-                        blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType)));
 
-                if (!block) {
-                    throw std::runtime_error("Failed to create moving block: " + blockTypeStr);
+                BlockType blockType = stringToBlockType(blockTypeStr);
+
+                if (blockType == MOVINGBLOCK) {
+                    if (!(stream >> x >> y >> width >> height >> boundRight >> boundBottom >> velocityX >> velocityY)) {
+                        throw std::runtime_error("Malformed line for moving block: " + line);
+                    }
+
+                    MovingBlock* block = dynamic_cast<MovingBlock*>(
+                        BlockFactory::getInstance().createBlock(
+                            blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType)));
+
+                    if (!block) {
+                        throw std::runtime_error("Failed to create moving block: " + blockTypeStr);
+                    }
+
+                    block->setBounds(x, boundRight, y, boundBottom);
+                    block->setVelocity({ velocityX, velocityY });
+
+                    blocks.push_back(static_cast<Entity*>(block));
                 }
+                else {
+                    if (!(stream >> x >> y >> width >> height)) {
+                        throw std::runtime_error("Malformed line for static block: " + line);
+                    }
 
-                block->setBounds( x, boundRight,y, boundBottom );
-                block->setVelocity({ velocityX, velocityY });
+                    BaseBlock* block = BlockFactory::getInstance().createBlock(
+                        blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
 
-                entities.push_back(static_cast<Entity*>(block));
+                    if (!block) {
+                        throw std::runtime_error("Failed to create static block: " + blockTypeStr);
+                    }
+
+                    blocks.push_back(static_cast<Entity*>(block));
+                }
+            }
+            else if (currentSection == "enemy") {
+                // Placeholder for enemy loading logic
+                // Example: Parse enemy data and add to the enemies vector
+            }
+            else if (currentSection == "item") {
+                // Placeholder for item loading logic
+                // Example: Parse item data and add to the items vector
             }
             else {
-                if (!(stream >> x >> y >> width >> height)) {
-                    throw std::runtime_error("Malformed line for static block: " + line);
-                }
-
-                BaseBlock* block = BlockFactory::getInstance().createBlock(
-                    blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
-
-                if (!block) {
-                    throw std::runtime_error("Failed to create static block: " + blockTypeStr);
-                }
-
-                entities.push_back(static_cast<Entity*>(block));
+                throw std::runtime_error("Unknown section: " + currentSection);
             }
         }
 
-        return entities;
+        return true;
     }
+
 
 
 
@@ -147,11 +169,11 @@ class Map {
 public:
     Map() : background({ 0 }) {}
     ~Map() {
- /*       if (background.id > 0) {
+       if (background.id > 0) {
             UnloadTexture(background);
             background.id = 0;
-        }*/
-        clearBlocks();
+        }
+        clearThings();
 
     }
 
@@ -160,8 +182,16 @@ public:
     }
 
     void loadFromFile(const std::string& filename) {
-        clearBlocks();
-        blockArray = MapHelper::loadFromTextFile(filename);
+        clearThings();
+        std::ifstream file(filename);
+
+        if (!file.is_open()) {
+            throw std::runtime_error("Failed to open file: " + filename);
+        }
+
+        MapHelper::loadFromTextFile(file,blockArray,enemies,items);
+
+        file.close();
     }
 
     void saveToFile(const std::string& filename) const {
@@ -206,12 +236,23 @@ public:
         }
     }
 private:
-    std::vector<Entity*> blockArray;
+    vector<Entity*> blockArray;
+    vector<Entity*> enemies;
+    vector<Entity*> items;
     Texture2D background;
-    void clearBlocks() {
+    void clearThings() {
         for (Entity* entity : blockArray) {
             delete entity;
         }
+        for (Entity* entity : enemies)
+        {
+            delete entity;
+        }
+        for (Entity* entity : items)
+        {
+            delete entity;
+        }
+
         blockArray.clear();
     }
 };

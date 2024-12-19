@@ -3,29 +3,25 @@
 #include <functional>
 #include "Block.h"
 
-// Factory class to create blocks dynamically
 class BlockFactory {
 public:
     using BlockCreator = std::function<BaseBlock* (Vector2, Vector2, Color)>;
 
-    // Singleton instance of BlockFactory
     static BlockFactory& getInstance() {
         static BlockFactory instance;
         return instance;
     }
 
-    // Register a block type with its creation function
     void registerBlock(BlockType type, BlockCreator creator) {
         creators[type] = creator;
     }
 
-    // Create a block instance based on BlockType
     BaseBlock* createBlock(BlockType type, Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE) {
         auto it = creators.find(type);
         if (it != creators.end()) {
             return it->second(pos, size, color);
         }
-        return nullptr; // Return nullptr if type is not registered
+        return nullptr; 
     }
 
 private:
