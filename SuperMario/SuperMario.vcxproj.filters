@@ -129,7 +129,7 @@
     <ClInclude Include="..\include\Item.h">
       <Filter>Header Files\Entity\Item</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\SuperLeaf.h">
+    <ClInclude Include="..\include\Flower.h">
       <Filter>Header Files\Entity\Item</Filter>
     </ClInclude>
     <ClInclude Include="..\include\FPSManager.h">
@@ -242,7 +242,7 @@
     <ClCompile Include="..\src\Mario.cpp">
       <Filter>Source Files\Entity\Character</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SuperLeaf.cpp">
+    <ClCompile Include="..\src\Flower.cpp">
       <Filter>Source Files\Entity\Item</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ResourceManager.cpp">

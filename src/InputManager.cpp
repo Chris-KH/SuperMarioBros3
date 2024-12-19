@@ -23,10 +23,10 @@ void InputManager::update() {
 
     for (auto& [key, state] : keyStates) {
         // Check if key is currently pressed
-        bool isPressed = IsKeyDown(key);
+        bool isPressed = IsKeyPressed(key);
 
         // If state has changed, notify listeners
-        if (isPressed != state || isPressed == true) {
+        if (isPressed != state) {
             for (auto listener : listeners) {
                 if (listener) {
                     listener->onKey(key, isPressed);

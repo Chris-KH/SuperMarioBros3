@@ -27,10 +27,10 @@ $mario_run_right
 207 50 16 16 0.01 2 0 12 16
 
 $mario_stop_right
-142 17 14 16 1 5 0 9 16
+142 17 14 16 1 2 0 12 16
 
 $mario_stop_left
-142 50 14 16 1 0 0 9 16
+142 50 14 16 1 0 0 12 16
 
 $mario_fly_left
 240 17 16 16 1 2 0 12 16
@@ -84,10 +84,10 @@ $supermario_fall_right
 702 39 16 26 1 0 0 14 27
 
 $supermario_stop_right
-834 5 16 28 1 4 0 12 27
+834 5 16 28 1 2 0 14 27
 
 $supermario_stop_left
-834 38 16 28 1 0 0 12 27
+834 38 16 28 1 0 0 14 27
 
 $supermario_sit_left
 735 15 14 18 1 0 2 13 16
@@ -156,10 +156,10 @@ $firemario_fall_right
 702 303 16 26 1 0 0 14 27
 
 $firemario_stop_right
-834 269 16 28 1 4 0 12 27
+834 269 16 28 1 2 0 14 27
 
 $firemario_stop_left
-834 302 16 28 1 0 0 12 27
+834 302 16 28 1 0 0 14 27
 
 $firemario_sit_left
 735 279 14 18 1 0 2 13 16

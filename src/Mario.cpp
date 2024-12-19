@@ -5,7 +5,7 @@
 #include"../include/StarmanState.h"
 
 Mario::Mario(Vector2 pos) : Character(pos) {
-	state = new FireState;
+	state = new SuperState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
@@ -25,18 +25,9 @@ void Mario::update(float deltaTime) {
 void Mario::onKey(KeyboardKey key, bool pressed) {
 	if (isDead()) return;
 
-	if (key == KEY_SPACE) {
-		if (pressed && !isJumping()) {
-			
-		}
+	if (key == KEY_R) {
+		
 	}
-	else if (key == KEY_S) {
-		if (pressed) {
-			sitting = true;
-		}
-		else sitting = false;
-	}
-
 }
 
 void Mario::reset() {

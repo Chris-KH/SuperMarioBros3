@@ -5,7 +5,7 @@
 #include"../include/StarmanState.h"
 
 Luigi::Luigi(Vector2 pos) : Character(pos) {
-	state = new FireState;
+	state = new SuperState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
@@ -25,16 +25,8 @@ void Luigi::update(float deltaTime) {
 void Luigi::onKey(KeyboardKey key, bool pressed) {
 	if (isDead()) return;
 
-	if (key == KEY_SPACE) {
-		if (pressed && !isJumping()) {
-			
-		}
-	}
-	else if (key == KEY_S) {
-		if (pressed) {
-			sitting = true;
-		}
-		else sitting = false;
+	if (key == KEY_R) {
+
 	}
 }
 

@@ -82,6 +82,7 @@ void Entity::setCenter(Vector2 center) {
 }
 
 void Entity::setAnimation(Animation* animation) {
+    if (currentAnimation == animation) return;
     float diffHeight = 0.f;
     if (currentAnimation != nullptr && currentAnimation != animation) {
         diffHeight = currentAnimation->getSize().y - animation->getSize().y;

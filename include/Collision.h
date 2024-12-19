@@ -100,12 +100,16 @@ public:
                 playerRect.height
             };
 
-            if (CheckCollisionRecs(horizontalRect, blockRect)) 
+            if (CheckCollisionRecs(horizontalRect, blockRect))
             {
-                if (velocity.x > 0)
-                    player->setPosition(Vector2(blockRect.x - playerRect.width, playerRect.y));
-                else if (velocity.x < 0) 
-                    player->setPosition(Vector2(blockRect.x + blockRect.width, playerRect.y));
+                if (velocity.x > 0) {
+                    player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
+                    cout << "aaaaaa\n";
+                }
+                else if (velocity.x < 0) {
+                    player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
+                    cout << "BBBBBB\n";
+                }
                 player->setXVelocity(0.f); 
             }
         }
@@ -120,12 +124,12 @@ public:
 
             if (CheckCollisionRecs(verticalRect, blockRect)) {
                 if (velocity.y > 0) {
-                    player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y - playerRect.height));
                     player->setYVelocity(0.f);
                     return true;
                 }
                 else if (velocity.y < 0) { 
-                    player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
                     player->setYVelocity(0.f);
                 }
             }

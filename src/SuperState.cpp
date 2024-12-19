@@ -72,6 +72,8 @@ void SuperState::update(Character* character, float deltaTime) {
     }
 
     //Logic update
+    character->setSitting(IsKeyDown(KEY_S));
+
     if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
         character->setSitting(false);
         if (character->velocity.x < 0) {
