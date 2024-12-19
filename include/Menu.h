@@ -25,16 +25,7 @@ public:
     int getSelectedMap() const;
 
     void returnToMainMenu();
-    void setBackground(const std::string& imagePath) {
-        if (backgroundTexture.id != 0) {
-            UnloadTexture(backgroundTexture);
-        }
-
-        backgroundTexture = LoadTexture(imagePath.c_str());
-        if (backgroundTexture.id == 0) {
-            throw std::runtime_error("Failed to load background texture: " + imagePath);
-        }
-    }
+    void setBackground(const std::string& imagePath);
     Character* player;
     Map* map;
 
@@ -66,10 +57,11 @@ public:
     void draw() override;
     void handleInput() override;
 private:
-    Rectangle startButton{300, 200, 200, 40};
-    Rectangle settingsButton{300, 250, 200, 40};
-    Rectangle charSelectionButton{300, 300, 200, 40};
-    Rectangle mapSelectionButton{300, 350, 200, 40};
+    Rectangle startButton;
+    Rectangle continueButton;
+    Rectangle settingsButton;
+    Rectangle charSelectionButton;
+    Rectangle mapSelectionButton;
 };
 
 class SettingState : public MenuState {
@@ -78,9 +70,9 @@ public:
     void draw() override;
     void handleInput() override;
 private:
-    Rectangle audioButton{300, 300, 200, 40};
-    Rectangle musicButton{300, 350, 200, 40};
-    Rectangle backButton{300, 400, 200, 40};
+    Rectangle audioButton{ 155, 720, 300, 40 };
+    Rectangle musicButton{ 515, 720, 300, 40 };
+    Rectangle backButton{ 895, 720, 300, 40 };
 };
 
 class CharSelection : public MenuState {
@@ -89,9 +81,9 @@ public:
     void draw() override;
     void handleInput() override;
 private:
-    Rectangle marioButton{300, 200, 200, 40};
-    Rectangle luigiButton{300, 250, 200, 40};
-    Rectangle backButton{300, 300, 200, 40};
+    Rectangle marioButton = { 170, 720, 150, 40 };  
+    Rectangle luigiButton = { 540, 720, 150, 40 };
+    Rectangle backButton = { 910, 720, 300, 40 };
 };
 
 // MapState
@@ -101,8 +93,9 @@ public:
     void draw() override;
     void handleInput() override;
 private:
-    Rectangle map1Button{300, 200, 200, 40};
-    Rectangle map2Button{300, 250, 200, 40};
-    Rectangle map3Button{300, 300, 200, 40};
-    Rectangle backButton{300, 350, 200, 40};
+    Rectangle map1Button = { 170, 720, 150, 40 };
+    Rectangle map2Button = { 540, 720, 150, 40 }; 
+    Rectangle map3Button = { 910, 720, 150, 40 };
+    //Rectangle backButton = { 1040, 720, 150, 40 }; 
+
 };
