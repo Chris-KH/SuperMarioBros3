@@ -175,38 +175,36 @@ void MainMenuState::draw() {
     //startButton = { 440, buttonStartY, 400, 50 };
     DrawRectangleRec(startButton, ORANGE);
     DrawText("New Game",
-        startButton.x + (startButton.width - MeasureText("New Game", 30)) / 2,
-        startButton.y + (startButton.height - 30) / 2,
+        static_cast<int>(startButton.x) + static_cast<int>((startButton.width - MeasureText("New Game", 30)) / 2),
+        static_cast<int>(startButton.y + (startButton.height - 30) / 2),
         30, CheckCollisionPointRec(GetMousePosition(), startButton) ? LIGHTGRAY : BLACK);
 
     DrawRectangleRec(continueButton, ORANGE);
     DrawText("Continue",
-        continueButton.x + (continueButton.width - MeasureText("Continue", 30)) / 2,
-        continueButton.y + (continueButton.height - 30) / 2,
+        static_cast<int>(continueButton.x) + static_cast<int>((continueButton.width - MeasureText("Continue", 30)) / 2),
+        static_cast<int>(continueButton.y + (continueButton.height - 30) / 2),
         30, CheckCollisionPointRec(GetMousePosition(), continueButton) ? LIGHTGRAY : BLACK);
 
     // Settings Button
     //settingsButton = { 440, buttonStartY + buttonSpacing, 400, 50 };
     DrawRectangleRec(settingsButton, ORANGE);
     DrawText("Settings",
-        settingsButton.x + (settingsButton.width - MeasureText("Settings", 30)) / 2,
-        settingsButton.y + (settingsButton.height - 30) / 2,
+        static_cast<int>(settingsButton.x) + static_cast<int>((settingsButton.width - MeasureText("Settings", 30)) / 2),
+        static_cast<int>(settingsButton.y + (settingsButton.height - 30) / 2),
         30, CheckCollisionPointRec(GetMousePosition(), settingsButton) ? LIGHTGRAY : BLACK);
 
-    // Character Selection Button
-    //charSelectionButton = { 440, buttonStartY + buttonSpacing * 2, 400, 50 };
+ 
     DrawRectangleRec(charSelectionButton, ORANGE);
     DrawText("Character",
-        charSelectionButton.x + (charSelectionButton.width - MeasureText("Character", 30)) / 2,
-        charSelectionButton.y + (charSelectionButton.height - 30) / 2,
+        static_cast<int>(charSelectionButton.x) + static_cast<int>((charSelectionButton.width - MeasureText("Charcter", 30)) / 2),
+        static_cast<int>(charSelectionButton.y + (charSelectionButton.height - 30) / 2),
         30, CheckCollisionPointRec(GetMousePosition(), charSelectionButton) ? LIGHTGRAY : BLACK);
 
-    // Map Selection Button
-    //mapSelectionButton = { 440, buttonStartY + buttonSpacing * 3, 400, 50 };
+
     DrawRectangleRec(mapSelectionButton, ORANGE);
     DrawText("Level",
-        mapSelectionButton.x + (mapSelectionButton.width - MeasureText("Level", 30)) / 2,
-        mapSelectionButton.y + (mapSelectionButton.height - 30) / 2,
+        static_cast<int>(mapSelectionButton.x) + static_cast<int>((mapSelectionButton.width - MeasureText("Level", 30)) / 2),
+        static_cast<int>(mapSelectionButton.y + (mapSelectionButton.height - 30) / 2),
         30, CheckCollisionPointRec(GetMousePosition(), mapSelectionButton) ? LIGHTGRAY : BLACK);
 }
 
@@ -251,24 +249,24 @@ void SettingState::draw() {
 
     DrawRectangleRec(audioButton, ORANGE);
     DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"),
-        audioButton.x + (audioButton.width - MeasureText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 30)) / 2,
-        audioButton.y + (audioButton.height - 30) / 2,
+        static_cast<int>(audioButton.x + (audioButton.width - MeasureText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 30)) / 2),
+        static_cast<int>(audioButton.y + (audioButton.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
 
     // Music Button
     DrawRectangleRec(musicButton, ORANGE);
     DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"),
-        musicButton.x + (musicButton.width - MeasureText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 30)) / 2,
-        musicButton.y + (musicButton.height - 30) / 2,
+        static_cast<int>(musicButton.x + (musicButton.width - MeasureText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 30)) / 2),
+            static_cast<int>(musicButton.y + (musicButton.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
 
     // Back Button
     DrawRectangleRec(backButton, ORANGE);
     DrawText("Return to Main Menu",
-        backButton.x + (backButton.width - MeasureText("Return to Main Menu", 20)) / 2,
-        backButton.y + (backButton.height - 20) / 2,
+        static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 20)) / 2),
+            static_cast<int>(backButton.y + (backButton.height - 20) / 2),
         20,
         CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 }
@@ -299,24 +297,24 @@ void CharSelection::draw() {
     // Mario Button
     DrawRectangleRec(marioButton, ORANGE);
     DrawText("Mario",
-        marioButton.x + (marioButton.width - MeasureText("Mario", 30)) / 2,
-        marioButton.y + (marioButton.height - 30) / 2,
+        static_cast<int>(marioButton.x + (marioButton.width - MeasureText("Mario", 30)) / 2),
+            static_cast<int>(marioButton.y + (marioButton.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), marioButton) ? LIGHTGRAY : BLACK);
 
     // Luigi Button
     DrawRectangleRec(luigiButton, ORANGE);
     DrawText("Luigi",
-        luigiButton.x + (luigiButton.width - MeasureText("Luigi", 30)) / 2,
-        luigiButton.y + (luigiButton.height - 30) / 2,
+        static_cast<int>(luigiButton.x + (luigiButton.width - MeasureText("Luigi", 30)) / 2),
+        static_cast<int>(luigiButton.y + (luigiButton.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), luigiButton) ? LIGHTGRAY : BLACK);
 
     // Back Button
     DrawRectangleRec(backButton, ORANGE);
     DrawText("Return to Main Menu",
-        backButton.x + (backButton.width - MeasureText("Return to Main Menu", 20)) / 2,
-        backButton.y + (backButton.height - 20) / 2,
+        static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 20)) / 2),
+        static_cast<int>(backButton.y + (backButton.height - 20) / 2),
         20,
         CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 }
@@ -364,24 +362,24 @@ void MapSelection::draw() {
     // Map1 Button
     DrawRectangleRec(map1Button, ORANGE);
     DrawText("Map1",
-        map1Button.x + (map1Button.width - MeasureText("Map1", 30)) / 2,
-        map1Button.y + (map1Button.height - 30) / 2,
+        static_cast<int>(map1Button.x + (map1Button.width - MeasureText("Map1", 30)) / 2),
+            static_cast<int>(map1Button.y + (map1Button.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), map1Button) ? LIGHTGRAY : BLACK);
 
     // Map2 Button
     DrawRectangleRec(map2Button, ORANGE);
     DrawText("Map2",
-        map2Button.x + (map2Button.width - MeasureText("Map2", 30)) / 2,
-        map2Button.y + (map2Button.height - 30) / 2,
+        static_cast<int>(map2Button.x + (map2Button.width - MeasureText("Map2", 30)) / 2),
+        static_cast<int>(map2Button.y + (map2Button.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), map2Button) ? LIGHTGRAY : BLACK);
 
     // Map3 Button
     DrawRectangleRec(map3Button, ORANGE);
     DrawText("Map3",
-        map3Button.x + (map3Button.width - MeasureText("Map3", 30)) / 2,
-        map3Button.y + (map3Button.height - 30) / 2,
+        static_cast<int>(map3Button.x + (map3Button.width - MeasureText("Map3", 30)) / 2),
+        static_cast<int>(map3Button.y + (map3Button.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), map3Button) ? LIGHTGRAY : BLACK);
 
