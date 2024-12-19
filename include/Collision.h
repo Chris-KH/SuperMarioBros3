@@ -104,11 +104,9 @@ public:
             {
                 if (velocity.x > 0) {
                     player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
-                    cout << "aaaaaa\n";
                 }
                 else if (velocity.x < 0) {
                     player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
-                    cout << "BBBBBB\n";
                 }
                 player->setXVelocity(0.f); 
             }
