@@ -98,11 +98,11 @@ public:
 				//break;
 			}
 		}
-		for (Entity* things : testEntities)
+		for (Entity* enemy : enemies)
 		{
-			if (IColl.resolve(*player, *things))
+			for (Entity* block : blocks)
 			{
-				isGrounded = true;
+				IColl.resolve(*enemy, *block);
 			}
 		}
 		player->setJumping(!isGrounded);

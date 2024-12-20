@@ -224,38 +224,102 @@ public:
 
 
 
-
-class EnemyBlockStrat : public CollisionStrategy {
+class EnemyFloorStrat : public CollisionStrategy
+{
 public:
-    bool resolve(Entity& enemy, Entity& block) override {
-        Rectangle enemyRect = enemy.getRectangle();
-        Rectangle blockRect = block.getRectangle();
+    bool resolve(Entity& entityA, Entity& entityB) override {
+        Enemy* enemy = dynamic_cast<Enemy*>(&entityA);
+        Floor* floor = dynamic_cast<Floor*>(&entityB);
 
-        if (CheckCollisionRecs(enemyRect, blockRect)) {
-            float overlapX = 0;
-            float overlapY = 0;
-            bool isLeft = false;
-            bool isUp = false;
+        if (!enemy || !floor)
+            return false;
+        float deltaTime = GetFrameTime();
+        Rectangle enemyRect = enemy->getRectangle();
+        Rectangle floorRect = floor->getRectangle();
+        if (enemy->getVelocity().y > 0.f) {
+            Vector2 prevPosition = enemy->getPosition();
+            Vector2 nextPosition = {
+                prevPosition.x,
+                prevPosition.y + enemy->getVelocity().y * deltaTime
+            };
 
-            if (enemyRect.x < blockRect.x) {
-                overlapX = (enemyRect.x + enemyRect.width) - blockRect.x;
-                isLeft = true;
+            Rectangle sweptRect = {
+                prevPosition.x,
+                nextPosition.y,
+                enemyRect.width,
+                enemyRect.height
+            };
+
+            if (CheckCollisionRecs(sweptRect, floorRect)){ //&& enemy->getBottom() <= floorRect.y) {
+                enemy->setPosition(Vector2(enemyRect.x, floorRect.y - enemyRect.height));
+                enemy->setYVelocity(0.f);
+                return true;
             }
-            else
-                overlapX = (blockRect.x + blockRect.width) - enemyRect.x;
-            if (enemyRect.y < blockRect.y) {
-                overlapY = (enemyRect.y + enemyRect.height) - blockRect.y;
-                isUp = true;
-            }
-            else 
-                overlapY = (blockRect.y + blockRect.height) - enemyRect.y;
-            if (std::abs(overlapX) < std::abs(overlapY)) 
-                enemy.setPosition(Vector2(enemyRect.x + ((isLeft) ? -std::abs(overlapX) : std::abs(overlapX)), enemyRect.y));
-            else 
-                enemy.setPosition(Vector2(enemyRect.x, enemyRect.y + ((isUp) ? -std::abs(overlapY) : std::abs(overlapY))));
         }
+
         return false;
 
+    }
+};
+class EnemyBlockStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity& entityA, Entity& entityB) override {
+        Enemy* enemy = dynamic_cast<Enemy*>(&entityA);
+        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+
+        if (!enemy || !block)
+            return false;
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = enemy->getVelocity();
+        Rectangle enemyRect = enemy->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                enemyRect.x + velocity.x * deltaTime,
+                enemyRect.y,
+                enemyRect.width,
+                enemyRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect))
+            {
+                if (velocity.x > 0) {
+                    enemy->setPosition(Vector2(blockRect.x - enemyRect.width, enemy->getPosition().y));
+                    enemy->setOrientation(LEFT);
+                }
+                else if (velocity.x < 0) {
+                    enemy->setPosition(Vector2(blockRect.x + blockRect.width, enemy->getPosition().y));
+                    enemy->setOrientation(RIGHT);
+                }
+                enemy->setXVelocity(0.f);
+            }
+        }
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                enemyRect.x,
+                enemyRect.y + velocity.y * deltaTime,
+                enemyRect.width,
+                enemyRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    enemy->setPosition(Vector2(enemy->getPosition().x, blockRect.y - enemyRect.height));
+                    enemy->setYVelocity(0.f);
+                    return true;
+                }
+                else if (velocity.y < 0) {
+                    enemy->setPosition(Vector2(enemy->getPosition().x, blockRect.y + blockRect.height));
+                    enemy->setYVelocity(0.f);
+                }
+            }
+        }
+
+        return false;
     }
 };
 
@@ -272,8 +336,11 @@ public:
         }
         if (typeA == ENEMY && typeB == BLOCK)
         {
+            if (block && block->getBlockType() == FLOOR)
+                return make_unique<EnemyFloorStrat>();
             if (block && block->getBlockType() == SOLIDBLOCK)
                 return make_unique<EnemyBlockStrat>();
+            return  make_unique<EnemyBlockStrat>();
         }
         if (typeA == CHARACTER && typeB == ENEMY)
         {
