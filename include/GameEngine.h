@@ -12,7 +12,6 @@ public:
 	float cameraWidth;
 	float cameraHeight;
 	float scale; // Scaling factor
-
 	RenderTexture2D renderTexture;
 
 	GameCamera(float width, float height, float initialScale = 1.0f);
@@ -39,6 +38,7 @@ private:
 	vector<Entity*> testEntities;
 	int score;
 	GameCamera camera;
+	bool isPaused;
 
 public:
 
@@ -53,6 +53,7 @@ public:
 		enemies = map.getEnemies();
 		decor = map.getDecor();
 		score = 0;
+		isPaused = false;
 	};
 	~GameEngine()
 	{
@@ -68,6 +69,13 @@ public:
 	}
 
 	void update() {
+		if (IsKeyPressed(KEY_ENTER)) {
+			isPaused = !isPaused;
+		}
+		if (isPaused)
+		{
+			return;
+		}
 		float deltaTime = GetFrameTime();
 		//inputManager.update();
 		player->update(deltaTime);
@@ -96,16 +104,7 @@ public:
 		//I think we have to update all entities before resolving collision
 		//because the collision resolution may depend on the updated position of the entities
 		handleCollision();
-
-		//int currentChunk = (int)(characterX / chunkSize); // get current chunk
-		//updateChunks(currentChunk);
-		//for (int i = 0; i < chunks.size(); ++i)
-		//{
-		//	chunks[i].update();
-		//}
-		//camera.update(characterX, 0);
 		camera.update(player->getX(), player->getY());
-		//cout << deltaTime << endl;
 	}
 	void handleCollision()
 	{
@@ -130,21 +129,6 @@ public:
 		}
 		player->setJumping(!isGrounded);
 	}
-	//void updateChunks(int characterChunk) {
-	//	// Load and keep chunks within range
-	//	for (int i = characterChunk - 1; i <= characterChunk + 1; ++i) {
-	//		if (i >= 0 && i < chunks.size() && !chunks[i].isLoaded) {
-	//			chunks[i].load();
-	//		}
-	//	}
-
-	//	// Unload chunks outside the range
-	//	for (int i = 0; i < chunks.size(); ++i) {
-	//		if (chunks[i].isLoaded && (i < characterChunk - 1 || i > characterChunk + 1)) {
-	//			chunks[i].unload();
-	//		}
-	//	}
-	//}
 
 	void render() {
 		camera.beginDrawing();
@@ -154,11 +138,13 @@ public:
 			i->draw();
 			//DrawRectangleRec(i->getRectangle(), ORANGE);
 		}
-		for (Entity* i : enemies)
+		if (!isPaused)
 		{
-			i->draw();		
-			//DrawRectangleRec(i->getRectangle(), ORANGE);
-		}
+			for (Entity* i : enemies)
+			{
+				i->draw();
+				//DrawRectangleRec(i->getRectangle(), ORANGE);
+			}
 		for (Entity* i : fireball) {
 			i->draw();
 
@@ -168,6 +154,7 @@ public:
 			i->draw();
 		}
 		player->draw();
+		}
 		//DrawRectangleRec(player->getRectangle(), ORANGE);
 		for (Entity* i : decor)
 			i->draw();
@@ -183,6 +170,11 @@ public:
 		sprintf_s(buffer, "%d", score);
 		DrawText("Score: ", 10, 10, 40, BLACK);
 		DrawText(buffer, 180, 10, 40, BLACK);
+		if (isPaused) {
+			DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
+			DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
+		}
+
 		/////////
 		EndDrawing();
 	}
@@ -194,8 +186,10 @@ public:
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
 				if(SETTINGS.isMusicEnabled())
-					UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));				
-				update();
+					UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+
+					update();
+				
 				render();
 
 				//cout << GetFrameTime() << endl;
