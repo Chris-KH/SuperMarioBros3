@@ -36,7 +36,6 @@ private:
 	vector<Entity*> effects;
 	vector<Entity*> decor;
 	vector<Entity*> testEntities;
-	int score;
 	GameCamera camera;
 	bool isPaused;
 
@@ -52,7 +51,6 @@ public:
 		blocks = map.getBlocks();
 		enemies = map.getEnemies();
 		decor = map.getDecor();
-		score = 0;
 		isPaused = false;
 	};
 	~GameEngine()
