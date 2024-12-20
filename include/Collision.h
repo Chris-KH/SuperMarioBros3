@@ -250,9 +250,10 @@ public:
                 enemyRect.height
             };
 
-            if (CheckCollisionRecs(sweptRect, floorRect)){ //&& enemy->getBottom() <= floorRect.y) {
+            if (CheckCollisionRecs(sweptRect, floorRect) && enemy->getBottom() <= floorRect.y){ //&& enemy->getBottom() <= floorRect.y) {
                 enemy->setPosition(Vector2(enemyRect.x, floorRect.y - enemyRect.height));
                 enemy->setYVelocity(0.f);
+                enemy->setJumping(false);
                 return true;
             }
         }
@@ -310,6 +311,7 @@ public:
                 if (velocity.y > 0) {
                     enemy->setPosition(Vector2(enemy->getPosition().x, blockRect.y - enemyRect.height));
                     enemy->setYVelocity(0.f);
+					enemy->setJumping(false);
                     return true;
                 }
                 else if (velocity.y < 0) {

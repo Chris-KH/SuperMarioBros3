@@ -65,7 +65,6 @@ public:
 		float deltaTime = GetFrameTime();
 		//inputManager.update();
 		player->update(deltaTime);
-		handleCollision();
 		for (Entity* i : (blocks))
 		{
 			i->update(deltaTime);
@@ -74,6 +73,11 @@ public:
 		{
 			i->update(deltaTime);
 		}
+
+		//I think we have to update all entities before resolving collision
+		//because the collision resolution may depend on the updated position of the entities
+		handleCollision();
+
 		//int currentChunk = (int)(characterX / chunkSize); // get current chunk
 		//updateChunks(currentChunk);
 		//for (int i = 0; i < chunks.size(); ++i)
