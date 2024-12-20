@@ -12,6 +12,8 @@ void NormalState::setState(Character* character) {
         character->stopLeft = RESOURCE_MANAGER.getAnimation("mario_stop_left");
         character->jumpLeft = RESOURCE_MANAGER.getAnimation("mario_jump_left");
         character->flyLeft = RESOURCE_MANAGER.getAnimation("mario_fly_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("mario_hold_left");
+		character->kickLeft = RESOURCE_MANAGER.getAnimation("mario_kick_left");
 
         character->idleRight = RESOURCE_MANAGER.getAnimation("mario_idle_right");
         character->walkRight = RESOURCE_MANAGER.getAnimation("mario_walk_right");
@@ -19,6 +21,8 @@ void NormalState::setState(Character* character) {
         character->stopRight = RESOURCE_MANAGER.getAnimation("mario_stop_right");
         character->jumpRight = RESOURCE_MANAGER.getAnimation("mario_jump_right");
         character->flyRight = RESOURCE_MANAGER.getAnimation("mario_fly_right");
+		character->holdRight = RESOURCE_MANAGER.getAnimation("mario_hold_right");
+		character->kickRight = RESOURCE_MANAGER.getAnimation("mario_kick_right");
     }
     else if (character->getCharacterType() == LUIGI) {
         character->idleLeft = RESOURCE_MANAGER.getAnimation("luigi_idle_left");
@@ -27,6 +31,8 @@ void NormalState::setState(Character* character) {
         character->stopLeft = RESOURCE_MANAGER.getAnimation("luigi_stop_left");
         character->jumpLeft = RESOURCE_MANAGER.getAnimation("luigi_jump_left");
         character->flyLeft = RESOURCE_MANAGER.getAnimation("luigi_fly_left");
+		character->holdLeft = RESOURCE_MANAGER.getAnimation("luigi_hold_left");
+		character->kickLeft = RESOURCE_MANAGER.getAnimation("luigi_kick_left");
 
         character->idleRight = RESOURCE_MANAGER.getAnimation("luigi_idle_right");
         character->walkRight = RESOURCE_MANAGER.getAnimation("luigi_walk_right");
@@ -34,12 +40,16 @@ void NormalState::setState(Character* character) {
         character->stopRight = RESOURCE_MANAGER.getAnimation("luigi_stop_right");
         character->jumpRight = RESOURCE_MANAGER.getAnimation("luigi_jump_right");
         character->flyRight = RESOURCE_MANAGER.getAnimation("luigi_fly_right");
+		character->holdRight = RESOURCE_MANAGER.getAnimation("luigi_hold_right");
+		character->kickRight = RESOURCE_MANAGER.getAnimation("luigi_kick_right");
     }
 
     character->fallLeft = nullptr;
-    character->sitLeft = nullptr;
     character->fallRight = nullptr;
+    character->sitLeft = nullptr;
     character->sitRight = nullptr;
+	character->throwLeft = nullptr;
+	character->throwRight = nullptr;
 }
 
 void NormalState::update(Character* character, float deltaTime) {
@@ -157,7 +167,7 @@ void NormalState::update(Character* character, float deltaTime) {
         else {
             character->setJumpAnimation();
             if (character->velocity.y < 0) {
-                if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(0.f);
+                if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(character->getVelocity().y * 0.5f);
             }
         }
     }

@@ -13,7 +13,7 @@ protected:
     bool gravityAvailable;
     bool collisionAvailable;
 
-    const float GRAVITY = 600.f;
+    const float GRAVITY = 0.f;
 public:
     Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
     Sprite(const Sprite& other);

@@ -1,14 +1,13 @@
 ﻿#pragma once
-#include"../include/Singleton.h"
-#include"../include/ResourceManager.h"
-#include"../include/FPSManager.h"
-#include"../include/InputManager.h"
-#include"../include/Settings.h"
+#include"Singleton.h"
+#include"ResourceManager.h"
+#include"FPSManager.h"
+#include"InputManager.h"
+#include"Settings.h"
 #include<random>
 #include<vector>
 #include<map>
 #include<unordered_map>
-
 
 extern const int GAME_FPS;
 

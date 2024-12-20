@@ -12,8 +12,8 @@ public:
 		ENTER_PHASE
 	};
 	const float SPEED = 25.f;
-	const float WAIT_TIME = 0.f;
-	const float ATTACK_TIME = 0.f;
+	const float WAIT_TIME = 2.f;
+	const float ATTACK_TIME = 1.f;
 
 	~Plant();
 

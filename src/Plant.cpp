@@ -61,7 +61,7 @@ void Plant::update(float deltaTime) {
 		orientation = UP;
 		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) {
 			setAnimation(firePiranhaAttack);
-			//Create a Fireball
+			//Create fireball
 		}
 		setYVelocity(0.f);
 		setYPosition(getBoundary().x);
@@ -111,7 +111,7 @@ void Plant::draw(float deltaTime) {
 }
 
 Vector2 Plant::getCentral() {
-	float halfWidth = getSize().x;
+	float halfWidth = getWidth() / 2;
 	return Vector2(getPosition().x + halfWidth, getPosition().y + halfWidth);
 }
 

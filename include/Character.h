@@ -27,6 +27,9 @@ protected:
     Animation* fallLeft;
     Animation* flyLeft;
     Animation* sitLeft;
+    Animation* holdLeft;
+	Animation* throwLeft;
+	Animation* kickLeft;
 
     Animation* idleRight;
     Animation* walkRight;
@@ -36,6 +39,9 @@ protected:
     Animation* fallRight;
     Animation* flyRight;
     Animation* sitRight;
+	Animation* holdRight;
+	Animation* throwRight; 
+	Animation* kickRight;
 
     CharacterState* state;
     InputManager& inputManager;
@@ -83,53 +89,16 @@ public:
     int getCoins() const;
     int getScores() const;
 
-    void setIdleAnimation() {
-        if (orientation == RIGHT) setAnimation(idleRight);
-        else if (orientation == LEFT) setAnimation(idleLeft);
-    }
-
-    void setWalkAnimation() {
-        if (orientation == RIGHT) setAnimation(walkRight);
-        else if (orientation == LEFT) setAnimation(walkLeft);
-    }
-
-    void setRunAnimation() {
-        if (orientation == RIGHT) setAnimation(runRight);
-        else if (orientation == LEFT) setAnimation(runLeft);
-    }
-
-    void setJumpAnimation() {
-        if (orientation == RIGHT) setAnimation(jumpRight);
-        else if (orientation == LEFT) setAnimation(jumpLeft);
-    }
-
-    void setStopAnimation() {
-        if (orientation == RIGHT) setAnimation(stopRight);
-        else if (orientation == LEFT) setAnimation(stopLeft);
-    }
-
-    void setFallAnimation() {
-        if (orientation == RIGHT) setAnimation(fallRight);
-        else if (orientation == LEFT) setAnimation(fallLeft);
-    }
-
-    void setSitAnimation() {
-        if (orientation == RIGHT) setAnimation(sitRight);
-        else if (orientation == LEFT) setAnimation(sitLeft);
-    }
-
-    void setFlyAnimation() {
-        if (orientation == RIGHT) setAnimation(flyRight);
-        else if (orientation == LEFT) setAnimation(flyLeft);
-    }
-
-    void setInvicible(bool invicible) {
-        this->invicible = invicible;
-    }
-
-    void setSitting(bool sitting) {
-        this->sitting = sitting;
-    }
+    void setIdleAnimation();
+    void setWalkAnimation();
+    void setRunAnimation();
+    void setJumpAnimation();
+    void setStopAnimation();
+    void setFallAnimation();
+    void setSitAnimation();
+    void setFlyAnimation();
+    void setInvicible(bool invicible);
+    void setSitting(bool sitting);
 };
 
 
