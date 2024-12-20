@@ -13,6 +13,8 @@ Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
 EntityType Enemy::getType() const { return EntityType::ENEMY; }
 
 void Enemy::draw(float deltaTime) {
+    if (isDead()) return;
+
     if (currentAnimation == nullptr) return;
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);

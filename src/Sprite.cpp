@@ -47,10 +47,13 @@ void Sprite::setYAcceleration(float ay) {
 }
 
 void Sprite::update(float deltaTime) {
+    if (isDead()) return;
 
 }
 
 void Sprite::draw(float deltaTime) {
+    if (isDead()) return;
+
     if (currentAnimation == nullptr) return;
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);

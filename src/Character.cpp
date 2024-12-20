@@ -9,8 +9,12 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     scores = 0;
     coins = 0;
     lives = 5;
-   
-    reset();
+    phase = DEFAULT_PHASE;
+    orientation = RIGHT;
+    jumping = false;
+    dead = false;
+    invicible = 0;
+    sitting = false;
 };
 
 Character::~Character() {
@@ -22,6 +26,10 @@ Character::~Character() {
 EntityType Character::getType() const { return EntityType::CHARACTER; }
 
 void Character::reset() {
+    scores = 0;
+    coins = 0;
+    lives = 5;
+    phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
     dead = false;
@@ -34,12 +42,22 @@ STATE Character::getState() const {
 }
 
 void Character::draw(float deltaTime) {
+	if (isDead()) return;
+
     if (currentAnimation == nullptr) return;
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
     updateTime(deltaTime);
     currentAnimation->update(deltaTime);
     currentAnimation->render(getPosition());
+}
+
+void Character::setPhase(Phase phase) {
+	this->phase = phase;
+}
+
+const Character::Phase& Character::getPhase() const {
+	return phase;
 }
 
 void Character::setState() {

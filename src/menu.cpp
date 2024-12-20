@@ -272,9 +272,9 @@ void SettingState::draw() {
     // Back Button
     DrawRectangleRec(backButton, ORANGE);
     DrawText("Return to Main Menu",
-        static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 20)) / 2),
-            static_cast<int>(backButton.y + (backButton.height - 20) / 2),
-        20,
+        static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 25)) / 2),
+            static_cast<int>(backButton.y + (backButton.height - 25) / 2),
+        25,
         CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 }
 
@@ -283,6 +283,7 @@ void SettingState::handleInput() {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, audioButton)) {
+            SETTINGS.setSound(!menu->isAudioEnabled());
             menu->configureSettings(!menu->isAudioEnabled(), menu->isMusicEnabled());
         } else if (CheckCollisionPointRec(mousePos, musicButton)) {
             SETTINGS.setMusic(!menu->isMusicEnabled());
@@ -320,9 +321,9 @@ void CharSelection::draw() {
     // Back Button
     DrawRectangleRec(backButton, ORANGE);
     DrawText("Return to Main Menu",
-        static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 20)) / 2),
-        static_cast<int>(backButton.y + (backButton.height - 20) / 2),
-        20,
+        static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 25)) / 2),
+        static_cast<int>(backButton.y + (backButton.height - 25) / 2),
+        25,
         CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 }
 

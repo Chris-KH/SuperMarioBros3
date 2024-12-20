@@ -121,6 +121,8 @@ void Plant::update(float deltaTime) {
 }
 
 void Plant::draw(float deltaTime) {
+	if (isDead()) return;
+
 	if (currentAnimation == nullptr) return;
 	setXPosition(getPosition().x + velocity.x * deltaTime);
 	setYPosition(getPosition().y + velocity.y * deltaTime);

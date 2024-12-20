@@ -17,8 +17,24 @@ CharacterType Luigi::getCharacterType() const  {
 }
 
 void Luigi::update(float deltaTime) {
-	INPUT_MANAGER.update();
-	state->update(this, deltaTime);
+	if (isDead()) return;
+
+	if (phase == DEFAULT_PHASE) {
+		INPUT_MANAGER.update();
+		state->update(this, deltaTime);
+	}
+	else if (phase == TRANSFORM_PHASE) {
+		//transform
+	}
+	else if (phase == DEAD_PHASE) {
+		//dead
+	}
+	else if (phase == EXIT_PHASE) {
+		//exit
+	}
+	else if (phase == ENTER_PHASE) {
+		//enter
+	}
 }
 
 void Luigi::onKey(KeyboardKey key, bool pressed) {

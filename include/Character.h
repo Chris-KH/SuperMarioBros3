@@ -19,6 +19,14 @@ class Character : public Sprite, public InputManager::Listener  {
     friend class StarmanState;
 
 protected:
+    enum Phase {
+		DEFAULT_PHASE,
+		TRANSFORM_PHASE,
+		DEAD_PHASE,
+		EXIT_PHASE,
+		ENTER_PHASE
+    };
+
     Animation* idleLeft;
     Animation* walkLeft;
     Animation* runLeft;
@@ -43,6 +51,7 @@ protected:
 	Animation* throwRight; 
 	Animation* kickRight;
 
+    Phase phase;
     CharacterState* state;
     InputManager& inputManager;
     bool dead; //Character dead or not
@@ -77,6 +86,9 @@ public:
 
     virtual void setState();
     virtual void reset();
+
+    virtual void setPhase(Phase phase);
+	virtual const Phase& getPhase() const;
 
     virtual STATE getState() const;
     bool isDead() const;

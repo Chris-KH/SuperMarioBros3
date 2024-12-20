@@ -11,6 +11,8 @@ private:
 	const float ENEMY_FIREBALL_LIFETIME = 5.f;
 	const float ENEMY_FIREBALL_SPEED = 120.f;
 
+	const float CHARACTER_FIREBALL_SPEED = 80.f;
+
 	Animation* fireRight;
 	Animation* fireLeft;
 	FireballType type;
@@ -33,8 +35,6 @@ public:
 
 		fireLeft = RESOURCE_MANAGER.getAnimation("fireball_left")->clone();
 		fireRight = RESOURCE_MANAGER.getAnimation("fireball_right")->clone();
-		fireLeft->setScale(0.9f);
-		fireRight->setScale(0.9f);
 
 		//fireLeft->setScale(5.f);
 		//fireRight->setScale(5.f);
@@ -63,7 +63,8 @@ public:
 
 	void calculateFireballVelocity(const Vector2& fireballPos, const Vector2& playerPos, float speed = 0.f) {
 		if (speed == 0.f) {
-			speed = ENEMY_FIREBALL_SPEED;
+			if (type == ENEMY_FIREBALL) speed = ENEMY_FIREBALL_SPEED;
+			else if (type == CHARACTER_FIREBALL) speed = CHARACTER_FIREBALL_SPEED;
 		}
 
 		Vector2 direction = { playerPos.x - fireballPos.x, playerPos.y - fireballPos.y };
@@ -83,6 +84,13 @@ public:
 
 		if (type == CHARACTER_FIREBALL) {
 
+
+			if (delayTime >= 0.f) {
+				setXVelocity(CHARACTER_FIREBALL_SPEED);
+				if (isGravityAvailable() == true) setYVelocity(getVelocity().y + GRAVITY * deltaTime);
+			}
+
+			delayTime += deltaTime;
 		}
 		else if (type == ENEMY_FIREBALL) {
 			if (delayTime >= ENEMY_FIREBALL_LIFETIME) {
