@@ -13,12 +13,12 @@
 class MapHelper {
 public:
 
-    static bool loadFromTextFile(std::ifstream& file, std::vector<Entity*>& blocks, std::vector<Entity*>& enemies, std::vector<Entity*>& items)
+    static bool loadFromTextFile(ifstream& file, vector<Entity*>& blocks, vector<Entity*>& enemies, vector<Entity*>& items,vector<Entity*>& decor)
     {
-        std::string line;
-        std::string currentSection;
+        string line;
+        string currentSection;
 
-        while (std::getline(file, line)) {
+        while (getline(file, line)) {
             if (line.empty()) {
                 continue;
             }
@@ -58,6 +58,19 @@ public:
                     block->setVelocity({ velocityX, velocityY });
 
                     blocks.push_back(static_cast<Entity*>(block));
+                }
+                else if (blockType == DECOR)
+                {
+                    if (!(stream >> x >> y >> width >> height)) {
+                        throw std::runtime_error("Malformed line for decor: " + line);
+                    }
+                    BaseBlock* block = BlockFactory::getInstance().createBlock(
+                        blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
+                    if (!block) {
+                        throw std::runtime_error("Failed to create static block: " + blockTypeStr);
+                    }
+                    decor.push_back(static_cast<Entity*>(block));
+
                 }
                 else {
                     if (!(stream >> x >> y >> width >> height)) {
@@ -316,7 +329,7 @@ public:
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filename);
         }
-        MapHelper::loadFromTextFile(file,blockArray,enemies,items);
+        MapHelper::loadFromTextFile(file,blockArray,enemies,items,decor);
         file.close();
     }
 
@@ -355,6 +368,15 @@ public:
         }
         return things;
     }
+    vector<Entity*> getDecor() const {
+        std::vector<Entity*> things;
+        for (Entity* entity : decor) {
+            if (Entity* thing = entity) {
+                things.push_back(thing);
+            }
+        }
+        return things;
+    }
     void loadBackground(const std::string& filePath) {
         if (background.id > 0) {
             UnloadTexture(background);
@@ -378,6 +400,7 @@ private:
     vector<Entity*> blockArray;
     vector<Entity*> enemies;
     vector<Entity*> items;
+    vector<Entity*> decor;
     Texture2D background;
     void clearThings() {
         for (Entity* entity : blockArray) {
@@ -393,6 +416,11 @@ private:
         {
             if (entity)
             delete entity;
+        }
+        for (Entity* entity : decor)
+        {
+            if (entity)
+                delete entity;
         }
 
         blockArray.clear();
