@@ -166,10 +166,28 @@ public:
 
 
 		//////
-		char buffer[10];
-		sprintf_s(buffer, "%d", score);
-		DrawText("Score: ", 10, 10, 40, BLACK);
-		DrawText(buffer, 180, 10, 40, BLACK);
+		DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
+
+		// Display Lives
+		DrawText("LIVES: ", 10, 10, 40, WHITE);
+		char livesBuffer[3];
+		sprintf_s(livesBuffer, "%d", player->getLives());
+		DrawText(livesBuffer, 160, 10, 40, WHITE);
+
+		// Display Coins
+		DrawRectangle(300, 10, 30, 40, YELLOW);
+		DrawRectangle(310, 20, 10, 20, ORANGE);
+		char coinsBuffer[10];
+		sprintf_s(coinsBuffer, "%d", player->getCoins());
+		DrawText("x", 340, 10, 40, WHITE);
+		DrawText(coinsBuffer, 370, 10, 40, WHITE);
+
+		// Display Score
+		DrawText("Score: ", 500, 10, 40, WHITE);
+		char scoreBuffer[30];
+		sprintf_s(scoreBuffer, "%d", player->getScores());
+		DrawText(scoreBuffer, 650, 10, 40, WHITE);
+
 		if (isPaused) {
 			DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
 			DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
