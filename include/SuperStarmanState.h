@@ -4,62 +4,68 @@
 #include"Mario.h"
 #include"Luigi.h"
 
-class StarmanState : public CharacterState {
+class SuperStarmanState : public CharacterState {
 	friend class Character;
 public:
-	~StarmanState() = default;
+	~SuperStarmanState() = default;
 
-	virtual void setState(Character* character) {
+	virtual void setState(Character* character) override {
         if (character == nullptr) {
             return; // Avoid dereferencing a null pointer
         }
 
         if (character->getCharacterType() == MARIO) {
-            character->idleLeft = RESOURCE_MANAGER.getAnimation("starmario_idle_left");
-            character->walkLeft = RESOURCE_MANAGER.getAnimation("starmario_walk_left");
-            character->runLeft = RESOURCE_MANAGER.getAnimation("starmario_run_left");
-            character->stopLeft = RESOURCE_MANAGER.getAnimation("starmario_stop_left");
-            character->jumpLeft = RESOURCE_MANAGER.getAnimation("starmario_jump_left");
-            character->flyLeft = RESOURCE_MANAGER.getAnimation("starmario_fly_left");
+            character->idleLeft = RESOURCE_MANAGER.getAnimation("superstarmario_idle_left");
+            character->walkLeft = RESOURCE_MANAGER.getAnimation("superstarmario_walk_left");
+            character->runLeft = RESOURCE_MANAGER.getAnimation("superstarmario_run_left");
+            character->stopLeft = RESOURCE_MANAGER.getAnimation("superstarmario_stop_left");
+            character->jumpLeft = RESOURCE_MANAGER.getAnimation("superstarmario_jump_left");
+            character->fallLeft = RESOURCE_MANAGER.getAnimation("superstarmario_fall_left");
+            character->flyLeft = RESOURCE_MANAGER.getAnimation("superstarmario_fly_left");
+            character->sitLeft = RESOURCE_MANAGER.getAnimation("superstarmario_sit_left");
 
-            character->idleRight = RESOURCE_MANAGER.getAnimation("starmario_idle_right");
-            character->walkRight = RESOURCE_MANAGER.getAnimation("starmario_walk_right");
-            character->runRight = RESOURCE_MANAGER.getAnimation("starmario_run_right");
-            character->stopRight = RESOURCE_MANAGER.getAnimation("starmario_stop_right");
-            character->jumpRight = RESOURCE_MANAGER.getAnimation("starmario_jump_right");
-            character->flyRight = RESOURCE_MANAGER.getAnimation("starmario_fly_right");
+            character->idleRight = RESOURCE_MANAGER.getAnimation("superstarmario_idle_right");
+            character->walkRight = RESOURCE_MANAGER.getAnimation("superstarmario_walk_right");
+            character->runRight = RESOURCE_MANAGER.getAnimation("superstarmario_run_right");
+            character->stopRight = RESOURCE_MANAGER.getAnimation("superstarmario_stop_right");
+            character->jumpRight = RESOURCE_MANAGER.getAnimation("superstarmario_jump_right");
+            character->fallRight = RESOURCE_MANAGER.getAnimation("superstarmario_fall_right");
+            character->flyRight = RESOURCE_MANAGER.getAnimation("superstarmario_fly_right");
+            character->sitRight = RESOURCE_MANAGER.getAnimation("superstarmario_sit_right");
         }
         else if (character->getCharacterType() == LUIGI) {
-            character->idleLeft = RESOURCE_MANAGER.getAnimation("starluigi_idle_left");
-            character->walkLeft = RESOURCE_MANAGER.getAnimation("starluigi_walk_left");
-            character->runLeft = RESOURCE_MANAGER.getAnimation("starluigi_run_left");
-            character->stopLeft = RESOURCE_MANAGER.getAnimation("starluigi_stop_left");
-            character->jumpLeft = RESOURCE_MANAGER.getAnimation("starluigi_jump_left");
-            character->flyLeft = RESOURCE_MANAGER.getAnimation("starluigi_fly_left");
+            character->idleLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_idle_left");
+            character->walkLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_walk_left");
+            character->runLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_run_left");
+            character->stopLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_stop_left");
+            character->jumpLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_jump_left");
+            character->fallLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_fall_left");
+            character->flyLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_fly_left");
+            character->sitLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_sit_left");
 
-            character->idleRight = RESOURCE_MANAGER.getAnimation("starluigi_idle_right");
-            character->walkRight = RESOURCE_MANAGER.getAnimation("starluigi_walk_right");
-            character->runRight = RESOURCE_MANAGER.getAnimation("starluigi_run_right");
-            character->stopRight = RESOURCE_MANAGER.getAnimation("starluigi_stop_right");
-            character->jumpRight = RESOURCE_MANAGER.getAnimation("starluigi_jump_right");
-            character->flyRight = RESOURCE_MANAGER.getAnimation("starluigi_fly_right");
+            character->idleRight = RESOURCE_MANAGER.getAnimation("superstarluigi_idle_right");
+            character->walkRight = RESOURCE_MANAGER.getAnimation("superstarluigi_walk_right");
+            character->runRight = RESOURCE_MANAGER.getAnimation("superstarluigi_run_right");
+            character->stopRight = RESOURCE_MANAGER.getAnimation("superstarluigi_stop_right");
+            character->jumpRight = RESOURCE_MANAGER.getAnimation("superstarluigi_jump_right");
+            character->fallRight = RESOURCE_MANAGER.getAnimation("superstarluigi_fall_right");
+            character->flyRight = RESOURCE_MANAGER.getAnimation("superstarluigi_fly_right");
+            character->sitRight = RESOURCE_MANAGER.getAnimation("superstarluigi_sit_right");
         }
-        
+
 		character->kickLeft = nullptr;
 		character->kickRight = nullptr;
-        character->holdLeft = nullptr;
+		character->holdLeft = nullptr;
 		character->holdRight = nullptr;
-        character->fallLeft = nullptr;
-        character->fallRight = nullptr;
-        character->sitLeft = nullptr;
-        character->sitRight = nullptr;
         character->throwLeft = nullptr;
         character->throwRight = nullptr;
     }
-	void update(Character* character, float deltaTime) override {
+
+    void update(Character* character, float deltaTime) override {
         if (character == nullptr) {
             return; // Avoid dereferencing a null pointer
         }
+
         float starmanBoost = 1.2f;
 
         float skid_deceleration, deceleration, acceleration, gravity, jump_velocity, max_run_velocity, max_walk_velocity;
@@ -83,9 +89,11 @@ public:
             max_walk_velocity = luigi->MAX_WALK_VELOCITY * starmanBoost;
         }
 
-
         //Logic update
+        character->setSitting(IsKeyDown(KEY_S));
+
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
+            character->setSitting(false);
             if (character->velocity.x < 0) {
                 if (character->isJumping() == false) {
                     character->setAnimation(character->stopLeft);
@@ -106,6 +114,7 @@ public:
             }
         }
         else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
+            character->setSitting(false);
             if (character->velocity.x > 0) {
                 if (character->isJumping() == false) {
                     character->setAnimation(character->stopRight);
@@ -123,7 +132,6 @@ public:
                     else character->setAnimation(character->walkLeft);
                 }
             }
-
         }
         else {
             if (character->velocity.x > 0) {
@@ -138,8 +146,8 @@ public:
             }
         }
 
-        if (character->velocity.x > 0) character->orientation = RIGHT;
-        else if (character->velocity.x < 0) character->orientation = LEFT;
+        if (character->velocity.x > 0.f) character->orientation = RIGHT;
+        else if (character->velocity.x < 0.f) character->orientation = LEFT;
 
 
         if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
@@ -160,24 +168,32 @@ public:
             character->setXVelocity((character->velocity.x > 0) ? max_run_velocity : -max_run_velocity);
         }
 
-        if (character->isIdle()) {
+        if (character->isIdle() && character->isSitting() == false) {
             character->setIdleAnimation();
         }
 
 
         if (character->isJumping()) {
+            character->setSitting(false);
             if (fabs(character->getVelocity().x) >= max_run_velocity) {
                 character->setFlyAnimation();
             }
             else {
-                character->setJumpAnimation();
                 if (character->velocity.y < 0) {
+                    character->setJumpAnimation();
                     if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(character->getVelocity().y * 0.5f);
+                }
+                if (character->velocity.y >= 0) {
+                    character->setFallAnimation();
                 }
             }
         }
 
         character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
+
+        if (character->isSitting()) {
+            character->setSitAnimation();
+        }
 
         if (!character->isJumping() && fabs(character->getVelocity().x) >= max_run_velocity) {
             if (!RESOURCE_MANAGER.isSoundPlaying("pmeter.wav")) RESOURCE_MANAGER.playSound("pmeter.wav");
@@ -186,6 +202,6 @@ public:
     }
 
     STATE getState() const override {
-        return STARMAN;
+        return SUPERSTARMAN;
     }
 };

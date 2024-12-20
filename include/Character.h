@@ -10,13 +10,21 @@ class NormalState;
 class SuperState;
 class FireState;
 class StarmanState;
+class SuperStarmanState;
+class FireStarmanState;
+class Item;
+class Enemy;
+class Fireball;
 
+//Base class for all character
 class Character : public Sprite, public InputManager::Listener  {
     friend class CharacterState;
     friend class NormalState;
     friend class SuperState;
     friend class FireState;
     friend class StarmanState;
+	friend class SuperStarmanState;
+	friend class FireStarmanState;
 
 protected:
     enum Phase {
@@ -51,6 +59,9 @@ protected:
 	Animation* throwRight; 
 	Animation* kickRight;
 
+    //Animation* lostSuperSuit;
+    //Animation* lostFireSuit;
+	
     Phase phase;
     CharacterState* state;
     InputManager& inputManager;
@@ -111,6 +122,10 @@ public:
     void setFlyAnimation();
     void setInvicible(bool invicible);
     void setSitting(bool sitting);
+
+ //   void collisionWithEnemy();
+	//void collisionWithItem(const Item* item);
+	//void collisionWithFireball(const Fireball* fireball);
 };
 
 

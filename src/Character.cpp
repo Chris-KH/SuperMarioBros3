@@ -3,6 +3,8 @@
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
 #include"../include/StarmanState.h"
+#include"../include/SuperStarmanState.h"
+#include"../include/FireStarmanState.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {

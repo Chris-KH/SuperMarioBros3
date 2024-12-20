@@ -3,9 +3,11 @@
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
 #include"../include/StarmanState.h"
+#include"../include/SuperStarmanState.h"
+#include"../include/FireStarmanState.h"
 
 Mario::Mario(Vector2 pos) : Character(pos) {
-	state = new NormalState;
+	state = new FireStarmanState;
 	state->setState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);

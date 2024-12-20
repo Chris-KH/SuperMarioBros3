@@ -7,6 +7,8 @@ class Mario : public Character {
 	friend class SuperState;
 	friend class FireState;
 	friend class StarmanState;
+	friend class SuperStarmanState;
+	friend class FireStarmanState;
 private:
 	const float GROUND_ACCELERATION = 250.f;
 	const float GROUND_DECCELERATION = 200.f;

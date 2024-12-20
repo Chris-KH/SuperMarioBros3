@@ -3,6 +3,8 @@
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
 #include"../include/StarmanState.h"
+#include"../include/SuperStarmanState.h"
+#include"../include/FireStarmanState.h"
 
 Luigi::Luigi(Vector2 pos) : Character(pos) {
 	state = new NormalState;

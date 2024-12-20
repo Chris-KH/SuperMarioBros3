@@ -159,9 +159,6 @@
     <ClInclude Include="..\include\BlockFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Fireball.h">
-      <Filter>Header Files\Entity\Item</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Effect.h">
       <Filter>Header Files\Entity\Effect</Filter>
     </ClInclude>
@@ -170,6 +167,18 @@
     </ClInclude>
     <ClInclude Include="..\include\Shell.h">
       <Filter>Header Files\Entity\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Fireball.h">
+      <Filter>Header Files\Entity\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Star.h">
+      <Filter>Header Files\Entity\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SuperStarmanState.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FireStarmanState.h">
+      <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -203,7 +212,7 @@
     <ClCompile Include="..\src\FireState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\StarmanState.cpp">
+    <ClCompile Include="..\src\SuperStarmanState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GoomBa.cpp">
@@ -269,9 +278,6 @@
     <ClCompile Include="..\src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Fireball.cpp">
-      <Filter>Source Files\Entity\Item</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Effect.cpp">
       <Filter>Source Files\Entity\Effect</Filter>
     </ClCompile>
@@ -280,6 +286,18 @@
     </ClCompile>
     <ClCompile Include="..\src\Shell.cpp">
       <Filter>Source Files\Entity\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Fireball.cpp">
+      <Filter>Source Files\Entity\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Star.cpp">
+      <Filter>Source Files\Entity\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StarmanState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FireStarmanState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
