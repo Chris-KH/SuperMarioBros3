@@ -33,6 +33,7 @@ private:
 	vector<Entity*> blocks;
 	vector<Entity*> enemies;
 	vector<Entity*> items;
+	vector<Entity*> decor;
 	vector<Entity*> testEntities;
 	int score;
 	GameCamera camera;
@@ -48,6 +49,7 @@ public:
 		camera.loadRenderTexture(Msize);
 		blocks = map.getBlocks();
 		enemies = map.getEnemies();
+		decor = map.getDecor();
 		score = 0;
 	};
 	~GameEngine()
@@ -96,11 +98,11 @@ public:
 				//break;
 			}
 		}
-		for (Entity* things : testEntities)
+		for (Entity* enemy : enemies)
 		{
-			if (IColl.resolve(*player, *things))
+			for (Entity* block : blocks)
 			{
-				isGrounded = true;
+				IColl.resolve(*enemy, *block);
 			}
 		}
 		player->setJumping(!isGrounded);
@@ -130,14 +132,16 @@ public:
 		}
 		for (Entity* i : enemies)
 		{
-			i->draw();
+			i->draw();		
+			//DrawRectangleRec(i->getRectangle(), ORANGE);
 		}
 		for (Entity* i : items)
 		{
 			i->draw();
 		}
 		player->draw();
-
+		for (Entity* i : decor)
+			i->draw();
 		camera.endDrawing();
 
 		BeginDrawing();

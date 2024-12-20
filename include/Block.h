@@ -221,11 +221,19 @@ class DecorBlock : public BaseBlock
 {
 private:
 public:
-	DecorBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK) : BaseBlock(pos, size, color) {}
+	DecorBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK) : BaseBlock(pos, size, color) 
+	{
+		sprite = RESOURCE_MANAGER.getAnimation("pipe_block_head")->clone();
+		setAnimation(sprite);
+	}
+	void draw(float deltaTime) override
+	{
+		if (currentAnimation == nullptr) return;
+		currentAnimation->render(this->getPosition());
+	}
 	BlockType getBlockType() const override { return DECOR; }
 	void update(float deltaTime)
 	{
-		//something
 	}
 };
 
