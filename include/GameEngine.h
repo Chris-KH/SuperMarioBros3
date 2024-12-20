@@ -33,6 +33,8 @@ private:
 	vector<Entity*> blocks;
 	vector<Entity*> enemies;
 	vector<Entity*> items;
+	vector<Entity*> fireball;
+	vector<Entity*> effects;
 	vector<Entity*> decor;
 	vector<Entity*> testEntities;
 	int score;
@@ -61,17 +63,34 @@ public:
 	}
 	void resolveCollision() {};
 
+	void addFireBall(Entity* fireball) {
+		this->fireball.push_back(fireball);
+	}
+
 	void update() {
 		float deltaTime = GetFrameTime();
 		//inputManager.update();
 		player->update(deltaTime);
-		for (Entity* i : (blocks))
-		{
+		for (Entity* i : (blocks)) {
 			i->update(deltaTime);
 		}
-		for (Entity* i : (enemies))
-		{
+		for (Entity* i : (enemies)) {
+			Plant* enemy = dynamic_cast<Plant*>(i);
+			if (enemy) {
+				enemy->setPlayerForFireball(player);
+			}
 			i->update(deltaTime);
+		}
+		for (size_t i = 0; i < fireball.size(); i++) {
+			if (fireball[i]->isDead()) {
+				delete fireball[i];
+				fireball.erase(fireball.begin() + i);
+				i--;
+			}
+			else {
+				fireball[i]->update(deltaTime);
+			}
+			
 		}
 
 		//I think we have to update all entities before resolving collision
@@ -133,17 +152,23 @@ public:
 		for (Entity* i : blocks)
 		{
 			i->draw();
+			//DrawRectangleRec(i->getRectangle(), ORANGE);
 		}
 		for (Entity* i : enemies)
 		{
 			i->draw();		
 			//DrawRectangleRec(i->getRectangle(), ORANGE);
 		}
+		for (Entity* i : fireball) {
+			i->draw();
+
+		}
 		for (Entity* i : items)
 		{
 			i->draw();
 		}
 		player->draw();
+		//DrawRectangleRec(player->getRectangle(), ORANGE);
 		for (Entity* i : decor)
 			i->draw();
 		camera.endDrawing();

@@ -51,7 +51,7 @@ public:
 	}
 
 	void update(float deltaTime) override {
-		if (isDead) return;
+		if (isDead()) return;
 	
 		if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
 		else if (getPosition().x >= getBoundary().y) setOrientation(LEFT);
@@ -64,11 +64,6 @@ public:
 			setJumping(true);
 			jumpTime = 0.f;
 		}
-		/*else if (getBottom() >= 500.f) {
-			setYVelocity(0.f);
-			setYPosition(500.f - getSize().y);
-			jumping = false;
-		}*/
 
 		if (orientation) setXVelocity(SPEED);
 		else setXVelocity(-SPEED);
@@ -80,9 +75,29 @@ public:
 		}
 	}
 
+	//Test function
+	/*void update(float deltaTime) override {
+		if (isDead) return;
+		if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
+
+		if (IsKeyDown(KEY_D)) setXVelocity(SPEED);
+		else if (IsKeyDown(KEY_A)) setXVelocity(-SPEED);
+
+		if (IsKeyDown(KEY_SPACE) && canJump) {
+			setYVelocity(-JUMP_SPEED);
+			setAnimation(jumpAnimation);
+			setJumping(true);
+			jumpTime = 0.f;
+		}
+		if (isJumping() == false) {
+			setAnimation(walkAnimation);
+			jumpTime += deltaTime;
+		}
+	}*/
+
 	void stomped() override {
 		if (type == BROWN_GoomBa || type == RED_GoomBa) {
-			destroySprite();
+			killEntity();
 			//Create a dead Effect
 		}
 		else if (type == REDPARA_GoomBa) {

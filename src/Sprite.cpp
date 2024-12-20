@@ -4,7 +4,6 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     : Entity(pos, size, color),
     velocity({ 0, 0 }), 
     acceleration({ 0, 0 }),
-    isDead(false),
     jumping(false),
     gravityAvailable(true),
     collisionAvailable(true),
@@ -15,7 +14,6 @@ Sprite::Sprite(const Sprite& other)
     : Entity(other),
     velocity(other.velocity),
     acceleration(other.acceleration),
-    isDead(other.isDead),
     jumping(other.jumping),
     gravityAvailable(other.gravityAvailable),
     collisionAvailable(other.collisionAvailable),
@@ -46,10 +44,6 @@ void Sprite::setXAcceleration(float ax) {
 
 void Sprite::setYAcceleration(float ay) {
     acceleration.y = ay;
-}
-
-void Sprite::destroySprite() {
-    this->isDead = true;
 }
 
 void Sprite::update(float deltaTime) {

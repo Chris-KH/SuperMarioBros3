@@ -1,6 +1,7 @@
 #include "../include/Plant.h"
 #include "../include/Character.h"
 #include "../include/Fireball.h"
+#include "../include/GameEngine.h"
 
 Plant::~Plant() {
 	free(piranha);
@@ -11,7 +12,7 @@ Plant::~Plant() {
 	firePiranhaAttack = nullptr;
 }
 
-Plant::Plant(PlantType type, Vector2 position, Character* player) {
+Plant::Plant(PlantType type, Vector2 position, Orientation orientation, Character* player) {
 	this->type = type;
 	this->player = player;
 	this->timer = 0.f;
@@ -54,14 +55,43 @@ EnemyType Plant::getEnemyType() const {
 }
 
 void Plant::update(float deltaTime) {
-	if (isDead) return;
+	if (isDead()) return;
 	
 	if (phase == EXIT_PHASE && getPosition().y <= getBoundary().x) {
 		phase = ATTACK_PHASE;
 		orientation = UP;
 		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) {
 			setAnimation(firePiranhaAttack);
-			//Create fireball
+			Fireball* fireball = new Fireball(getCentral(), ENEMY_FIREBALL);
+			fireball->calculateFireballVelocity(fireball->getCenter(), player->getCenter());
+			fireball->setDelayTime(ATTACK_TIME / 2.f);
+			globalGameEngine->addFireBall(fireball);
+
+			//Chill
+			/*Fireball* fireball1 = new Fireball(getCentral(), ENEMY_FIREBALL);
+			fireball1->calculateFireballVelocity(fireball1->getCenter(), player->getCenter());
+			fireball1->setDelayTime(0.f);
+			globalGameEngine->addFireBall(fireball1);
+
+			Fireball* fireball2 = new Fireball(getCentral(), ENEMY_FIREBALL);
+			fireball2->calculateFireballVelocity(fireball2->getCenter(), player->getCenter());
+			fireball2->setDelayTime(0.5f);
+			globalGameEngine->addFireBall(fireball2);
+
+			Fireball* fireball3 = new Fireball(getCentral(), ENEMY_FIREBALL);
+			fireball3->calculateFireballVelocity(fireball3->getCenter(), player->getCenter());
+			fireball3->setDelayTime(1.0f);
+			globalGameEngine->addFireBall(fireball3);
+
+			Fireball* fireball4 = new Fireball(getCentral(), ENEMY_FIREBALL);
+			fireball4->calculateFireballVelocity(fireball4->getCenter(), player->getCenter());
+			fireball4->setDelayTime(1.5f);
+			globalGameEngine->addFireBall(fireball4);
+
+			Fireball* fireball5 = new Fireball(getCentral(), ENEMY_FIREBALL);
+			fireball5->calculateFireballVelocity(fireball5->getCenter(), player->getCenter());
+			fireball5->setDelayTime(2.f);
+			globalGameEngine->addFireBall(fireball5);*/
 		}
 		setYVelocity(0.f);
 		setYPosition(getBoundary().x);
@@ -69,18 +99,19 @@ void Plant::update(float deltaTime) {
 	else if (phase == ENTER_PHASE && getPosition().y >= getBoundary().y) {
 		phase = WAIT_PHASE;
 		orientation = DOWN;
-		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) setAnimation(firePiranhaRest);
 		setYVelocity(0.f);
 		setYPosition(getBoundary().y);
 	}
 	else if (timer >= WAIT_TIME && phase == WAIT_PHASE) {
 		setYVelocity(-SPEED);
 		phase = EXIT_PHASE;
+		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) setAnimation(firePiranhaRest);
 		timer = 0.f;
 	}
 	else if (timer >= ATTACK_TIME && phase == ATTACK_PHASE) {
 		setYVelocity(SPEED);
 		phase = ENTER_PHASE;
+		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) setAnimation(firePiranhaRest);
 		timer = 0.f;
 	}
 
@@ -93,6 +124,7 @@ void Plant::draw(float deltaTime) {
 	if (currentAnimation == nullptr) return;
 	setXPosition(getPosition().x + velocity.x * deltaTime);
 	setYPosition(getPosition().y + velocity.y * deltaTime);
+	updateTime(deltaTime);
 	if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) {
 		int frame = 0;
 		setDirection();
@@ -113,6 +145,10 @@ void Plant::draw(float deltaTime) {
 Vector2 Plant::getCentral() {
 	float halfWidth = getWidth() / 2;
 	return Vector2(getPosition().x + halfWidth, getPosition().y + halfWidth);
+}
+
+void Plant::setPlayerForFireball(Character* player) {
+	this->player = player;
 }
 
 void Plant::setDirection() {

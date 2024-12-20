@@ -3,6 +3,7 @@
 #include"Block.h"
 #include"Character.h"
 #include"Enemy.h"
+#include"Fireball.h"
 
 class CollisionStrategy {
 public:
@@ -233,6 +234,10 @@ public:
 
         if (!enemy || !floor)
             return false;
+        if (enemy->getEnemyType() == PLANT) {
+			return false;
+        }
+
         float deltaTime = GetFrameTime();
         Rectangle enemyRect = enemy->getRectangle();
         Rectangle floorRect = floor->getRectangle();
@@ -270,6 +275,10 @@ public:
 
         if (!enemy || !block)
             return false;
+
+        if (enemy->getEnemyType() == PLANT) {
+            return false;
+        }
 
         float deltaTime = GetFrameTime();
 

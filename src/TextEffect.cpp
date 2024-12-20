@@ -27,18 +27,18 @@ void TextEffect::setTextColor(Color color) {
 }
 
 void TextEffect::update(float deltaTIme) {
-	if (isDead) return;
+	if (isDead()) return;
 
 	duration -= deltaTIme;
 
 	if (duration <= 0.f) {
-		destroySprite();
+		killEntity();
 	}
 	setYVelocity(getVelocity().y + GRAVITY * deltaTIme);
 }
 
 void TextEffect::draw(float deltaTime) {
-	if (isDead) return;
+	if (isDead()) return;
 
 	setYPosition(getPosition().y + getVelocity().y * deltaTime);
 

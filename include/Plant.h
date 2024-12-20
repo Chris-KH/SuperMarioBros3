@@ -12,12 +12,12 @@ public:
 		ENTER_PHASE
 	};
 	const float SPEED = 25.f;
-	const float WAIT_TIME = 2.f;
-	const float ATTACK_TIME = 1.f;
+	const float WAIT_TIME = 3.f;
+	const float ATTACK_TIME = 2.f;
 
 	~Plant();
 
-	Plant(PlantType type = GREEN_PIRANHA, Vector2 position = { 0.f, 0.f }, Character* player = nullptr);
+	Plant(PlantType type = GREEN_PIRANHA, Vector2 position = { 0.f, 0.f }, Orientation orientation = RIGHT, Character* player = nullptr);
 
 	EnemyType getEnemyType() const override;
 
@@ -27,6 +27,7 @@ public:
 
 	Vector2 getCentral();
 
+	void setPlayerForFireball(Character* player);
 	void setDirection();
 
 private:

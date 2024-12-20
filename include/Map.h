@@ -118,12 +118,12 @@ public:
                     enemy->setBoudary({ boundLeft,boundRight });
                     enemies.push_back(enemy);
                 }
-                //if (type == PLANT)
-                //{
-                //    Plant* enemy = new Plant(static_cast<PlantType>(subtype), { x,y }, facing);
-                //    enemy->setBoudary({ boundLeft,boundRight });
-                //    enemies.push_back(enemy);
-                //}
+                if (type == PLANT)
+                {
+                    Plant* enemy = new Plant(static_cast<PlantType>(subtype), { x,y }, facing);
+                    enemy->setBoudary({ boundLeft,boundRight });
+                    enemies.push_back(enemy);
+                }
                 else if (type == SHELL)
                 {
                     Shell* enemy = new Shell(static_cast<ShellType>(subtype), { x,y });

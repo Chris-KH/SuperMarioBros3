@@ -53,9 +53,9 @@ public:
 	}
 
 	void update(float deltaTime) override {
-		if (isDead) return;
+		if (isDead()) return;
 		if (inShellTime >= IN_SHELL_TIME) {
-			destroySprite();
+			killEntity();
 			//Create an Koopa Troopa 
 			return;
 		}

@@ -61,7 +61,7 @@ public:
 	}
 
 	void update(float deltaTime) override {
-		if (isDead) return;
+		if (isDead()) return;
 
 		if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
 		else if (getPosition().x >= getBoundary().y) setOrientation(LEFT);
@@ -93,7 +93,7 @@ public:
 
 	void stomped() override {
 		if (type == GREEN_KoopaTroopa || type == RED_KoopaTroopa) {
-			destroySprite();
+			killEntity();
 			//Create a Shell enemy
 		}
 		else if (type == GREENPARA_KoopaTroopa) {

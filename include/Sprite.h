@@ -6,7 +6,6 @@ class Sprite : public Entity {
 protected:
     Vector2 velocity;      // Velocity vector (dx, dy)
     Vector2 acceleration;  // Acceleration vector (ax, ay)
-    bool isDead;           // Indicates if the sprite is "dead"
     bool jumping;
     Orientation orientation; 
 
@@ -32,8 +31,6 @@ public:
     void setYVelocity(float vx);
     void setXAcceleration(float ax);
     void setYAcceleration(float yx);
-
-    void destroySprite();
 
     virtual bool isJumping() const;
     virtual void setJumping(bool value);

@@ -4,11 +4,14 @@
 #include "CharacterState.h"
 #include "Global.h"
 
+class GameEngine;
+
 class Entity {
 private:
     Vector2 position; // Position of the entity
     Vector2 size;     // Size of the entity
     Color color;      // RGBA color of the entity
+    bool dead;           // Indicates if the sprite is "dead"
 protected:
     Animation* currentAnimation; 
     float playTime;
@@ -50,4 +53,7 @@ public:
     virtual void setAnimation(Animation* animation, float time = 0.f);
     virtual void setAnimation(const string& name, float time = 0.f);
     virtual void updateTime(float deltaTime = GetFrameTime());
+
+    virtual void killEntity();
+	virtual bool isDead() const;
 };

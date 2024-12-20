@@ -4,12 +4,14 @@ Entity::Entity(Vector2 pos, Vector2 size, Color color)
     : position(pos), size(size), color(color) {
     currentAnimation = nullptr;
     playTime = 0.f;
+    dead = false;
 }
 
 Entity::Entity(const Entity& other)
     : position(other.position), size(other.size), color(other.color) {
     currentAnimation = nullptr;
     playTime = 0.f;
+    dead = other.dead;
 }
 
 Entity::~Entity() {
@@ -108,4 +110,12 @@ void Entity::setAnimation(const string& name, float time) {
     Animation* cur = RESOURCE_MANAGER.getAnimation(name);
     if (cur == nullptr) return;
     setAnimation(cur, time);
+}
+
+void Entity::killEntity() {
+    this->dead = true;
+}
+
+bool Entity::isDead() const {
+    return this->dead;
 }

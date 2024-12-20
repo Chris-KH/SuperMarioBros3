@@ -8,7 +8,8 @@ enum FireballType {
 
 class Fireball: public Sprite {
 private:
-	const float ENEMY_FIREBALL_SPEED = 100.f;
+	const float ENEMY_FIREBALL_LIFETIME = 5.f;
+	const float ENEMY_FIREBALL_SPEED = 120.f;
 
 	Animation* fireRight;
 	Animation* fireLeft;
@@ -30,11 +31,13 @@ public:
 		this->delayTime = 0.f;
 		this->delayVelocity = { 0.f, 0.f };
 
-		fireRight = nullptr;
-		fireLeft = nullptr;
+		fireLeft = RESOURCE_MANAGER.getAnimation("fireball_left")->clone();
+		fireRight = RESOURCE_MANAGER.getAnimation("fireball_right")->clone();
+		fireLeft->setScale(0.9f);
+		fireRight->setScale(0.9f);
 
-		if (orientation == LEFT) fireLeft = RESOURCE_MANAGER.getAnimation("fireball_left")->clone();
-		else if (orientation == RIGHT) fireRight = RESOURCE_MANAGER.getAnimation("fireball_right")->clone();
+		//fireLeft->setScale(5.f);
+		//fireRight->setScale(5.f);
 
 		if (orientation == LEFT) setAnimation(fireLeft);
 		else if (orientation == RIGHT) setAnimation(fireRight);
@@ -51,11 +54,11 @@ public:
 	}
 
 	void setDelayTime(float delayTime) {
-		this->delayTime = delayTime;
+		this->delayTime = -delayTime;
 	}
 
 	const float& getDelayTime() const {
-		return delayTime;
+		return -delayTime;
 	}
 
 	void calculateFireballVelocity(const Vector2& fireballPos, const Vector2& playerPos, float speed = 0.f) {
@@ -76,16 +79,21 @@ public:
 	}
 
 	void update(float deltaTime) override {
+		if (isDead()) return;
+
 		if (type == CHARACTER_FIREBALL) {
 
 		}
 		else if (type == ENEMY_FIREBALL) {
-			if (delayTime <= 0.f) {
+			if (delayTime >= ENEMY_FIREBALL_LIFETIME) {
+				killEntity();
+				return;
+			}
+			if (delayTime >= 0.f) {
 				setVelocity(delayVelocity);
 			}
-			else {
-				delayTime -= deltaTime;
-			}
+			
+			delayTime += deltaTime;
 		}
 	}
 };
