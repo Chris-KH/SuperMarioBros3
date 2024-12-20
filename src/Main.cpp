@@ -35,7 +35,7 @@ int main() {
     //Map map1;
     //map1.loadFromFile("../assets/Map/Map1-1.txt");
     //map1.loadBackground("../assets/Map/Map1-1.png");
-    //Enemy* goomba = new Plant(GREEN_FIREPIRANHA, { 640.f, 400.f }, player);
+    //Enemy* goomba = new Plant(RED_FIREPIRANHA, { 640.f, 400.f }, player);
     //goomba->setBoudary({ goomba->getPosition().y - goomba->getHeight(), goomba->getPosition().y});
     // 
     // 

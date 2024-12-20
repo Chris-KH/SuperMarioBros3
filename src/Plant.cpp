@@ -31,9 +31,18 @@ Plant::Plant(PlantType type, Vector2 center, Character* player) {
 		this->piranha = RESOURCE_MANAGER.getAnimation("green_piranha")->clone();
 		setAnimation(this->piranha);
 	}
+	else if (type == RED_PIRANHA) {
+		this->piranha = RESOURCE_MANAGER.getAnimation("red_piranha")->clone();
+		setAnimation(this->piranha);
+	}
 	else if (type == GREEN_FIREPIRANHA) {
 		this->firePiranhaRest = RESOURCE_MANAGER.getAnimation("green_firepiranha")->clone();
 		this->firePiranhaAttack = RESOURCE_MANAGER.getAnimation("green_firepiranha_attack")->clone();
+		setAnimation(this->firePiranhaRest);
+	}
+	else if (type == RED_FIREPIRANHA) {
+		this->firePiranhaRest = RESOURCE_MANAGER.getAnimation("red_firepiranha")->clone();
+		this->firePiranhaAttack = RESOURCE_MANAGER.getAnimation("red_firepiranha_attack")->clone();
 		setAnimation(this->firePiranhaRest);
 	}
 
@@ -50,7 +59,7 @@ void Plant::update(float deltaTime) {
 	if (phase == EXIT_PHASE && getPosition().y <= getBoundary().x) {
 		phase = ATTACK_PHASE;
 		orientation = UP;
-		if (type == GREEN_FIREPIRANHA) {
+		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) {
 			setAnimation(firePiranhaAttack);
 			//Create a Fireball
 		}
@@ -60,7 +69,7 @@ void Plant::update(float deltaTime) {
 	else if (phase == ENTER_PHASE && getPosition().y >= getBoundary().y) {
 		phase = WAIT_PHASE;
 		orientation = DOWN;
-		if (type == GREEN_FIREPIRANHA) setAnimation(firePiranhaRest);
+		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) setAnimation(firePiranhaRest);
 		setYVelocity(0.f);
 		setYPosition(getBoundary().y);
 	}
@@ -84,7 +93,7 @@ void Plant::draw(float deltaTime) {
 	if (currentAnimation == nullptr) return;
 	setXPosition(getPosition().x + velocity.x * deltaTime);
 	setYPosition(getPosition().y + velocity.y * deltaTime);
-	if (type == GREEN_FIREPIRANHA) {
+	if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) {
 		int frame = 0;
 		setDirection();
 		if (direction == DOWNLEFT) frame = 0;
@@ -95,7 +104,7 @@ void Plant::draw(float deltaTime) {
 		currentAnimation->update(deltaTime);
 		currentAnimation->render(getPosition(), frame);
 	}
-	else if (type == GREEN_PIRANHA) {
+	else if (type == GREEN_PIRANHA || type == RED_PIRANHA) {
 		currentAnimation->update(deltaTime);
 		currentAnimation->render(getPosition());
 	}

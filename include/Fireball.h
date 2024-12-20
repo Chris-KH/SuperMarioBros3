@@ -40,7 +40,9 @@ public:
 	}
 
 	void update(float deltaTime) override {
+		if (type == CHARACTER_FIREBALL) {
 
+		}
 	}
 
 	void draw(float deltaTime = GetFrameTime()) override {

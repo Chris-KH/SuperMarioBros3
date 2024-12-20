@@ -171,6 +171,13 @@ MainMenuState::MainMenuState(Menu* menu) {
 void MainMenuState::draw() {
     ClearBackground(RAYWHITE);
 
+    //Font* font = RESOURCE_MANAGER.getFont("HolenVintage.otf");
+    //DrawRectangleRec(startButton, ORANGE);
+    //DrawTextEx(*font ,"New Game",
+    //    { static_cast<float>(startButton.x) + static_cast<float>((startButton.width - MeasureTextEx(*font, "New Game", 30, 0.f).x) / 2),
+    //    static_cast<float>(startButton.y + (startButton.height - 30) / 2) },
+    //    30, 0.f, CheckCollisionPointRec(GetMousePosition(), startButton) ? LIGHTGRAY : BLACK);
+
     // Start Button
     //startButton = { 440, buttonStartY, 400, 50 };
     DrawRectangleRec(startButton, ORANGE);
