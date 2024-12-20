@@ -60,7 +60,9 @@ void Sprite::draw(float deltaTime) {
     if (currentAnimation == nullptr) return;
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
-    currentAnimation->render(this->getPosition());
+    updateTime(deltaTime);
+    currentAnimation->update(deltaTime);
+    currentAnimation->render(getPosition());
 }
 
 void Sprite::setJumping(bool value) {

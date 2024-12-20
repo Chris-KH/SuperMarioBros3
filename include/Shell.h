@@ -54,18 +54,17 @@ public:
 
 	void update(float deltaTime) override {
 		if (isDead) return;
+		if (inShellTime >= IN_SHELL_TIME) {
+			destroySprite();
+			//Create an Koopa Troopa 
+			return;
+		}
 
 		if (isKicked) inShellTime = 0.f;
 		else inShellTime += deltaTime;
 
 		if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
 		else if (getPosition().x >= getBoundary().y) setOrientation(LEFT);
-
-		if (inShellTime >= IN_SHELL_TIME) {
-			destroySprite();
-			//Create an Koopa Troopa 
-			return;
-		}
 
 		if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
 		if (isKicked) {

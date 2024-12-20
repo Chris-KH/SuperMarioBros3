@@ -59,3 +59,51 @@ int Character::getLives() const { return lives; }
 int Character::getCoins() const { return coins; }
 
 int Character::getScores() const { return scores; }
+
+void Character::setIdleAnimation() {
+    if (orientation == RIGHT) setAnimation(idleRight);
+    else if (orientation == LEFT) setAnimation(idleLeft);
+}
+
+void Character::setWalkAnimation() {
+    if (orientation == RIGHT) setAnimation(walkRight);
+    else if (orientation == LEFT) setAnimation(walkLeft);
+}
+
+void Character::setRunAnimation() {
+    if (orientation == RIGHT) setAnimation(runRight);
+    else if (orientation == LEFT) setAnimation(runLeft);
+}
+
+void Character::setJumpAnimation() {
+    if (orientation == RIGHT) setAnimation(jumpRight);
+    else if (orientation == LEFT) setAnimation(jumpLeft);
+}
+
+void Character::setStopAnimation() {
+    if (orientation == RIGHT) setAnimation(stopRight);
+    else if (orientation == LEFT) setAnimation(stopLeft);
+}
+
+void Character::setFallAnimation() {
+    if (orientation == RIGHT) setAnimation(fallRight);
+    else if (orientation == LEFT) setAnimation(fallLeft);
+}
+
+void Character::setSitAnimation() {
+    if (orientation == RIGHT) setAnimation(sitRight);
+    else if (orientation == LEFT) setAnimation(sitLeft);
+}
+
+void Character::setFlyAnimation() {
+    if (orientation == RIGHT) setAnimation(flyRight);
+    else if (orientation == LEFT) setAnimation(flyLeft);
+}
+
+void Character::setInvicible(bool invicible) {
+    this->invicible = invicible;
+}
+
+void Character::setSitting(bool sitting) {
+    this->sitting = sitting;
+}

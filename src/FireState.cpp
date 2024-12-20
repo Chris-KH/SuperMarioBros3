@@ -15,6 +15,9 @@ void FireState::setState(Character* character) {
         character->fallLeft = RESOURCE_MANAGER.getAnimation("firemario_fall_left");
         character->flyLeft = RESOURCE_MANAGER.getAnimation("firemario_fly_left");
         character->sitLeft = RESOURCE_MANAGER.getAnimation("firemario_sit_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("firemario_hold_left");
+        character->throwLeft = RESOURCE_MANAGER.getAnimation("firemario_throw_left");
+        character->kickLeft = RESOURCE_MANAGER.getAnimation("firemario_kick_left");
 
         character->idleRight = RESOURCE_MANAGER.getAnimation("firemario_idle_right");
         character->walkRight = RESOURCE_MANAGER.getAnimation("firemario_walk_right");
@@ -24,6 +27,9 @@ void FireState::setState(Character* character) {
         character->fallRight = RESOURCE_MANAGER.getAnimation("firemario_fall_right");
         character->flyRight = RESOURCE_MANAGER.getAnimation("firemario_fly_right");
         character->sitRight = RESOURCE_MANAGER.getAnimation("firemario_sit_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("firemario_hold_right");
+        character->throwRight = RESOURCE_MANAGER.getAnimation("firemario_throw_right");
+        character->kickRight = RESOURCE_MANAGER.getAnimation("firemario_kick_right");
     }
     else if (character->getCharacterType() == LUIGI) {
         character->idleLeft = RESOURCE_MANAGER.getAnimation("fireluigi_idle_left");
@@ -34,6 +40,9 @@ void FireState::setState(Character* character) {
         character->fallLeft = RESOURCE_MANAGER.getAnimation("fireluigi_fall_left");
         character->flyLeft = RESOURCE_MANAGER.getAnimation("fireluigi_fly_left");
         character->sitLeft = RESOURCE_MANAGER.getAnimation("fireluigi_sit_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("fireluigi_hold_left");
+        character->throwLeft = RESOURCE_MANAGER.getAnimation("fireluigi_throw_left");
+        character->kickLeft = RESOURCE_MANAGER.getAnimation("fireluigi_kick_left");
 
         character->idleRight = RESOURCE_MANAGER.getAnimation("fireluigi_idle_right");
         character->walkRight = RESOURCE_MANAGER.getAnimation("fireluigi_walk_right");
@@ -43,6 +52,9 @@ void FireState::setState(Character* character) {
         character->fallRight = RESOURCE_MANAGER.getAnimation("fireluigi_fall_right");
         character->flyRight = RESOURCE_MANAGER.getAnimation("fireluigi_fly_right");
         character->sitRight = RESOURCE_MANAGER.getAnimation("fireluigi_sit_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("fireluigi_hold_right");
+        character->throwRight = RESOURCE_MANAGER.getAnimation("fireluigi_throw_right");
+        character->kickRight = RESOURCE_MANAGER.getAnimation("fireluigi_kick_right");
     }
 }
 
@@ -164,7 +176,7 @@ void FireState::update(Character* character, float deltaTime) {
         else {
             if (character->velocity.y < 0) {
                 character->setJumpAnimation();
-                if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(0.f);
+                if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(character->getVelocity().y * 0.5f);
             }
             if (character->velocity.y >= 0) {
                 character->setFallAnimation();

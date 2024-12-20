@@ -14,6 +14,8 @@ void SuperState::setState(Character* character) {
         character->fallLeft = RESOURCE_MANAGER.getAnimation("supermario_fall_left");
         character->flyLeft = RESOURCE_MANAGER.getAnimation("supermario_fly_left");
         character->sitLeft = RESOURCE_MANAGER.getAnimation("supermario_sit_left");
+		character->holdLeft = RESOURCE_MANAGER.getAnimation("supermario_hold_left");
+		character->kickLeft = RESOURCE_MANAGER.getAnimation("supermario_kick_left");
 
         character->idleRight = RESOURCE_MANAGER.getAnimation("supermario_idle_right");
         character->walkRight = RESOURCE_MANAGER.getAnimation("supermario_walk_right");
@@ -23,6 +25,8 @@ void SuperState::setState(Character* character) {
         character->fallRight = RESOURCE_MANAGER.getAnimation("supermario_fall_right");
         character->flyRight = RESOURCE_MANAGER.getAnimation("supermario_fly_right");
         character->sitRight = RESOURCE_MANAGER.getAnimation("supermario_sit_right");
+		character->holdRight = RESOURCE_MANAGER.getAnimation("supermario_hold_right");
+		character->kickRight = RESOURCE_MANAGER.getAnimation("supermario_kick_right");
     }
     else if (character->getCharacterType() == LUIGI) {
         character->idleLeft = RESOURCE_MANAGER.getAnimation("superluigi_idle_left");
@@ -33,6 +37,8 @@ void SuperState::setState(Character* character) {
         character->fallLeft = RESOURCE_MANAGER.getAnimation("superluigi_fall_left");
         character->flyLeft = RESOURCE_MANAGER.getAnimation("superluigi_fly_left");
         character->sitLeft = RESOURCE_MANAGER.getAnimation("superluigi_sit_left");
+		character->holdLeft = RESOURCE_MANAGER.getAnimation("superluigi_hold_left");
+        character->kickLeft = RESOURCE_MANAGER.getAnimation("superluigi_kick_left");
 
         character->idleRight = RESOURCE_MANAGER.getAnimation("superluigi_idle_right");
         character->walkRight = RESOURCE_MANAGER.getAnimation("superluigi_walk_right");
@@ -42,7 +48,12 @@ void SuperState::setState(Character* character) {
         character->fallRight = RESOURCE_MANAGER.getAnimation("superluigi_fall_right");
         character->flyRight = RESOURCE_MANAGER.getAnimation("superluigi_fly_right");
         character->sitRight = RESOURCE_MANAGER.getAnimation("superluigi_sit_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("superluigi_hold_right");
+        character->kickRight = RESOURCE_MANAGER.getAnimation("superluigi_kick_right");
     }
+
+	character->throwLeft = nullptr;
+	character->throwRight = nullptr;
 }
 
 void SuperState::update(Character* character, float deltaTime) {
@@ -163,7 +174,7 @@ void SuperState::update(Character* character, float deltaTime) {
         else {
             if (character->velocity.y < 0) {
                 character->setJumpAnimation();
-                if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(0.f);
+                if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(character->getVelocity().y * 0.5f);
             }
             if (character->velocity.y >= 0) {
                 character->setFallAnimation();

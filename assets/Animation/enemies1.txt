@@ -153,3 +153,43 @@ $fireball_left
 154 657 8 9 0.1 1 2 7 7
 134 658 8 8 0.1 1 1 7 7
 114 657 8 9 0.1 1 -2 7 7
+
+$red_piranha
+15 495 16 33 0.1 0 0 16 33
+65 495 16 33 0.1 0 0 16 33
+
+$red_firepiranha_downLeftAttack
+15 545 16 33 999 0 0 16 33
+
+$red_firepiranha_upLeftAttack
+65 545 16 33 999 0 0 16 33
+
+$red_firepiranha_downRightAttack
+365 545 16 33 999 0 0 16 33
+
+$red_firepiranha_upRightAttack
+315 545 16 33 999 0 0 16 33
+
+$red_firepiranha_downLeft
+115 545 16 33 999 0 0 16 33
+
+$red_firepiranha_upLeft
+165 545 16 33 999 0 0 16 33
+
+$red_firepiranha_downRight
+265 545 16 33 999 0 0 16 33
+
+$red_firepiranha_upRight
+215 545 16 33 999 0 0 16 33
+
+$red_firepiranha
+115 545 16 33 999 0 0 16 33
+165 545 16 33 999 0 0 16 33
+265 545 16 33 999 0 0 16 33
+215 545 16 33 999 0 0 16 33
+
+$red_firepiranha_attack
+15 545 16 33 999 0 0 16 33
+65 545 16 33 999 0 0 16 33
+365 545 16 33 999 0 0 16 33
+315 545 16 33 999 0 0 16 33
