@@ -11,7 +11,7 @@ Plant::~Plant() {
 	firePiranhaAttack = nullptr;
 }
 
-Plant::Plant(PlantType type, Vector2 center, Character* player) {
+Plant::Plant(PlantType type, Vector2 position, Character* player) {
 	this->type = type;
 	this->player = player;
 	this->timer = 0.f;
@@ -46,7 +46,7 @@ Plant::Plant(PlantType type, Vector2 center, Character* player) {
 		setAnimation(this->firePiranhaRest);
 	}
 
-	setCenter(center);
+	setPosition(position);
 }
 
 EnemyType Plant::getEnemyType() const {

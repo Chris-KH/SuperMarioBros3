@@ -17,7 +17,7 @@ public:
 
 	~Plant();
 
-	Plant(PlantType type = GREEN_PIRANHA, Vector2 center = { 0.f, 0.f }, Character* player = nullptr);
+	Plant(PlantType type = GREEN_PIRANHA, Vector2 position = { 0.f, 0.f }, Character* player = nullptr);
 
 	EnemyType getEnemyType() const override;
 
