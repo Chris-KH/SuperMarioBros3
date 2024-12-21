@@ -26,6 +26,7 @@ public:
 
     void returnToMainMenu();
     void setBackground(const std::string& imagePath);
+    int currentMap = 1;
     Character* player;
     Level* map;
 

@@ -195,7 +195,7 @@ public:
 		EndDrawing();
 	}
 
-	void run() {
+	bool run() {
 
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
@@ -210,7 +210,10 @@ public:
 
 				//cout << GetFrameTime() << endl;
 			}
+			if(player->getX() >= map.getMapSize().x)
+				return true;
 		}
+		return false;
 	}
 };
 extern GameEngine* globalGameEngine;
