@@ -9,7 +9,7 @@ enum FireballType {
 class Fireball: public Sprite {
 private:
 	const float ENEMY_FIREBALL_LIFETIME = 5.f;
-	const float ENEMY_FIREBALL_SPEED = 120.f;
+	const float ENEMY_FIREBALL_SPEED = 1000.f;
 
 	const float CHARACTER_FIREBALL_SPEED = 80.f;
 
@@ -18,6 +18,7 @@ private:
 	FireballType type;
 
 	float delayTime;
+	bool soundEffect;
 	Vector2 delayVelocity;
 public:
 	~Fireball() {
@@ -32,6 +33,7 @@ public:
 		this->orientation = orientation;
 		this->delayTime = 0.f;
 		this->delayVelocity = { 0.f, 0.f };
+		this->soundEffect = false;
 
 		fireLeft = RESOURCE_MANAGER.getAnimation("fireball_left")->clone();
 		fireRight = RESOURCE_MANAGER.getAnimation("fireball_right")->clone();
@@ -81,10 +83,7 @@ public:
 
 	void update(float deltaTime) override {
 		if (isDead()) return;
-
 		if (type == CHARACTER_FIREBALL) {
-
-
 			if (delayTime >= 0.f) {
 				setXVelocity(CHARACTER_FIREBALL_SPEED);
 				if (isGravityAvailable() == true) setYVelocity(getVelocity().y + GRAVITY * deltaTime);
@@ -99,6 +98,8 @@ public:
 			}
 			if (delayTime >= 0.f) {
 				setVelocity(delayVelocity);
+				if (soundEffect == false) RESOURCE_MANAGER.playSound("shot.wav");
+				soundEffect = true;
 			}
 			
 			delayTime += deltaTime;

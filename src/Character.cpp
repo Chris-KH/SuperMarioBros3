@@ -135,17 +135,18 @@ void Character::update(float deltaTime) {
                 holdShell->setOrientation(getOrientation());
                 if (orientation == RIGHT) {
                     holdShell->setXPosition(getRight());
-                    holdShell->setXVelocity(getVelocity().x + 100.f);
+                    holdShell->setXVelocity(getVelocity().x + 1000.f);
                     holdShell->kicked(RIGHT);
                 }
                 else if (orientation == LEFT) {
                     holdShell->setXPosition(getLeft() - holdShell->getSize().x);
-                    holdShell->setXVelocity(getVelocity().x - 100.f);
+                    holdShell->setXVelocity(getVelocity().x - 1000.f);
                     holdShell->kicked(LEFT);
                 }
                 holdShell->setGravityAvailable(true);
                 holdShell->setIsHold(false);
                 holdShell = nullptr;
+                RESOURCE_MANAGER.playSound("kick.wav");
             }
         }
         else if (IsKeyDown(KEY_LEFT_SHIFT)) {

@@ -16,8 +16,8 @@ private:
 	float inShellTime;
 
 	const float IN_SHELL_TIME = 10.f;
-	const float OUT_SHELL_TIME = 2.f;
-	const float SPIN_SPEED = 200.f;
+	const float OUT_SHELL_TIME = 3.f;
+	const float SPIN_SPEED = 1000.f;
 public:
 	~Shell();
 
