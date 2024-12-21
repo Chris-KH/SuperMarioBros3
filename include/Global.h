@@ -123,6 +123,11 @@ enum ShellType {
 	RED_SHELL
 };
 
+enum FireballType {
+	CHARACTER_FIREBALL,
+	ENEMY_FIREBALL
+};
+
 //Block
 enum BlockType {
 	FLOOR,
