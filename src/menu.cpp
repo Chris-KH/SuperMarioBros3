@@ -220,8 +220,24 @@ void MainMenuState::handleInput() {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, continueButton)) {
-           if(globalGameEngine != nullptr)
-             globalGameEngine->run();
+            while (globalGameEngine != nullptr) {
+                if (globalGameEngine->run())
+                {
+                    delete globalGameEngine;
+                    globalGameEngine = nullptr;
+                    menu->currentMap++;
+                    if (menu->currentMap <= 3)
+                    {
+                        menu->player->setPosition({ 0,0 });
+                        menu->player->setVelocity({ 0,0 });
+                        menu->selectMap(menu->currentMap);
+                        GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
+                        globalGameEngine = game;
+                    }
+                    else break;
+                }
+                else break;
+            }
         }
         else if (CheckCollisionPointRec(mousePos, startButton)) {
             menu->player->setPosition({ 0,0 });
@@ -233,8 +249,24 @@ void MainMenuState::handleInput() {
             }
             GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
             globalGameEngine = game;
-            if (globalGameEngine != nullptr)
-                globalGameEngine->run();
+            while (globalGameEngine != nullptr) {
+                if (globalGameEngine->run())
+                {
+                    delete globalGameEngine;
+                    globalGameEngine = nullptr;
+                    menu->currentMap++;
+                    if (menu->currentMap <= 3)
+                    {
+                        menu->player->setPosition({ 0,0 });
+                        menu->player->setVelocity({ 0,0 });
+                        menu->selectMap(menu->currentMap);
+                        GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
+                        globalGameEngine = game;
+                    }
+                    else break;
+                }
+                else break;
+            }
         } else if (CheckCollisionPointRec(mousePos, settingsButton)) {
             menu->setState(std::make_unique<SettingState>(menu));
         } else if (CheckCollisionPointRec(mousePos, charSelectionButton)) {
@@ -391,13 +423,6 @@ void MapSelection::draw() {
         30,
         CheckCollisionPointRec(GetMousePosition(), map3Button) ? LIGHTGRAY : BLACK);
 
-    // Back Button
-    /*DrawRectangleRec(backButton, ORANGE);
-    DrawText("Return to Main Menu",
-        backButton.x + (backButton.width - MeasureText("Return to Main Menu", 20)) / 2,
-        backButton.y + (backButton.height - 20) / 2,
-        20,
-        CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);*/
 }
 
 
