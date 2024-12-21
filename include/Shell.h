@@ -58,7 +58,7 @@ public:
 			killEntity();
 			//Create an Koopa Troopa 
 			return;
-		}
+		}	
 
 		if (isKicked) inShellTime = 0.f;
 		else inShellTime += deltaTime;

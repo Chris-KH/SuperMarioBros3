@@ -67,7 +67,7 @@ protected:
     Phase phase;
     CharacterState* state;
     InputManager& inputManager;
-    bool dead; //Character dead or not
+    bool lostLife; //Character dead or not
     bool sitting;
     
     int scores; // Score
@@ -107,6 +107,13 @@ public:
     bool isSitting() const {
         return sitting;
     }
+
+    bool isLostLife() const {
+        return this->lostLife;
+    }
+    void setLostLife(bool lostLife) {
+        this->lostLife = lostLife;
+    }
     bool isIdle() const;
     int getLives() const;
     void setLives(int lives);
@@ -129,7 +136,7 @@ public:
 	void transform(STATE type);
 	void collisionWithItem(const Item* item);
 
- //   void collisionWithEnemy();
+    void collisionWithEnemy(const Enemy* enemy);
     
 	//void collisionWithFireball(const Fireball* fireball);
 };

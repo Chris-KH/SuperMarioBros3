@@ -10,6 +10,8 @@
 #include"../include/Flower.h"
 #include"../include/Star.h"
 #include"../include/Coin.h"
+#include"../include/Enemy.h"
+#include"../include/Shell.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -19,9 +21,10 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
-    dead = false;
+    lostLife = false;
     invicible = 0;
     sitting = false;
+    state = nullptr;
 
     idleLeft = nullptr;
 	walkLeft = nullptr;
@@ -63,7 +66,7 @@ void Character::reset() {
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
-    dead = false;
+    lostLife = false;
     invicible = 0;
     sitting = false;
 }
@@ -90,8 +93,6 @@ void Character::setPhase(Phase phase) {
 const Character::Phase& Character::getPhase() const {
 	return phase;
 }
-
-bool Character::isDead() const { return dead; }
 
 bool Character::isInvicible() const { return invicible > 1e-9; }
 
@@ -249,3 +250,11 @@ void Character::collisionWithItem(const Item* item) {
 		//Do nothing
 	}
 };
+
+void Character::collisionWithEnemy(const Enemy* enemy) {
+    if (enemy->getEnemyType() != SHELL) {
+        scores += 100.f;
+        setYVelocity(-getVelocity().y);
+        setJumping(true);
+    }
+}
