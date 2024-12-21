@@ -43,6 +43,7 @@ private:
 	vector<Entity*> testEntities;
 	GameCamera camera;
 	bool isPaused;
+	float deltaTime;
 
 public:
 	GameEngine(float screenWidth, float screenHeight, Level& level, Character*& player)
@@ -56,6 +57,7 @@ public:
 		enemies = map.getEnemies();
 		decor = map.getDecor();
 		isPaused = false;
+		deltaTime = 0.f;
 	};
 	~GameEngine()
 	{
@@ -108,6 +110,7 @@ public:
 			return;
 		}
 		float deltaTime = GetFrameTime();
+		this->deltaTime = deltaTime;
 		//inputManager.update();
 		for (Entity* i : (blocks)) {
 			i->update(deltaTime);
@@ -190,7 +193,7 @@ public:
 		camera.beginDrawing();
 		map.renderBackground();
 		for (Entity* i : blocks)
-			i->draw();
+			i->draw(deltaTime);
 		for (Entity* i : enemies) {
 			if (player->getHoldShell() != nullptr) {
 				if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
@@ -198,22 +201,22 @@ public:
 			if (isPaused)
 				i->draw(0);
 			else
-				i->draw();
+				i->draw(deltaTime);
 		}
 		for (Entity* i : fireball) {
 			if (isPaused)
 				i->draw(0);
 			else
-				i->draw();
+				i->draw(deltaTime);
 		}
 		for (Entity* i : items)
 		{
 			if (isPaused)
 				i->draw(0);
 			else
-				i->draw();
+				i->draw(deltaTime);
 		}
-		player->draw(GetFrameTime());
+		player->draw(deltaTime);
 		for (Entity* i : decor)
 			i->draw();
 		camera.endDrawing();

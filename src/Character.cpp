@@ -26,6 +26,7 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     invicibleTime = 0.f;
     sitting = false;
     state = nullptr;
+    holdShell = nullptr;
 
     lastState = NORMAL;
     idleLeft = nullptr;

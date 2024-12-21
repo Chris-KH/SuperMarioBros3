@@ -75,7 +75,7 @@ protected:
     int lives; // Live count
     float invicibleTime;
 
-    Shell* holdShell = nullptr;
+    Shell* holdShell;
     bool holding;
 
     const float DEAD_PLAYER_INITIAL_VELOCITY = 300.f; 
