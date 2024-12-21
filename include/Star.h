@@ -14,10 +14,10 @@ public:
 		this->orientation = orientation;
 
 		if (type == YELLOW_STAR) {
-			starAnimation = RESOURCE_MANAGER.getAnimation("yellow_star")->clone();
+			starAnimation = RESOURCE_MANAGER.getAnimation("yellow_star_item")->clone();
 		}
 		else if (type == BLUE_STAR) {
-			starAnimation = RESOURCE_MANAGER.getAnimation("blue_star")->clone();
+			starAnimation = RESOURCE_MANAGER.getAnimation("blue_star_item")->clone();
 		}
 		
 		setAnimation(starAnimation);

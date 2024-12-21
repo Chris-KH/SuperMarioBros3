@@ -13,7 +13,7 @@ public:
 
 		flowerAniamtion = nullptr;
 		if (type == FIRE_FLOWER) {
-			flowerAniamtion = RESOURCE_MANAGER.getAnimation("fire_flower")->clone();
+			flowerAniamtion = RESOURCE_MANAGER.getAnimation("fire_flower_item")->clone();
 		}
 		else if (type == ICE_FLOWER) {
 

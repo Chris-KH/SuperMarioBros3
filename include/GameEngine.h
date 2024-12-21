@@ -4,6 +4,10 @@
 #include "Map.h"
 #include "Collision.h"
 #include "Character.h"
+#include "Mushroom.h"
+#include "Star.h"
+#include "Flower.h"
+#include "Coin.h"
 class CollisionInterface;
 class GameCamera {
 public:
@@ -110,6 +114,17 @@ public:
 			}
 			
 		}
+		for (size_t i = 0; i < items.size(); i++) {
+			if (items[i]->isDead()) {
+				delete items[i];
+				items.erase(items.begin() + i);
+				i--;
+			}
+			else {
+				items[i]->update(deltaTime);
+			}
+
+		}
 
 		//I think we have to update all entities before resolving collision
 		//because the collision resolution may depend on the updated position of the entities
@@ -130,11 +145,13 @@ public:
 				IColl.resolve(item, block);
 		}
 		player->setJumping(!isGrounded);
-		//for (Entity* i : enemies)
+		for (Entity* i : items)
+			IColl.resolve(player,i);
+		for (Entity* i : enemies)
 		//	for (Entity* j : enemies)
 		//		if (i != j)
 		//			IColl.resolve(*i, *j);
-		//	IColl.resolve(*player, *i);
+			IColl.resolve(player, i);
 		//for (Entity* i : )
 	}
 
@@ -206,11 +223,13 @@ public:
 	}
 
 	bool run() {
-
+		Item* testItem = new Mushroom(MUSHROOM_1UP, { 300,350 });
+		items.push_back(testItem);
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
+				
 				if(SETTINGS.isMusicEnabled())
 					UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
 
@@ -218,7 +237,7 @@ public:
 				
 				render();
 
-				//cout << GetFrameTime() << endl;
+				//cout << player->getPosition().y << endl;
 			}
 			if(player->getX() >= map.getMapSize().x)
 				return true;// finished the level

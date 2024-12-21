@@ -179,7 +179,7 @@ void Character::transform(STATE type) {
     else if (type == FIRE) {
         state = new FireState(character);
     }
-    else if (type == STAR) {
+    else if (type == STARMAN) {
         state = new StarmanState(character);
     }
     else if (type == SUPERSTARMAN) {
@@ -198,13 +198,13 @@ void Character::collisionWithItem(const Item* item) {
             scores += mushroom->POINT;
 			if (getState() == NORMAL) {
 				transform(SUPER);
-				phase = TRANSFORM_PHASE;
+				//phase = TRANSFORM_PHASE;
 			}
-			RESOURCE_MANAGER.playSound("powerup.wav");
+			RESOURCE_MANAGER.playSound("power_up.wav");
         }
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
-            RESOURCE_MANAGER.playSound("1up.wav");
+            RESOURCE_MANAGER.playSound("1_up.wav");
         }
     }
     else if (item->getItemType() == FLOWER) {
@@ -213,9 +213,9 @@ void Character::collisionWithItem(const Item* item) {
             scores += flower->POINT;
             if (getState() == NORMAL) {
                 transform(FIRE);
-				phase = TRANSFORM_PHASE;
+				//phase = TRANSFORM_PHASE;
             }
-            RESOURCE_MANAGER.playSound("powerup.wav");
+            RESOURCE_MANAGER.playSound("power_up.wav");
         }
     }
 	else if (item->getItemType() == STAR) {
@@ -223,7 +223,7 @@ void Character::collisionWithItem(const Item* item) {
         if (star->getStarType() == YELLOW_STAR) {
             if (getState() == NORMAL) {
                 transform(STARMAN);
-                phase = TRANSFORM_PHASE;
+                //phase = TRANSFORM_PHASE;
             }
             else if (getState() == SUPER) {
                 transform(SUPERSTARMAN);
@@ -234,7 +234,7 @@ void Character::collisionWithItem(const Item* item) {
                 phase = TRANSFORM_PHASE;
             }
 			scores += star->POINT;
-			RESOURCE_MANAGER.playSound("powerup.wav");
+			RESOURCE_MANAGER.playSound("power_up.wav");
         }
 	}
 	else if (item->getItemType() == COIN) {
