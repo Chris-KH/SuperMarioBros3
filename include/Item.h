@@ -11,9 +11,9 @@ public:
 	virtual EntityType getType() const override;
 	virtual ItemType getItemType() const = 0;
 
-	virtual void update(float deltaTime) = 0;
+	virtual void update(float deltaTime) override = 0;
 
-	virtual void draw(float deltaTime = GetFrameTime()) {
+	virtual void draw(float deltaTime = GetFrameTime()) override {
 		if (isDead()) return;
 
 		if (currentAnimation == nullptr) return;
