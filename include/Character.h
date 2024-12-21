@@ -88,14 +88,12 @@ public:
 
     virtual CharacterType getCharacterType() const = 0;
 
-    
     virtual void update(float deltaTime) {};
         
     virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
     virtual void draw(float deltaTime = GetFrameTime());
 
-    virtual void setState();
     virtual void reset();
 
     virtual void setPhase(Phase phase);
@@ -123,8 +121,11 @@ public:
     void setInvicible(bool invicible);
     void setSitting(bool sitting);
 
+	void transform(STATE type);
+	void collisionWithItem(const Item* item);
+
  //   void collisionWithEnemy();
-	//void collisionWithItem(const Item* item);
+    
 	//void collisionWithFireball(const Fireball* fireball);
 };
 

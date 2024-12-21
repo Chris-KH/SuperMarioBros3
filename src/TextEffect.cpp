@@ -13,8 +13,6 @@ TextEffect::TextEffect(string text, Vector2 center, float duration, float delay)
 	outlineColor = BLANK;
 	textColor = BLACK;
 
-	setGravityAvailable(false);
-	setCollisionAvailable(false);
 	setVelocity({ 0.f, -TEXT_SPEED });
 }
 
