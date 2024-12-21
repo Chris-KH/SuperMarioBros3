@@ -7,7 +7,7 @@
 
 class CollisionStrategy {
 public:
-    virtual bool resolve(Entity& entityA, Entity& entityB) = 0;
+    virtual bool resolve(Entity* entityA, Entity* entityB) = 0;
     virtual ~CollisionStrategy() = default;
 };
 
@@ -20,18 +20,18 @@ inline Rectangle getProximityRectangle(Entity& entity, float radius) {
         rect.height + 2 * radius
     };
 }
-inline bool shouldCheckCollision(const Entity& entityA, const Entity& entityB, float proximityRadius = 20.0f) {
+inline bool shouldCheckCollision( Entity* entityA,  Entity* entityB, float proximityRadius = 20.0f) {
     // Calculate proximity bounds for entityA directly
-    float leftA = entityA.getX() - proximityRadius;
-    float rightA = entityA.getX() + entityA.getWidth() + proximityRadius;
-    float topA = entityA.getY() - proximityRadius;
-    float bottomA = entityA.getY() + entityA.getHeight() + proximityRadius;
+    float leftA = entityA->getX() - proximityRadius;
+    float rightA = entityA->getX() + entityA->getWidth() + proximityRadius;
+    float topA = entityA->getY() - proximityRadius;
+    float bottomA = entityA->getY() + entityA->getHeight() + proximityRadius;
 
     // Get bounds for entityB
-    float leftB = entityB.getX();
-    float rightB = entityB.getX() + entityB.getWidth();
-    float topB = entityB.getY();
-    float bottomB = entityB.getY() + entityB.getHeight();
+    float leftB = entityB->getX();
+    float rightB = entityB->getX() + entityB->getWidth();
+    float topB = entityB->getY();
+    float bottomB = entityB->getY() + entityB->getHeight();
 
     // Check for overlap between the expanded rectangle of A and B
     return (rightA > leftB && leftA < rightB && bottomA > topB && topA < bottomB);
@@ -42,9 +42,9 @@ inline bool shouldCheckCollision(const Entity& entityA, const Entity& entityB, f
 class PlayerFloorStrat : public CollisionStrategy
 {
 public:
-    bool resolve(Entity& entityA, Entity& entityB) override {
-        Character* player = dynamic_cast<Character*>(&entityA);
-        Floor* floor = dynamic_cast<Floor*>(&entityB);
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Character* player = dynamic_cast<Character*>(entityA);
+        Floor* floor = dynamic_cast<Floor*>(entityB);
 
         if (!player || !floor)
             return false;
@@ -78,9 +78,9 @@ public:
 };
 class PlayerBlockStrat : public CollisionStrategy {
 public:
-    bool resolve(Entity& entityA, Entity& entityB) override {
-        Character* player = dynamic_cast<Character*>(&entityA);
-        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+    bool resolve(Entity* entityA, Entity *entityB) override {
+        Character* player = dynamic_cast<Character*>(entityA);
+        BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
         if (!player || !block)
             return false;
@@ -140,9 +140,9 @@ public:
 
 class PlayerMovingBlockStrat : public CollisionStrategy {
 public:
-    bool resolve(Entity& entityA, Entity& entityB) override {
-        Character* player = dynamic_cast<Character*>(&entityA);
-        MovingBlock* block = dynamic_cast<MovingBlock*>(&entityB);
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Character* player = dynamic_cast<Character*>(entityA);
+        MovingBlock* block = dynamic_cast<MovingBlock*>(entityB);
 
         if (!player || !block)
             return false;
@@ -228,9 +228,9 @@ public:
 class EnemyFloorStrat : public CollisionStrategy
 {
 public:
-    bool resolve(Entity& entityA, Entity& entityB) override {
-        Enemy* enemy = dynamic_cast<Enemy*>(&entityA);
-        Floor* floor = dynamic_cast<Floor*>(&entityB);
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Enemy* enemy = dynamic_cast<Enemy*>(entityA);
+        Floor* floor = dynamic_cast<Floor*>(entityB);
 
         if (!enemy || !floor)
             return false;
@@ -269,9 +269,9 @@ public:
 };
 class EnemyBlockStrat : public CollisionStrategy {
 public:
-    bool resolve(Entity& entityA, Entity& entityB) override {
-        Enemy* enemy = dynamic_cast<Enemy*>(&entityA);
-        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Enemy* enemy = dynamic_cast<Enemy*>(entityA);
+        BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
         if (!enemy || !block)
             return false;
@@ -364,22 +364,23 @@ public:
 
 
 
+
         return nullptr; 
     }
 };
 class CollisionInterface {
 public:
-    bool resolve(Entity& entityA, Entity& entityB) {
+    bool resolve(Entity* entityA, Entity* entityB) {
         if (!shouldCheckCollision(entityA, entityB)) {
             return false;
         }
-        auto typeA = entityA.getType();
-        auto typeB = entityB.getType();
+        auto typeA = entityA->getType();
+        auto typeB = entityB->getType();
 
-        BaseBlock* block = dynamic_cast<BaseBlock*>(&entityB);
+        BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
         auto strategy = CollisionStrategySelector::getStrategy(typeA, typeB, block);
         if (!strategy) {
-            strategy = CollisionStrategySelector::getStrategy(typeB, typeA, dynamic_cast<BaseBlock*>(&entityA));
+            strategy = CollisionStrategySelector::getStrategy(typeB, typeA, dynamic_cast<BaseBlock*>(entityA));
         }
         if (strategy) {
             return strategy->resolve(entityA, entityB);

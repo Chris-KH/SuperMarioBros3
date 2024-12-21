@@ -32,15 +32,15 @@ private:
 	vector<Entity*> blocks;
 	vector<Entity*> enemies;
 	vector<Entity*> items;
-	vector<Entity*> fireball;
+	vector<Fireball*> fireball;
 	vector<Entity*> effects;
 	vector<Entity*> decor;
+	vector<Entity*> shells;
 	vector<Entity*> testEntities;
 	GameCamera camera;
 	bool isPaused;
 
 public:
-
 	GameEngine(float screenWidth, float screenHeight, Level& level, Character*& player)
 		: camera(screenWidth, screenHeight, 1.75f), level(&level), player(player)
 	{
@@ -57,12 +57,12 @@ public:
 	{
 		player = NULL;
 		blocks.clear();
-		blocks.clear();
-		blocks.clear();
+		enemies.clear();
+		items.clear();
 	}
 	void resolveCollision() {};
 
-	void addFireBall(Entity* fireball) {
+	void addFireBall(Fireball* fireball) {
 		this->fireball.push_back(fireball);
 	}
 
@@ -119,53 +119,51 @@ public:
 	void handleCollision()
 	{
 		CollisionInterface IColl;
-		//player->setJumping(true);
 		bool isGrounded = false;
-		for (Entity* block : (blocks))
-		{
-			if (IColl.resolve(*player, *block))
-			{
+
+		for (Entity* block : blocks) {
+			if (IColl.resolve(player, block)) 
 				isGrounded = true;
-				//player->setJumping(false);
-				//break;
-			}
-		}
-		for (Entity* enemy : enemies)
-		{
-			for (Entity* block : blocks)
-			{
-				IColl.resolve(*enemy, *block);
-			}
+			for (Entity* enemy : enemies) 
+				IColl.resolve(enemy, block);
+			for (Entity* item : items) 
+				IColl.resolve(item, block);
 		}
 		player->setJumping(!isGrounded);
+		//for (Entity* i : enemies)
+		//	for (Entity* j : enemies)
+		//		if (i != j)
+		//			IColl.resolve(*i, *j);
+		//	IColl.resolve(*player, *i);
+		//for (Entity* i : )
 	}
 
 	void render() {
 		camera.beginDrawing();
 		map.renderBackground();
 		for (Entity* i : blocks)
-		{
 			i->draw();
-			//DrawRectangleRec(i->getRectangle(), ORANGE);
-		}
-		if (!isPaused)
-		{
 			for (Entity* i : enemies)
 			{
-				i->draw();
-				//DrawRectangleRec(i->getRectangle(), ORANGE);
+				if (isPaused)
+					i->draw(0);
+				else
+					i->draw();
 			}
 		for (Entity* i : fireball) {
-			i->draw();
-
+			if (isPaused)
+				i->draw(0);
+			else
+				i->draw();
 		}
 		for (Entity* i : items)
 		{
-			i->draw();
+			if (isPaused)
+				i->draw(0);
+			else
+				i->draw();
 		}
 		player->draw();
-		}
-		//DrawRectangleRec(player->getRectangle(), ORANGE);
 		for (Entity* i : decor)
 			i->draw();
 		camera.endDrawing();
@@ -223,7 +221,7 @@ public:
 				//cout << GetFrameTime() << endl;
 			}
 			if(player->getX() >= map.getMapSize().x)
-				return true;
+				return true;// finished the level
 		}
 		return false;
 	}
