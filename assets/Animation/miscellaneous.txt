@@ -25,13 +25,13 @@ $pipe_block_head
 $pipe_block_body
 32 16 32 32 999 0 0 32 32
 
-$red_mushroom_item
+$super_mushroom_item
 16 48 16 16 999 0 0 16 16
 
-$green_mushroom_item
+$1up_mushroom_item
 32 48 16 16 999 0 0 16 16
 
-$gold_star_item
+$yellow_star_item
 48 48 16 16 999 0 0 16 16
 
 $fire_flower_item

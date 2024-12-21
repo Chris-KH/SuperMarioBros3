@@ -59,7 +59,6 @@ void Plant::update(float deltaTime) {
 	
 	if (phase == EXIT_PHASE && getPosition().y <= getBoundary().x) {
 		phase = ATTACK_PHASE;
-		orientation = UP;
 		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) {
 			setAnimation(firePiranhaAttack);
 			Fireball* fireball = new Fireball(getCentral(), ENEMY_FIREBALL);
@@ -98,19 +97,22 @@ void Plant::update(float deltaTime) {
 	}
 	else if (phase == ENTER_PHASE && getPosition().y >= getBoundary().y) {
 		phase = WAIT_PHASE;
-		orientation = DOWN;
+		setCollisionAvailable(false);
 		setYVelocity(0.f);
 		setYPosition(getBoundary().y);
 	}
 	else if (timer >= WAIT_TIME && phase == WAIT_PHASE) {
 		setYVelocity(-SPEED);
+		setCollisionAvailable(true);
 		phase = EXIT_PHASE;
+		orientation = UP;
 		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) setAnimation(firePiranhaRest);
 		timer = 0.f;
 	}
 	else if (timer >= ATTACK_TIME && phase == ATTACK_PHASE) {
 		setYVelocity(SPEED);
 		phase = ENTER_PHASE;
+		orientation = DOWN;
 		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) setAnimation(firePiranhaRest);
 		timer = 0.f;
 	}
