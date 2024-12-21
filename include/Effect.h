@@ -37,11 +37,11 @@ public:
 		return EFFECT;
 	}
 
-	virtual void draw(float deltaTime = GetFrameTime()) {
+	virtual void draw(float deltaTime = GetFrameTime())  override {
 
 	}
 
-	virtual void update(float deltaTime) {
+	virtual void update(float deltaTime)  override {
 
 	}
 };

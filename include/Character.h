@@ -25,15 +25,17 @@ class Character : public Sprite, public InputManager::Listener  {
     friend class StarmanState;
 	friend class SuperStarmanState;
 	friend class FireStarmanState;
+public:
+    enum Phase {
+        DEFAULT_PHASE,
+        TRANSFORM_PHASE,
+        DEAD_PHASE,
+        EXIT_PHASE,
+        ENTER_PHASE
+    };
 
 protected:
-    enum Phase {
-		DEFAULT_PHASE,
-		TRANSFORM_PHASE,
-		DEAD_PHASE,
-		EXIT_PHASE,
-		ENTER_PHASE
-    };
+
 
     Animation* idleLeft;
     Animation* walkLeft;
@@ -88,11 +90,11 @@ public:
 
     virtual CharacterType getCharacterType() const = 0;
 
-    virtual void update(float deltaTime) {};
+    virtual void update(float deltaTime) override {};
         
     virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
-    virtual void draw(float deltaTime = GetFrameTime());
+    virtual void draw(float deltaTime = GetFrameTime()) override;
 
     virtual void reset();
 

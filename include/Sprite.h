@@ -41,6 +41,6 @@ public:
     virtual void setOrientation(Orientation orientation);
     virtual Orientation getOrientation() const;
 
-    virtual void update(float deltaTime);
-    virtual void draw(float deltaTime = GetFrameTime());
+    virtual void update(float deltaTime) override;
+    virtual void draw(float deltaTime = GetFrameTime()) override;
 };
