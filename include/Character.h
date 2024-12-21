@@ -102,7 +102,6 @@ public:
 	virtual const Phase& getPhase() const;
 
     virtual STATE getState() const;
-    bool isDead() const;
     bool isInvicible() const;
     bool isSitting() const {
         return sitting;

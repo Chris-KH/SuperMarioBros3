@@ -253,7 +253,7 @@ void Character::collisionWithItem(const Item* item) {
 
 void Character::collisionWithEnemy(const Enemy* enemy) {
     if (enemy->getEnemyType() != SHELL) {
-        scores += 100.f;
+        scores += 100;
         setYVelocity(-getVelocity().y);
         setJumping(true);
     }

@@ -68,6 +68,8 @@ void GoomBa::update(float deltaTime) {
 }
 
 void GoomBa::stomped() {
+	if (isDead()) return;
+
 	if (type == BROWN_GoomBa || type == RED_GoomBa) {
 		killEntity();
 		//Create a dead Effect
