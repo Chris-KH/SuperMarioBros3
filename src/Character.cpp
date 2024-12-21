@@ -10,6 +10,8 @@
 #include"../include/Flower.h"
 #include"../include/Star.h"
 #include"../include/Coin.h"
+#include"../include/Enemy.h"
+#include"../include/Shell.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -19,9 +21,10 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
-    dead = false;
-    invicible = 0;
+    lostLife = false;
+    invicibleTime = 0.f;
     sitting = false;
+    state = nullptr;
 
     idleLeft = nullptr;
 	walkLeft = nullptr;
@@ -63,8 +66,8 @@ void Character::reset() {
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
-    dead = false;
-    invicible = 0;
+    lostLife = false;
+    invicibleTime = 0.f;
     sitting = false;
 }
 
@@ -91,9 +94,7 @@ const Character::Phase& Character::getPhase() const {
 	return phase;
 }
 
-bool Character::isDead() const { return dead; }
-
-bool Character::isInvicible() const { return invicible > 1e-9; }
+bool Character::isInvicible() const { return invicibleTime > 0.f; }
 
 bool Character::isIdle() const {
     return (velocity.x == 0.f && velocity.y == 0.f && !isJumping());
@@ -159,8 +160,8 @@ void Character::setFlyAnimation() {
     else if (orientation == LEFT) setAnimation(flyLeft);
 }
 
-void Character::setInvicible(bool invicible) {
-    this->invicible = invicible;
+void Character::setInvicible(float invicibleTime) {
+    this->invicibleTime = invicibleTime;
 }
 
 void Character::setSitting(bool sitting) {
@@ -172,12 +173,15 @@ void Character::transform(STATE type) {
     free(state);
     if (type == NORMAL) {
         state = new NormalState(character);
+        lastState = NORMAL;
     }
     else if (type == SUPER) {
         state = new SuperState(character);
+        lastState = SUPER;
     }
     else if (type == FIRE) {
         state = new FireState(character);
+        lastState = FIRE;
     }
     else if (type == STARMAN) {
         state = new StarmanState(character);
@@ -233,6 +237,8 @@ void Character::collisionWithItem(const Item* item) {
                 transform(FIRESTARMAN);
                 phase = TRANSFORM_PHASE;
             }
+
+            invicibleTime = INVICIBLE_TIME;
 			scores += star->POINT;
 			RESOURCE_MANAGER.playSound("power_up.wav");
         }
@@ -249,3 +255,40 @@ void Character::collisionWithItem(const Item* item) {
 		//Do nothing
 	}
 };
+
+
+//True if character stomp, kick or starman. Otherwise it false
+bool Character::collisionWithEnemy(const Enemy* enemy, Edge edge) {
+    if (enemy->getEnemyType() != SHELL) {
+        if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+            scores += 100;
+            RESOURCE_MANAGER.playSound("stomp.wav");
+            return true;
+        }
+        else if (edge == TOP_EDGE) {
+            scores += 100;
+            setYVelocity(-getVelocity().y);
+            setJumping(true);
+            RESOURCE_MANAGER.playSound("stomp.wav");
+            return true;
+        }
+        else {
+            if (state->getState() == NORMAL) {
+                lives--;
+                setLostLife(true);
+                RESOURCE_MANAGER.playSound("lost_life.wav");
+            }
+            else if (state->getState() == SUPER) {
+                transform(NORMAL);
+                RESOURCE_MANAGER.playSound("lost_suit.wav");
+            }
+            else if (state->getState() == FIRE) {
+                transform(NORMAL);
+                RESOURCE_MANAGER.playSound("lost_suit");
+            }
+
+            return false;
+        }
+    }   
+    return false;
+}

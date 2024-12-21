@@ -59,5 +59,6 @@ void Enemy::stomped() {
 }
 
 void Enemy::attacked() {
-
+    if (isDead()) return;
+    killEntity();
 }

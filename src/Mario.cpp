@@ -8,6 +8,7 @@
 
 Mario::Mario(Vector2 pos) : Character(pos) {
 	state = new NormalState(this);
+	lastState = state->getState();
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
 	this->setPosition(Vector2(this->getPosition().x, this->getPosition().y));
@@ -19,6 +20,12 @@ CharacterType Mario::getCharacterType() const {
 
 void Mario::update(float deltaTime) {
 	if (isDead()) return;
+	if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+		if (!isInvicible()) {
+			invicibleTime = 0.f;
+			transform(lastState);
+		}
+	}
 
 	if (phase == DEFAULT_PHASE) {
 		INPUT_MANAGER.update();
@@ -35,6 +42,12 @@ void Mario::update(float deltaTime) {
 	}
 	else if (phase == ENTER_PHASE) {
 		//enter
+	}
+
+	if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+		if (isInvicible()) {
+			invicibleTime -= deltaTime;
+		}
 	}
 }
 
