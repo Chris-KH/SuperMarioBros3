@@ -109,7 +109,6 @@ public:
 		}
 		float deltaTime = GetFrameTime();
 		//inputManager.update();
-		player->update(deltaTime);
 		for (Entity* i : (blocks)) {
 			i->update(deltaTime);
 		}
@@ -154,8 +153,9 @@ public:
 			else {
 				items[i]->update(deltaTime);
 			}
-
 		}
+
+		player->update(deltaTime);
 
 		//I think we have to update all entities before resolving collision
 		//because the collision resolution may depend on the updated position of the entities
@@ -191,13 +191,15 @@ public:
 		map.renderBackground();
 		for (Entity* i : blocks)
 			i->draw();
-			for (Entity* i : enemies)
-			{
-				if (isPaused)
-					i->draw(0);
-				else
-					i->draw();
+		for (Entity* i : enemies) {
+			if (player->getHoldShell() != nullptr) {
+				if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
 			}
+			if (isPaused)
+				i->draw(0);
+			else
+				i->draw();
+		}
 		for (Entity* i : fireball) {
 			if (isPaused)
 				i->draw(0);
@@ -211,7 +213,7 @@ public:
 			else
 				i->draw();
 		}
-		player->draw();
+		player->draw(GetFrameTime());
 		for (Entity* i : decor)
 			i->draw();
 		camera.endDrawing();

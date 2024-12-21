@@ -15,6 +15,7 @@ class FireStarmanState;
 class Item;
 class Enemy;
 class Fireball;
+class Shell;
 
 //Base class for all character
 class Character : public Sprite, public InputManager::Listener  {
@@ -61,7 +62,7 @@ protected:
 
     //Animation* lostSuperSuit;
     //Animation* lostFireSuit;
-	
+
     STATE lastState;
     Phase phase;
     CharacterState* state;
@@ -73,6 +74,9 @@ protected:
     int coins; // Coin count
     int lives; // Live count
     float invicibleTime;
+
+    Shell* holdShell = nullptr;
+    bool holding;
 
     const float DEAD_PLAYER_INITIAL_VELOCITY = 300.f; 
     const float DEAD_PLAYER_GRAVITY = 1000.f;      
@@ -90,7 +94,7 @@ public:
 
     virtual CharacterType getCharacterType() const = 0;
 
-    virtual void update(float deltaTime) override {};
+    virtual void update(float deltaTime) override;
         
     virtual void onKey(KeyboardKey key, bool pressed) = 0;
 
@@ -114,12 +118,27 @@ public:
         this->lostLife = lostLife;
     }
     bool isIdle() const;
+
     int getLives() const;
     void setLives(int lives);
+
     int getCoins() const;
     void setCoins(int coins);
+
     int getScores() const;
     void setScores(int score);
+
+    bool isHolding() const {
+        return this->holding;
+    }
+
+    void setHoldingShell(Shell* shell) {
+        this->holdShell = shell;
+    }
+
+    Shell* getHoldShell() const {
+        return this->holdShell;
+    }
 
     void setIdleAnimation();
     void setWalkAnimation();
@@ -129,8 +148,12 @@ public:
     void setFallAnimation();
     void setSitAnimation();
     void setFlyAnimation();
+    void setHoldAnimation();
     void setInvicible(float invicibleTime);
     void setSitting(bool sitting);
+    void setHolding(bool holding) {
+        this->holding = holding;
+    }
 
 	void transform(STATE type);
 	void collisionWithItem(const Item* item);

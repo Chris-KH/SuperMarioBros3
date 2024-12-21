@@ -90,7 +90,7 @@ void NormalState::update(float deltaTime) {
     //Logic update
     if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
         if (character->velocity.x < 0) {
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 character->setAnimation(character->stopLeft);
                 RESOURCE_MANAGER.playSound("skid.wav");
             }
@@ -99,7 +99,7 @@ void NormalState::update(float deltaTime) {
         }
         else {
             character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 if (character->velocity.x >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                     character->setAnimation(character->runRight);
                 }
@@ -110,7 +110,7 @@ void NormalState::update(float deltaTime) {
     }
     else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
         if (character->velocity.x > 0) {
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 character->setAnimation(character->stopRight);
                 RESOURCE_MANAGER.playSound("skid.wav");
             }
@@ -119,7 +119,7 @@ void NormalState::update(float deltaTime) {
         }
         else {
             character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                     character->setAnimation(character->runLeft);
                 }
@@ -132,18 +132,21 @@ void NormalState::update(float deltaTime) {
         if (character->velocity.x > 0) {
             character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
             if (character->velocity.x < 0) character->setXVelocity(0.f);
-            if (character->isJumping() == false) character->setAnimation(character->walkRight);
+            if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkRight);
         }
         else if (character->velocity.x < 0) {
             character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
             if (character->velocity.x > 0) character->setXVelocity(0.f);
-            if (character->isJumping() == false) character->setAnimation(character->walkLeft);
+            if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkLeft);
         }
     }
 
     if (character->velocity.x > 0) character->orientation = RIGHT;
     else if (character->velocity.x < 0) character->orientation = LEFT;
-
+    
+    if (character->isHolding()) {
+        character->setHoldAnimation();
+    }
 
     if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
         character->setYVelocity(-jump_velocity);
@@ -163,17 +166,17 @@ void NormalState::update(float deltaTime) {
         character->setXVelocity((character->velocity.x > 0) ? max_run_velocity : -max_run_velocity);
     }
 
-    if (character->isIdle()) {
+    if (character->isIdle() && character->isHolding() == false) {
         character->setIdleAnimation();
     }
 
 
     if (character->isJumping()) {
-        if (fabs(character->getVelocity().x) >= max_run_velocity) {
+        if (fabs(character->getVelocity().x) >= max_run_velocity && character->isHolding() == false) {
             character->setFlyAnimation();
         }
         else {
-            character->setJumpAnimation();
+            if (character->isHolding() == false) character->setJumpAnimation();
             if (character->velocity.y < 0) {
                 if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(character->getVelocity().y * 0.5f);
             }

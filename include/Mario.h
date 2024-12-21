@@ -22,8 +22,6 @@ public:
 
 	CharacterType getCharacterType() const override;
 
-	void update(float deltaTime) override;
-
 	void onKey(KeyboardKey key, bool pressed) override;
 
 	void reset();

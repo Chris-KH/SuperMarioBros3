@@ -18,39 +18,6 @@ CharacterType Luigi::getCharacterType() const  {
 	return CharacterType::LUIGI;
 }
 
-void Luigi::update(float deltaTime) {
-	if (isDead()) return;
-	if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
-		if (!isInvicible()) {
-			invicibleTime = 0.f;
-			transform(lastState);
-		}
-	}
-
-	if (phase == DEFAULT_PHASE) {
-		INPUT_MANAGER.update();
-		state->update(deltaTime);
-	}
-	else if (phase == TRANSFORM_PHASE) {
-		//transform
-	}
-	else if (phase == DEAD_PHASE) {
-		//dead
-	}
-	else if (phase == EXIT_PHASE) {
-		//exit
-	}
-	else if (phase == ENTER_PHASE) {
-		//enter
-	}
-
-	if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
-		if (isInvicible()) {
-			invicibleTime -= deltaTime;
-		}
-	}
-}
-
 void Luigi::onKey(KeyboardKey key, bool pressed) {
 	if (isDead()) return;
 

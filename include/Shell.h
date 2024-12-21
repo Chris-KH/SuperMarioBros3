@@ -2,6 +2,7 @@
 #include "Enemy.h"
 
 class GameEngine;
+class Character;
 
 class Shell :public Enemy {
 private:
@@ -14,7 +15,7 @@ private:
 	bool isHold;
 	float inShellTime;
 
-	const float IN_SHELL_TIME = 6.f;
+	const float IN_SHELL_TIME = 10.f;
 	const float OUT_SHELL_TIME = 2.f;
 	const float SPIN_SPEED = 250.f;
 public:
@@ -25,6 +26,10 @@ public:
 	EnemyType getEnemyType() const override;
 
 	void update(float deltaTime) override;
+	void setIsHold(bool hold);
+	bool getIsHold() const;
 	void kicked(Orientation direction = RIGHT) override;
 	void stomped(Vector2 center = { 0.f, 0.f });
+
+	void setHoldingPosition(const Character* character);
 };

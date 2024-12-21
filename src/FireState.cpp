@@ -93,12 +93,12 @@ void FireState::update(float deltaTime) {
     }
 
     //Logic update
-    character->setSitting(IsKeyDown(KEY_S));
+    character->setSitting(IsKeyDown(KEY_S) && character->isHolding() == false);
 
     if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
         character->setSitting(false);
         if (character->velocity.x < 0) {
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 character->setAnimation(character->stopLeft);
                 RESOURCE_MANAGER.playSound("skid.wav");
             }
@@ -107,7 +107,7 @@ void FireState::update(float deltaTime) {
         }
         else {
             character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 if (character->velocity.x >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                     character->setAnimation(character->runRight);
                 }
@@ -119,7 +119,7 @@ void FireState::update(float deltaTime) {
     else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
         character->setSitting(false);
         if (character->velocity.x > 0) {
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 character->setAnimation(character->stopRight);
                 RESOURCE_MANAGER.playSound("skid.wav");
             }
@@ -128,7 +128,7 @@ void FireState::update(float deltaTime) {
         }
         else {
             character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
-            if (character->isJumping() == false) {
+            if (character->isJumping() == false && character->isHolding() == false) {
                 if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                     character->setAnimation(character->runLeft);
                 }
@@ -140,17 +140,21 @@ void FireState::update(float deltaTime) {
         if (character->velocity.x > 0) {
             character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
             if (character->velocity.x < 0) character->setXVelocity(0.f);
-            if (character->isJumping() == false) character->setAnimation(character->walkRight);
+            if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkRight);
         }
         else if (character->velocity.x < 0) {
             character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
             if (character->velocity.x > 0) character->setXVelocity(0.f);
-            if (character->isJumping() == false) character->setAnimation(character->walkLeft);
+            if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkLeft);
         }
     }
 
     if (character->velocity.x > 0.f) character->orientation = RIGHT;
     else if (character->velocity.x < 0.f) character->orientation = LEFT;
+
+    if (character->isHolding()) {
+        character->setHoldAnimation();
+    }
 
 
     if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
@@ -171,7 +175,7 @@ void FireState::update(float deltaTime) {
         character->setXVelocity((character->velocity.x > 0) ? max_run_velocity : -max_run_velocity);
     }
 
-    if (character->isIdle() && character->isSitting() == false) {
+    if (character->isIdle() && character->isSitting() == false && character->isHolding() == false) {
         character->setIdleAnimation();
     }
 
@@ -179,15 +183,15 @@ void FireState::update(float deltaTime) {
     if (character->isJumping()) {
         character->setSitting(false);
         if (fabs(character->getVelocity().x) >= max_run_velocity) {
-            character->setFlyAnimation();
+            if (character->isHolding() == false) character->setFlyAnimation();
         }
         else {
             if (character->velocity.y < 0) {
-                character->setJumpAnimation();
+                if (character->isHolding() == false) character->setJumpAnimation();
                 if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(character->getVelocity().y * 0.5f);
             }
             if (character->velocity.y >= 0) {
-                character->setFallAnimation();
+                if (character->isHolding() == false) character->setFallAnimation();
             }
         }
     }

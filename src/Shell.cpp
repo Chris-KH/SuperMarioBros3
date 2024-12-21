@@ -50,7 +50,7 @@ void Shell::update(float deltaTime)  {
 			enemy = new KoopaTroopa(RED_KoopaTroopa, getPosition(), getRandomOrientation());
 		}
 		float diffHeight = 0.f;
-		diffHeight = getSize().y - enemy->getSize().y;
+		if (enemy) diffHeight = getSize().y - enemy->getSize().y;
 		enemy->setYPosition(getY() + diffHeight);
 		globalGameEngine->addEnemy(enemy);
 		return;
@@ -68,6 +68,9 @@ void Shell::update(float deltaTime)  {
 		else setXVelocity(-SPIN_SPEED);
 		setAnimation(shellSpin);
 	}
+	else if (isHold) {
+		//
+	}
 	else {
 		setXVelocity(0.f);
 		if (inShellTime < IN_SHELL_TIME - OUT_SHELL_TIME) {
@@ -75,16 +78,16 @@ void Shell::update(float deltaTime)  {
 		}
 	}
 
-	//TEST
-	//if (getBottom() >= 500.f) {
-	//	setYVelocity(0.f);
-	//	setYPosition(500.f - getSize().y);
-	//	jumping = false;
-	//}
-
 	if (inShellTime >= IN_SHELL_TIME - OUT_SHELL_TIME) {
 		setAnimation(outShell);
 	}
+}
+
+void Shell::setIsHold(bool hold) {
+	this->isHold = hold;
+}
+bool Shell::getIsHold() const {
+	return this->isHold;
 }
 
 void Shell::kicked(Orientation direction) {
@@ -106,4 +109,19 @@ void Shell::stomped(Vector2 center) {
 	}
 	else setOrientation(getRandomOrientation());
 	isKicked = true;
+}
+
+void Shell::setHoldingPosition(const Character* character) {
+	if (character == nullptr) return;
+
+	setCenter(character->getCenter());
+
+	if (character->getOrientation()) {
+		setXPosition(character->getRight() - getSize().y / 4.f);
+	}
+	else {
+		setXPosition(character->getLeft() - 3.f * getSize().y / 4.f);
+	}
+
+	setVelocity(character->getVelocity());
 }

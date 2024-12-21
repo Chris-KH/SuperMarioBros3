@@ -21,11 +21,13 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
+    holding = false;
     lostLife = false;
     invicibleTime = 0.f;
     sitting = false;
     state = nullptr;
 
+    lastState = NORMAL;
     idleLeft = nullptr;
 	walkLeft = nullptr;
 	runLeft = nullptr;
@@ -60,15 +62,14 @@ Character::~Character() {
 EntityType Character::getType() const { return EntityType::CHARACTER; }
 
 void Character::reset() {
-    scores = 0;
-    coins = 0;
-    lives = 5;
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
+    holding = false;
     lostLife = false;
     invicibleTime = 0.f;
     sitting = false;
+    state = nullptr;
 }
 
 STATE Character::getState() const {
@@ -78,11 +79,31 @@ STATE Character::getState() const {
 void Character::draw(float deltaTime) {
 	if (isDead()) return;
 
+
+    if (isHolding() && holdShell) {
+        if (holdShell->isDead() == false) {
+            holdShell->setHoldingPosition(this);
+            holdShell->draw(deltaTime);
+        }
+    }
+
     if (currentAnimation == nullptr) return;
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
     updateTime(deltaTime);
     currentAnimation->update(deltaTime);
+    
+    if (isHolding()) {
+        if (isJumping()) {
+            currentAnimation->render(getPosition(), 1);
+        }
+        else if (isIdle()) {
+            currentAnimation->render(getPosition(), 0);
+        }
+        else currentAnimation->render(getPosition());
+        return;
+    }
+
     currentAnimation->render(getPosition());
 }
 
@@ -92,6 +113,67 @@ void Character::setPhase(Phase phase) {
 
 const Character::Phase& Character::getPhase() const {
 	return phase;
+}
+
+void Character::update(float deltaTime) {
+    if (isDead()) return;
+    if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+        if (!isInvicible()) {
+            invicibleTime = 0.f;
+            transform(lastState);
+        }
+    }
+
+    if (phase == DEFAULT_PHASE) {
+        INPUT_MANAGER.update();
+
+        //Hold shell
+        if (IsKeyUp(KEY_LEFT_SHIFT)) {
+            setHolding(false);
+            if (holdShell != nullptr) {
+                holdShell->setOrientation(getOrientation());
+                if (orientation == RIGHT) {
+                    holdShell->setXPosition(getRight());
+                    holdShell->setXVelocity(getVelocity().x + 100.f);
+                    holdShell->kicked(RIGHT);
+                }
+                else if (orientation == LEFT) {
+                    holdShell->setXPosition(getLeft() - holdShell->getSize().x);
+                    holdShell->setXVelocity(getVelocity().x - 100.f);
+                    holdShell->kicked(LEFT);
+                }
+                holdShell->setGravityAvailable(true);
+                holdShell->setIsHold(false);
+                holdShell = nullptr;
+            }
+        }
+        else if (IsKeyDown(KEY_LEFT_SHIFT)) {
+            if (holdShell != nullptr && holdShell->isDead()) {
+                holdShell = nullptr;
+                setHolding(false);
+            }
+        }
+
+        state->update(deltaTime);
+    }
+    else if (phase == TRANSFORM_PHASE) {
+        //transform
+    }
+    else if (phase == DEAD_PHASE) {
+        //dead
+    }
+    else if (phase == EXIT_PHASE) {
+        //exit
+    }
+    else if (phase == ENTER_PHASE) {
+        //enter
+    }
+
+    if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+        if (isInvicible()) {
+            invicibleTime -= deltaTime;
+        }
+    }
 }
 
 bool Character::isInvicible() const { return invicibleTime > 0.f; }
@@ -158,6 +240,11 @@ void Character::setSitAnimation() {
 void Character::setFlyAnimation() {
     if (orientation == RIGHT) setAnimation(flyRight);
     else if (orientation == LEFT) setAnimation(flyLeft);
+}
+
+void Character::setHoldAnimation() {
+    if (orientation == RIGHT) setAnimation(holdRight);
+    else if (orientation == LEFT) setAnimation(holdLeft);
 }
 
 void Character::setInvicible(float invicibleTime) {
@@ -259,6 +346,11 @@ void Character::collisionWithItem(const Item* item) {
 
 //True if character stomp, kick or starman. Otherwise it false
 void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
+    if (enemy == nullptr) return;
+
+    Shell* shell = dynamic_cast<Shell*>(enemy);
+    if (shell && shell == getHoldShell()) return;
+
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         scores += 100;
         RESOURCE_MANAGER.playSound("stomp.wav");
@@ -299,14 +391,30 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
         else {
             if (enemy->isIdle()) {
                 if (edge == LEFT_EDGE) {
-                    shell->kicked(RIGHT);
-                    setAnimation(kickRight, 0.2f);
+                    if (IsKeyDown(KEY_LEFT_SHIFT)) {
+                        setHolding(true);
+                        setHoldingShell(shell);
+                        shell->setGravityAvailable(false);
+                    }
+                    else {
+                        shell->kicked(RIGHT);
+                        setAnimation(kickRight, 0.2f);
+                        RESOURCE_MANAGER.playSound("kick.wav");
+                    }
                 }
                 else if (edge == RIGHT_EDGE) {
-                    shell->kicked(LEFT);
-                    setAnimation(kickLeft, 0.2f);
+                    if (IsKeyDown(KEY_LEFT_SHIFT)) {
+                        setHolding(true);
+                        setHoldingShell(shell);
+                        shell->setGravityAvailable(false);
+                        setAnimation(holdLeft);
+                    }
+                    else {
+                        shell->kicked(LEFT);
+                        setAnimation(kickLeft, 0.2f);
+                        RESOURCE_MANAGER.playSound("kick.wav");
+                    }
                 }
-                RESOURCE_MANAGER.playSound("kick.wav");
             }
             else {
                 if (state->getState() == NORMAL) {
