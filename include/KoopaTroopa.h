@@ -1,6 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
+class GameEngine;
+
 class KoopaTroopa : public Enemy {
 private:
 	const float SPEED = 50.f;

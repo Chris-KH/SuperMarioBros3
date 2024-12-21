@@ -1,4 +1,6 @@
-#include "../include/KoopaTroopa.h"
+﻿#include "../include/KoopaTroopa.h"
+#include "../include/Shell.h"
+#include "../include/GameEngine.h"
 
 KoopaTroopa::KoopaTroopa(KoopaTroopaType type, Vector2 position , Orientation orientation) : Enemy(position) {
 	this->type = type;
@@ -85,9 +87,17 @@ void KoopaTroopa::update(float deltaTime) {
 }
 
 void KoopaTroopa::stomped() {
-	if (type == GREEN_KoopaTroopa || type == RED_KoopaTroopa) {
+	if (isDead()) return;
+
+	if (type == GREEN_KoopaTroopa) {
 		killEntity();
-		//Create a Shell enemy
+		Shell* shell = new Shell(GREEN_SHELL, getPosition());
+		globalGameEngine->addEnemy(shell); //tạm add vô enemy
+	}
+	else if (type == RED_KoopaTroopa) {
+		killEntity();
+		Shell* shell = new Shell(RED_SHELL, getPosition());
+		globalGameEngine->addEnemy(shell); //tạm add vô enemy
 	}
 	else if (type == GREENPARA_KoopaTroopa) {
 		type = GREEN_KoopaTroopa;

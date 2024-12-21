@@ -2,6 +2,8 @@
 #include "Enemy.h"
 #include "Collision.h"
 
+class GameEngine;
+
 class GoomBa : public Enemy {
 private:
 	const float SPEED = 50.f;

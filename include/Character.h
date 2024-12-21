@@ -35,8 +35,6 @@ public:
     };
 
 protected:
-
-
     Animation* idleLeft;
     Animation* walkLeft;
     Animation* runLeft;
@@ -64,6 +62,7 @@ protected:
     //Animation* lostSuperSuit;
     //Animation* lostFireSuit;
 	
+    STATE lastState;
     Phase phase;
     CharacterState* state;
     InputManager& inputManager;
@@ -73,14 +72,14 @@ protected:
     int scores; // Score
     int coins; // Coin count
     int lives; // Live count
-    float invicible;
+    float invicibleTime;
 
     const float DEAD_PLAYER_INITIAL_VELOCITY = 300.f; 
     const float DEAD_PLAYER_GRAVITY = 1000.f;      
 
     const float MAX_WALK_VELOCITY = 100.f;
 
-    const float INVICIBLE_TIME = 1.f;
+    const float INVICIBLE_TIME = 10.f;
     const float TRANSFORM_TIME = 1.f; 
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
@@ -129,13 +128,13 @@ public:
     void setFallAnimation();
     void setSitAnimation();
     void setFlyAnimation();
-    void setInvicible(bool invicible);
+    void setInvicible(float invicibleTime);
     void setSitting(bool sitting);
 
 	void transform(STATE type);
 	void collisionWithItem(const Item* item);
 
-    void collisionWithEnemy(const Enemy* enemy);
+    bool collisionWithEnemy(const Enemy* enemy, Edge edge = TOP_EDGE);
     
 	//void collisionWithFireball(const Fireball* fireball);
 };
