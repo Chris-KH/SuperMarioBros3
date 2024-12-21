@@ -1,6 +1,12 @@
 #include "../include/NormalState.h"
 
-void NormalState::setState(Character* character) {
+NormalState::NormalState(Character* character) : CharacterState(character) {
+    setAnimation();
+}
+
+void NormalState::setAnimation() {
+	Character* character = getCharacter();
+
     if (character == nullptr) {
         return; // Avoid dereferencing a null pointer
     }
@@ -52,7 +58,9 @@ void NormalState::setState(Character* character) {
 	character->throwRight = nullptr;
 }
 
-void NormalState::update(Character* character, float deltaTime) {
+void NormalState::update(float deltaTime) {
+    Character* character = getCharacter();
+
     if (character == nullptr) {
         return; // Avoid dereferencing a null pointer
     }

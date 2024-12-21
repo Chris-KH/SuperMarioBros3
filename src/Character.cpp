@@ -5,6 +5,11 @@
 #include"../include/StarmanState.h"
 #include"../include/SuperStarmanState.h"
 #include"../include/FireStarmanState.h"
+#include"../include/Item.h"
+#include"../include/Mushroom.h"
+#include"../include/Flower.h"
+#include"../include/Star.h"
+#include"../include/Coin.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -17,6 +22,30 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     dead = false;
     invicible = 0;
     sitting = false;
+
+    idleLeft = nullptr;
+	walkLeft = nullptr;
+	runLeft = nullptr;
+	stopLeft = nullptr;
+	jumpLeft = nullptr;
+	fallLeft = nullptr;
+	flyLeft = nullptr;
+	sitLeft = nullptr;
+	holdLeft = nullptr;
+	throwLeft = nullptr;
+	kickLeft = nullptr;
+
+	idleRight = nullptr;
+	walkRight = nullptr;
+	runRight = nullptr;
+	stopRight = nullptr;
+	jumpRight = nullptr;
+	fallRight = nullptr;
+	flyRight = nullptr;
+	sitRight = nullptr;
+	holdRight = nullptr;
+	throwRight = nullptr;
+	kickRight = nullptr;
 };
 
 Character::~Character() {
@@ -60,10 +89,6 @@ void Character::setPhase(Phase phase) {
 
 const Character::Phase& Character::getPhase() const {
 	return phase;
-}
-
-void Character::setState() {
-    state->setState(this);
 }
 
 bool Character::isDead() const { return dead; }
@@ -141,3 +166,86 @@ void Character::setInvicible(bool invicible) {
 void Character::setSitting(bool sitting) {
     this->sitting = sitting;
 }
+
+void Character::transform(STATE type) {
+    Character* character = state->getCharacter();
+    free(state);
+    if (type == NORMAL) {
+        state = new NormalState(character);
+    }
+    else if (type == SUPER) {
+        state = new SuperState(character);
+    }
+    else if (type == FIRE) {
+        state = new FireState(character);
+    }
+    else if (type == STAR) {
+        state = new StarmanState(character);
+    }
+    else if (type == SUPERSTARMAN) {
+        state = new SuperStarmanState(character);
+    }
+    else if (type == FIRESTARMAN) {
+        state = new FireStarmanState(character);
+    }
+    else state = nullptr;
+}
+
+void Character::collisionWithItem(const Item* item) {
+    if (item->getItemType() == MUSHROOM) {
+		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
+        if (mushroom->getMushroomType() == MUSHROOM_SUPER) {
+            scores += mushroom->POINT;
+			if (getState() == NORMAL) {
+				transform(SUPER);
+				phase = TRANSFORM_PHASE;
+			}
+			RESOURCE_MANAGER.playSound("powerup.wav");
+        }
+        else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
+            lives++;
+            RESOURCE_MANAGER.playSound("1up.wav");
+        }
+    }
+    else if (item->getItemType() == FLOWER) {
+		const Flower* flower = dynamic_cast<const Flower*>(item);
+        if (flower->getFlowerType() == FIRE_FLOWER) {
+            scores += flower->POINT;
+            if (getState() == NORMAL) {
+                transform(FIRE);
+				phase = TRANSFORM_PHASE;
+            }
+            RESOURCE_MANAGER.playSound("powerup.wav");
+        }
+    }
+	else if (item->getItemType() == STAR) {
+		const Star* star = dynamic_cast<const Star*>(item);
+        if (star->getStarType() == YELLOW_STAR) {
+            if (getState() == NORMAL) {
+                transform(STARMAN);
+                phase = TRANSFORM_PHASE;
+            }
+            else if (getState() == SUPER) {
+                transform(SUPERSTARMAN);
+                phase = TRANSFORM_PHASE;
+            }
+            else if (getState() == FIRE) {
+                transform(FIRESTARMAN);
+                phase = TRANSFORM_PHASE;
+            }
+			scores += star->POINT;
+			RESOURCE_MANAGER.playSound("powerup.wav");
+        }
+	}
+	else if (item->getItemType() == COIN) {
+		const Coin* coin = dynamic_cast<const Coin*>(item);
+		if (coin->getCoinType() == STATIC_COIN) {
+			coins++;
+			scores += coin->POINT;
+			RESOURCE_MANAGER.playSound("coin.wav");
+		}
+	}
+	else {
+		//Do nothing
+	}
+};

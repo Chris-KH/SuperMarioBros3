@@ -8,10 +8,24 @@ class Mario;
 class Luigi;
 class Enemy;
 
-// State Interface: all states will implement this interface
+// State : all states will implement this interface
 class CharacterState {
+private:
+	Character* character;
 public:
-    virtual void setState(Character* character) = 0;
-    virtual void update(Character* character, float deltaTime) = 0;
+	CharacterState(Character* character = nullptr) {
+		this->character = character;
+	}
+	virtual ~CharacterState() = default;
+    virtual void setAnimation() = 0;
+    virtual void update(float deltaTime) = 0;
     virtual STATE getState() const = 0;
+
+	virtual void setCharacter(Character* character) {
+		this->character = character;
+	}
+
+	virtual Character* getCharacter() const {
+		return character;
+	}
 };

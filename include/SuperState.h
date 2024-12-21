@@ -7,9 +7,12 @@
 class SuperState : public CharacterState {
 	friend class Character;
 public:
+	SuperState(Character* character) : CharacterState(character) {
+		setAnimation();
+	}
 	~SuperState() = default;
 
-    virtual void setState(Character* character);
-	void update(Character* character, float deltaTime) override;
+    void setAnimation() override;
+	void update(float deltaTime) override;
 	STATE getState() const override;
 };

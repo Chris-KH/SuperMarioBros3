@@ -299,5 +299,8 @@
     <ClCompile Include="..\src\FireStarmanState.cpp">
       <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\CharacterState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

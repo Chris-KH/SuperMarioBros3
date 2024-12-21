@@ -7,9 +7,14 @@
 class SuperStarmanState : public CharacterState {
 	friend class Character;
 public:
+	SuperStarmanState(Character* character) : CharacterState(character) {
+		setAnimation();
+	}
 	~SuperStarmanState() = default;
 
-	virtual void setState(Character* character) override {
+	void setAnimation() override {
+		Character* character = getCharacter();
+
         if (character == nullptr) {
             return; // Avoid dereferencing a null pointer
         }
@@ -61,7 +66,9 @@ public:
         character->throwRight = nullptr;
     }
 
-    void update(Character* character, float deltaTime) override {
+    void update(float deltaTime) override {
+        Character* character = getCharacter();
+
         if (character == nullptr) {
             return; // Avoid dereferencing a null pointer
         }

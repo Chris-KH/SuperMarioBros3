@@ -1,6 +1,8 @@
 #include "../include/SuperState.h"
 
-void SuperState::setState(Character* character) {
+void SuperState::setAnimation() {
+	Character* character = getCharacter();
+
     if (character == nullptr) {
         return; // Avoid dereferencing a null pointer
     }
@@ -56,7 +58,9 @@ void SuperState::setState(Character* character) {
 	character->throwRight = nullptr;
 }
 
-void SuperState::update(Character* character, float deltaTime) {
+void SuperState::update(float deltaTime) {
+    Character* character = getCharacter();
+
     if (character == nullptr) {
         return; // Avoid dereferencing a null pointer
     }

@@ -17,6 +17,8 @@ public:
 		this->duration = duration;
 		this->delay = delay;
 		this->destroyWhenFinish = true;
+		setGravityAvailable(false);
+		setCollisionAvailable(false);
 	}
 
 	Effect(Animation* animation, Vector2 position = { 0.f, 0.f }, bool destroyWhenFinish = true, float delay = 0.f) {
@@ -27,6 +29,8 @@ public:
 		else this->duration = 0.f;
 		this->delay = delay;
 		this->destroyWhenFinish = destroyWhenFinish;
+		setGravityAvailable(false);
+		setCollisionAvailable(false);
 	}
 
 	virtual EntityType getType() const {

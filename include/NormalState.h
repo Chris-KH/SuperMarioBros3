@@ -7,9 +7,10 @@
 class NormalState : public CharacterState {
     friend class Character;
 public:
+    NormalState(Character* character = nullptr);
     ~NormalState() = default;
 
-    virtual void setState(Character* character);
-    void update(Character* character, float deltaTime) override;
+    void setAnimation() override;
+    void update(float deltaTime) override;
     STATE getState() const override;
 };

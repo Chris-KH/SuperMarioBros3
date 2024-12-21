@@ -66,6 +66,18 @@ public:
 		this->fireball.push_back(fireball);
 	}
 
+	void addEnemy(Entity* enemy) {
+		this->enemies.push_back(enemy);
+	}
+
+	void addEffect(Entity* effect) {
+		this->effects.push_back(effect);
+	}
+
+	void addItem(Entity* item) {
+		this->items.push_back(item);
+	}
+
 	void update() {
 		if (IsKeyPressed(KEY_ENTER)) {
 			isPaused = !isPaused;

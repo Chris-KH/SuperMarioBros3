@@ -9,9 +9,10 @@ class Fireball;
 class FireState : public CharacterState {
 	friend class Character;
 public:
-	~FireState() = default;
+	FireState(Character* character = nullptr);
 
-    virtual void setState(Character* character);
-	void update(Character* character, float deltaTime) override;
+	~FireState() = default;
+	void setAnimation() override;
+	void update(float deltaTime) override;
 	STATE getState() const override;
 };

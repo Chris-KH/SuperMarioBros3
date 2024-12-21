@@ -7,8 +7,7 @@
 #include"../include/FireStarmanState.h"
 
 Mario::Mario(Vector2 pos) : Character(pos) {
-	state = new FireStarmanState;
-	state->setState(this);
+	state = new NormalState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
 	this->setPosition(Vector2(this->getPosition().x, this->getPosition().y));
@@ -23,7 +22,7 @@ void Mario::update(float deltaTime) {
 
 	if (phase == DEFAULT_PHASE) {
 		INPUT_MANAGER.update();
-		state->update(this, deltaTime);
+		state->update(deltaTime);
 	}
 	else if (phase == TRANSFORM_PHASE) {
 		//transform

@@ -1,7 +1,13 @@
 #include "../include/FireState.h"
 #include "../include/Fireball.h"
 
-void FireState::setState(Character* character) {
+FireState::FireState(Character* character) : CharacterState(character) {
+	setAnimation();
+}
+
+void FireState::setAnimation() {
+	Character* character = getCharacter();
+
     if (character == nullptr) {
         return; // Avoid dereferencing a null pointer
     }
@@ -58,7 +64,9 @@ void FireState::setState(Character* character) {
     }
 }
 
-void FireState::update(Character* character, float deltaTime) {
+void FireState::update(float deltaTime) {
+    Character* character = getCharacter();
+
     if (character == nullptr) {
         return; // Avoid dereferencing a null pointer
     }

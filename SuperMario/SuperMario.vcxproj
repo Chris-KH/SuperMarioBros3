@@ -172,6 +172,7 @@
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
     <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\src\CharacterState.cpp" />
     <ClCompile Include="..\src\Effect.cpp" />
     <ClCompile Include="..\src\FileHandle.cpp" />
     <ClCompile Include="..\src\Fireball.cpp" />
