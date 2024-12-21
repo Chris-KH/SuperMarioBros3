@@ -77,6 +77,17 @@ enum CoinType {
 	STATIC_COIN
 };
 
+enum FlowerType {
+	FIRE_FLOWER, //Grants Mario the ability to throw fireballs.
+	ICE_FLOWER, //Grants Mario the ability to throw iceballs.
+	BOOMERANG_FLOWER, //Grants Mario the ability to throw boomerangs.
+};
+
+enum StarType {
+	YELLOW_STAR, //Grants Mario invincibility for a short period of time.
+	BLUE_STAR, //Grants Mario invincibility for a longer period of time.
+};
+
 //Enemy
 enum EnemyType {
 	GOOMBA,

@@ -48,7 +48,6 @@ void Sprite::setYAcceleration(float ay) {
 
 void Sprite::update(float deltaTime) {
     if (isDead()) return;
-
 }
 
 void Sprite::draw(float deltaTime) {
