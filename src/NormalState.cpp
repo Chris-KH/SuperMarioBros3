@@ -189,8 +189,6 @@ void NormalState::update(float deltaTime) {
         if (!RESOURCE_MANAGER.isSoundPlaying("pmeter.wav")) RESOURCE_MANAGER.playSound("pmeter.wav");
     }
     else RESOURCE_MANAGER.stopSound("pmeter.wav");
-
-    //character->setPosition(Vector2(character->getPosition().x + character->velocity.x * deltaTime, character->getPosition().y + character->velocity.y * deltaTime));
 }
 
 STATE NormalState::getState() const {

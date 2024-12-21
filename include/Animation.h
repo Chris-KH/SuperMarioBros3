@@ -26,7 +26,7 @@ public:
     const Frame& getFrame(int frameNumber) const;
 
     //Update the animation based on delta time.
-    void update(float deltaTime);
+    void update(float deltaTime, int beginIndex = 0, int size = -1);
 
     //Render the current frame of the animation.
     void render(Vector2 position) const;

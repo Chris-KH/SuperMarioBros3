@@ -92,19 +92,31 @@ void Character::draw(float deltaTime) {
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
     updateTime(deltaTime);
-    currentAnimation->update(deltaTime);
+    
     
     if (isHolding()) {
         if (isJumping()) {
-            currentAnimation->render(getPosition(), 1);
+            if (getState() == STARMAN) {
+                currentAnimation->update(deltaTime, 0, 3);
+            }
+            else currentAnimation->update(deltaTime, 1, 1);
+            currentAnimation->render(getPosition());
         }
         else if (isIdle()) {
-            currentAnimation->render(getPosition(), 0);
+            if (getState() == STARMAN) {
+                currentAnimation->update(deltaTime, 0, 3);
+            }
+            else currentAnimation->update(deltaTime, 0, 1);
+            currentAnimation->render(getPosition());
         }
-        else currentAnimation->render(getPosition());
+        else {
+            currentAnimation->update(deltaTime);
+            currentAnimation->render(getPosition());
+        }
         return;
     }
 
+    currentAnimation->update(deltaTime);
     currentAnimation->render(getPosition());
 }
 

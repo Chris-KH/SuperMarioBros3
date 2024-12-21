@@ -26,6 +26,7 @@ public:
             character->stopLeft = RESOURCE_MANAGER.getAnimation("starmario_stop_left");
             character->jumpLeft = RESOURCE_MANAGER.getAnimation("starmario_jump_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("starmario_fly_left");
+            character->holdLeft = RESOURCE_MANAGER.getAnimation("starmario_hold_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("starmario_idle_right");
             character->walkRight = RESOURCE_MANAGER.getAnimation("starmario_walk_right");
@@ -33,6 +34,7 @@ public:
             character->stopRight = RESOURCE_MANAGER.getAnimation("starmario_stop_right");
             character->jumpRight = RESOURCE_MANAGER.getAnimation("starmario_jump_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("starmario_fly_right");
+            character->holdRight = RESOURCE_MANAGER.getAnimation("starmario_hold_right");
         }
         else if (character->getCharacterType() == LUIGI) {
             character->idleLeft = RESOURCE_MANAGER.getAnimation("starluigi_idle_left");
@@ -41,6 +43,7 @@ public:
             character->stopLeft = RESOURCE_MANAGER.getAnimation("starluigi_stop_left");
             character->jumpLeft = RESOURCE_MANAGER.getAnimation("starluigi_jump_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("starluigi_fly_left");
+            character->holdLeft = RESOURCE_MANAGER.getAnimation("starluigi_hold_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("starluigi_idle_right");
             character->walkRight = RESOURCE_MANAGER.getAnimation("starluigi_walk_right");
@@ -48,12 +51,11 @@ public:
             character->stopRight = RESOURCE_MANAGER.getAnimation("starluigi_stop_right");
             character->jumpRight = RESOURCE_MANAGER.getAnimation("starluigi_jump_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("starluigi_fly_right");
+            character->holdRight = RESOURCE_MANAGER.getAnimation("starluigi_hold_right");
         }
         
 		character->kickLeft = nullptr;
 		character->kickRight = nullptr;
-        character->holdLeft = nullptr;
-		character->holdRight = nullptr;
         character->fallLeft = nullptr;
         character->fallRight = nullptr;
         character->sitLeft = nullptr;
@@ -94,7 +96,7 @@ public:
         //Logic update
         if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
             if (character->velocity.x < 0) {
-                if (character->isJumping() == false) {
+                if (character->isJumping() == false && character->isHolding() == false) {
                     character->setAnimation(character->stopLeft);
                     RESOURCE_MANAGER.playSound("skid.wav");
                 }
@@ -103,7 +105,7 @@ public:
             }
             else {
                 character->setXVelocity(character->getVelocity().x + acceleration * deltaTime);
-                if (character->isJumping() == false) {
+                if (character->isJumping() == false && character->isHolding() == false) {
                     if (character->velocity.x >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runRight);
                     }
@@ -114,7 +116,7 @@ public:
         }
         else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
             if (character->velocity.x > 0) {
-                if (character->isJumping() == false) {
+                if (character->isJumping() == false && character->isHolding() == false) {
                     character->setAnimation(character->stopRight);
                     RESOURCE_MANAGER.playSound("skid.wav");
                 }
@@ -123,7 +125,7 @@ public:
             }
             else {
                 character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
-                if (character->isJumping() == false) {
+                if (character->isJumping() == false && character->isHolding() == false) {
                     if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                         character->setAnimation(character->runLeft);
                     }
@@ -136,18 +138,21 @@ public:
             if (character->velocity.x > 0) {
                 character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
                 if (character->velocity.x < 0) character->setXVelocity(0.f);
-                if (character->isJumping() == false) character->setAnimation(character->walkRight);
+                if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkRight);
             }
             else if (character->velocity.x < 0) {
                 character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
                 if (character->velocity.x > 0) character->setXVelocity(0.f);
-                if (character->isJumping() == false) character->setAnimation(character->walkLeft);
+                if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkLeft);
             }
         }
 
         if (character->velocity.x > 0) character->orientation = RIGHT;
         else if (character->velocity.x < 0) character->orientation = LEFT;
 
+        if (character->isHolding()) {
+            character->setHoldAnimation();
+        }
 
         if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
             character->setYVelocity(-jump_velocity);
@@ -167,17 +172,17 @@ public:
             character->setXVelocity((character->velocity.x > 0) ? max_run_velocity : -max_run_velocity);
         }
 
-        if (character->isIdle()) {
+        if (character->isIdle() && character->isHolding() == false) {
             character->setIdleAnimation();
         }
 
 
         if (character->isJumping()) {
-            if (fabs(character->getVelocity().x) >= max_run_velocity) {
+            if (fabs(character->getVelocity().x) >= max_run_velocity && character->isHolding() == false) {
                 character->setFlyAnimation();
             }
             else {
-                character->setJumpAnimation();
+                if (character->isHolding() == false) character->setJumpAnimation();
                 if (character->velocity.y < 0) {
                     if (IsKeyReleased(KEY_SPACE)) character->setYVelocity(character->getVelocity().y * 0.5f);
                 }

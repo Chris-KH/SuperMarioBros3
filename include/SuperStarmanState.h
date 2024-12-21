@@ -28,6 +28,7 @@ public:
             character->fallLeft = RESOURCE_MANAGER.getAnimation("superstarmario_fall_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("superstarmario_fly_left");
             character->sitLeft = RESOURCE_MANAGER.getAnimation("superstarmario_sit_left");
+            character->holdLeft = RESOURCE_MANAGER.getAnimation("superstarmario_hold_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("superstarmario_idle_right");
             character->walkRight = RESOURCE_MANAGER.getAnimation("superstarmario_walk_right");
@@ -37,6 +38,7 @@ public:
             character->fallRight = RESOURCE_MANAGER.getAnimation("superstarmario_fall_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("superstarmario_fly_right");
             character->sitRight = RESOURCE_MANAGER.getAnimation("superstarmario_sit_right");
+            character->holdRight = RESOURCE_MANAGER.getAnimation("superstarmario_hold_right");
         }
         else if (character->getCharacterType() == LUIGI) {
             character->idleLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_idle_left");
@@ -47,6 +49,7 @@ public:
             character->fallLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_fall_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_fly_left");
             character->sitLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_sit_left");
+            character->holdLeft = RESOURCE_MANAGER.getAnimation("superstarluigi_hold_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("superstarluigi_idle_right");
             character->walkRight = RESOURCE_MANAGER.getAnimation("superstarluigi_walk_right");
@@ -56,12 +59,11 @@ public:
             character->fallRight = RESOURCE_MANAGER.getAnimation("superstarluigi_fall_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("superstarluigi_fly_right");
             character->sitRight = RESOURCE_MANAGER.getAnimation("superstarluigi_sit_right");
+            character->holdRight = RESOURCE_MANAGER.getAnimation("superstarluigi_hold_right");
         }
 
 		character->kickLeft = nullptr;
 		character->kickRight = nullptr;
-		character->holdLeft = nullptr;
-		character->holdRight = nullptr;
         character->throwLeft = nullptr;
         character->throwRight = nullptr;
     }

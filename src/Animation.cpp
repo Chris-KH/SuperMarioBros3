@@ -19,8 +19,21 @@ const Animation::Frame& Animation::getFrame(int frameNumber) const {
     return frames[index];
 }
 
-void Animation::update(float deltaTime) {
+void Animation::update(float deltaTime, int beginIndex, int size) {
     if (frames.empty()) return;
+    if (beginIndex < 0 || beginIndex >= (int)frames.size()) return;
+
+    int endIndex = 0;
+
+    if (size <= -1) {
+        endIndex = (int)frames.size();
+    }
+    else {
+        if (size + beginIndex >= (int)frames.size()) endIndex = (int)frames.size();
+        else endIndex = size + beginIndex;
+    }
+
+    if (currentFrame < beginIndex) currentFrame = beginIndex;
 
     frameTimeCounter += deltaTime;
 
@@ -28,8 +41,8 @@ void Animation::update(float deltaTime) {
         frameTimeCounter -= frames[currentFrame].duration;
         currentFrame++;
 
-        if (currentFrame >= frames.size()) {
-            currentFrame = 0;
+        if (currentFrame >= endIndex) {
+            currentFrame = beginIndex;
         }
     }
 }
