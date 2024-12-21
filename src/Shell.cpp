@@ -45,18 +45,13 @@ void Shell::update(float deltaTime)  {
 		KoopaTroopa* enemy = nullptr;
 		if (type == GREEN_SHELL) {
 			enemy = new KoopaTroopa(GREEN_KoopaTroopa, getPosition(), getRandomOrientation());
-			float diffHeight = 0.f;
-			diffHeight = getSize().y - enemy->getSize().y;
-			enemy->setYPosition(getY() + diffHeight);
-			enemy->setBoudary({ 0,3000 });
 		}
 		else if (type == RED_SHELL) {
 			enemy = new KoopaTroopa(RED_KoopaTroopa, getPosition(), getRandomOrientation());
-			float diffHeight = 0.f;
-			diffHeight = getSize().y - enemy->getSize().y;
-			enemy->setYPosition(getY() + diffHeight);
-			enemy->setBoudary({ 0,3000 });
 		}
+		float diffHeight = 0.f;
+		diffHeight = getSize().y - enemy->getSize().y;
+		enemy->setYPosition(getY() + diffHeight);
 		globalGameEngine->addEnemy(enemy);
 		return;
 	}
@@ -106,8 +101,9 @@ void Shell::stomped(Vector2 center) {
 	if (getCenter().x > center.x) {
 		setOrientation(RIGHT);
 	}
-	else {
+	else if (getCenter().x < center.x) {
 		setOrientation(LEFT);
 	}
+	else setOrientation(getRandomOrientation());
 	isKicked = true;
 }

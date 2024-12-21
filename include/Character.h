@@ -78,8 +78,9 @@ protected:
     const float DEAD_PLAYER_GRAVITY = 1000.f;      
 
     const float MAX_WALK_VELOCITY = 100.f;
+    const float JET_STOMP_VELOCITY = -200.f;
 
-    const float INVICIBLE_TIME = 10.f;
+    const float INVICIBLE_TIME = 12.f;
     const float TRANSFORM_TIME = 1.f; 
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
@@ -134,7 +135,7 @@ public:
 	void transform(STATE type);
 	void collisionWithItem(const Item* item);
 
-    bool collisionWithEnemy(const Enemy* enemy, Edge edge = TOP_EDGE);
+    void collisionWithEnemy(Enemy* enemy, Edge edge = TOP_EDGE);
     
 	//void collisionWithFireball(const Fireball* fireball);
 };

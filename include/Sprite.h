@@ -40,6 +40,7 @@ public:
     virtual bool isCollisionAvailable() const;
     virtual void setOrientation(Orientation orientation);
     virtual Orientation getOrientation() const;
+    virtual bool isIdle() const;
 
     virtual void update(float deltaTime) override;
     virtual void draw(float deltaTime = GetFrameTime()) override;

@@ -258,19 +258,19 @@ void Character::collisionWithItem(const Item* item) {
 
 
 //True if character stomp, kick or starman. Otherwise it false
-bool Character::collisionWithEnemy(const Enemy* enemy, Edge edge) {
-    if (enemy->getEnemyType() != SHELL) {
-        if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
+    if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+        scores += 100;
+        RESOURCE_MANAGER.playSound("stomp.wav");
+        enemy->attacked();
+    }
+    else if (enemy->getEnemyType() != SHELL) {
+        if (edge == TOP_EDGE && enemy->getEnemyType() != PLANT) {
             scores += 100;
-            RESOURCE_MANAGER.playSound("stomp.wav");
-            return true;
-        }
-        else if (edge == TOP_EDGE && enemy->getEnemyType() != PLANT) {
-            scores += 100;
-            setYVelocity(-getVelocity().y);
+            setYVelocity(JET_STOMP_VELOCITY);
             setJumping(true);
             RESOURCE_MANAGER.playSound("stomp.wav");
-            return true;
+            enemy->stomped();
         }
         else {
             if (state->getState() == NORMAL) {
@@ -286,9 +286,44 @@ bool Character::collisionWithEnemy(const Enemy* enemy, Edge edge) {
                 transform(NORMAL);
                 RESOURCE_MANAGER.playSound("lost_suit");
             }
-
-            return false;
         }
     }   
-    return false;
+    else if (enemy->getEnemyType() == SHELL) {
+        Shell* shell = dynamic_cast<Shell*>(enemy);
+        if (edge == TOP_EDGE || edge == BOTTOM_EDGE) {
+            setYVelocity(JET_STOMP_VELOCITY);
+            setJumping(true);
+            RESOURCE_MANAGER.playSound("stomp.wav");
+            shell->stomped(getCenter());
+        }
+        else {
+            if (enemy->isIdle()) {
+                if (edge == LEFT_EDGE) {
+                    shell->kicked(RIGHT);
+                    setAnimation(kickRight, 0.2f);
+                }
+                else if (edge == RIGHT_EDGE) {
+                    shell->kicked(LEFT);
+                    setAnimation(kickLeft, 0.2f);
+                }
+                RESOURCE_MANAGER.playSound("kick.wav");
+            }
+            else {
+                if (state->getState() == NORMAL) {
+                    lives--;
+                    setLostLife(true);
+                    RESOURCE_MANAGER.playSound("lost_life.wav");
+                }
+                else if (state->getState() == SUPER) {
+                    transform(NORMAL);
+                    RESOURCE_MANAGER.playSound("lost_suit.wav");
+                }
+                else if (state->getState() == FIRE) {
+                    transform(NORMAL);
+                    RESOURCE_MANAGER.playSound("lost_suit");
+                }
+            }
+        }
+    }
+
 }

@@ -14,9 +14,9 @@ private:
 	bool isHold;
 	float inShellTime;
 
-	const float IN_SHELL_TIME = 5.f;
-	const float OUT_SHELL_TIME = 1.f;
-	const float SPIN_SPEED = 300.f;
+	const float IN_SHELL_TIME = 6.f;
+	const float OUT_SHELL_TIME = 2.f;
+	const float SPIN_SPEED = 250.f;
 public:
 	~Shell();
 

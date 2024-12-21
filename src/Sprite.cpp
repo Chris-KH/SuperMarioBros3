@@ -90,3 +90,7 @@ void Sprite::setOrientation(Orientation orientation) {
 Orientation Sprite::getOrientation() const {
     return orientation;
 }
+
+bool Sprite::isIdle() const {
+    return (velocity.x == 0.f && velocity.y == 0.f);
+}

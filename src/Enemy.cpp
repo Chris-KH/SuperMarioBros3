@@ -6,7 +6,7 @@ Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
     kickable = false;
     jumping = false;
 
-    boudary = { 0.f, 0.f };
+    boudary = { 0.f, 3000.f };
     setPosition(pos);
 };
 

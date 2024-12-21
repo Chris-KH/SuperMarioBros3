@@ -36,8 +36,8 @@ public:
 		fireLeft = RESOURCE_MANAGER.getAnimation("fireball_left")->clone();
 		fireRight = RESOURCE_MANAGER.getAnimation("fireball_right")->clone();
 
-		fireLeft->setScale(5.f);
-		fireRight->setScale(5.f);
+		//fireLeft->setScale(5.f);
+		//fireRight->setScale(5.f);
 
 		if (orientation == LEFT) setAnimation(fireLeft);
 		else if (orientation == RIGHT) setAnimation(fireRight);
