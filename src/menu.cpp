@@ -44,19 +44,16 @@ void Menu::run() {
     registerBlocks();
     globalGameEngine = nullptr;
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
-
-    // Tạo một vật thể với texture và InputManager
-    Character* player = new Mario(Vector2{ 0,0 });
-    this->player = player;
-    Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png");
-    Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png");
-    Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png");
-
+    Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png", "Overworld.mp3");
+    Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "Overworld.mp3");
+    Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "Overworld.mp3");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
-    this->map = &level1;
 
+    loadFromConfig("../assets/config.txt");
+    selectMap(selectedMap);
+   
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -78,7 +75,7 @@ void Menu::run() {
         EndDrawing();
     }
 
-
+    saveToConfig("../assets/config.txt");
     loadedLevel.clear();
     if (globalGameEngine != nullptr)
     {
@@ -225,12 +222,11 @@ void MainMenuState::handleInput() {
                 {
                     delete globalGameEngine;
                     globalGameEngine = nullptr;
-                    menu->currentMap++;
-                    if (menu->currentMap <= 3)
+                    if ((menu->getSelectedMap() +1) <= 3)
                     {
                         menu->player->setPosition({ 0,0 });
                         menu->player->setVelocity({ 0,0 });
-                        menu->selectMap(menu->currentMap);
+                        menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
                         globalGameEngine = game;
                     }
@@ -254,12 +250,11 @@ void MainMenuState::handleInput() {
                 {
                     delete globalGameEngine;
                     globalGameEngine = nullptr;
-                    menu->currentMap++;
-                    if (menu->currentMap <= 3)
+                    if ((menu->getSelectedMap() + 1) <= 3)
                     {
                         menu->player->setPosition({ 0,0 });
                         menu->player->setVelocity({ 0,0 });
-                        menu->selectMap(menu->currentMap);
+                        menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
                         globalGameEngine = game;
                     }
@@ -442,4 +437,80 @@ void MapSelection::handleInput() {
             menu->returnToMainMenu();
         }*/
     }
+}
+
+void Menu::saveToConfig(string filename) {
+    ofstream outFile(filename);
+    if (!outFile) {
+        cerr << "Error: Could not open file for saving: " << filename << endl;
+        return;
+    }
+
+    outFile << "AudioEnabled: " << (audioEnabled ? "true" : "false") << endl;
+    outFile << "MusicEnabled: " << (musicEnabled ? "true" : "false") << endl;
+    outFile << "SelectedMap: " << selectedMap << endl;
+    if (player) {
+        outFile << "CharacterType: " << static_cast<int>(player->getCharacterType()) << endl;
+        outFile << "Lives: " << player->getLives() << endl;
+        outFile << "Coins: " << player->getCoins() << endl;
+        outFile << "Scores: " << player->getScores() << endl;
+    }
+    else {
+        outFile << "CharacterType: -1" << endl; // Placeholder for no character
+    }
+    outFile.close();
+    cout << "Configuration saved to " << filename << endl;
+}
+
+void Menu::loadFromConfig(string filename) {
+    ifstream inFile(filename);
+    if (!inFile) {
+        cerr << "Error: Could not open file for loading: " << filename << endl;
+        return;
+    }
+
+    string key;
+    while (inFile >> key) {
+        if (key == "AudioEnabled:") {
+            string value;
+            inFile >> value;
+            audioEnabled = (value == "true");
+        }
+        else if (key == "MusicEnabled:") {
+            string value;
+            inFile >> value;
+            musicEnabled = (value == "true");
+        }
+        else if (key == "SelectedMap:") {
+            inFile >> selectedMap;
+        }
+        else if (key == "CharacterType:") {
+            int type;
+            inFile >> type;
+            if (type != -1) {
+                if (type == 0)
+                    this->player = new Mario({ 0, 0 });
+                else if (type == 1)
+                    this->player = new Luigi({ 0,0 });
+            }
+        }
+        else if (key == "Lives:") {
+            int lives;
+            inFile >> lives;
+            if (player) player->setLives(lives);
+        }
+        else if (key == "Coins:") {
+            int coins;
+            inFile >> coins;
+            if (player) player->setCoins(coins);
+        }
+        else if (key == "Scores:") {
+            int scores;
+            inFile >> scores;
+            if (player) player->setScores(scores);
+        }
+    }
+
+    inFile.close();
+    cout << "Configuration loaded from " << filename << endl;
 }

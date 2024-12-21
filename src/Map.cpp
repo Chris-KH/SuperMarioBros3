@@ -92,8 +92,9 @@ void Map::clearThings() {
 }
 
 // Level Implementation
-Level::Level(const std::string& map, const std::string& background)
-    : mapPath(map), backGroundPath(background) {}
+Level::Level(const std::string& map, const std::string& background,string music)
+    : mapPath(map), backGroundPath(background),music(music) {}
+
 
 std::string Level::getMapPath() const {
     return mapPath;
@@ -101,6 +102,11 @@ std::string Level::getMapPath() const {
 
 std::string Level::getBackGroundPath() const {
     return backGroundPath;
+}
+
+string Level::getMusic() const
+{
+    return music;
 }
 
 // MapHelper Implementation

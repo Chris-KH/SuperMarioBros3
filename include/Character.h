@@ -109,8 +109,11 @@ public:
     }
     bool isIdle() const;
     int getLives() const;
+    void setLives(int lives);
     int getCoins() const;
+    void setCoins(int coins);
     int getScores() const;
+    void setScores(int score);
 
     void setIdleAnimation();
     void setWalkAnimation();

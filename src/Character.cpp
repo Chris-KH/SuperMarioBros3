@@ -76,9 +76,23 @@ bool Character::isIdle() const {
 
 int Character::getLives() const { return lives; }
 
+void Character::setLives(int lives)
+{
+    this->lives = lives;
+}
 int Character::getCoins() const { return coins; }
 
+void Character::setCoins(int coins)
+{
+    this->coins = coins;
+}
+
 int Character::getScores() const { return scores; }
+
+void Character::setScores(int score)
+{
+    this->scores = score;
+}
 
 void Character::setIdleAnimation() {
     if (orientation == RIGHT) setAnimation(idleRight);
