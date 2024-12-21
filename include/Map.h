@@ -57,9 +57,11 @@ class Level {
 private:
     std::string mapPath;
     std::string backGroundPath;
+    string music;
 
 public:
-    Level(const std::string& map, const std::string& background);
+    Level(const std::string& map, const std::string& background,string music);
     std::string getMapPath() const;
     std::string getBackGroundPath() const;
+    string getMusic() const;
 };

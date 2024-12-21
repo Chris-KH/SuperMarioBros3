@@ -23,10 +23,10 @@ public:
     bool isMusicEnabled() const;
     int getSelectedCharacter() const;
     int getSelectedMap() const;
-
+    void saveToConfig(string filename);
+    void loadFromConfig(string filename);
     void returnToMainMenu();
     void setBackground(const std::string& imagePath);
-    int currentMap = 1;
     Character* player;
     Level* map;
 
@@ -35,7 +35,7 @@ private:
     bool audioEnabled;
     bool musicEnabled;
     int selectedCharacter;
-    int selectedMap;
+    int selectedMap = 1;
     std::unique_ptr<MenuState> currentState;
     Texture2D backgroundTexture;
 };
