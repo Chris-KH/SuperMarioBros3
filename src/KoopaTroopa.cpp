@@ -38,6 +38,8 @@ KoopaTroopa::KoopaTroopa(KoopaTroopaType type, Vector2 position , Orientation or
 		this->canJump = true;
 	}
 
+	if (orientation) setAnimation(walkRight);
+	else setAnimation(walkLeft);
 }
 
 KoopaTroopa::~KoopaTroopa() {
@@ -59,7 +61,7 @@ void KoopaTroopa::update(float deltaTime) {
 	if (isDead()) return;
 
 	if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
-	else if (getPosition().x >= getBoundary().y) setOrientation(LEFT);
+	else if (getRight() >= getBoundary().y) setOrientation(LEFT);
 
 	if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
 
@@ -92,12 +94,12 @@ void KoopaTroopa::stomped() {
 	if (type == GREEN_KoopaTroopa) {
 		killEntity();
 		Shell* shell = new Shell(GREEN_SHELL, getPosition());
-		globalGameEngine->addEnemy(shell); //tạm add vô enemy
+		globalGameEngine->addShell(shell);
 	}
 	else if (type == RED_KoopaTroopa) {
 		killEntity();
 		Shell* shell = new Shell(RED_SHELL, getPosition());
-		globalGameEngine->addEnemy(shell); //tạm add vô enemy
+		globalGameEngine->addShell(shell);
 	}
 	else if (type == GREENPARA_KoopaTroopa) {
 		type = GREEN_KoopaTroopa;
@@ -106,6 +108,8 @@ void KoopaTroopa::stomped() {
 		free(walkLeft);
 		free(walkRight);
 		jumpLeft = nullptr;
+		currentAnimation = nullptr;
+		setJumping(false);
 		jumpRight = nullptr;
 		walkLeft = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_walkLeft")->clone();
 		walkRight = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_walkRight")->clone();
@@ -120,6 +124,8 @@ void KoopaTroopa::stomped() {
 		free(walkRight);
 		jumpLeft = nullptr;
 		jumpRight = nullptr;
+		currentAnimation = nullptr;
+		setJumping(false);
 		walkLeft = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_walkLeft")->clone();
 		walkRight = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_walkRight")->clone();
 		canJump = false;

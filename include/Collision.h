@@ -458,28 +458,36 @@ public:
 
         // Top collision (player lands on top of enemy)
         if (playerVelocity.y > 0 && playerRect.y + playerRect.height <= enemyNextPos.y) {
-            // Player's bottom touches the enemy's top
-            std::cout << "Collision: Top of Enemy" << std::endl;
-            player->setYVelocity(-player->getVelocity().y);
+            bool flag = player->collisionWithEnemy(enemy, TOP_EDGE);
+            if (flag)
+            {
+                if (player->getState() == STARMAN || player->getState() == SUPERSTARMAN || player->getState() == FIRESTARMAN)
+                    enemy->attacked();
+                else
+                    enemy->stomped();
+            }
         }
+        else {
+        if (player->collisionWithEnemy(enemy, BOTTOM_EDGE))
+            enemy->attacked();
+        }
+        //// Bottom collision (player jumps into the enemy from below)
+        //if (playerRect.y >= enemyNextPos.y + enemyRect.height) {
+        //    // Player's top touches the enemy's bottom
+        //    std::cout << "Collision: Bottom of Enemy" << std::endl;
+        //}
 
-        // Bottom collision (player jumps into the enemy from below)
-        if (playerRect.y >= enemyNextPos.y + enemyRect.height) {
-            // Player's top touches the enemy's bottom
-            std::cout << "Collision: Bottom of Enemy" << std::endl;
-        }
+        //// Left collision (player moves into the enemy's right side)
+        //if (playerRect.x + playerRect.width <= enemyRect.x) {
+        //    // Player's right touches the enemy's left
+        //    std::cout << "Collision: Left of Enemy" << std::endl;
+        //}
 
-        // Left collision (player moves into the enemy's right side)
-        if (playerRect.x + playerRect.width <= enemyRect.x) {
-            // Player's right touches the enemy's left
-            std::cout << "Collision: Left of Enemy" << std::endl;
-        }
-
-        // Right collision (player moves into the enemy's left side)
-        if (playerRect.x >= enemyRect.x + enemyRect.width) {
-            // Player's left touches the enemy's right
-            std::cout << "Collision: Right of Enemy" << std::endl;
-        }
+        //// Right collision (player moves into the enemy's left side)
+        //if (playerRect.x >= enemyRect.x + enemyRect.width) {
+        //    // Player's left touches the enemy's right
+        //    std::cout << "Collision: Right of Enemy" << std::endl;
+        //}
 
         return false;
     }

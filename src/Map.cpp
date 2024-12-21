@@ -73,18 +73,6 @@ void Map::renderBackground() const {
 }
 
 void Map::clearThings() {
-    for (Entity* entity : blockArray) {
-        delete entity;
-    }
-    for (Entity* entity : enemies) {
-        delete entity;
-    }
-    for (Entity* entity : items) {
-        delete entity;
-    }
-    for (Entity* entity : decor) {
-        delete entity;
-    }
     blockArray.clear();
     enemies.clear();
     items.clear();

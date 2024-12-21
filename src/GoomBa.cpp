@@ -81,6 +81,8 @@ void GoomBa::stomped() {
 		jumpAnimation = nullptr;
 		walkAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
 		canJump = false;
+		currentAnimation = nullptr;
+		setJumping(false);
 		jumpTime = 0.f;
 	}
 	else if (type == BROWNPARA_GoomBa) {
@@ -88,8 +90,10 @@ void GoomBa::stomped() {
 		free(jumpAnimation);
 		free(walkAnimation);
 		jumpAnimation = nullptr;
+		currentAnimation = nullptr;
 		walkAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
 		canJump = false;
+		setJumping(false);
 		jumpTime = 0.f;
 	}
 }

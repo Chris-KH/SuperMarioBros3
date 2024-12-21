@@ -29,28 +29,28 @@ $red_goomba_dead
 315 56 16 9 999 0 0 16 9
 
 $green_KoopaTroopa_walkLeft
-165 99 16 26 0.1 0 0 16 26
+165 99 16 26 0.1 0 -1 16 27
 125 98 16 27 0.1 0 0 16 27
 
 $green_KoopaTroopa_walkRight
-215 99 16 26 0.1 0 0 16 26
+215 99 16 26 0.1 0 -1 16 27
 255 98 16 27 0.1 0 0 16 27
 
 $green_paraKoopaTroopa_walkLeft
-85 149 16 26 0.1 0 0 16 26
+85 149 16 26 0.1 0 -1 16 27
 45 148 16 27 0.1 0 0 16 27
 
 $green_paraKoopaTroopa_walkRight
-295 149 16 26 0.1 0 0 16 26
+295 149 16 26 0.1 0 -1 16 27
 335 148 16 27 0.1 0 0 16 27
 
 $green_paraKoopaTroopa_jumpLeft
 165 148 16 27 0.1 0 0 16 27
-125 148 16 28 0.1 0 0 16 28
+125 148 16 28 0.1 0 1 16 27
 
 $green_paraKoopaTroopa_jumpRight
 215 148 16 27 0.1 0 0 16 27
-255 148 16 28 0.1 0 0 16 28
+255 148 16 28 0.1 0 1 16 27
 
 $green_paraKoopaTroopa_spin
 50 104 16 16 0.025 0 0 16 16
@@ -63,7 +63,7 @@ $green_KoopaTroopa_shell
 
 $green_KoopaTroopa_outShell
 50 104 16 16 0.1 0 0 16 16
-84 103 18 17 0.1 1 0 16 17
+84 103 18 17 0.1 1 1 16 16
 
 $red_KoopaTroopa_walkLeft
 165 199 16 26 0.1 0 0 16 26

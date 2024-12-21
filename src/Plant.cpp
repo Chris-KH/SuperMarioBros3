@@ -61,13 +61,13 @@ void Plant::update(float deltaTime) {
 		phase = ATTACK_PHASE;
 		if (type == GREEN_FIREPIRANHA || type == RED_FIREPIRANHA) {
 			setAnimation(firePiranhaAttack);
-			Fireball* fireball = new Fireball(getCentral(), ENEMY_FIREBALL);
+			/*Fireball* fireball = new Fireball(getCentral(), ENEMY_FIREBALL);
 			fireball->calculateFireballVelocity(fireball->getCenter(), player->getCenter());
 			fireball->setDelayTime(ATTACK_TIME / 2.f);
-			globalGameEngine->addFireBall(fireball);
+			globalGameEngine->addFireBall(fireball);*/
 
 			//Chill
-			/*Fireball* fireball1 = new Fireball(getCentral(), ENEMY_FIREBALL);
+			Fireball* fireball1 = new Fireball(getCentral(), ENEMY_FIREBALL);
 			fireball1->calculateFireballVelocity(fireball1->getCenter(), player->getCenter());
 			fireball1->setDelayTime(0.f);
 			globalGameEngine->addFireBall(fireball1);
@@ -90,7 +90,7 @@ void Plant::update(float deltaTime) {
 			Fireball* fireball5 = new Fireball(getCentral(), ENEMY_FIREBALL);
 			fireball5->calculateFireballVelocity(fireball5->getCenter(), player->getCenter());
 			fireball5->setDelayTime(2.f);
-			globalGameEngine->addFireBall(fireball5);*/
+			globalGameEngine->addFireBall(fireball5);
 		}
 		setYVelocity(0.f);
 		setYPosition(getBoundary().x);

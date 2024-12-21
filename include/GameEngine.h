@@ -59,10 +59,23 @@ public:
 	};
 	~GameEngine()
 	{
+		for (Entity* entity : blocks) {
+			delete entity;
+		}
+		for (Entity* entity : enemies) {
+			delete entity;
+		}
+		for (Entity* entity : items) {
+			delete entity;
+		}
+		for (Entity* entity : decor) {
+			delete entity;
+		}
 		player = NULL;
 		blocks.clear();
 		enemies.clear();
 		items.clear();
+		shells.clear();
 	}
 	void resolveCollision() {};
 
@@ -77,7 +90,11 @@ public:
 	void addEffect(Entity* effect) {
 		this->effects.push_back(effect);
 	}
-
+	void addShell(Entity* shell)
+	{
+		this->enemies.push_back(shell);
+		this->shells.push_back(shell);
+	}
 	void addItem(Entity* item) {
 		this->items.push_back(item);
 	}
@@ -101,8 +118,22 @@ public:
 			if (enemy) {
 				enemy->setPlayerForFireball(player);
 			}
-			i->update(deltaTime);
 		}
+		for (size_t i = 0; i < enemies.size(); i++) {
+			if (enemies[i]->isDead()) {
+				auto it = find(shells.begin(), shells.end(), enemies[i]);
+				if (it != shells.end())
+					shells.erase(it);
+				delete enemies[i];
+				enemies.erase(enemies.begin() + i);
+				i--;
+			}
+			else {
+				enemies[i]->update(deltaTime);
+			}
+
+		}
+
 		for (size_t i = 0; i < fireball.size(); i++) {
 			if (fireball[i]->isDead()) {
 				delete fireball[i];
@@ -195,23 +226,17 @@ public:
 
 		// Display Lives
 		DrawText("LIVES: ", 10, 10, 40, WHITE);
-		char livesBuffer[3];
-		sprintf_s(livesBuffer, "%d", player->getLives());
-		DrawText(livesBuffer, 160, 10, 40, WHITE);
+		DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
 
 		// Display Coins
 		DrawRectangle(300, 10, 30, 40, YELLOW);
 		DrawRectangle(310, 20, 10, 20, ORANGE);
-		char coinsBuffer[10];
-		sprintf_s(coinsBuffer, "%d", player->getCoins());
 		DrawText("x", 340, 10, 40, WHITE);
-		DrawText(coinsBuffer, 370, 10, 40, WHITE);
+		DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
 
 		// Display Score
 		DrawText("Score: ", 500, 10, 40, WHITE);
-		char scoreBuffer[30];
-		sprintf_s(scoreBuffer, "%d", player->getScores());
-		DrawText(scoreBuffer, 650, 10, 40, WHITE);
+		DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
 
 		if (isPaused) {
 			DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
@@ -223,7 +248,7 @@ public:
 	}
 
 	bool run() {
-		Item* testItem = new Mushroom(MUSHROOM_1UP, { 300,350 });
+		Item* testItem = new Star(YELLOW_STAR, { 300,350 });
 		items.push_back(testItem);
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {

@@ -265,7 +265,7 @@ bool Character::collisionWithEnemy(const Enemy* enemy, Edge edge) {
             RESOURCE_MANAGER.playSound("stomp.wav");
             return true;
         }
-        else if (edge == TOP_EDGE) {
+        else if (edge == TOP_EDGE && enemy->getEnemyType() != PLANT) {
             scores += 100;
             setYVelocity(-getVelocity().y);
             setJumping(true);
