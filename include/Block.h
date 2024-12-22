@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef BLOCK_H
+#define BLOCK_H
 #include "raylib.h"
 #include "Entity.h"
 #include <fstream>
@@ -7,9 +7,8 @@
 #include <string>
 #include <unordered_map>
 #include <functional>
-
-// I move all enum type to Global.h
-
+//#include "GameEngine.h"
+//#include "Item.h"
 class BaseBlock : public Entity {
 public:
     BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE);
@@ -69,12 +68,15 @@ public:
 class ItemBlock : public BaseBlock {
 private:
     bool hasItem = true;
-
+    ItemType item;
+    int subType;
 public:
     ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW);
     BlockType getBlockType() const override;
     void draw(float deltaTime) override;
     void update(float deltaTime) override;
+    void releaseItem();
+    void setItem(ItemType item,int subtype);
 };
 
 class HiddenBlock : public BaseBlock {
@@ -121,3 +123,4 @@ public:
     BlockType getBlockType() const override;
     void update();
 };
+#endif

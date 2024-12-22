@@ -1,5 +1,6 @@
-#pragma once
-
+#ifndef MAP_H
+#define MAP_H
+#include "Entity.h"
 #include "Block.h"
 #include "BlockFactory.h"
 #include "GoomBa.h"
@@ -59,9 +60,10 @@ private:
     std::string backGroundPath;
     string music;
 
-public:
+public: 
     Level(const std::string& map, const std::string& background,string music);
     std::string getMapPath() const;
     std::string getBackGroundPath() const;
     string getMusic() const;
 };
+#endif

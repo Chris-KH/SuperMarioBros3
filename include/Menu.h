@@ -1,3 +1,5 @@
+#ifndef MEMU_H
+#define MENU_H
 #pragma once
 #include "raylib.h"
 #include <memory>
@@ -100,3 +102,4 @@ private:
     //Rectangle backButton = { 1040, 720, 150, 40 }; 
 
 };
+#endif

@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef COLL_H
+#define COLL_H
 #include"Entity.h"
 #include"Block.h"
 #include"Character.h"
@@ -138,7 +139,67 @@ public:
         return false;
     }
 };
+class PlayerItemBlockStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Character* player = dynamic_cast<Character*>(entityA);
+        ItemBlock* block = dynamic_cast<ItemBlock*>(entityB); // Assume ItemBlock is a subclass of BaseBlock
 
+        if (!player || !block || player->isCollisionAvailable() == false)
+            return false;
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = player->getVelocity();
+        Rectangle playerRect = player->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                playerRect.x + velocity.x * deltaTime,
+                playerRect.y,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect)) {
+                if (velocity.x > 0) {
+                    player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
+                }
+                else if (velocity.x < 0) {
+                    player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
+                }
+                player->setXVelocity(0.f);
+            }
+        }
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                playerRect.x,
+                playerRect.y + velocity.y * deltaTime,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    // Player lands on top of the block
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y - playerRect.height));
+                    player->setYVelocity(0.f);
+                    return true;
+                }
+                else if (velocity.y < 0) {
+                    // Player jumps and headbutts the block
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
+                    player->setYVelocity(0.f);
+                    block->releaseItem();
+                }
+            }
+        }
+
+        return false;
+    }
+};
 class PlayerMovingBlockStrat : public CollisionStrategy {
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {
@@ -591,5 +652,6 @@ public:
         }
         return false;
     }
-
+ 
 };
+#endif
