@@ -10,6 +10,9 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

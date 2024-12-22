@@ -18,6 +18,7 @@ set(Main
     src/Animation.cpp
     src/Background.cpp
     src/Block.cpp
+    src/Camera.cpp
     src/Collision.cpp
     src/Entity.cpp
     src/FileHandle.cpp

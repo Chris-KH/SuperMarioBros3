@@ -335,6 +335,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Animation.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Background.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Block.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Camera.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Collision.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Entity.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FileHandle.cpp" />

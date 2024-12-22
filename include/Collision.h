@@ -144,69 +144,7 @@ public:
         return false;
     }
 };
-class PlayerItemBlockStrat : public CollisionStrategy {
-public:
-    bool resolve(Entity* entityA, Entity* entityB) override {
-        Character* player = dynamic_cast<Character*>(entityA);
-        ItemBlock* block = dynamic_cast<ItemBlock*>(entityB); // Assume ItemBlock is a subclass of BaseBlock
 
-        if (!player || !block || player->isCollisionAvailable() == false)
-            return false;
-
-        float deltaTime = GetFrameTime();
-
-        Vector2 velocity = player->getVelocity();
-        Rectangle playerRect = player->getRectangle();
-        Rectangle blockRect = block->getRectangle();
-
-        if (velocity.x != 0) {
-            Rectangle horizontalRect = {
-                playerRect.x + velocity.x * deltaTime,
-                playerRect.y,
-                playerRect.width,
-                playerRect.height
-            };
-
-            if (CheckCollisionRecs(horizontalRect, blockRect)) {
-                if (velocity.x > 0) {
-                    Vector2 vector2 = {blockRect.x - playerRect.width, player->getPosition().y};
-                    player->setPosition(vector2);
-                }
-                else if (velocity.x < 0) {
-                    Vector2 vector2 = {blockRect.x + blockRect.width, player->getPosition().y};
-                    player->setPosition(vector2);
-                }
-                player->setXVelocity(0.f);
-            }
-        }
-
-        if (velocity.y != 0) {
-            Rectangle verticalRect = {
-                playerRect.x,
-                playerRect.y + velocity.y * deltaTime,
-                playerRect.width,
-                playerRect.height
-            };
-
-            if (CheckCollisionRecs(verticalRect, blockRect)) {
-                if (velocity.y > 0) {
-                    Vector2 vector2 = {player->getPosition().x, blockRect.y - playerRect.height};
-                    player->setPosition(vector2);
-                    player->setYVelocity(0.f);
-                    return true;
-                }
-                else if (velocity.y < 0) {
-                    Vector2 vector2 = {player->getPosition().x, blockRect.y + blockRect.height};
-                    player->setPosition(vector2);
-                    player->setYVelocity(0.f);
-                    block->releaseItem();
-                }
-            }
-        }
-
-        return false;
-    }
-};
 class PlayerItemBlockStrat : public CollisionStrategy {
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {

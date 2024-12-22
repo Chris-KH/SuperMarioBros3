@@ -1,5 +1,5 @@
 ﻿#include "../include/Menu.h"
-#include "../include/ItemFactory.h";
+#include "../include/ItemFactory.h"
 #include <memory>
 #include <utility>
 Menu::Menu() : backgroundTexture({ 0 }) {
