@@ -1,5 +1,5 @@
 #pragma once
-#include <raylib.h>
+#include "../lib/raylib.h"
 #include "../lib/bits/stdc++.h"
 #include "Global.h"
 

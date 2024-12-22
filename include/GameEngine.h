@@ -41,4 +41,4 @@ public:
 };
 extern GameEngine* globalGameEngine;
 
-#endif
+#endif  //ENGINE_H

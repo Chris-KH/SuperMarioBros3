@@ -209,6 +209,7 @@ public:
         return false;
     }
 };
+
 inline bool SweptAABB(const Rectangle& player, const Vector2& playerVel,
     const Rectangle& block, const Vector2& blockVel,
     float deltaTime, float& collisionTime) {
@@ -286,25 +287,29 @@ public:
         // Adjust player position based on collision direction
         if (playerRect.y + playerRect.height <= blockRect.y) {
             // Player lands on top of the block
-            player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
+            Vector2 vector2 = {playerRect.x, blockRect.y - playerRect.height};
+            player->setPosition(vector2);
             player->setYVelocity(blockVel.y); // Match block's vertical velocity
             return true;
             player->setJumping(false);
         }
         else if (playerRect.y >= blockRect.y + blockRect.height) {
             // Player hits the block from below
-            player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
+            Vector2 vector2 = {playerRect.x, blockRect.y + blockRect.height};
+            player->setPosition(vector2);
             player->setYVelocity(0.f);
             return false;
         }
         else if (playerRect.x + playerRect.width <= blockRect.x ) {
             // Player hits the block from the left
-            player->setPosition(Vector2(blockRect.x - playerRect.width, playerRect.y));
+            Vector2 vector2 = {blockRect.x - playerRect.width, playerRect.y};
+            player->setPosition(vector2);
             player->setXVelocity(0.f);
         }
         else if (playerRect.x >= blockRect.x + blockRect.width ) {
             // Player hits the block from the right
-            player->setPosition(Vector2(blockRect.x + blockRect.width, playerRect.y));
+            Vector2 vector2 = {blockRect.x + blockRect.width, playerRect.y};
+            player->setPosition(vector2);
             player->setXVelocity(0.f);
         }
 
@@ -670,7 +675,6 @@ public:
             return std::make_unique<ItemBlockStrat>();
 
         }
-
 
         return nullptr; 
     }
