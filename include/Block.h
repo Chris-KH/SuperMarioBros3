@@ -7,7 +7,6 @@
 #include <string>
 #include <unordered_map>
 #include <functional>
-//#include "GameEngine.h"
 //#include "Item.h"
 class BaseBlock : public Entity {
 public:
@@ -70,6 +69,11 @@ private:
     bool hasItem = true;
     ItemType item;
     int subType;
+    bool isBouncing = false; // Flag to track if the block is bouncing
+    float bounceTime = 0.0f; // Timer for controlling the bounce
+    const float bounceHeight = 10.0f; // Height to move up during the bounce
+    const float bounceDuration = 0.25f;
+    float OgY;
 public:
     ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW);
     BlockType getBlockType() const override;

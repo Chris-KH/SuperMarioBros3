@@ -189,7 +189,6 @@ public:
                     return true;
                 }
                 else if (velocity.y < 0) {
-                    // Player jumps and headbutts the block
                     player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
                     player->setYVelocity(0.f);
                     block->releaseItem();
@@ -411,7 +410,6 @@ public:
         {
             player->collisionWithItem(item);
             item->killEntity();
-            //globalGameEngine->
         }
         return false;
     }
@@ -595,6 +593,8 @@ public:
                 return std::make_unique<PlayerFloorStrat>();
             if(block && block->getBlockType() == MOVINGBLOCK)
                 return std::make_unique<PlayerMovingBlockStrat>();
+            if (block && block->getBlockType() == ITEMBLOCK)
+                return std::make_unique<PlayerItemBlockStrat>();
             //if (block && block->getBlockType() == SOLIDBLOCK)
             return std::make_unique<PlayerBlockStrat>();
         }

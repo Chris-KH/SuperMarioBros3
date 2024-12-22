@@ -22,7 +22,8 @@ private:
     static bool stringToEnemyType(std::string& enemyTypeStr, std::string& subTypeStr, EnemyType& enemyTypeOut, int& subTypeOut);
     static Color getDefaultColorForBlockType(BlockType blockType);
     static BlockType stringToBlockType(const std::string& typeStr);
-    static std::string blockTypeToString(BlockType type);
+    static string blockTypeToString(BlockType type);
+    static ItemType stringToItemType(const string& typeStr);
 };
 
 class Map {
