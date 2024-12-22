@@ -1,7 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 #include "Entity.h"
-#include "Block.h"
+#include "BaseBlock.h"
 #include "BlockFactory.h"
 #include "GoomBa.h"
 #include "KoopaTroopa.h"

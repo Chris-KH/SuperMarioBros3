@@ -1,7 +1,17 @@
 ﻿#ifndef COLL_H
 #define COLL_H
 #include"Entity.h"
-#include"Block.h"
+#include"BaseBlock.h"
+#include "Floor.h"
+#include "ItemBlock.h"
+#include "MovingBlock.h"
+#include "SolidBlock.h"
+#include "HiddenBlock.h"
+#include "PipeBlock.h"
+#include "SpikeBlock.h"
+#include "Brick.h"
+#include "TemporaryBlock.h"
+#include "DecorBlock.h"
 #include"Character.h"
 #include"Enemy.h"
 #include"Fireball.h"

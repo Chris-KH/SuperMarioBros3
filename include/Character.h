@@ -17,6 +17,8 @@ class Enemy;
 class Fireball;
 class Shell;
 class Star;
+class BaseBlock;
+class MovingBlock;
 class GameEngine;
 
 //Base class for all character
@@ -78,6 +80,8 @@ protected:
 
     Shell* holdShell;
     bool holding;
+
+    MovingBlock* movingBlockStandOn;
 
     float countThrowTime;
     float countImmortalTime;

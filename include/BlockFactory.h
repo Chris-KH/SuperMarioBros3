@@ -2,7 +2,18 @@
 #define BLOCKFAC_H
 #include <unordered_map>
 #include <functional>
-#include "Block.h"
+#include "BaseBlock.h"
+#include "Floor.h"
+#include "ItemBlock.h"
+#include "MovingBlock.h"
+#include "SolidBlock.h"
+#include "HiddenBlock.h"
+#include "PipeBlock.h"
+#include "SpikeBlock.h"
+#include "Brick.h"
+#include "TemporaryBlock.h"
+#include "DecorBlock.h"
+
 
 class BlockFactory {
 public:

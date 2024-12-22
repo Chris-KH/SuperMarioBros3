@@ -15,6 +15,7 @@
 #include "../include/Effect.h"
 #include "../include/TextEffect.h"
 #include "../include/GameEngine.h"
+#include "../include/BaseBlock.h";
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -30,6 +31,7 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     sitting = false;
     state = nullptr;
     holdShell = nullptr;
+    movingBlockStandOn = nullptr;
     countThrowTime = 0.f;
     countImmortalTime = 0.f;
 

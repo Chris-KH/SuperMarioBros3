@@ -130,22 +130,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BlockFactory.h" />
+    <ClInclude Include="..\include\Brick.h" />
     <ClInclude Include="..\include\Camera.h" />
+    <ClInclude Include="..\include\DecorBlock.h" />
     <ClInclude Include="..\include\Effect.h" />
     <ClInclude Include="..\include\FileHandle.h" />
     <ClInclude Include="..\include\Fireball.h" />
     <ClInclude Include="..\include\FireStarmanState.h" />
+    <ClInclude Include="..\include\Floor.h" />
     <ClInclude Include="..\include\FPSManager.h" />
     <ClInclude Include="..\include\Global.h" />
+    <ClInclude Include="..\include\HiddenBlock.h" />
     <ClInclude Include="..\include\InputManager.h" />
+    <ClInclude Include="..\include\ItemBlock.h" />
     <ClInclude Include="..\include\ItemFactory.h" />
     <ClInclude Include="..\include\Menu.h" />
+    <ClInclude Include="..\include\MovingBlock.h" />
     <ClInclude Include="..\include\NormalState.h" />
+    <ClInclude Include="..\include\PipeBlock.h" />
     <ClInclude Include="..\include\Settings.h" />
     <ClInclude Include="..\include\Shell.h" />
     <ClInclude Include="..\include\Singleton.h" />
     <ClInclude Include="..\include\Flower.h" />
-    <ClInclude Include="..\include\Block.h" />
+    <ClInclude Include="..\include\BaseBlock.h" />
     <ClInclude Include="..\include\Coin.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\Animation.h" />
@@ -156,6 +163,8 @@
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GoomBa.h" />
     <ClInclude Include="..\include\ResourceManager.h" />
+    <ClInclude Include="..\include\SolidBlock.h" />
+    <ClInclude Include="..\include\SpikeBlock.h" />
     <ClInclude Include="..\include\Star.h" />
     <ClInclude Include="..\include\SuperStarmanState.h" />
     <ClInclude Include="..\include\SuperState.h" />
@@ -169,10 +178,15 @@
     <ClInclude Include="..\include\Plant.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\CharacterState.h" />
+    <ClInclude Include="..\include\TailState.h" />
+    <ClInclude Include="..\include\TemporaryBlock.h" />
     <ClInclude Include="..\include\TextEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\GUI.h" />
+    <ClCompile Include="..\src\Brick.cpp" />
+    <ClCompile Include="..\src\DecorBlock.cpp" />
+    <ClCompile Include="..\src\Floor.cpp" />
     <ClCompile Include="..\src\GUI.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\CharacterState.cpp" />
@@ -182,13 +196,17 @@
     <ClCompile Include="..\src\FireStarmanState.cpp" />
     <ClCompile Include="..\src\FPSManager.cpp" />
     <ClCompile Include="..\src\Global.cpp" />
+    <ClCompile Include="..\src\HiddenBlock.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
+    <ClCompile Include="..\src\ItemBlock.cpp" />
     <ClCompile Include="..\src\ItemFactory.cpp" />
     <ClCompile Include="..\src\Menu.cpp" />
+    <ClCompile Include="..\src\MovingBlock.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
+    <ClCompile Include="..\src\PipeBlock.cpp" />
     <ClCompile Include="..\src\Settings.cpp" />
     <ClCompile Include="..\src\Flower.cpp" />
-    <ClCompile Include="..\src\Block.cpp" />
+    <ClCompile Include="..\src\BaseBlock.cpp" />
     <ClCompile Include="..\src\Coin.cpp" />
     <ClCompile Include="..\src\Collision.cpp" />
     <ClCompile Include="..\src\Entity.cpp" />
@@ -200,6 +218,8 @@
     <ClCompile Include="..\src\GoomBa.cpp" />
     <ClCompile Include="..\src\ResourceManager.cpp" />
     <ClCompile Include="..\src\Shell.cpp" />
+    <ClCompile Include="..\src\SolidBlock.cpp" />
+    <ClCompile Include="..\src\SpikeBlock.cpp" />
     <ClCompile Include="..\src\Star.cpp" />
     <ClCompile Include="..\src\StarmanState.cpp" />
     <ClCompile Include="..\src\SuperState.cpp" />
@@ -213,6 +233,8 @@
     <ClCompile Include="..\src\SuperStarmanState.cpp" />
     <ClCompile Include="..\src\Plant.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
+    <ClCompile Include="..\src\TailState.cpp" />
+    <ClCompile Include="..\src\TemporaryBlock.cpp" />
     <ClCompile Include="..\src\TextEffect.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
