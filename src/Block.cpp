@@ -161,7 +161,7 @@ void ItemBlock::releaseItem()
         isBouncing = true;
         bounceTime = 0.0f; // Reset bounce timer
         ItemFactory& factory = ItemFactory::getInstance();
-        Item* release = factory.createItem(item, { getX(), getY() + 16.f }, RIGHT, subType);
+        Item* release = factory.createItem(item, { getX(), getY() - 29.f }, RIGHT, subType);
         if (item == COIN)
             globalGameEngine->addScore(100);
         globalGameEngine->addItem(release);
