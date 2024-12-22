@@ -47,3 +47,22 @@ void GUI::drawStatusBar(const Character* player) {
 
     DrawText(to_string(player->getScores()).c_str(), 440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f, 45, 45, BLACK);
 }
+
+void GUI::drawPauseMenu()
+{
+    Rectangle dest, source;
+    dest = { 2043.f, 295.f, 1997.f, 1465.f };
+    source = { 300.f, 200.f, 1997.f / 3.f, 1465.f / 3.f };
+    DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
+    DrawText("PAUSED", 460, 370, 90, BLACK);
+}
+
+void GUI::drawLevelClear()
+{
+    Rectangle dest, source;
+    dest = { 2043.f, 295.f, 1997.f, 1465.f };
+    source = { 300.f, 200.f, 1997.f / 3.f, 1465.f / 3.f };
+    DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
+    DrawText("CLEARED", 440, 370, 90, BLACK);
+    DrawText("Press Enter to continue", 360, 550, 45, BLACK);
+}

@@ -224,7 +224,7 @@ void MainMenuState::handleInput() {
                     globalGameEngine = nullptr;
                     if ((menu->getSelectedMap() +1) <= 3)
                     {
-                        menu->player->setPosition({ 0,0 });
+                        menu->player->setPosition({ 16, 400 });
                         menu->player->setVelocity({ 0,0 });
                         menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
@@ -236,8 +236,10 @@ void MainMenuState::handleInput() {
             }
         }
         else if (CheckCollisionPointRec(mousePos, startButton)) {
-            menu->player->setPosition({ 0,0 });
-            menu->player->setVelocity({ 0,0 });
+            if (menu->player)
+            {
+                menu->player->reset();
+            }
             if (globalGameEngine != nullptr)
             {
                 delete globalGameEngine;
@@ -252,7 +254,7 @@ void MainMenuState::handleInput() {
                     globalGameEngine = nullptr;
                     if ((menu->getSelectedMap() + 1) <= 3)
                     {
-                        menu->player->setPosition({ 0,0 });
+                        menu->player->setPosition({ 16,400 });
                         menu->player->setVelocity({ 0,0 });
                         menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
@@ -360,7 +362,7 @@ void CharSelection::handleInput() {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, marioButton)) {
             delete menu->player;
-            menu->player = new Mario(Vector2{0, 0});
+            menu->player = new Mario(Vector2{16, 400});
             if (globalGameEngine != nullptr)
             {
                 delete globalGameEngine;
@@ -371,7 +373,7 @@ void CharSelection::handleInput() {
         else if (CheckCollisionPointRec(mousePos, luigiButton)) 
         {
             delete menu->player;
-            menu->player = new Luigi(Vector2{0, 0});
+            menu->player = new Luigi(Vector2{ 16, 400 });
             if (globalGameEngine != nullptr)
             {
                 delete globalGameEngine;
@@ -426,12 +428,15 @@ void MapSelection::handleInput() {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, map1Button)) {
             menu->selectMap(1);
+            menu->player->reset();
             menu->returnToMainMenu();
         } else if (CheckCollisionPointRec(mousePos, map2Button)) {
             menu->selectMap(2);
+            menu->player->reset();
             menu->returnToMainMenu();
         } else if (CheckCollisionPointRec(mousePos, map3Button)) {
             menu->selectMap(3);
+            menu->player->reset();
             menu->returnToMainMenu();
         }/* else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
@@ -475,11 +480,13 @@ void Menu::loadFromConfig(string filename) {
             string value;
             inFile >> value;
             audioEnabled = (value == "true");
+            SETTINGS.setSound((value == "true"));
         }
         else if (key == "MusicEnabled:") {
             string value;
             inFile >> value;
             musicEnabled = (value == "true");
+            SETTINGS.setMusic((value == "true"));
         }
         else if (key == "SelectedMap:") {
             inFile >> selectedMap;

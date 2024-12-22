@@ -23,6 +23,7 @@ GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Char
     enemies = map.getEnemies();
     decor = map.getDecor();
     isPaused = false;
+    cleared = false;
     deltaTime = 0.f;
 }
 
@@ -81,7 +82,7 @@ void GameEngine::update(float deltaTime) {
     if (IsKeyPressed(KEY_ENTER)) {
         isPaused = !isPaused;
     }
-    if (isPaused) {
+    if (isPaused||cleared) {
         return;
     }
 
@@ -191,7 +192,10 @@ void GameEngine::render(float deltaTime) {
     map.renderBackground();
 
     for (Entity* i : blocks)
-        i->draw(deltaTime);
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
     for (Entity* i : enemies) {
         if (player->getHoldShell() != nullptr) {
             if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
@@ -213,8 +217,10 @@ void GameEngine::render(float deltaTime) {
         else
             i->draw(deltaTime);
     }
-
-    player->draw(deltaTime);
+    if (isPaused)
+        player->draw(0);
+    else
+        player->draw(deltaTime);
 
     for (Entity* i : effects) {
         if (isPaused)
@@ -233,25 +239,12 @@ void GameEngine::render(float deltaTime) {
 
     GUI::drawStatusBar(player);
 
-    //DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
-
-    //DrawText("LIVES: ", 10, 10, 40, WHITE);
-    //DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
-
-    //DrawRectangle(300, 10, 30, 40, YELLOW);
-    //DrawRectangle(310, 20, 10, 20, ORANGE);
-    //DrawText("x", 340, 10, 40, WHITE);
-    //DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
-
-    //DrawText("Score: ", 500, 10, 40, WHITE);
-    //DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
-
-    //Texture2D texture = LoadTexture("../assets/Background/heart.png");
-    //DrawTexture(texture, 0, 0, WHITE);
-
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
-        DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
+        if (cleared)
+            GUI::drawLevelClear();
+        else
+            GUI::drawPauseMenu();
     }
 
     EndDrawing();
@@ -270,10 +263,12 @@ bool GameEngine::run() {
             update(deltaTime);
             render(deltaTime);
         }
-
+        if (cleared == true && isPaused == false)
+            return true;
         if (player->getX() >= map.getMapSize().x) {
-            return true; // finished the level
-        }
+            cleared = true;
+            isPaused = true;
+        }   
     }
     return false;
 }

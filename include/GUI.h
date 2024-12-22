@@ -16,5 +16,7 @@ public:
 	static Texture2D board;
 
 	static void drawStatusBar(const Character* player);
+	static void drawPauseMenu();
+	static void drawLevelClear();
 	//static void drawButton(const Rectangle& rect);
 };
