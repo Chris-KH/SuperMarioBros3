@@ -809,6 +809,61 @@ public:
     }
 };
 
+class EnemyEmenyStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Fireball* ball = dynamic_cast<Fireball*>(entityA);
+        BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
+
+        if (!ball || !block || ball->isCollisionAvailable() == false)
+            return false;
+
+        if (ball->getFireballType() == PLANT) {
+            return false;
+        }
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = ball->getVelocity();
+        Rectangle ballRect = ball->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                ballRect.x,
+                ballRect.y + velocity.y * deltaTime,
+                ballRect.width,
+                ballRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    ball->collisionWithBlock(block, TOP_EDGE);
+                    return true;
+                }
+                else if (velocity.y < 0) {
+                    ball->collisionWithBlock(block, BOTTOM_EDGE);
+                }
+            }
+        }
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                ballRect.x + velocity.x * deltaTime,
+                ballRect.y,
+                ballRect.width,
+                ballRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect)) {
+                ball->collisionWithBlock(block, NONE_EDGE);
+            }
+        }
+
+        return false;
+    }
+};
+
 
 class CollisionStrategySelector {
 public:

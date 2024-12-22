@@ -81,7 +81,10 @@ void GoomBa::stomped() {
 
 	if (type == BROWN_GoomBa || type == RED_GoomBa) {
 		killEntity();
-		//Effect* deadEffect = new Effect(deadAnimation);
+		setAnimation(deadAnimation);
+		Effect* deadEffect = new Effect(deadAnimation->clone(), getPosition(), DEAD_TIME);
+		deadEffect->setGravityAvailable(false);
+		globalGameEngine->addEffect(deadEffect);
 	}
 	else if (type == REDPARA_GoomBa) {
 		type = RED_GoomBa;
