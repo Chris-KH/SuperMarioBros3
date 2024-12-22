@@ -34,6 +34,7 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     movingBlockStandOn = nullptr;
     countThrowTime = 0.f;
     countImmortalTime = 0.f;
+    specificVelocity = { 0.f, 0.f };
 
     idleLeft = nullptr;
 	walkLeft = nullptr;
@@ -92,6 +93,13 @@ void Character::draw(float deltaTime) {
     }
 
     if (currentAnimation == nullptr) return;
+    specificVelocity = getVelocity();
+
+    if (movingBlockStandOn != nullptr) {
+        setXVelocity(specificVelocity.x + movingBlockStandOn->getVelocity().x);
+        setYVelocity(specificVelocity.y + movingBlockStandOn->getVelocity().y);
+    }
+
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
     updateTime(deltaTime);
@@ -166,6 +174,8 @@ void Character::update(float deltaTime) {
     }
 
     if (phase == DEFAULT_PHASE) {
+        setVelocity(specificVelocity);
+
         state->update(deltaTime);
         INPUT_MANAGER.update();
         countThrowTime += deltaTime;
@@ -200,6 +210,10 @@ void Character::update(float deltaTime) {
                 holdShell = nullptr;
                 setHolding(false);
             }
+        }
+
+        if (movingBlockStandOn != nullptr) {
+            setYVelocity(getVelocity().y + movingBlockStandOn->getVelocity().y);
         }
     }
     else if (phase == TRANSFORM_PHASE) {

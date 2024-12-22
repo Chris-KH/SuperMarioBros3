@@ -81,6 +81,7 @@ void GoomBa::stomped() {
 
 	if (type == BROWN_GoomBa || type == RED_GoomBa) {
 		killEntity();
+		setCollisionAvailable(false);
 		setAnimation(deadAnimation);
 		Effect* deadEffect = new Effect(deadAnimation->clone(), getPosition(), DEAD_TIME);
 		deadEffect->setGravityAvailable(false);

@@ -96,10 +96,13 @@ void GameEngine::update(float deltaTime) {
     }
     for (size_t i = 0; i < enemies.size(); i++) {
         if (enemies[i]->isDead()) {
+            cout << "aaaa";
             auto it = find(shells.begin(), shells.end(), enemies[i]);
-            if (it != shells.end())
+            if (it != shells.end()) {
                 shells.erase(it);
+            }
             delete enemies[i];
+            enemies[i] = nullptr;
             enemies.erase(enemies.begin() + i);
             i--;
         }
@@ -170,12 +173,17 @@ void GameEngine::handleCollision() {
     }
        
     for (Fireball* ball : fireball) {
+        if (ball->isDead()) continue;
+
         if (ball->getFireballType() == ENEMY_FIREBALL) {
             IColl.resolve(ball, player);
         }
     }
 
-    for (Entity* item : items) IColl.resolve(player, item);
+    for (Entity* item : items) {
+        if (item->isDead()) continue;
+        IColl.resolve(player, item);
+    }
 }
 
 void GameEngine::render(float deltaTime) {

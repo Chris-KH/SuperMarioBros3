@@ -55,6 +55,7 @@ void Enemy::stomped() {
 void Enemy::attacked() {
     if (isDead()) return;
     killEntity();
+    setCollisionAvailable(false);
 
     Effect* text = new TextEffect(to_string(ENEMY_POINT).c_str(), getCenter());
     globalGameEngine->addEffect(text);

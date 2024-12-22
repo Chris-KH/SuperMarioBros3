@@ -1,5 +1,5 @@
 #include"../include/Fireball.h"
-#include"../include/Block.h"
+#include"../include/BaseBlock.h"
 #include"../include/Character.h"
 
 Fireball::~Fireball() {
@@ -95,7 +95,6 @@ void Fireball::update(float deltaTime) {
 	else if (type == ENEMY_FIREBALL) {
 		if (delayTime >= ENEMY_FIREBALL_LIFETIME) {
 			killEntity();
-			cout << "aaaaaaaaaaaaaaaaa";
 			return;
 		}
 		if (delayTime >= 0.f) {

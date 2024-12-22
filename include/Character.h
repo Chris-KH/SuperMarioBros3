@@ -82,6 +82,7 @@ protected:
     bool holding;
 
     MovingBlock* movingBlockStandOn;
+    Vector2 specificVelocity;
 
     float countThrowTime;
     float countImmortalTime;
@@ -149,6 +150,14 @@ public:
 
     Shell* getHoldShell() const {
         return this->holdShell;
+    }
+
+    void setMovingBlockStandOn(MovingBlock* block) {
+        this->movingBlockStandOn = block;
+    }
+
+    MovingBlock* getMovingBlockStandOn() const {
+        return this->movingBlockStandOn;
     }
 
     void setIdleAnimation();

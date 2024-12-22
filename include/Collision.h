@@ -32,7 +32,9 @@ inline Rectangle getProximityRectangle(Entity& entity, float radius) {
         rect.height + 2 * radius
     };
 }
-inline bool shouldCheckCollision( Entity* entityA,  Entity* entityB, float proximityRadius = 20.0f) {
+inline bool shouldCheckCollision(Entity* entityA,  Entity* entityB, float proximityRadius = 20.0f) {
+    if (!entityA || !entityB) return false;
+
     // Calculate proximity bounds for entityA directly
     float leftA = entityA->getX() - proximityRadius;
     float rightA = entityA->getX() + entityA->getWidth() + proximityRadius;
@@ -274,9 +276,14 @@ public:
         Rectangle blockRect = block->getRectangle();
 
         float collisionTime;
+        
+
         if (!SweptAABB(playerRect, playerVel, blockRect, blockVel, deltaTime, collisionTime)) {
+            player->setMovingBlockStandOn(nullptr);
             return false; // No collision detected
         }
+
+        
 
         // Calculate the exact position at collision
         Vector2 collisionPlayerPos = {
@@ -288,9 +295,10 @@ public:
         if (playerRect.y + playerRect.height <= blockRect.y) {
             // Player lands on top of the block
             player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
-            player->setYVelocity(blockVel.y); // Match block's vertical velocity
-            return true;
+            player->setYVelocity(0.f); 
             player->setJumping(false);
+            player->setMovingBlockStandOn(block);
+            return true;    
         }
         else if (playerRect.y >= blockRect.y + blockRect.height) {
             // Player hits the block from below
@@ -309,14 +317,14 @@ public:
             player->setXVelocity(0.f);
         }
 
-        // Follow block movement if the player is on top
-        if (playerRect.y + playerRect.height <= blockRect.y) {
-            Vector2 newPos = player->getPosition();
-            newPos.x += blockVel.x * deltaTime; // Move horizontally with block
-            newPos.y += blockVel.y * deltaTime; // Move vertically with block
-            player->setPosition(newPos);
-            player->setJumping(false);
-        }
+        //// Follow block movement if the player is on top
+        //if (playerRect.y + playerRect.height <= blockRect.y) {
+        //    Vector2 newPos = player->getPosition();
+        //    newPos.x += blockVel.x * deltaTime; // Move horizontally with block
+        //    newPos.y += blockVel.y * deltaTime; // Move vertically with block
+        //    player->setPosition(newPos);
+        //    player->setJumping(false);
+        //}
 
         return false;
     }
