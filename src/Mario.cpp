@@ -7,7 +7,7 @@
 #include"../include/FireStarmanState.h"
 
 Mario::Mario(Vector2 pos) : Character(pos) {
-	state = new SuperState(this);
+	state = new FireState(this);
 	lastState = state->getState();
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
@@ -16,14 +16,6 @@ Mario::Mario(Vector2 pos) : Character(pos) {
 
 CharacterType Mario::getCharacterType() const {
 	return CharacterType::MARIO;
-}
-
-void Mario::onKey(KeyboardKey key, bool pressed) {
-	if (isDead()) return;
-
-	if (key == KEY_R) {
-		
-	}
 }
 
 void Mario::reset() {

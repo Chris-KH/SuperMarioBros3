@@ -278,7 +278,7 @@ public:
 	}
 
 	bool run() {
-		Item* testItem = new Mushroom(MUSHROOM_1UP, { 300,450 });
+		Item* testItem = new Star(YELLOW_STAR, { 300,450 });
 		items.push_back(testItem);
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {

@@ -1,5 +1,6 @@
 #include"../include/Fireball.h"
 #include"../include/Block.h"
+#include"../include/Character.h"
 
 Fireball::~Fireball() {
 	free(fireRight);
@@ -61,16 +62,37 @@ void Fireball::calculateFireballVelocity(const Vector2& fireballPos, const Vecto
 	delayVelocity = velocity;
 }
 
+void Fireball::setCharacterPositionBall(const Character* character) {
+	if (character == nullptr) return;
+
+	if (character->getOrientation() == LEFT) {
+		setAnimation(fireLeft);
+		setOrientation(LEFT);
+		setPosition({ character->getLeft() + getSize().x / 2.f, character->getTop() + character->getSize().y / 4.f });
+		setXVelocity(-CHARACTER_FIREBALL_SPEED);
+	}
+	else if (character->getOrientation() == RIGHT) {
+		setAnimation(fireRight);
+		setOrientation(RIGHT);
+		setPosition({ character->getRight() - getSize().x / 2.f, character->getTop() + character->getSize().y / 4.f });
+		setXVelocity(CHARACTER_FIREBALL_SPEED);
+	}
+}
+
 void Fireball::update(float deltaTime) {
 	if (isDead()) return;
+
+	if (orientation == LEFT) setAnimation(fireLeft);
+	else if (orientation == RIGHT) setAnimation(fireRight);
+
 	if (type == CHARACTER_FIREBALL) {
 		if (delayTime >= 0.f) {
-			if (orientation) setXVelocity(CHARACTER_FIREBALL_SPEED);
-			else setXVelocity(-CHARACTER_FIREBALL_SPEED);
+			if (orientation == RIGHT) setXVelocity(CHARACTER_FIREBALL_SPEED);
+			else if (orientation == LEFT) setXVelocity(-CHARACTER_FIREBALL_SPEED);
 			if (isGravityAvailable() == true) setYVelocity(getVelocity().y + GRAVITY * deltaTime);
 		}
 
-		delayTime += deltaTime;
+		if (delayTime < 0.f) delayTime += deltaTime;
 	}
 	else if (type == ENEMY_FIREBALL) {
 		if (delayTime >= ENEMY_FIREBALL_LIFETIME) {
@@ -83,7 +105,7 @@ void Fireball::update(float deltaTime) {
 			soundEffect = true;
 		}
 
-		delayTime += deltaTime;
+		if (delayTime < 0.f) delayTime += deltaTime;
 	}
 }
 
