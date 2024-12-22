@@ -69,6 +69,11 @@ Character::~Character() {
 EntityType Character::getType() const { return EntityType::CHARACTER; }
 
 void Character::reset() {
+    setPosition({ 16, 400 });
+    setVelocity({ 0,0 });
+    scores = 0;
+    coins = 0;
+    lives = 5;
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
@@ -76,7 +81,9 @@ void Character::reset() {
     lostLife = false;
     invicibleStarTime = 0.f;
     sitting = false;
-    state = nullptr;
+    holdShell = nullptr;
+    countThrowTime = 0.f;
+    countImmortalTime = 0.f;
 }
 
 STATE Character::getState() const {
