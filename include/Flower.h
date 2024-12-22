@@ -5,11 +5,11 @@
 
 class Flower : public Item {
 private:
+	const int POINT = 1000;
+
 	FlowerType type;
 	Animation* flowerAniamtion;
 public:
-	const int POINT = 1000;
-
 	Flower(FlowerType type = FIRE_FLOWER, Vector2 position = { 0.f, 0.f }, Orientation orientation = RIGHT) : Item(POINT) {
 		this->type = type;
 

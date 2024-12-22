@@ -6,6 +6,6 @@ Item::Item(int point) {
 
 EntityType Item::getType() const { return EntityType::ITEM; }
 
-int Item::getPoint() const {
+const int& Item::getPoint() const {
 	return this->point;
 }

@@ -9,7 +9,7 @@ private:
 public:
 	Item(int point = 0);
 
-	int getPoint() const;
+	const int& getPoint() const;
 	virtual EntityType getType() const override;
 	virtual ItemType getItemType() const = 0;
 

@@ -7,7 +7,7 @@ private:
 	Color outlineColor;
 	Color textColor;
 
-	static constexpr float TEXT_DURATION = 1.f; 
+	static constexpr float TEXT_DURATION = .5f; 
 	const float TEXT_SPEED = 400.f;
 	static constexpr float FONT_SIZE = 12.f;
 	static constexpr float OUTLINE_SIZE = FONT_SIZE / 20.f;

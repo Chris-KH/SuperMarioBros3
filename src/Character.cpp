@@ -360,13 +360,13 @@ void Character::collisionWithItem(const Item* item) {
     if (item->getItemType() == MUSHROOM) {
 		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
         if (mushroom->getMushroomType() == MUSHROOM_SUPER) {
-            scores += mushroom->POINT;
+            scores += mushroom->getPoint();
 			if (getState() == NORMAL) {
 				transform(SUPER);
 				//phase = TRANSFORM_PHASE;
 			}
 			RESOURCE_MANAGER.playSound("power_up.wav");
-            text = new TextEffect(to_string(mushroom->POINT).c_str(), Vector2(getCenterX(), getTop()));
+            text = new TextEffect(to_string(mushroom->getPoint()).c_str(), Vector2(getCenterX(), getTop()));
         }
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
@@ -377,13 +377,13 @@ void Character::collisionWithItem(const Item* item) {
     else if (item->getItemType() == FLOWER) {
 		const Flower* flower = dynamic_cast<const Flower*>(item);
         if (flower->getFlowerType() == FIRE_FLOWER) {
-            scores += flower->POINT;
+            scores += flower->getPoint();
             if (getState() == NORMAL) {
                 transform(FIRE);
 				//phase = TRANSFORM_PHASE;
             }
             RESOURCE_MANAGER.playSound("power_up.wav");
-            text = new TextEffect(to_string(flower->POINT).c_str(), Vector2(getCenterX(), getTop()));
+            text = new TextEffect(to_string(flower->getPoint()).c_str(), Vector2(getCenterX(), getTop()));
         }
     }
 	else if (item->getItemType() == STAR) {
@@ -403,17 +403,17 @@ void Character::collisionWithItem(const Item* item) {
             }
     
             invicibleStarTime = STAR_INVICIBLE_TIME;
-			scores += star->POINT;
+			scores += star->getPoint();
 			RESOURCE_MANAGER.playSound("power_up.wav");
     
-            text = new TextEffect(to_string(star->POINT).c_str(), Vector2(getCenterX(), getTop()));
+            text = new TextEffect(to_string(star->getPoint()).c_str(), Vector2(getCenterX(), getTop()));
         }
 	}
 	else if (item->getItemType() == COIN) {
 		const Coin* coin = dynamic_cast<const Coin*>(item);
 		if (coin->getCoinType() == STATIC_COIN) {
 			coins++;
-			scores += coin->POINT;
+			scores += coin->getPoint();
 			RESOURCE_MANAGER.playSound("coin.wav");
 		}
 	}
