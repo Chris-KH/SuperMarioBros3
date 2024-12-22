@@ -26,13 +26,13 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     jumping = false;
     holding = false;
     lostLife = false;
-    invicibleTime = 0.f;
+    invicibleStarTime = 0.f;
     sitting = false;
     state = nullptr;
     holdShell = nullptr;
     countThrowTime = 0.f;
+    countImmortalTime = 0.f;
 
-    lastState = NORMAL;
     idleLeft = nullptr;
 	walkLeft = nullptr;
 	runLeft = nullptr;
@@ -72,7 +72,7 @@ void Character::reset() {
     jumping = false;
     holding = false;
     lostLife = false;
-    invicibleTime = 0.f;
+    invicibleStarTime = 0.f;
     sitting = false;
     state = nullptr;
 }
@@ -82,9 +82,6 @@ STATE Character::getState() const {
 }
 
 void Character::draw(float deltaTime) {
-	if (isDead()) return;
-
-
     if (isHolding() && holdShell) {
         if (holdShell->isDead() == false) {
             holdShell->setHoldingPosition(this);
@@ -159,8 +156,8 @@ void Character::update(float deltaTime) {
     if (isDead()) return;
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         if (!isInvicible()) {
-            invicibleTime = 0.f;
-            transform(lastState);
+            invicibleStarTime = 0.f;
+            lostSuit();
         }
     }
 
@@ -196,6 +193,9 @@ void Character::update(float deltaTime) {
         state->update(deltaTime);
         INPUT_MANAGER.update();
         countThrowTime += deltaTime;
+
+        if (countImmortalTime <= 0.f) setCollisionAvailable(true);
+        countImmortalTime = max(0.f, countImmortalTime - deltaTime);
     }
     else if (phase == TRANSFORM_PHASE) {
         //transform
@@ -212,12 +212,12 @@ void Character::update(float deltaTime) {
 
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         if (isInvicible()) {
-            invicibleTime -= deltaTime;
+            invicibleStarTime -= deltaTime;
         }
     }
 }
 
-bool Character::isInvicible() const { return invicibleTime > 0.f; }
+bool Character::isInvicible() const { return invicibleStarTime > 0.f; }
 
 bool Character::isIdle() const {
     return (velocity.x == 0.f && velocity.y == 0.f && !isJumping());
@@ -288,8 +288,8 @@ void Character::setHoldAnimation() {
     else if (orientation == LEFT) setAnimation(holdLeft);
 }
 
-void Character::setInvicible(float invicibleTime) {
-    this->invicibleTime = invicibleTime;
+void Character::setStarInvicibleTime(float invicibleStarTime) {
+    this->invicibleStarTime = invicibleStarTime;
 }
 
 void Character::setSitting(bool sitting) {
@@ -301,15 +301,12 @@ void Character::transform(STATE type) {
     free(state);
     if (type == NORMAL) {
         state = new NormalState(character);
-        lastState = NORMAL;
     }
     else if (type == SUPER) {
         state = new SuperState(character);
-        lastState = SUPER;
     }
     else if (type == FIRE) {
         state = new FireState(character);
-        lastState = FIRE;
     }
     else if (type == STARMAN) {
         state = new StarmanState(character);
@@ -321,6 +318,38 @@ void Character::transform(STATE type) {
         state = new FireStarmanState(character);
     }
     else state = nullptr;
+}
+
+void Character::lostSuit() {
+    if (state->getState() == NORMAL) {
+        lives--;
+        setLostLife(true);
+        RESOURCE_MANAGER.playSound("lost_life.wav");
+        return;
+    }
+    else if (state->getState() == SUPER) {
+        transform(NORMAL);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == FIRE) {
+        transform(SUPER);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == STARMAN) {
+        transform(NORMAL);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == SUPERSTARMAN) {
+        transform(SUPER);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == FIRESTARMAN) {
+        transform(FIRE);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+
+    countImmortalTime = IMMORTAL_TIME;
+    setCollisionAvailable(false);
 }
 
 void Character::collisionWithItem(const Item* item) {
@@ -371,7 +400,7 @@ void Character::collisionWithItem(const Item* item) {
                 //phase = TRANSFORM_PHASE;
             }
     
-            invicibleTime = INVICIBLE_TIME;
+            invicibleStarTime = STAR_INVICIBLE_TIME;
 			scores += star->POINT;
 			RESOURCE_MANAGER.playSound("power_up.wav");
     
@@ -416,21 +445,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             RESOURCE_MANAGER.playSound("stomp.wav");
             enemy->stomped();
         }
-        else {
-            if (state->getState() == NORMAL) {
-                lives--;
-                setLostLife(true);
-                RESOURCE_MANAGER.playSound("lost_life.wav");
-            }
-            else if (state->getState() == SUPER) {
-                transform(NORMAL);
-                RESOURCE_MANAGER.playSound("lost_suit.wav");
-            }
-            else if (state->getState() == FIRE) {
-                transform(NORMAL);
-                RESOURCE_MANAGER.playSound("lost_suit.wav");
-            }
-        }
+        else lostSuit();
     }   
     else if (enemy->getEnemyType() == SHELL) {
         Shell* shell = dynamic_cast<Shell*>(enemy);
@@ -468,22 +483,12 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                     }
                 }
             }
-            else {
-                if (state->getState() == NORMAL) {
-                    lives--;
-                    setLostLife(true);
-                    RESOURCE_MANAGER.playSound("lost_life.wav");
-                }
-                else if (state->getState() == SUPER) {
-                    transform(NORMAL);
-                    RESOURCE_MANAGER.playSound("lost_suit.wav");
-                }
-                else if (state->getState() == FIRE) {
-                    transform(NORMAL);
-                    RESOURCE_MANAGER.playSound("lost_suit.wav");
-                }
-            }
+            else lostSuit();
         }
     }
+}
 
+void Character::collisionWithFireball(Fireball* fireball) {
+    lostSuit();
+    fireball->killEntity();
 }

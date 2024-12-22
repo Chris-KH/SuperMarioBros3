@@ -25,8 +25,6 @@ void TextEffect::setTextColor(Color color) {
 }
 
 void TextEffect::draw(float deltaTime) {
-	if (isDead()) return;
-
 	setYPosition(getPosition().y + getVelocity().y * deltaTime);
 
 	Font* myFont = RESOURCE_MANAGER.getFont("WinterMinie.ttf");

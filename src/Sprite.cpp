@@ -51,8 +51,6 @@ void Sprite::update(float deltaTime) {
 }
 
 void Sprite::draw(float deltaTime) {
-    if (isDead()) return;
-
     if (currentAnimation == nullptr) return;
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);

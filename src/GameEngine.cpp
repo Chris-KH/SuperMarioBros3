@@ -152,18 +152,30 @@ void GameEngine::handleCollision() {
     bool isGrounded = false;
 
     for (Entity* block : blocks) {
-        if (IColl.resolve(player, block))
-            isGrounded = true;
-        for (Entity* enemy : enemies)
-            IColl.resolve(enemy, block);
-        for (Entity* item : items)
-            IColl.resolve(item, block);
+        if (IColl.resolve(player, block)) isGrounded = true;
+        for (Entity* enemy : enemies)IColl.resolve(enemy, block);
+        for (Entity* item : items)IColl.resolve(item, block);
+        for (Fireball* ball : fireball) {
+            if (ball->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(ball, block);
+        }
     }
+
     player->setJumping(!isGrounded);
-    for (Entity* i : items)
-        IColl.resolve(player, i);
-    for (Entity* i : enemies)
-        IColl.resolve(player, i);
+
+    for (Entity* enemy : enemies) {
+        for (Fireball* ball : fireball) {
+            if (ball->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(ball, enemy);
+        }
+        IColl.resolve(player, enemy);
+    }
+       
+    for (Fireball* ball : fireball) {
+        if (ball->getFireballType() == ENEMY_FIREBALL) {
+            IColl.resolve(ball, player);
+        }
+    }
+
+    for (Entity* item : items) IColl.resolve(player, item);
 }
 
 void GameEngine::render(float deltaTime) {
@@ -194,14 +206,14 @@ void GameEngine::render(float deltaTime) {
             i->draw(deltaTime);
     }
 
+    player->draw(deltaTime);
+
     for (Entity* i : effects) {
         if (isPaused)
             i->draw(0);
         else
             i->draw(deltaTime);
     }
-
-    player->draw(deltaTime);
 
     for (Entity* i : decor)
         i->draw();

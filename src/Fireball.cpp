@@ -80,8 +80,6 @@ void Fireball::setCharacterPositionBall(const Character* character) {
 }
 
 void Fireball::update(float deltaTime) {
-	if (isDead()) return;
-
 	if (orientation == LEFT) setAnimation(fireLeft);
 	else if (orientation == RIGHT) setAnimation(fireRight);
 
@@ -101,7 +99,7 @@ void Fireball::update(float deltaTime) {
 		}
 		if (delayTime >= 0.f) {
 			setVelocity(delayVelocity);
-			if (soundEffect == false) RESOURCE_MANAGER.playSound("shot.wav");
+			//if (soundEffect == false) RESOURCE_MANAGER.playSound("shot.wav");
 			soundEffect = true;
 		}
 

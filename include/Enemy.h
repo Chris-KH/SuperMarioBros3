@@ -23,9 +23,6 @@ public:
 
     virtual EnemyType getEnemyType() const = 0;
     
-    // Override draw to use animations
-    virtual void draw(float deltaTime = GetFrameTime()) override;
-    
     // Method to move enemy (AI-controlled)
     virtual void update(float deltaTime) override;
 
