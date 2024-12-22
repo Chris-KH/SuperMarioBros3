@@ -203,7 +203,8 @@ void ResourceManager::unloadTexture() {
 void ResourceManager::playMusic(const string& trackName) const {
     if (SETTINGS.isMusicEnabled() == false) return;
 
-    PlayMusicStream(*getMusic(trackName));
+    if (isMusicPlaying(trackName)) UpdateMusicStream(*getMusic(trackName));
+    else PlayMusicStream(*getMusic(trackName));
 }
 
 bool ResourceManager::isMusicPlaying(const string& musicName) const {

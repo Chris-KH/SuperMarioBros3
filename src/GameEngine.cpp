@@ -237,14 +237,16 @@ bool GameEngine::run() {
     items.push_back(testItem);
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
-            if (SETTINGS.isMusicEnabled())
+            if (SETTINGS.isMusicEnabled()) {
                 UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
-
+            }
             update();
             render();
         }
-        if (player->getX() >= map.getMapSize().x)
+
+        if (player->getX() >= map.getMapSize().x) {
             return true; // finished the level
+        }
     }
     return false;
 }

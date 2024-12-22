@@ -25,6 +25,7 @@ Menu::~Menu()
 void Menu::run() {
     InitAudioDevice();
     //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT | FLAG_WINDOW_UNDECORATED);
+    SetConfigFlags(FLAG_WINDOW_ALWAYS_RUN); 
     InitWindow(1280, 800, "Super Mario Bros");
     Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
     Image gameIconImage = LoadImageFromTexture(gameIcon);
@@ -53,7 +54,6 @@ void Menu::run() {
 
     loadFromConfig("../assets/config.txt");
     selectMap(selectedMap);
-   
 
     while (!WindowShouldClose()) {
         BeginDrawing();
