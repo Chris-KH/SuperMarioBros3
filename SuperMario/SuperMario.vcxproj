@@ -172,8 +172,8 @@
     <ClInclude Include="..\include\TextEffect.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\Background.h" />
-    <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\include\GUI.h" />
+    <ClCompile Include="..\src\GUI.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\CharacterState.cpp" />
     <ClCompile Include="..\src\Effect.cpp" />

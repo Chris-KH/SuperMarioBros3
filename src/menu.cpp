@@ -1,5 +1,6 @@
 ﻿#include "../include/Menu.h"
 #include "../include/ItemFactory.h";
+#include "../include/GUI.h"
 #include <memory>
 #include <utility>
 Menu::Menu() : backgroundTexture({ 0 }) {
@@ -26,6 +27,7 @@ Menu::~Menu()
 void Menu::run() {
     InitAudioDevice();
     //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT | FLAG_WINDOW_UNDECORATED);
+    SetConfigFlags(FLAG_WINDOW_ALWAYS_RUN); 
     InitWindow(1280, 800, "Super Mario Bros");
     Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
     Image gameIconImage = LoadImageFromTexture(gameIcon);
@@ -53,9 +55,13 @@ void Menu::run() {
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
 
+    GUI::heartTexture = LoadTexture("../assets/Background/heart.png");
+    GUI::coinTexture = LoadTexture("../assets/Background/coin.png");
+    GUI::multiplicationSign = LoadTexture("../assets/Background/multiplicationSign.png");
+    GUI::board = LoadTexture("../assets/Background/board.png");
+
     loadFromConfig("../assets/config.txt");
     selectMap(selectedMap);
-   
 
     while (!WindowShouldClose()) {
         BeginDrawing();
