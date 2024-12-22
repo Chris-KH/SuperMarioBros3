@@ -73,15 +73,13 @@ void GameEngine::addItem(Entity* item) {
     this->items.push_back(item);
 }
 
-void GameEngine::update() {
+void GameEngine::update(float deltaTime) {
     if (IsKeyPressed(KEY_ENTER)) {
         isPaused = !isPaused;
     }
     if (isPaused) {
         return;
     }
-    float deltaTime = GetFrameTime();
-    this->deltaTime = deltaTime;
 
     for (Entity* i : blocks) {
         i->update(deltaTime);
@@ -157,14 +155,15 @@ void GameEngine::handleCollision() {
         for (Entity* item : items)
             IColl.resolve(item, block);
     }
-    player->setJumping(!isGrounded);
+    if(isGrounded)
+        player->setJumping(false);
     for (Entity* i : items)
         IColl.resolve(player, i);
     for (Entity* i : enemies)
         IColl.resolve(player, i);
 }
 
-void GameEngine::render() {
+void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
     for (Entity* i : blocks)
@@ -234,14 +233,21 @@ bool GameEngine::run() {
     items.push_back(testItem);
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
+            float deltaTime = GetFrameTime();
+            this->deltaTime = deltaTime;
             if (SETTINGS.isMusicEnabled())
                 UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
 
-            update();
-            render();
+            update(deltaTime);
+            render(deltaTime);
         }
         if (player->getX() >= map.getMapSize().x)
             return true; // finished the level
     }
     return false;
+}
+
+float GameEngine::getGlobalTime()
+{
+    return deltaTime;
 }
