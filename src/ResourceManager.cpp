@@ -232,5 +232,3 @@ void ResourceManager::stopSound(const string& soundName) const {
     if (isSoundPlaying(soundName)) StopSound(*getSound(soundName));
 }
 
-
-
