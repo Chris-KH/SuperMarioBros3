@@ -32,10 +32,11 @@ public:
     void addEffect(Entity* effect);
     void addShell(Entity* shell);
     void addItem(Entity* item);
-    void update();
+    void update(float deltaTime);
     void handleCollision();
-    void render();
+    void render(float deltaTime);
     bool run();
+    float getGlobalTime();
 };
 extern GameEngine* globalGameEngine;
 

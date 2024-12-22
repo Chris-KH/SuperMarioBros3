@@ -76,7 +76,7 @@ void GameEngine::addItem(Entity* item) {
     this->items.push_back(item);
 }
 
-void GameEngine::update() {
+void GameEngine::update(float deltaTime) {
     if (IsKeyPressed(KEY_ENTER)) {
         isPaused = !isPaused;
     }
@@ -166,7 +166,7 @@ void GameEngine::handleCollision() {
         IColl.resolve(player, i);
 }
 
-void GameEngine::render() {
+void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
     float deltaTime = GetFrameTime();
@@ -243,11 +243,13 @@ bool GameEngine::run() {
     items.push_back(testItem);
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
-            if (SETTINGS.isMusicEnabled()) {
+            float deltaTime = GetFrameTime();
+            this->deltaTime = deltaTime;
+            if (SETTINGS.isMusicEnabled())
                 UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
-            }
-            update();
-            render();
+
+            update(deltaTime);
+            render(deltaTime);
         }
 
         if (player->getX() >= map.getMapSize().x) {
@@ -255,4 +257,9 @@ bool GameEngine::run() {
         }
     }
     return false;
+}
+
+float GameEngine::getGlobalTime()
+{
+    return deltaTime;
 }

@@ -1,6 +1,5 @@
 #ifndef MEMU_H
 #define MENU_H
-#pragma once
 #include "raylib.h"
 #include <memory>
 #include <vector>
