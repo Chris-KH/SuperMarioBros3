@@ -92,7 +92,7 @@ protected:
     const float TRANSFORM_TIME = 1.f; 
 
     const float IMMORTAL_TIME = 2.f;
-    const float TIME_BETWEEN_THROWS = 1.f;
+    const float FIREBALL_CHARGE_TIME = 1.5f;
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
     virtual ~Character();

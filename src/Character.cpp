@@ -133,7 +133,7 @@ void Character::onKey(KeyboardKey key, bool pressed) {
     if (isDead()) return;
 
     if (key == KEY_W && pressed) {
-        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime >= TIME_BETWEEN_THROWS && holdShell == nullptr) {
+        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime > 0.f && holdShell == nullptr) {
             Fireball* fireball = new Fireball();
             fireball->setCharacterPositionBall(this);
             if (orientation == RIGHT) {
@@ -149,7 +149,7 @@ void Character::onKey(KeyboardKey key, bool pressed) {
                 globalGameEngine->addFireBall(fireball);
             }
 
-            countThrowTime = 0.f;
+            countThrowTime -= FIREBALL_CHARGE_TIME;
         }
     }
 }
@@ -167,6 +167,7 @@ void Character::update(float deltaTime) {
         state->update(deltaTime);
         INPUT_MANAGER.update();
         countThrowTime += deltaTime;
+        countThrowTime = min(countThrowTime, 3.f);
 
         if (countImmortalTime <= 0.f) setCollisionAvailable(true);
         countImmortalTime = max(0.f, countImmortalTime - deltaTime);

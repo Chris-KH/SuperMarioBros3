@@ -63,4 +63,5 @@ void Enemy::attacked() {
 void Enemy::collisionWithFireball(Fireball* fireball) {
     attacked();
     fireball->killEntity();
+    RESOURCE_MANAGER.playSound("fireball.wav");
 }
