@@ -29,10 +29,9 @@ void ResourceManager::loadTextures() {
             string filePath = entry.path().string(); 
             string fileName = entry.path().stem().string(); 
 
-            if (filePath.ends_with(".png") || filePath.ends_with(".jpg") || filePath.ends_with(".jpeg")) {
+            if (ends_with(filePath, ".png") || ends_with(filePath, ".jpg") || ends_with(filePath, ".jpeg")) {
                 Texture2D texture = LoadTexture(filePath.c_str());
 
-               
                 if (texture.id != 0) {
                     textures[fileName] = texture; 
                     cout << "Loaded texture: " << fileName << '\n';

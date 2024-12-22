@@ -1,6 +1,6 @@
 #pragma once
 
-#include "raylib.h"
+#include "../lib/raylib.h"
 #include "Entity.h"
 #include <fstream>
 #include <sstream>

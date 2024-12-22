@@ -69,7 +69,7 @@ void Shell::update(float deltaTime)  {
 		setAnimation(shellSpin);
 	}
 	else if (isHold) {
-		//
+		
 	}
 	else {
 		setXVelocity(0.f);

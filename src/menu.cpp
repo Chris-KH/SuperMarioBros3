@@ -285,24 +285,21 @@ void SettingState::draw() {
     DrawText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"),
         static_cast<int>(audioButton.x + (audioButton.width - MeasureText(TextFormat("Audio: %s", menu->isAudioEnabled() ? "Enabled" : "Disabled"), 30)) / 2),
         static_cast<int>(audioButton.y + (audioButton.height - 30) / 2),
-        30,
-        CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
+        30, CheckCollisionPointRec(GetMousePosition(), audioButton) ? LIGHTGRAY : BLACK);
 
     // Music Button
     DrawRectangleRec(musicButton, ORANGE);
     DrawText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"),
         static_cast<int>(musicButton.x + (musicButton.width - MeasureText(TextFormat("Music: %s", menu->isMusicEnabled() ? "Enabled" : "Disabled"), 30)) / 2),
-            static_cast<int>(musicButton.y + (musicButton.height - 30) / 2),
-        30,
-        CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
+        static_cast<int>(musicButton.y + (musicButton.height - 30) / 2),
+        30, CheckCollisionPointRec(GetMousePosition(), musicButton) ? LIGHTGRAY : BLACK);
 
     // Back Button
     DrawRectangleRec(backButton, ORANGE);
     DrawText("Return to Main Menu",
         static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 25)) / 2),
-            static_cast<int>(backButton.y + (backButton.height - 25) / 2),
-        25,
-        CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
+        static_cast<int>(backButton.y + (backButton.height - 25) / 2),
+        25, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 }
 
 
@@ -333,25 +330,22 @@ void CharSelection::draw() {
     DrawRectangleRec(marioButton, ORANGE);
     DrawText("Mario",
         static_cast<int>(marioButton.x + (marioButton.width - MeasureText("Mario", 30)) / 2),
-            static_cast<int>(marioButton.y + (marioButton.height - 30) / 2),
-        30,
-        CheckCollisionPointRec(GetMousePosition(), marioButton) ? LIGHTGRAY : BLACK);
+        static_cast<int>(marioButton.y + (marioButton.height - 30) / 2),
+        30, CheckCollisionPointRec(GetMousePosition(), marioButton) ? LIGHTGRAY : BLACK);
 
     // Luigi Button
     DrawRectangleRec(luigiButton, ORANGE);
     DrawText("Luigi",
         static_cast<int>(luigiButton.x + (luigiButton.width - MeasureText("Luigi", 30)) / 2),
         static_cast<int>(luigiButton.y + (luigiButton.height - 30) / 2),
-        30,
-        CheckCollisionPointRec(GetMousePosition(), luigiButton) ? LIGHTGRAY : BLACK);
+        30, CheckCollisionPointRec(GetMousePosition(), luigiButton) ? LIGHTGRAY : BLACK);
 
     // Back Button
     DrawRectangleRec(backButton, ORANGE);
     DrawText("Return to Main Menu",
         static_cast<int>(backButton.x + (backButton.width - MeasureText("Return to Main Menu", 25)) / 2),
         static_cast<int>(backButton.y + (backButton.height - 25) / 2),
-        25,
-        CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
+        25, CheckCollisionPointRec(GetMousePosition(), backButton) ? LIGHTGRAY : BLACK);
 }
 
 
@@ -398,28 +392,24 @@ void MapSelection::draw() {
     DrawRectangleRec(map1Button, ORANGE);
     DrawText("Map1",
         static_cast<int>(map1Button.x + (map1Button.width - MeasureText("Map1", 30)) / 2),
-            static_cast<int>(map1Button.y + (map1Button.height - 30) / 2),
-        30,
-        CheckCollisionPointRec(GetMousePosition(), map1Button) ? LIGHTGRAY : BLACK);
+        static_cast<int>(map1Button.y + (map1Button.height - 30) / 2),
+        30, CheckCollisionPointRec(GetMousePosition(), map1Button) ? LIGHTGRAY : BLACK);
 
     // Map2 Button
     DrawRectangleRec(map2Button, ORANGE);
     DrawText("Map2",
         static_cast<int>(map2Button.x + (map2Button.width - MeasureText("Map2", 30)) / 2),
         static_cast<int>(map2Button.y + (map2Button.height - 30) / 2),
-        30,
-        CheckCollisionPointRec(GetMousePosition(), map2Button) ? LIGHTGRAY : BLACK);
+        30, CheckCollisionPointRec(GetMousePosition(), map2Button) ? LIGHTGRAY : BLACK);
 
     // Map3 Button
     DrawRectangleRec(map3Button, ORANGE);
     DrawText("Map3",
         static_cast<int>(map3Button.x + (map3Button.width - MeasureText("Map3", 30)) / 2),
         static_cast<int>(map3Button.y + (map3Button.height - 30) / 2),
-        30,
-        CheckCollisionPointRec(GetMousePosition(), map3Button) ? LIGHTGRAY : BLACK);
+        30, CheckCollisionPointRec(GetMousePosition(), map3Button) ? LIGHTGRAY : BLACK);
 
 }
-
 
 void MapSelection::handleInput() {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {

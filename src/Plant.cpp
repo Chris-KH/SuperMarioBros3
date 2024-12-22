@@ -148,7 +148,8 @@ void Plant::draw(float deltaTime) {
 
 Vector2 Plant::getCentral() {
 	float halfWidth = getWidth() / 2;
-	return Vector2(getPosition().x + halfWidth, getPosition().y + halfWidth);
+	Vector2 vector2Pos = {getPosition().x + halfWidth, getPosition().y + halfWidth};
+	return vector2Pos;
 }
 
 void Plant::setPlayerForFireball(Character* player) {
@@ -157,7 +158,8 @@ void Plant::setPlayerForFireball(Character* player) {
 
 void Plant::setDirection() {
 	Vector2 plantCentral = getCentral();
-	Vector2 playerCentral = Vector2(player->getCenterX(), player->getCenterY());
+	Vector2 vector2Player = {player->getCenterX(), player->getCenterY()};
+	Vector2 playerCentral = vector2Player;
 
 	if (playerCentral.x < plantCentral.x && playerCentral.y < plantCentral.y) direction = UPLEFT;
 	else if (playerCentral.x < plantCentral.x && playerCentral.y > plantCentral.y) direction = DOWNLEFT;

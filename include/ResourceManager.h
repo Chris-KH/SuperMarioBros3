@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include <raylib.h>
-#include "raylib.h"
+#include "../lib/raylib.h"
 #include <map>
 #include <string>
 #include <filesystem>
@@ -69,7 +68,7 @@ public:
     void playSound(const string& soundName) const; 
     bool isSoundPlaying(const string& soundName) const;
     void stopSound(const string& soundName) const;
+    bool ends_with(const std::string &str, const std::string &suffix) {
+        return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
+    }
 };
-
-
-

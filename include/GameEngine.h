@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <iostream>
-#include <raylib.h>
+#include "../lib/raylib.h"
 #include "Map.h"
 #include "Collision.h"
 #include "Character.h"
@@ -260,7 +260,7 @@ public:
 				//cout << FPS_MANAGER.getFrameRate() << '\n';
 				// Update music stream
 				
-				if(SETTINGS.isMusicEnabled())
+				if (SETTINGS.isMusicEnabled())
 					UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
 
 					update();
@@ -269,12 +269,10 @@ public:
 
 				//cout << player->getPosition().y << endl;
 			}
-			if(player->getX() >= map.getMapSize().x)
+			if (player->getX() >= map.getMapSize().x)
 				return true;// finished the level
 		}
 		return false;
 	}
 };
 extern GameEngine* globalGameEngine;
-
-

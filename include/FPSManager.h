@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include <raylib.h>
-#include "raylib.h"
+#include "../lib/raylib.h"
 #include <chrono>
 
 using namespace std;

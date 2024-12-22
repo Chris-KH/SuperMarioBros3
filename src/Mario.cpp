@@ -11,7 +11,8 @@ Mario::Mario(Vector2 pos) : Character(pos) {
 	lastState = state->getState();
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
-	this->setPosition(Vector2(this->getPosition().x, this->getPosition().y));
+	Vector2 vector2Pos = {this->getPosition().x, this->getPosition().y};
+	this->setPosition(vector2Pos);
 };
 
 CharacterType Mario::getCharacterType() const {
