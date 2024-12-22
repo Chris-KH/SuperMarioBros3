@@ -1,5 +1,5 @@
 #include"../include/Fireball.h"
-#include"../include/Block.h"
+#include"../include/BaseBlock.h"
 #include"../include/Character.h"
 
 Fireball::~Fireball() {
