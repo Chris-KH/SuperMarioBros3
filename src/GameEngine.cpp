@@ -23,7 +23,6 @@ GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Char
     enemies = map.getEnemies();
     decor = map.getDecor();
     isPaused = false;
-    deltaTime = 0.f;
 }
 
 GameEngine::~GameEngine() {
@@ -85,7 +84,6 @@ void GameEngine::update() {
         return;
     }
     float deltaTime = GetFrameTime();
-    this->deltaTime = deltaTime;
 
     for (Entity* i : blocks) {
         i->update(deltaTime);
@@ -171,6 +169,8 @@ void GameEngine::handleCollision() {
 void GameEngine::render() {
     camera.beginDrawing();
     map.renderBackground();
+    float deltaTime = GetFrameTime();
+
     for (Entity* i : blocks)
         i->draw(deltaTime);
     for (Entity* i : enemies) {

@@ -51,7 +51,7 @@ public:
     void setMenu(Menu* menu) { this->menu = menu; }
 
 protected:
-    Menu* menu;
+    Menu* menu = nullptr;
 };
 
 class MainMenuState : public MenuState {

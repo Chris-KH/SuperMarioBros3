@@ -13,6 +13,7 @@ private:
 	GoomBaType type;
 	Animation* walkAnimation;
 	Animation* jumpAnimation;
+	Animation* deadAnimation;
 	bool canJump;
 	float jumpTime;
 public:

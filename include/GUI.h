@@ -16,4 +16,5 @@ public:
 	static Texture2D board;
 
 	static void drawStatusBar(const Character* player);
+	//static void drawButton(const Rectangle& rect);
 };

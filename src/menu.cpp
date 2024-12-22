@@ -1,5 +1,5 @@
 ﻿#include "../include/Menu.h"
-#include "../include/ItemFactory.h";
+#include "../include/ItemFactory.h"
 #include "../include/GUI.h"
 #include <memory>
 #include <utility>
@@ -166,24 +166,16 @@ void Menu::setBackground(const std::string& imagePath)
 
 MainMenuState::MainMenuState(Menu* menu) { 
     this->menu = menu; 
-    startButton = { 80, 720, 150, 40 };
-    continueButton = { 310, 720, 150, 40 };
-    settingsButton = { 540, 720, 150, 40 };
+    startButton = { 80, 720, 160, 40 };
+    continueButton = { 310, 720, 160, 40 };
+    settingsButton = { 540, 720, 160, 40 };
     charSelectionButton = { 770, 720, 200, 40 };
-    mapSelectionButton = { 1049, 720, 150, 40 };
+    mapSelectionButton = { 1049, 720, 160, 40 };
 }
 
 void MainMenuState::draw() {
     ClearBackground(RAYWHITE);
 
-    //Font* font = RESOURCE_MANAGER.getFont("HolenVintage.otf");
-    //DrawRectangleRec(startButton, ORANGE);
-    //DrawTextEx(*font ,"New Game",
-    //    { static_cast<float>(startButton.x) + static_cast<float>((startButton.width - MeasureTextEx(*font, "New Game", 30, 0.f).x) / 2),
-    //    static_cast<float>(startButton.y + (startButton.height - 30) / 2) },
-    //    30, 0.f, CheckCollisionPointRec(GetMousePosition(), startButton) ? LIGHTGRAY : BLACK);
-
-    // Start Button
     //startButton = { 440, buttonStartY, 400, 50 };
     DrawRectangleRec(startButton, ORANGE);
     DrawText("New Game",
