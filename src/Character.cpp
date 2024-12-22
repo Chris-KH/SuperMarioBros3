@@ -133,15 +133,15 @@ void Character::onKey(KeyboardKey key, bool pressed) {
     if (isDead()) return;
 
     if (key == KEY_W && pressed) {
-        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime >= TIME_BETWEEN_THROWS) {
+        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime >= TIME_BETWEEN_THROWS && holdShell == nullptr) {
             Fireball* fireball = new Fireball();
             fireball->setCharacterPositionBall(this);
             if (orientation == RIGHT) {
                 setAnimation(throwRight, throwRight->getAnimationTime());
-                fireball->setXVelocity(fireball->getVelocity().x + 1000.f);
+                fireball->setXVelocity(0.f);
             }
             else if (orientation == LEFT) {
-                fireball->setXVelocity(fireball->getVelocity().x - 1000.f);
+                fireball->setXVelocity(0.f);
                 setAnimation(throwLeft, throwLeft->getAnimationTime());
             }
             setXVelocity(getVelocity().x / 2.f);
@@ -164,6 +164,13 @@ void Character::update(float deltaTime) {
     }
 
     if (phase == DEFAULT_PHASE) {
+        state->update(deltaTime);
+        INPUT_MANAGER.update();
+        countThrowTime += deltaTime;
+
+        if (countImmortalTime <= 0.f) setCollisionAvailable(true);
+        countImmortalTime = max(0.f, countImmortalTime - deltaTime);
+
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
             setHolding(false);
@@ -171,12 +178,12 @@ void Character::update(float deltaTime) {
                 holdShell->setOrientation(getOrientation());
                 if (orientation == RIGHT) {
                     holdShell->setXPosition(getRight());
-                    holdShell->setXVelocity(getVelocity().x + 1000.f);
+                    holdShell->setXVelocity(getVelocity().x + 500.f);
                     holdShell->kicked(RIGHT);
                 }
                 else if (orientation == LEFT) {
                     holdShell->setXPosition(getLeft() - holdShell->getSize().x);
-                    holdShell->setXVelocity(getVelocity().x - 1000.f);
+                    holdShell->setXVelocity(getVelocity().x - 500.f);
                     holdShell->kicked(LEFT);
                 }
                 holdShell->setGravityAvailable(true);
@@ -191,13 +198,6 @@ void Character::update(float deltaTime) {
                 setHolding(false);
             }
         }
-
-        state->update(deltaTime);
-        INPUT_MANAGER.update();
-        countThrowTime += deltaTime;
-
-        if (countImmortalTime <= 0.f) setCollisionAvailable(true);
-        countImmortalTime = max(0.f, countImmortalTime - deltaTime);
     }
     else if (phase == TRANSFORM_PHASE) {
         //transform
