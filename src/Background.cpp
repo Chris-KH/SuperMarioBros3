@@ -1,3 +1,4 @@
+#include "../include/Animation.h"
 #include"../include/Background.h"
 
 Background::Background(const Texture& texture, Animation* animation, BackgroundTiling tilingMode) 

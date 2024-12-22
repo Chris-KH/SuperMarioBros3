@@ -62,8 +62,16 @@ int main() {
    //        EndDrawing();
    //     }
    // }
-    Menu menu;
-    menu.run();
+    try {
+        std::cout << "Starting program..." << std::endl;
+        Menu menu;
+        menu.run();
+        std::cout << "Window closed!" << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Unhandled exception: " << e.what() << std::endl;
+    } catch (...) {
+        std::cerr << "Unhandled unknown exception." << std::endl;
+    }
     //CloseWindow();
     //CloseAudioDevice();
 

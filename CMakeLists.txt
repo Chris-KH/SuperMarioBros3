@@ -1,17 +1,19 @@
-# Specify the minimum version of CMake
 cmake_minimum_required(VERSION 3.10)
 
-# Name the project and set C++ standard
 project(CS202-SuperMario)
 set(CMAKE_CXX_STANDARD 17)
 
 # Specify the path to raylib
-# Update this path if raylib is located elsewhere
 set(RAYLIB_DIR "C:/raylib-5.5")
 
 # Include raylib headers and libraries
 include_directories(${RAYLIB_DIR}/src)
 link_directories(${RAYLIB_DIR}/src)
+
+# Ensure consistent runtime library usage
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRT")
 
 # Define source files for your project
 set(Main
