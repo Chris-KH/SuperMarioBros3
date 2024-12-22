@@ -1,6 +1,7 @@
 #include"../include/Block.h"
 #include "../include/Global.h"
-
+#include "../include/ItemFactory.h"
+#include "../include/GameEngine.h"
 BaseBlock::BaseBlock(Vector2 pos, Vector2 size, Color color) : Entity(pos, size, color), sprite(nullptr) {}
 
 BaseBlock::~BaseBlock() {
@@ -121,6 +122,8 @@ void MovingBlock::update(float deltaTime) {
 
 ItemBlock::ItemBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
     sprite = RESOURCE_MANAGER.getAnimation("item_block")->clone();
+    item = COIN;
+    subType = BLOCK_COIN;
     setAnimation(sprite);
 }
 
@@ -137,6 +140,25 @@ void ItemBlock::update(float deltaTime) {
     currentAnimation->update(deltaTime);
 }
 
+void ItemBlock::releaseItem()
+{
+    ItemFactory& factory = ItemFactory::getInstance();
+    Item * release = factory.createItem(item, { getX(), getY() + 16.f}, RIGHT, subType);
+    //if (item == COIN)
+    //    globalGameEngine->addScore(100);
+    //globalGameEngine->addItem(release);
+    hasItem = false;
+    free(this->currentAnimation);
+    sprite = RESOURCE_MANAGER.getAnimation("empty_block")->clone();
+    setAnimation(sprite);
+}
+
+void ItemBlock::setItem(ItemType item, int subtype)
+{
+    this->item = item;
+    this->subType = subtype;
+}
+
 HiddenBlock::HiddenBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {}
 
 BlockType HiddenBlock::getBlockType() const {
@@ -149,9 +171,10 @@ void HiddenBlock::update(float deltaTime) {
     }
 }
 
-void HiddenBlock::reveal() {
-    revealed = true;
+void HiddenBlock::reveal()
+{
 }
+
 
 SpikeBlock::SpikeBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {}
 
