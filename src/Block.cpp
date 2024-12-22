@@ -74,6 +74,10 @@ BlockType MovingBlock::getBlockType() const {
 }
 
 void MovingBlock::draw(float deltaTime) {
+    Vector2 pos = getPosition();
+    pos.x += velocity.x * deltaTime;
+    pos.y += velocity.y * deltaTime;
+    setPosition(pos);
     if (currentAnimation == nullptr) return;
     currentAnimation->render(this->getPosition());
 }
@@ -105,8 +109,7 @@ void MovingBlock::setVelocity(Vector2 newVelocity) {
 
 void MovingBlock::update(float deltaTime) {
     Vector2 pos = getPosition();
-    pos.x += velocity.x * deltaTime;
-    pos.y += velocity.y * deltaTime;
+
 
     if (pos.x <= boundLeft || pos.x + getSize().x >= boundRight) {
         velocity.x = -velocity.x;
@@ -116,7 +119,6 @@ void MovingBlock::update(float deltaTime) {
         velocity.y = -velocity.y;
     }
 
-    setPosition(pos);
     currentAnimation->update(deltaTime);
 }
 

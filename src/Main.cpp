@@ -1,79 +1,9 @@
-#include "../lib/raylib.h"
-#include "../lib/bits/stdc++.h"
-#include "../include/InputManager.h"
-#include "../include/Global.h"
-#include "../include/Animation.h"
-#include "../include/GameEngine.h"
-#include "../include/Mario.h"
-#include "../include/Luigi.h"
 #include "../include/Menu.h"
-#include "../include/GoomBa.h"
-#include "../include/KoopaTroopa.h"
-#include "../include/Shell.h"
-#include "../include/Plant.h"
+
 using namespace std;
 
-
 int main() {
-   // InitAudioDevice();
-   // InitWindow(1280, 800, "Super Mario Bros");
-   // 
-   // RESOURCE_MANAGER.loadAllResource();
-   // INPUT_MANAGER.bindKey(KEY_A);
-   // INPUT_MANAGER.bindKey(KEY_D);
-   // INPUT_MANAGER.bindKey(KEY_S);
-   // INPUT_MANAGER.bindKey(KEY_SPACE);
-   // INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
-   // registerBlocks();
-   // // Tải texture cho vật thể
-   // Texture2D texture = LoadTexture("../SuperMario/images.png");
-   // 
-   // // Tạo một vật thể với texture và InputManager
-   // Character* player = new Mario(Vector2{0,0});
-   // player->setPosition({ 640.f, 0.f });
-   // RESOURCE_MANAGER.playMusic("World1.mp3");
-   // 
-   // Map map1;
-   // map1.loadFromFile("../assets/Map/Map1-1.txt");
-   // map1.loadBackground("../assets/Map/Map1-1.png");
-   // Enemy* goomba = new Plant(RED_FIREPIRANHA, { 640.f, 400.f }, player);
-   // goomba->setBoudary({ goomba->getPosition().y - goomba->getHeight(), goomba->getPosition().y});
-   //  
-   //  
-   // while (!WindowShouldClose()) {
-   //     if (FPS_MANAGER.update()) {
-   //        // Update music stream
-   //         UpdateMusicStream(*RESOURCE_MANAGER.getMusic("World1.mp3"));
-   // 
-   //         BeginDrawing();
-   //         ClearBackground(GRAY);
-   //        //map1.renderBackground();
-   // 
-   // 
-   //       // Vẽ vật thể
-   //         float deltaTime = GetFrameTime();
-   //         //inputManager.update();
-   //         goomba->update(deltaTime);
-   //         goomba->draw();
-   //         player->update(deltaTime);
-   //         player->draw();
-   //       //map1.renderAllBlock();
-   // 
-   //        EndDrawing();
-   //     }
-   // }
-    try {
-        std::cout << "Starting program..." << std::endl;
-        Menu menu;
-        menu.run();
-        std::cout << "Window closed!" << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Unhandled exception: " << e.what() << std::endl;
-    } catch (...) {
-        std::cerr << "Unhandled unknown exception." << std::endl;
-    }
-    //CloseWindow();
-    //CloseAudioDevice();
-
+    Menu menu;
+    menu.run();
     return 0;
 }

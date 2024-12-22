@@ -1,6 +1,5 @@
 ﻿#include"../include/ResourceManager.h"
 #include"../include/Animation.h"
-#include"../include/Background.h"
 #include"../include/Global.h"
 
 ResourceManager::ResourceManager() {}
@@ -161,10 +160,6 @@ Animation* ResourceManager::getAnimation(const string& name) const {
     return animationResource.at(name).get();
 }
 
-Background* ResourceManager::getBackground(const string& name) const {
-    return backgroundResource.at(name).get();
-}
-
 Font* ResourceManager::getFont(const string& name) const {
     return fontResource.at(name).get();
 }
@@ -207,7 +202,8 @@ void ResourceManager::unloadTexture() {
 void ResourceManager::playMusic(const string& trackName) const {
     if (SETTINGS.isMusicEnabled() == false) return;
 
-    PlayMusicStream(*getMusic(trackName));
+    if (isMusicPlaying(trackName)) UpdateMusicStream(*getMusic(trackName));
+    else PlayMusicStream(*getMusic(trackName));
 }
 
 bool ResourceManager::isMusicPlaying(const string& musicName) const {

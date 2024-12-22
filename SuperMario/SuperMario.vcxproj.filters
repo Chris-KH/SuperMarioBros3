@@ -311,14 +311,14 @@
     <ClCompile Include="..\src\Menu.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Background.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\Background.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Camera.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GUI.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\GUI.h">
+      <Filter>Header Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

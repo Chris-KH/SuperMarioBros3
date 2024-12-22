@@ -209,91 +209,115 @@ public:
         return false;
     }
 };
+inline bool SweptAABB(const Rectangle& player, const Vector2& playerVel,
+    const Rectangle& block, const Vector2& blockVel,
+    float deltaTime, float& collisionTime) {
+    Vector2 relativeVel = { playerVel.x - blockVel.x, playerVel.y - blockVel.y };
+
+    float xEntry, yEntry;
+    float xExit, yExit;
+
+    if (relativeVel.x > 0) {
+        xEntry = (block.x - (player.x + player.width)) / relativeVel.x;
+        xExit = ((block.x + block.width) - player.x) / relativeVel.x;
+    }
+    else if (relativeVel.x < 0) {
+        xEntry = ((block.x + block.width) - player.x) / relativeVel.x;
+        xExit = (block.x - (player.x + player.width)) / relativeVel.x;
+    }
+    else {
+        xEntry = -std::numeric_limits<float>::infinity();
+        xExit = std::numeric_limits<float>::infinity();
+    }
+
+    if (relativeVel.y > 0) {
+        yEntry = (block.y - (player.y + player.height)) / relativeVel.y;
+        yExit = ((block.y + block.height) - player.y) / relativeVel.y;
+    }
+    else if (relativeVel.y < 0) {
+        yEntry = ((block.y + block.height) - player.y) / relativeVel.y;
+        yExit = (block.y - (player.y + player.height)) / relativeVel.y;
+    }
+    else {
+        yEntry = -std::numeric_limits<float>::infinity();
+        yExit = std::numeric_limits<float>::infinity();
+    }
+
+    float entryTime = std::max(xEntry, yEntry);
+    float exitTime = std::min(xExit, yExit);
+
+    // If no collision or collision occurs outside the frame
+    if (entryTime > exitTime || entryTime < 0.0f || entryTime > deltaTime) {
+        collisionTime = 1.0f; // No collision
+        return false;
+    }
+
+    collisionTime = entryTime;
+    return true;
+}
 class PlayerMovingBlockStrat : public CollisionStrategy {
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {
         Character* player = dynamic_cast<Character*>(entityA);
         MovingBlock* block = dynamic_cast<MovingBlock*>(entityB);
 
-        if (!player || !block || player->isCollisionAvailable() == false)
+        if (!player || !block || !player->isCollisionAvailable())
             return false;
 
         float deltaTime = GetFrameTime();
 
-        Vector2 blockVelocity = block->getVelocity();
-        Vector2 playerVelocity = player->getVelocity();
+        Vector2 playerVel = player->getVelocity();
+        Vector2 blockVel = block->getVelocity();
+
         Rectangle playerRect = player->getRectangle();
         Rectangle blockRect = block->getRectangle();
 
-        Vector2 playerNextPos = {
-            playerRect.x + playerVelocity.x * deltaTime,
-            playerRect.y + playerVelocity.y * deltaTime
-        };
-
-        Rectangle futurePlayerRect = {
-            playerNextPos.x,
-            playerNextPos.y,
-            playerRect.width,
-            playerRect.height
-        };
-
-        bool isOnBlock = false;
-
-        // vertical collision detection (falling onto the block)
-        if (playerVelocity.y >= 0) {
-            if (CheckCollisionRecs(futurePlayerRect, blockRect) && player->getBottom() <= blockRect.y) {
-                Vector2 vector2 = {playerRect.x, blockRect.y - playerRect.height};
-                player->setPosition(vector2);
-                player->setYVelocity(0.f);
-                isOnBlock = true;
-            }
+        float collisionTime;
+        if (!SweptAABB(playerRect, playerVel, blockRect, blockVel, deltaTime, collisionTime)) {
+            return false; // No collision detected
         }
 
-        // horizontal
-        Rectangle horizontalRect = {
-            playerNextPos.x,
-            playerRect.y,
-            playerRect.width,
-            playerRect.height
+        // Calculate the exact position at collision
+        Vector2 collisionPlayerPos = {
+             playerRect.x + playerVel.x * collisionTime * deltaTime,
+            playerRect.y + playerVel.y * collisionTime * deltaTime
         };
 
-        if (CheckCollisionRecs(horizontalRect, blockRect)) {
-            if (playerVelocity.x > 0) {
-                float offset = blockVelocity.x * deltaTime;
-                Vector2 vector2 = {blockRect.x - playerRect.width + offset, playerRect.y};
-                player->setPosition(vector2);
-            }
-            else if (playerVelocity.x < 0) {
-                float offset = blockVelocity.x * deltaTime;
-                Vector2 vector2 = {blockRect.x + blockRect.width + offset, playerRect.y};
-                player->setPosition(vector2);
-            }
+        // Adjust player position based on collision direction
+        if (playerRect.y + playerRect.height <= blockRect.y) {
+            // Player lands on top of the block
+            player->setPosition(Vector2(playerRect.x, blockRect.y - playerRect.height));
+            player->setYVelocity(blockVel.y); // Match block's vertical velocity
+            return true;
+            player->setJumping(false);
+        }
+        else if (playerRect.y >= blockRect.y + blockRect.height) {
+            // Player hits the block from below
+            player->setPosition(Vector2(playerRect.x, blockRect.y + blockRect.height));
+            player->setYVelocity(0.f);
+            return false;
+        }
+        else if (playerRect.x + playerRect.width <= blockRect.x ) {
+            // Player hits the block from the left
+            player->setPosition(Vector2(blockRect.x - playerRect.width, playerRect.y));
+            player->setXVelocity(0.f);
+        }
+        else if (playerRect.x >= blockRect.x + blockRect.width ) {
+            // Player hits the block from the right
+            player->setPosition(Vector2(blockRect.x + blockRect.width, playerRect.y));
             player->setXVelocity(0.f);
         }
 
-        if (playerVelocity.y < 0) {// Jumping into the block from below
-            Rectangle verticalRect = {
-                playerRect.x,
-                playerNextPos.y,
-                playerRect.width,
-                playerRect.height
-            };
-
-            if (CheckCollisionRecs(verticalRect, blockRect) && player->getTop() >= blockRect.y + blockRect.height) {
-                Vector2 vector2 = {playerRect.x, blockRect.y + blockRect.height};
-                player->setPosition(vector2);
-                player->setYVelocity(0.f);
-            }
-        }
-
-        if (isOnBlock) {
+        // Follow block movement if the player is on top
+        if (playerRect.y + playerRect.height <= blockRect.y) {
             Vector2 newPos = player->getPosition();
-            newPos.x += blockVelocity.x * deltaTime; // Move horizontally with block
-            newPos.y += blockVelocity.y * deltaTime; // Move vertically with block
+            newPos.x += blockVel.x * deltaTime; // Move horizontally with block
+            newPos.y += blockVel.y * deltaTime; // Move vertically with block
             player->setPosition(newPos);
+            player->setJumping(false);
         }
 
-        return isOnBlock;
+        return false;
     }
 };
 
@@ -498,6 +522,7 @@ public:
         return false;
     }
 };
+
 
 class PlayerEnemyStrat : public CollisionStrategy {
 public:
