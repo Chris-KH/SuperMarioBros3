@@ -103,24 +103,38 @@ Vector2 MovingBlock::getVelocity() const {
     return velocity;
 }
 
+
 void MovingBlock::setVelocity(Vector2 newVelocity) {
     velocity = newVelocity;
 }
 
 void MovingBlock::update(float deltaTime) {
     Vector2 pos = getPosition();
+    Vector2 predictedPos = {
+        pos.x + velocity.x * deltaTime,
+        pos.y + velocity.y * deltaTime
+    };
 
-
-    if (pos.x <= boundLeft || pos.x + getSize().x >= boundRight) {
-        velocity.x = -velocity.x;
+    if (predictedPos.x < boundLeft) {
+        velocity.x = std::abs(velocity.x);
+    }
+    else if (predictedPos.x + getSize().x > boundRight) {
+        velocity.x = -std::abs(velocity.x);
     }
 
-    if (pos.y <= boundTop || pos.y + getSize().y >= boundBottom) {
-        velocity.y = -velocity.y;
+    if (predictedPos.y < boundTop) {
+        velocity.y = std::abs(velocity.y);
+    }
+    else if (predictedPos.y + getSize().y > boundBottom) {
+        velocity.y = -std::abs(velocity.y);
     }
 
-    currentAnimation->update(deltaTime);
+    // Update animation
+    if (currentAnimation) {
+        currentAnimation->update(deltaTime);
+    }
 }
+
 
 ItemBlock::ItemBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
     sprite = RESOURCE_MANAGER.getAnimation("item_block")->clone();
