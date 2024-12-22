@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <raylib.h>
+#include "../lib/raylib.h"
 #include"../include/GameEngine.h"
 #include "../include/Map.h"
 #include "../include/Collision.h"

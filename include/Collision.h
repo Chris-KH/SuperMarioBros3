@@ -169,10 +169,12 @@ public:
 
             if (CheckCollisionRecs(horizontalRect, blockRect)) {
                 if (velocity.x > 0) {
-                    player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
+                    Vector2 vector2 = {blockRect.x - playerRect.width, player->getPosition().y};
+                    player->setPosition(vector2);
                 }
                 else if (velocity.x < 0) {
-                    player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
+                    Vector2 vector2 = {blockRect.x + blockRect.width, player->getPosition().y};
+                    player->setPosition(vector2);
                 }
                 player->setXVelocity(0.f);
             }
@@ -188,12 +190,14 @@ public:
 
             if (CheckCollisionRecs(verticalRect, blockRect)) {
                 if (velocity.y > 0) {
-                    player->setPosition(Vector2(player->getPosition().x, blockRect.y - playerRect.height));
+                    Vector2 vector2 = {player->getPosition().x, blockRect.y - playerRect.height};
+                    player->setPosition(vector2);
                     player->setYVelocity(0.f);
                     return true;
                 }
-                else if (velocity.y < 0) { 
-                    player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
+                else if (velocity.y < 0) {
+                    Vector2 vector2 = {player->getPosition().x, blockRect.y + blockRect.height};
+                    player->setPosition(vector2);
                     player->setYVelocity(0.f);
                     block->releaseItem();
                 }
@@ -228,10 +232,12 @@ public:
 
             if (CheckCollisionRecs(horizontalRect, blockRect)) {
                 if (velocity.x > 0) {
-                    player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
+                    Vector2 vector2 = {blockRect.x - playerRect.width, player->getPosition().y};
+                    player->setPosition(vector2);
                 }
                 else if (velocity.x < 0) {
-                    player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
+                    Vector2 vector2 = {blockRect.x + blockRect.width, player->getPosition().y};
+                    player->setPosition(vector2);
                 }
                 player->setXVelocity(0.f);
             }
@@ -248,12 +254,14 @@ public:
             if (CheckCollisionRecs(verticalRect, blockRect)) {
                 if (velocity.y > 0) {
                     // Player lands on top of the block
-                    player->setPosition(Vector2(player->getPosition().x, blockRect.y - playerRect.height));
+                    Vector2 vector2 = {player->getPosition().x, blockRect.y - playerRect.height};
+                    player->setPosition(vector2);
                     player->setYVelocity(0.f);
                     return true;
                 }
                 else if (velocity.y < 0) {
-                    player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
+                    Vector2 vector2 = {player->getPosition().x, blockRect.y + blockRect.height};
+                    player->setPosition(vector2);
                     player->setYVelocity(0.f);
                     block->releaseItem();
                 }
@@ -359,7 +367,7 @@ public:
         Enemy* enemy = dynamic_cast<Enemy*>(entityA);
         Floor* floor = dynamic_cast<Floor*>(entityB);
 
-        if (!enemy || !floor || enemy->isCollisionAvailable() == false)
+        if (!enemy || !floor || enemy->isCollisionAvailable() == false) {
             return false;
         }
         if (enemy->getEnemyType() == PLANT) {
@@ -402,7 +410,7 @@ public:
         Enemy* enemy = dynamic_cast<Enemy*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!enemy || !block || enemy->isCollisionAvailable() == false)
+        if (!enemy || !block || enemy->isCollisionAvailable() == false) {
             return false;
         }
         if (enemy->getEnemyType() == PLANT) {
@@ -513,11 +521,13 @@ public:
             if (CheckCollisionRecs(horizontalRect, blockRect))
             {
                 if (velocity.x > 0) {
-                    item->setPosition(Vector2(blockRect.x - itemRect.width, item->getPosition().y));
+                    Vector2 vector2 = {blockRect.x - itemRect.width, item->getPosition().y};
+                    item->setPosition(vector2);
                     item->setOrientation(LEFT);
                 }
                 else if (velocity.x < 0) {
-                    item->setPosition(Vector2(blockRect.x + blockRect.width, item->getPosition().y));
+                    Vector2 vector2 = {blockRect.x + blockRect.width, item->getPosition().y};
+                    item->setPosition(vector2);
                     item->setOrientation(RIGHT);
                 }
                 item->setXVelocity(0.f);
@@ -534,13 +544,15 @@ public:
 
             if (CheckCollisionRecs(verticalRect, blockRect)) {
                 if (velocity.y > 0) {
-                    item->setPosition(Vector2(item->getPosition().x, blockRect.y - itemRect.height));
+                    Vector2 vector2 = {item->getPosition().x, blockRect.y - itemRect.height};
+                    item->setPosition(vector2);
                     item->setYVelocity(0.f);
                     item->setJumping(false);
                     return true;
                 }
                 else if (velocity.y < 0) {
-                    item->setPosition(Vector2(item->getPosition().x, blockRect.y + blockRect.height));
+                    Vector2 vector2 = {item->getPosition().x, blockRect.y + blockRect.height};
+                    item->setPosition(vector2);
                     item->setYVelocity(0.f);
                 }
             }
@@ -625,8 +637,7 @@ public:
         Item* item = dynamic_cast<Item*>(entityA);
         Floor* floor = dynamic_cast<Floor*>(entityB);
 
-        if (!item || !floor || item->isCollisionAvailable() == false)
-            return false;
+        if (!item || !floor || item->isCollisionAvailable() == false) return false;
 
         float deltaTime = GetFrameTime();
         Rectangle itemRect = item->getRectangle();
@@ -646,7 +657,8 @@ public:
             };
 
             if (CheckCollisionRecs(sweptRect, floorRect) && item->getBottom() <= floorRect.y) {
-                item->setPosition(Vector2(itemRect.x, floorRect.y - itemRect.height));
+                Vector2 vector2 = {itemRect.x, floorRect.y - itemRect.height};
+                item->setPosition(vector2);
                 item->setYVelocity(0.f);
                 item->setJumping(false);
                 return true;
@@ -677,11 +689,11 @@ public:
                 return make_unique<EnemyFloorStrat>();
             if (block && block->getBlockType() == SOLIDBLOCK)
                 return make_unique<EnemyBlockStrat>();
-            return  make_unique<EnemyBlockStrat>();
+            return make_unique<EnemyBlockStrat>();
         }
         if (typeA == CHARACTER && typeB == ENEMY)
         {
-            return  make_unique<PlayerEnemyStrat>();
+            return make_unique<PlayerEnemyStrat>();
         }
         if (typeA == CHARACTER && typeB == ITEM)
         {
@@ -723,6 +735,6 @@ public:
         }
         return false;
     }
- 
+
 };
 #endif

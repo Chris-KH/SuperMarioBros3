@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <raylib.h>
+#include "../lib/raylib.h"
 class GameCamera {
 private:
 	float cameraX;

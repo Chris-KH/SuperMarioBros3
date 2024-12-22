@@ -1,6 +1,5 @@
 #pragma once
 #include "../lib/raylib.h"
-#include "../lib/bits/stdc++.h"
 
 class Animation;
 

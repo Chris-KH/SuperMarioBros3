@@ -196,8 +196,8 @@ void HiddenBlock::update(float deltaTime) {
 
 void HiddenBlock::reveal()
 {
-}
 
+}
 
 SpikeBlock::SpikeBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {}
 

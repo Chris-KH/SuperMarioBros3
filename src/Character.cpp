@@ -325,7 +325,7 @@ void Character::transform(STATE type) {
 
 void Character::collisionWithItem(const Item* item) {
     Effect* text = nullptr;
-
+    Vector2 vector2 = {getCenterX(), getTop()};
     if (item->getItemType() == MUSHROOM) {
 		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
         if (mushroom->getMushroomType() == MUSHROOM_SUPER) {
@@ -335,12 +335,12 @@ void Character::collisionWithItem(const Item* item) {
 				//phase = TRANSFORM_PHASE;
 			}
 			RESOURCE_MANAGER.playSound("power_up.wav");
-            text = new TextEffect(to_string(mushroom->POINT).c_str(), Vector2(getCenterX(), getTop()));
+            text = new TextEffect(to_string(mushroom->POINT).c_str(), vector2);
         }
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
             RESOURCE_MANAGER.playSound("1_up.wav");
-            text = new TextEffect("1 UP", Vector2(getCenterX(), getTop()));
+            text = new TextEffect("1 UP", vector2);
         }
     }
     else if (item->getItemType() == FLOWER) {
@@ -352,7 +352,7 @@ void Character::collisionWithItem(const Item* item) {
 				//phase = TRANSFORM_PHASE;
             }
             RESOURCE_MANAGER.playSound("power_up.wav");
-            text = new TextEffect(to_string(flower->POINT).c_str(), Vector2(getCenterX(), getTop()));
+            text = new TextEffect(to_string(flower->POINT).c_str(), vector2);
         }
     }
 	else if (item->getItemType() == STAR) {
@@ -375,7 +375,7 @@ void Character::collisionWithItem(const Item* item) {
 			scores += star->POINT;
 			RESOURCE_MANAGER.playSound("power_up.wav");
     
-            text = new TextEffect(to_string(star->POINT).c_str(), Vector2(getCenterX(), getTop()));
+            text = new TextEffect(to_string(star->POINT).c_str(), vector2);
         }
 	}
 	else if (item->getItemType() == COIN) {
@@ -485,5 +485,5 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             }
         }
     }
-
+    
 }

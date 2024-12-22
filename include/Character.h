@@ -1,6 +1,6 @@
 #pragma once
-#include "Animation.h"
-#include "Sprite.h"
+#include"Animation.h"
+#include"Sprite.h"
 //#include "Hitbox.h"
 #include"Global.h"
 #include"CharacterState.h"

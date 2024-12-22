@@ -1,6 +1,5 @@
 #include"../include/InputManager.h"
 
-
 void InputManager::bindKey(KeyboardKey key) {
     // Ensure the key is initialized in the map
     if (keyStates.find(key) == keyStates.end()) {
