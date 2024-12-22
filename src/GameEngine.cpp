@@ -7,6 +7,7 @@
 #include "../include/Shell.h"
 #include "../include/Plant.h"
 #include "../include/Mushroom.h"
+#include "../include/GUI.h"
 
 using namespace std;
 
@@ -211,18 +212,23 @@ void GameEngine::render() {
     ClearBackground(RAYWHITE);
     camera.render();
 
-    DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
+    GUI::drawStatusBar(player);
 
-    DrawText("LIVES: ", 10, 10, 40, WHITE);
-    DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
+    //DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
 
-    DrawRectangle(300, 10, 30, 40, YELLOW);
-    DrawRectangle(310, 20, 10, 20, ORANGE);
-    DrawText("x", 340, 10, 40, WHITE);
-    DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
+    //DrawText("LIVES: ", 10, 10, 40, WHITE);
+    //DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
 
-    DrawText("Score: ", 500, 10, 40, WHITE);
-    DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
+    //DrawRectangle(300, 10, 30, 40, YELLOW);
+    //DrawRectangle(310, 20, 10, 20, ORANGE);
+    //DrawText("x", 340, 10, 40, WHITE);
+    //DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
+
+    //DrawText("Score: ", 500, 10, 40, WHITE);
+    //DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
+
+    //Texture2D texture = LoadTexture("../assets/Background/heart.png");
+    //DrawTexture(texture, 0, 0, WHITE);
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
