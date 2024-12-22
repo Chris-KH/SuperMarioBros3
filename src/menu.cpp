@@ -41,7 +41,7 @@ void Menu::run() {
     INPUT_MANAGER.bindKey(KEY_A);
     INPUT_MANAGER.bindKey(KEY_D);
     INPUT_MANAGER.bindKey(KEY_S);
-    INPUT_MANAGER.bindKey(KEY_R);
+    INPUT_MANAGER.bindKey(KEY_W);
     INPUT_MANAGER.bindKey(KEY_SPACE);
     INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
     registerBlocks();

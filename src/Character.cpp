@@ -132,17 +132,19 @@ const Character::Phase& Character::getPhase() const {
 void Character::onKey(KeyboardKey key, bool pressed) {
     if (isDead()) return;
 
-    if (key == KEY_R && pressed) {
+    if (key == KEY_W && pressed) {
         if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime >= TIME_BETWEEN_THROWS) {
             Fireball* fireball = new Fireball();
             fireball->setCharacterPositionBall(this);
             if (orientation == RIGHT) {
                 setAnimation(throwRight, throwRight->getAnimationTime());
+                fireball->setXVelocity(fireball->getVelocity().x + 1000.f);
             }
             else if (orientation == LEFT) {
+                fireball->setXVelocity(fireball->getVelocity().x - 1000.f);
                 setAnimation(throwLeft, throwLeft->getAnimationTime());
             }
-            setXVelocity(0.f);
+            setXVelocity(getVelocity().x / 2.f);
             if (fireball != nullptr) {
                 globalGameEngine->addFireBall(fireball);
             }

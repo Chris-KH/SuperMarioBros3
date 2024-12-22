@@ -5,6 +5,7 @@
 #include "Animation.h"
 
 class Character;
+class Fireball;
 
 class Enemy : public Sprite {
 protected:
@@ -35,6 +36,7 @@ public:
     virtual void stomped();
     virtual void attacked();
     virtual void kicked(Orientation direction) {};
+    void collisionWithFireball(Fireball* fireball);
 };
 
 #endif // !ENEMY_H

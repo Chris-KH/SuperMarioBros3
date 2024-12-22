@@ -3,6 +3,7 @@
 #include "../include/GameEngine.h"
 #include "../include/Effect.h"
 #include "../include/TextEffect.h"
+#include "../include/Fireball.h"d
 
 Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
     stompable = false;
@@ -57,4 +58,9 @@ void Enemy::attacked() {
 
     Effect* text = new TextEffect(to_string(ENEMY_POINT).c_str(), getCenter());
     globalGameEngine->addEffect(text);
+}
+
+void Enemy::collisionWithFireball(Fireball* fireball) {
+    attacked();
+    fireball->killEntity();
 }

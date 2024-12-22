@@ -95,6 +95,7 @@ void Fireball::update(float deltaTime) {
 	else if (type == ENEMY_FIREBALL) {
 		if (delayTime >= ENEMY_FIREBALL_LIFETIME) {
 			killEntity();
+			cout << "aaaaaaaaaaaaaaaaa";
 			return;
 		}
 		if (delayTime >= 0.f) {
@@ -103,18 +104,21 @@ void Fireball::update(float deltaTime) {
 			soundEffect = true;
 		}
 
-		if (delayTime < 0.f) delayTime += deltaTime;
+		delayTime += deltaTime;
+		delayTime = min(delayTime, ENEMY_FIREBALL_LIFETIME);
 	}
 }
 
-void Fireball::collisionWithBlock(const Block* block, Edge edge) {
+void Fireball::collisionWithBlock(const BaseBlock* block, Edge edge) {
 	if (block == nullptr) return;
 
 	if (type == ENEMY_FIREBALL) return;
 
 	if (edge == TOP_EDGE) {
 		setYVelocity(BOUNCE_VELOCITY);
-		setJumping(true);
+	}
+	else if (edge == BOTTOM_EDGE) {
+		setYVelocity(-BOUNCE_VELOCITY);
 	}
 	else {
 		killEntity();
