@@ -19,14 +19,6 @@ CharacterType Luigi::getCharacterType() const  {
 	return CharacterType::LUIGI;
 }
 
-void Luigi::onKey(KeyboardKey key, bool pressed) {
-	if (isDead()) return;
-
-	if (key == KEY_R) {
-
-	}
-}
-
 void Luigi::reset() {
 	Character::reset();
 }

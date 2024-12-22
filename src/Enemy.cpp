@@ -1,5 +1,8 @@
 #include "../include/Enemy.h"
 #include "../include/Character.h"
+#include "../include/GameEngine.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
 
 Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
     stompable = false;
@@ -61,4 +64,7 @@ void Enemy::stomped() {
 void Enemy::attacked() {
     if (isDead()) return;
     killEntity();
+
+    Effect* text = new TextEffect(to_string(ENEMY_POINT).c_str(), getCenter());
+    globalGameEngine->addEffect(text);
 }

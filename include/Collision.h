@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef COLL_H
+#define COLL_H
 #include"Entity.h"
 #include"Block.h"
 #include"Character.h"
@@ -84,7 +85,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!player || !block)
+        if (!player || !block || player->isCollisionAvailable() == false)
             return false;
 
         float deltaTime = GetFrameTime();
@@ -143,14 +144,132 @@ public:
         return false;
     }
 };
+class PlayerItemBlockStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Character* player = dynamic_cast<Character*>(entityA);
+        ItemBlock* block = dynamic_cast<ItemBlock*>(entityB); // Assume ItemBlock is a subclass of BaseBlock
 
+        if (!player || !block || player->isCollisionAvailable() == false)
+            return false;
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = player->getVelocity();
+        Rectangle playerRect = player->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                playerRect.x + velocity.x * deltaTime,
+                playerRect.y,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect)) {
+                if (velocity.x > 0) {
+                    player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
+                }
+                else if (velocity.x < 0) {
+                    player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
+                }
+                player->setXVelocity(0.f);
+            }
+        }
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                playerRect.x,
+                playerRect.y + velocity.y * deltaTime,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y - playerRect.height));
+                    player->setYVelocity(0.f);
+                    return true;
+                }
+                else if (velocity.y < 0) { 
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
+                    player->setYVelocity(0.f);
+                    block->releaseItem();
+                }
+            }
+        }
+
+        return false;
+    }
+};
+class PlayerItemBlockStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Character* player = dynamic_cast<Character*>(entityA);
+        ItemBlock* block = dynamic_cast<ItemBlock*>(entityB); // Assume ItemBlock is a subclass of BaseBlock
+
+        if (!player || !block || player->isCollisionAvailable() == false)
+            return false;
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = player->getVelocity();
+        Rectangle playerRect = player->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                playerRect.x + velocity.x * deltaTime,
+                playerRect.y,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect)) {
+                if (velocity.x > 0) {
+                    player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
+                }
+                else if (velocity.x < 0) {
+                    player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
+                }
+                player->setXVelocity(0.f);
+            }
+        }
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                playerRect.x,
+                playerRect.y + velocity.y * deltaTime,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    // Player lands on top of the block
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y - playerRect.height));
+                    player->setYVelocity(0.f);
+                    return true;
+                }
+                else if (velocity.y < 0) {
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
+                    player->setYVelocity(0.f);
+                    block->releaseItem();
+                }
+            }
+        }
+
+        return false;
+    }
+};
 class PlayerMovingBlockStrat : public CollisionStrategy {
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {
         Character* player = dynamic_cast<Character*>(entityA);
         MovingBlock* block = dynamic_cast<MovingBlock*>(entityB);
 
-        if (!player || !block)
+        if (!player || !block || player->isCollisionAvailable() == false)
             return false;
 
         float deltaTime = GetFrameTime();
@@ -240,7 +359,7 @@ public:
         Enemy* enemy = dynamic_cast<Enemy*>(entityA);
         Floor* floor = dynamic_cast<Floor*>(entityB);
 
-        if (!enemy || !floor) {
+        if (!enemy || !floor || enemy->isCollisionAvailable() == false)
             return false;
         }
         if (enemy->getEnemyType() == PLANT) {
@@ -283,7 +402,7 @@ public:
         Enemy* enemy = dynamic_cast<Enemy*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!enemy || !block) {
+        if (!enemy || !block || enemy->isCollisionAvailable() == false)
             return false;
         }
         if (enemy->getEnemyType() == PLANT) {
@@ -353,13 +472,16 @@ public:
     {
         Character* player = dynamic_cast<Character*>(entityA);
         Item* item = dynamic_cast<Item*>(entityB);
+
+        if (player->isCollisionAvailable() == false || item->isCollisionAvailable() == false)
+            return false;
+
         Rectangle itemRect = item->getRectangle();
         Rectangle playerRect = player->getRectangle();
         if (CheckCollisionRecs(itemRect, playerRect))
         {
             player->collisionWithItem(item);
             item->killEntity();
-            //globalGameEngine->
         }
         return false;
     }
@@ -368,61 +490,58 @@ public:
 class ItemBlockStrat : public CollisionStrategy {
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {
-        Item* enemy = dynamic_cast<Item*>(entityA);
+        Item* item = dynamic_cast<Item*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!enemy || !block) return false;
+        if (!item || !block || item->isCollisionAvailable() == false)
+            return false;
 
         float deltaTime = GetFrameTime();
 
-        Vector2 velocity = enemy->getVelocity();
-        Rectangle enemyRect = enemy->getRectangle();
+        Vector2 velocity = item->getVelocity();
+        Rectangle itemRect = item->getRectangle();
         Rectangle blockRect = block->getRectangle();
 
         if (velocity.x != 0) {
             Rectangle horizontalRect = {
-                enemyRect.x + velocity.x * deltaTime,
-                enemyRect.y,
-                enemyRect.width,
-                enemyRect.height
+                itemRect.x + velocity.x * deltaTime,
+                itemRect.y,
+                itemRect.width,
+                itemRect.height
             };
 
             if (CheckCollisionRecs(horizontalRect, blockRect))
             {
                 if (velocity.x > 0) {
-                    Vector2 vector2 = {blockRect.x - enemyRect.width, enemy->getPosition().y};
-                    enemy->setPosition(vector2);
-                    enemy->setOrientation(LEFT);
+                    item->setPosition(Vector2(blockRect.x - itemRect.width, item->getPosition().y));
+                    item->setOrientation(LEFT);
                 }
                 else if (velocity.x < 0) {
-                    Vector2 vector2 = {blockRect.x + blockRect.width, enemy->getPosition().y};
-                    enemy->setPosition(vector2);
-                    enemy->setOrientation(RIGHT);
+                    item->setPosition(Vector2(blockRect.x + blockRect.width, item->getPosition().y));
+                    item->setOrientation(RIGHT);
                 }
-                enemy->setXVelocity(0.f);
+                item->setXVelocity(0.f);
             }
         }
 
         if (velocity.y != 0) {
             Rectangle verticalRect = {
-                enemyRect.x,
-                enemyRect.y + velocity.y * deltaTime,
-                enemyRect.width,
-                enemyRect.height
+                itemRect.x,
+                itemRect.y + velocity.y * deltaTime,
+                itemRect.width,
+                itemRect.height
             };
 
             if (CheckCollisionRecs(verticalRect, blockRect)) {
                 if (velocity.y > 0) {
-                    Vector2 vector2 = {enemy->getPosition().x, blockRect.y - enemyRect.height};
-                    enemy->setPosition(vector2);
-                    enemy->setYVelocity(0.f);
-                    enemy->setJumping(false);
+                    item->setPosition(Vector2(item->getPosition().x, blockRect.y - itemRect.height));
+                    item->setYVelocity(0.f);
+                    item->setJumping(false);
                     return true;
                 }
                 else if (velocity.y < 0) {
-                    Vector2 vector2 = {enemy->getPosition().x, blockRect.y + blockRect.height};
-                    enemy->setPosition(vector2);
-                    enemy->setYVelocity(0.f);
+                    item->setPosition(Vector2(item->getPosition().x, blockRect.y + blockRect.height));
+                    item->setYVelocity(0.f);
                 }
             }
         }
@@ -436,7 +555,10 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         Enemy* enemy = dynamic_cast<Enemy*>(entityB);
 
-        if (!player || !enemy) return false;
+        if (!player || !enemy)
+            return false;
+        if (player->isCollisionAvailable() == false || enemy->isCollisionAvailable() == false)
+            return false;
 
         float deltaTime = GetFrameTime();
 
@@ -500,33 +622,33 @@ class ItemFloorStrat : public CollisionStrategy
 {
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {
-        Item* enemy = dynamic_cast<Item*>(entityA);
+        Item* item = dynamic_cast<Item*>(entityA);
         Floor* floor = dynamic_cast<Floor*>(entityB);
 
-        if (!enemy || !floor) return false;
+        if (!item || !floor || item->isCollisionAvailable() == false)
+            return false;
 
         float deltaTime = GetFrameTime();
-        Rectangle enemyRect = enemy->getRectangle();
+        Rectangle itemRect = item->getRectangle();
         Rectangle floorRect = floor->getRectangle();
-        if (enemy->getVelocity().y > 0.f) {
-            Vector2 prevPosition = enemy->getPosition();
+        if (item->getVelocity().y > 0.f) {
+            Vector2 prevPosition = item->getPosition();
             Vector2 nextPosition = {
                 prevPosition.x,
-                prevPosition.y + enemy->getVelocity().y * deltaTime
+                prevPosition.y + item->getVelocity().y * deltaTime
             };
 
             Rectangle sweptRect = {
                 prevPosition.x,
                 nextPosition.y,
-                enemyRect.width,
-                enemyRect.height
+                itemRect.width,
+                itemRect.height
             };
 
-            if (CheckCollisionRecs(sweptRect, floorRect) && enemy->getBottom() <= floorRect.y) {//&& enemy->getBottom() <= floorRect.y) {
-                Vector2 vector2 = {enemyRect.x, floorRect.y - enemyRect.height};
-                enemy->setPosition(vector2);
-                enemy->setYVelocity(0.f);
-                enemy->setJumping(false);
+            if (CheckCollisionRecs(sweptRect, floorRect) && item->getBottom() <= floorRect.y) {
+                item->setPosition(Vector2(itemRect.x, floorRect.y - itemRect.height));
+                item->setYVelocity(0.f);
+                item->setJumping(false);
                 return true;
             }
         }
@@ -544,6 +666,8 @@ public:
                 return std::make_unique<PlayerFloorStrat>();
             if (block && block->getBlockType() == MOVINGBLOCK)
                 return std::make_unique<PlayerMovingBlockStrat>();
+            if (block && block->getBlockType() == ITEMBLOCK)
+                return std::make_unique<PlayerItemBlockStrat>();
             //if (block && block->getBlockType() == SOLIDBLOCK)
             return std::make_unique<PlayerBlockStrat>();
         }
@@ -599,5 +723,6 @@ public:
         }
         return false;
     }
-
+ 
 };
+#endif

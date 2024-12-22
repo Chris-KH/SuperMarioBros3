@@ -28,7 +28,7 @@ public:
             character->fallLeft = RESOURCE_MANAGER.getAnimation("firestarmario_fall_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("firestarmario_fly_left");
             character->sitLeft = RESOURCE_MANAGER.getAnimation("firestarmario_sit_left");
-            character->holdLeft = RESOURCE_MANAGER.getAnimation("firestarmario_hold_left");
+            //character->holdLeft = RESOURCE_MANAGER.getAnimation("firestarmario_hold_left");
             character->throwLeft = RESOURCE_MANAGER.getAnimation("firestarmario_throw_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("firestarmario_idle_right");
@@ -39,7 +39,7 @@ public:
             character->fallRight = RESOURCE_MANAGER.getAnimation("firestarmario_fall_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("firestarmario_fly_right");
             character->sitRight = RESOURCE_MANAGER.getAnimation("firestarmario_sit_right");
-            character->holdRight = RESOURCE_MANAGER.getAnimation("firestarmario_hold_right");
+            //character->holdRight = RESOURCE_MANAGER.getAnimation("firestarmario_hold_right");
             character->throwRight = RESOURCE_MANAGER.getAnimation("firestarmario_throw_right");
         }
         else if (character->getCharacterType() == LUIGI) {
@@ -51,7 +51,7 @@ public:
             character->fallLeft = RESOURCE_MANAGER.getAnimation("firestarluigi_fall_left");
             character->flyLeft = RESOURCE_MANAGER.getAnimation("firestarluigi_fly_left");
             character->sitLeft = RESOURCE_MANAGER.getAnimation("firestarluigi_sit_left");
-            character->holdLeft = RESOURCE_MANAGER.getAnimation("firestarluigi_hold_left");
+            //character->holdLeft = RESOURCE_MANAGER.getAnimation("firestarluigi_hold_left");
             character->throwLeft = RESOURCE_MANAGER.getAnimation("firestarluigi_throw_left");
 
             character->idleRight = RESOURCE_MANAGER.getAnimation("firestarluigi_idle_right");
@@ -62,7 +62,7 @@ public:
             character->fallRight = RESOURCE_MANAGER.getAnimation("firestarluigi_fall_right");
             character->flyRight = RESOURCE_MANAGER.getAnimation("firestarluigi_fly_right");
             character->sitRight = RESOURCE_MANAGER.getAnimation("firestarluigi_sit_right");
-            character->holdRight = RESOURCE_MANAGER.getAnimation("firestarluigi_hold_right");
+            //character->holdRight = RESOURCE_MANAGER.getAnimation("firestarluigi_hold_right");
             character->throwRight = RESOURCE_MANAGER.getAnimation("firestarluigi_throw_right");
         }
 

@@ -12,6 +12,9 @@
 #include"../include/Coin.h"
 #include"../include/Enemy.h"
 #include"../include/Shell.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
+#include "../include/GameEngine.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -27,6 +30,7 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     sitting = false;
     state = nullptr;
     holdShell = nullptr;
+    countThrowTime = 0.f;
 
     lastState = NORMAL;
     idleLeft = nullptr;
@@ -128,6 +132,29 @@ const Character::Phase& Character::getPhase() const {
 	return phase;
 }
 
+void Character::onKey(KeyboardKey key, bool pressed) {
+    if (isDead()) return;
+
+    if (key == KEY_R && pressed) {
+        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime >= TIME_BETWEEN_THROWS) {
+            Fireball* fireball = new Fireball();
+            fireball->setCharacterPositionBall(this);
+            if (orientation == RIGHT) {
+                setAnimation(throwRight, throwRight->getAnimationTime());
+            }
+            else if (orientation == LEFT) {
+                setAnimation(throwLeft, throwLeft->getAnimationTime());
+            }
+            setXVelocity(0.f);
+            if (fireball != nullptr) {
+                globalGameEngine->addFireBall(fireball);
+            }
+
+            countThrowTime = 0.f;
+        }
+    }
+}
+
 void Character::update(float deltaTime) {
     if (isDead()) return;
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
@@ -138,8 +165,6 @@ void Character::update(float deltaTime) {
     }
 
     if (phase == DEFAULT_PHASE) {
-        INPUT_MANAGER.update();
-
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
             setHolding(false);
@@ -169,6 +194,8 @@ void Character::update(float deltaTime) {
         }
 
         state->update(deltaTime);
+        INPUT_MANAGER.update();
+        countThrowTime += deltaTime;
     }
     else if (phase == TRANSFORM_PHASE) {
         //transform
@@ -297,6 +324,8 @@ void Character::transform(STATE type) {
 }
 
 void Character::collisionWithItem(const Item* item) {
+    Effect* text = nullptr;
+
     if (item->getItemType() == MUSHROOM) {
 		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
         if (mushroom->getMushroomType() == MUSHROOM_SUPER) {
@@ -306,10 +335,12 @@ void Character::collisionWithItem(const Item* item) {
 				//phase = TRANSFORM_PHASE;
 			}
 			RESOURCE_MANAGER.playSound("power_up.wav");
+            text = new TextEffect(to_string(mushroom->POINT).c_str(), Vector2(getCenterX(), getTop()));
         }
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
             RESOURCE_MANAGER.playSound("1_up.wav");
+            text = new TextEffect("1 UP", Vector2(getCenterX(), getTop()));
         }
     }
     else if (item->getItemType() == FLOWER) {
@@ -321,6 +352,7 @@ void Character::collisionWithItem(const Item* item) {
 				//phase = TRANSFORM_PHASE;
             }
             RESOURCE_MANAGER.playSound("power_up.wav");
+            text = new TextEffect(to_string(flower->POINT).c_str(), Vector2(getCenterX(), getTop()));
         }
     }
 	else if (item->getItemType() == STAR) {
@@ -332,16 +364,18 @@ void Character::collisionWithItem(const Item* item) {
             }
             else if (getState() == SUPER) {
                 transform(SUPERSTARMAN);
-                phase = TRANSFORM_PHASE;
+                //phase = TRANSFORM_PHASE;
             }
             else if (getState() == FIRE) {
                 transform(FIRESTARMAN);
-                phase = TRANSFORM_PHASE;
+                //phase = TRANSFORM_PHASE;
             }
-
+    
             invicibleTime = INVICIBLE_TIME;
 			scores += star->POINT;
 			RESOURCE_MANAGER.playSound("power_up.wav");
+    
+            text = new TextEffect(to_string(star->POINT).c_str(), Vector2(getCenterX(), getTop()));
         }
 	}
 	else if (item->getItemType() == COIN) {
@@ -355,6 +389,10 @@ void Character::collisionWithItem(const Item* item) {
 	else {
 		//Do nothing
 	}
+
+    if (text != nullptr) {
+        globalGameEngine->addEffect(text);
+    }
 };
 
 
@@ -390,7 +428,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             }
             else if (state->getState() == FIRE) {
                 transform(NORMAL);
-                RESOURCE_MANAGER.playSound("lost_suit");
+                RESOURCE_MANAGER.playSound("lost_suit.wav");
             }
         }
     }   
@@ -442,7 +480,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                 }
                 else if (state->getState() == FIRE) {
                     transform(NORMAL);
-                    RESOURCE_MANAGER.playSound("lost_suit");
+                    RESOURCE_MANAGER.playSound("lost_suit.wav");
                 }
             }
         }

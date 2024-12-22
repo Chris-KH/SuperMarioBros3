@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BLOCKFAC_H
+#define BLOCKFAC_H
 #include <unordered_map>
 #include <functional>
 #include "Block.h"
@@ -80,3 +81,4 @@ inline void registerBlocks() {
 //BlockFactory& factory = BlockFactory::getInstance();
 // blocks.push_back(factory.createBlock(FLOOR, {10, 10}, {50, 50}, GREEN));
 //BaseBlock* block = BlockFactory::getInstance().createBlock( blockType, { x, y }, { width, height });
+#endif

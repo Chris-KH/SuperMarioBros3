@@ -1,5 +1,6 @@
-#pragma once
-
+#ifndef MAP_H
+#define MAP_H
+#include "Entity.h"
 #include "Block.h"
 #include "BlockFactory.h"
 #include "GoomBa.h"
@@ -21,7 +22,8 @@ private:
     static bool stringToEnemyType(std::string& enemyTypeStr, std::string& subTypeStr, EnemyType& enemyTypeOut, int& subTypeOut);
     static Color getDefaultColorForBlockType(BlockType blockType);
     static BlockType stringToBlockType(const std::string& typeStr);
-    static std::string blockTypeToString(BlockType type);
+    static string blockTypeToString(BlockType type);
+    static ItemType stringToItemType(const string& typeStr);
 };
 
 class Map {
@@ -59,9 +61,10 @@ private:
     std::string backGroundPath;
     string music;
 
-public:
+public: 
     Level(const std::string& map, const std::string& background,string music);
     std::string getMapPath() const;
     std::string getBackGroundPath() const;
     string getMusic() const;
 };
+#endif

@@ -1,63 +1,247 @@
-#include "../include/GameEngine.h"
-
+#include <iostream>
+#include <vector>
+#include <raylib.h>
+#include"../include/GameEngine.h"
+#include "../include/Map.h"
+#include "../include/Collision.h"
+#include "../include/Shell.h"
+#include "../include/Plant.h"
+#include "../include/Mushroom.h"
 GameEngine* globalGameEngine = nullptr;
-GameCamera::GameCamera(float width, float height, float initialScale)
-    : cameraWidth(width), cameraHeight(height), cameraX(0), cameraY(0), scale(initialScale) {
-    renderTexture = LoadRenderTexture(0, 0);
+
+GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Character*& player)
+    : camera(screenWidth, screenHeight, 1.75f), level(&level), player(player) {
+    map.loadFromFile(level.getMapPath());
+    map.loadBackground(level.getBackGroundPath());
+    Vector2 Msize = map.getMapSize();
+    camera.loadRenderTexture(Msize);
+    blocks = map.getBlocks();
+    enemies = map.getEnemies();
+    decor = map.getDecor();
+    isPaused = false;
+    deltaTime = 0.f;
 }
 
-GameCamera::~GameCamera() {
-    UnloadRenderTexture(renderTexture);
+GameEngine::~GameEngine() {
+    for (Entity* entity : blocks) {
+        delete entity;
+    }
+    for (Entity* entity : enemies) {
+        delete entity;
+    }
+    for (Entity* entity : items) {
+        delete entity;
+    }
+    for (Entity* entity : decor) {
+        delete entity;
+    }
+    for (Entity* entity : effects) {
+        delete entity;
+    }
+    player = nullptr;
+    blocks.clear();
+    enemies.clear();
+    items.clear();
+    shells.clear();
+    effects.clear();
 }
 
-void GameCamera::loadRenderTexture(Vector2 size)
-{
-    renderTexture = LoadRenderTexture(static_cast<int>(round(size.x)), static_cast<int>(round(size.y)));
+void GameEngine::resolveCollision() {}
+
+void GameEngine::addScore(int amount) {
+    player->setScores(player->getScores() + amount);
 }
 
-void GameCamera::update(float characterX, float characterY) {
-    float scaledWidth = cameraWidth / scale;
-    float scaledHeight = cameraHeight / scale;
-
-    cameraX = characterX - scaledWidth /2;
-    cameraY = renderTexture.texture.height - (characterY + cameraHeight / scale) + 100;
-
-    // Clamp the camera to ensure it stays within the map bounds
-    if (cameraX < 0) cameraX = 0;
-    if (cameraX + scaledWidth > renderTexture.texture.width)
-        cameraX = renderTexture.texture.width - scaledWidth;
-    if (cameraY < 0) cameraY = 0;
-    if (cameraY + scaledHeight > renderTexture.texture.height)
-        cameraY = renderTexture.texture.height - scaledHeight;
+void GameEngine::addFireBall(Fireball* fireball) {
+    this->fireball.push_back(fireball);
 }
 
-void GameCamera::render() const {
-    Rectangle sourceRec = {
-        cameraX,
-        cameraY,
-        cameraWidth / scale,
-        -cameraHeight / scale // Negative height to flip vertically
-    };
-
-    Rectangle destRec = {
-        0, 0,                        // Render starting at the screen's top-left
-        (float)GetScreenWidth(),     // Scale to fit the screen width
-        (float)GetScreenHeight()     // Scale to fit the screen height
-    };
-
-    DrawTexturePro(renderTexture.texture, sourceRec, destRec, Vector2{ 0, 0 }, 0.0f, WHITE);
+void GameEngine::addEnemy(Entity* enemy) {
+    this->enemies.push_back(enemy);
 }
 
-void GameCamera::beginDrawing() {
-    BeginTextureMode(renderTexture);
+void GameEngine::addEffect(Entity* effect) {
+    this->effects.push_back(effect);
+}
+
+void GameEngine::addShell(Entity* shell) {
+    this->enemies.push_back(shell);
+    this->shells.push_back(shell);
+}
+
+void GameEngine::addItem(Entity* item) {
+    this->items.push_back(item);
+}
+
+void GameEngine::update() {
+    if (IsKeyPressed(KEY_ENTER)) {
+        isPaused = !isPaused;
+    }
+    if (isPaused) {
+        return;
+    }
+    float deltaTime = GetFrameTime();
+    this->deltaTime = deltaTime;
+
+    for (Entity* i : blocks) {
+        i->update(deltaTime);
+    }
+    for (Entity* i : enemies) {
+        Plant* enemy = dynamic_cast<Plant*>(i);
+        if (enemy) {
+            enemy->setPlayerForFireball(player);
+        }
+    }
+    for (size_t i = 0; i < enemies.size(); i++) {
+        if (enemies[i]->isDead()) {
+            auto it = std::find(shells.begin(), shells.end(), enemies[i]);
+            if (it != shells.end())
+                shells.erase(it);
+            delete enemies[i];
+            enemies.erase(enemies.begin() + i);
+            i--;
+        }
+        else {
+            enemies[i]->update(deltaTime);
+        }
+    }
+
+    for (size_t i = 0; i < fireball.size(); i++) {
+        if (fireball[i]->isDead()) {
+            delete fireball[i];
+            fireball.erase(fireball.begin() + i);
+            i--;
+        }
+        else {
+            fireball[i]->update(deltaTime);
+        }
+    }
+
+    for (size_t i = 0; i < items.size(); i++) {
+        if (items[i]->isDead()) {
+            delete items[i];
+            items.erase(items.begin() + i);
+            i--;
+        }
+        else {
+            items[i]->update(deltaTime);
+        }
+    }
+
+    for (size_t i = 0; i < effects.size(); i++) {
+        if (effects[i]->isDead()) {
+            delete effects[i];
+            effects.erase(effects.begin() + i);
+            i--;
+        }
+        else {
+            effects[i]->update(deltaTime);
+        }
+    }
+
+    player->update(deltaTime);
+
+    handleCollision();
+    camera.update(player->getX(), player->getY());
+}
+
+void GameEngine::handleCollision() {
+    CollisionInterface IColl;
+    bool isGrounded = false;
+
+    for (Entity* block : blocks) {
+        if (IColl.resolve(player, block))
+            isGrounded = true;
+        for (Entity* enemy : enemies)
+            IColl.resolve(enemy, block);
+        for (Entity* item : items)
+            IColl.resolve(item, block);
+    }
+    player->setJumping(!isGrounded);
+    for (Entity* i : items)
+        IColl.resolve(player, i);
+    for (Entity* i : enemies)
+        IColl.resolve(player, i);
+}
+
+void GameEngine::render() {
+    camera.beginDrawing();
+    map.renderBackground();
+    for (Entity* i : blocks)
+        i->draw(deltaTime);
+    for (Entity* i : enemies) {
+        if (player->getHoldShell() != nullptr) {
+            if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
+        }
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
+    for (Entity* i : fireball) {
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
+    for (Entity* i : items) {
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
+
+    for (Entity* i : effects) {
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
+
+    player->draw(deltaTime);
+
+    for (Entity* i : decor)
+        i->draw();
+    camera.endDrawing();
+
+    BeginDrawing();
     ClearBackground(RAYWHITE);
+    camera.render();
+
+    DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
+
+    DrawText("LIVES: ", 10, 10, 40, WHITE);
+    DrawText(std::to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
+
+    DrawRectangle(300, 10, 30, 40, YELLOW);
+    DrawRectangle(310, 20, 10, 20, ORANGE);
+    DrawText("x", 340, 10, 40, WHITE);
+    DrawText(std::to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
+
+    DrawText("Score: ", 500, 10, 40, WHITE);
+    DrawText(std::to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
+
+    if (isPaused) {
+        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
+        DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
+    }
+
+    EndDrawing();
 }
 
-void GameCamera::endDrawing() {
-    EndTextureMode();
-}
+bool GameEngine::run() {
+    Item* testItem = new Mushroom(MUSHROOM_1UP, { 300, 450 });
+    items.push_back(testItem);
+    while (!WindowShouldClose()) {
+        if (FPS_MANAGER.update()) {
+            if (SETTINGS.isMusicEnabled())
+                UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
 
-void GameCamera::setScale(float newScale) {
-    scale = newScale;
-    if (scale < 0.1f) scale = 0.1f; // Prevent too small scale
+            update();
+            render();
+        }
+        if (player->getX() >= map.getMapSize().x)
+            return true; // finished the level
+    }
+    return false;
 }

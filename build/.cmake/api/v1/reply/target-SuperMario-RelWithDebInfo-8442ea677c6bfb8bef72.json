@@ -468,7 +468,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Menu.cpp",
+			"path" : "src/menu.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

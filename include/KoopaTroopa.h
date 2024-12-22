@@ -1,4 +1,6 @@
-#pragma once
+#ifndef KOOPATROOPA_H
+#define KOOPATROOPA_H
+
 #include "Enemy.h"
 
 class GameEngine;
@@ -28,3 +30,5 @@ public:
 
 	void stomped() override;
 };
+
+#endif // !ENEMY_H

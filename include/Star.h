@@ -1,49 +1,23 @@
-#pragma
+#ifndef STAR_H
+#define STAR_H
+
 #include "Item.h"
 
 class Star : public Item {
 private:
-	StarType type;
-	Animation* starAnimation;
+    StarType type;
+    Animation* starAnimation;
 public:
-	const int POINT = 1000;
-	const float SPEED = 70.f;
+    const int POINT = 1000;
+    const float SPEED = 70.f;
 
-	Star(StarType type = YELLOW_STAR, Vector2 position = { 0.f, 0.f }, Orientation orientation = RIGHT) : Item(POINT) {
-		this->type = type;
-		this->orientation = orientation;
+    Star(StarType type = YELLOW_STAR, Vector2 position = { 0.f, 0.f }, Orientation orientation = RIGHT);
 
-		if (type == YELLOW_STAR) {
-			starAnimation = RESOURCE_MANAGER.getAnimation("yellow_star_item")->clone();
-		}
-		else if (type == BLUE_STAR) {
-			starAnimation = RESOURCE_MANAGER.getAnimation("blue_star_item")->clone();
-		}
-		
-		setAnimation(starAnimation);
-		setPosition(position);
-	}
+    void update(float deltaTime) override;
 
-	void update(float deltaTime) override {
-		if (isDead()) return;
+    const StarType& getStarType() const;
 
-		if (getOrientation() == RIGHT) {
-			setXVelocity(SPEED);
-		}
-		else {
-			setXVelocity(-SPEED);
-		}
-
-		if (gravityAvailable) {
-			setYVelocity(getVelocity().y + GRAVITY * deltaTime);
-		}
-	}
-
-	const StarType& getStarType() const {
-		return type;
-	}
-
-	ItemType getItemType() const override {
-		return STAR;
-	}
+    ItemType getItemType() const override;
 };
+
+#endif // STAR_H

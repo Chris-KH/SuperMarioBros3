@@ -61,6 +61,12 @@
     <Filter Include="Header Files\Entity\Effect">
       <UniqueIdentifier>{54b99ef7-15b5-49ec-8a08-f18f4f44dc9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{6f82ac6a-53e0-40cf-8efb-317d79fe5aa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{716a1728-34e2-4f51-abe8-266641608466}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Entity.h">
@@ -74,9 +80,6 @@
     </ClInclude>
     <ClInclude Include="..\include\Animation.h">
       <Filter>Header Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Collision.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Block.h">
       <Filter>Header Files\Map</Filter>
@@ -117,9 +120,6 @@
     <ClInclude Include="..\include\Plant.h">
       <Filter>Header Files\Entity\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\GameEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Coin.h">
       <Filter>Header Files\Entity\Item</Filter>
     </ClInclude>
@@ -153,12 +153,6 @@
     <ClInclude Include="..\include\Global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\BlockFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Effect.h">
       <Filter>Header Files\Entity\Effect</Filter>
     </ClInclude>
@@ -180,12 +174,27 @@
     <ClInclude Include="..\include\FireStarmanState.h">
       <Filter>Header Files\Entity\State</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ItemFactory.h">
+      <Filter>Header Files\Entity\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Collision.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BlockFactory.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Camera.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Menu.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\GameEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Entity.cpp">
@@ -199,9 +208,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Sprite.cpp">
       <Filter>Source Files\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Collision.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\NormalState.cpp">
       <Filter>Source Files\Entity\State</Filter>
@@ -245,12 +251,6 @@
     <ClCompile Include="..\src\Block.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\Background.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Background.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Mario.cpp">
       <Filter>Source Files\Entity\Character</Filter>
     </ClCompile>
@@ -273,9 +273,6 @@
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Global.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Effect.cpp">
@@ -301,6 +298,27 @@
     </ClCompile>
     <ClCompile Include="..\src\CharacterState.cpp">
       <Filter>Source Files\Entity\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ItemFactory.cpp">
+      <Filter>Source Files\Entity\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Collision.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Menu.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Background.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\Background.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Camera.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿#include "../include/Menu.h"
+#include "../include/ItemFactory.h";
 #include <memory>
 #include <utility>
 Menu::Menu() : backgroundTexture({ 0 }) {
@@ -42,6 +43,7 @@ void Menu::run() {
     INPUT_MANAGER.bindKey(KEY_SPACE);
     INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
     registerBlocks();
+    registerItems();
     globalGameEngine = nullptr;
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
     Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png", "Overworld.mp3");

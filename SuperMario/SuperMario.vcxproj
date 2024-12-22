@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BlockFactory.h" />
+    <ClInclude Include="..\include\Camera.h" />
     <ClInclude Include="..\include\Effect.h" />
     <ClInclude Include="..\include\FileHandle.h" />
     <ClInclude Include="..\include\Fireball.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="..\include\FPSManager.h" />
     <ClInclude Include="..\include\Global.h" />
     <ClInclude Include="..\include\InputManager.h" />
+    <ClInclude Include="..\include\ItemFactory.h" />
     <ClInclude Include="..\include\Menu.h" />
     <ClInclude Include="..\include\NormalState.h" />
     <ClInclude Include="..\include\Settings.h" />
@@ -172,6 +174,7 @@
   <ItemGroup>
     <ClCompile Include="..\include\Background.h" />
     <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\CharacterState.cpp" />
     <ClCompile Include="..\src\Effect.cpp" />
     <ClCompile Include="..\src\FileHandle.cpp" />
@@ -180,6 +183,7 @@
     <ClCompile Include="..\src\FPSManager.cpp" />
     <ClCompile Include="..\src\Global.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
+    <ClCompile Include="..\src\ItemFactory.cpp" />
     <ClCompile Include="..\src\Menu.cpp" />
     <ClCompile Include="..\src\NormalState.cpp" />
     <ClCompile Include="..\src\Settings.cpp" />

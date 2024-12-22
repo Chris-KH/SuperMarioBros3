@@ -1,6 +1,8 @@
 ﻿#include "../include/KoopaTroopa.h"
 #include "../include/Shell.h"
 #include "../include/GameEngine.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
 
 KoopaTroopa::KoopaTroopa(KoopaTroopaType type, Vector2 position , Orientation orientation) : Enemy(position) {
 	this->type = type;
@@ -131,4 +133,7 @@ void KoopaTroopa::stomped() {
 		canJump = false;
 		jumpTime = 0.f;
 	}
+
+	Effect* text = new TextEffect(to_string(ENEMY_POINT).c_str(), getCenter());
+	globalGameEngine->addEffect(text);
 }

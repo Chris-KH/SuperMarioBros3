@@ -7,15 +7,15 @@ private:
 	Color outlineColor;
 	Color textColor;
 
-	const float TEXT_DURATION = .5f; 
-	const float TEXT_SPEED = 200.f;
-	const float FONT_SIZE = 16.f;
+	static constexpr float TEXT_DURATION = 1.f; 
+	const float TEXT_SPEED = 400.f;
+	static constexpr float FONT_SIZE = 12.f;
+	static constexpr float OUTLINE_SIZE = FONT_SIZE / 20.f;
 public:
-	TextEffect(string text, Vector2 center, float duration, float delay = 0.f);
+	TextEffect(string text, Vector2 center, float duration = TEXT_DURATION, float delay = 0.f);
 
 	void setOutlineColor(Color color);
 	void setTextColor(Color color);
 
-	void update(float deltaTIme) override;
 	void draw(float deltaTime = GetFrameTime()) override;
 };

@@ -16,6 +16,8 @@ class Item;
 class Enemy;
 class Fireball;
 class Shell;
+class Star;
+class GameEngine;
 
 //Base class for all character
 class Character : public Sprite, public InputManager::Listener  {
@@ -78,6 +80,8 @@ protected:
     Shell* holdShell;
     bool holding;
 
+    float countThrowTime;
+
     const float DEAD_PLAYER_INITIAL_VELOCITY = 300.f; 
     const float DEAD_PLAYER_GRAVITY = 1000.f;      
 
@@ -86,6 +90,8 @@ protected:
 
     const float INVICIBLE_TIME = 12.f;
     const float TRANSFORM_TIME = 1.f; 
+
+    const float TIME_BETWEEN_THROWS = 0.f;
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
     virtual ~Character();
@@ -96,7 +102,7 @@ public:
 
     virtual void update(float deltaTime) override;
         
-    virtual void onKey(KeyboardKey key, bool pressed) = 0;
+    virtual void onKey(KeyboardKey key, bool pressed) override;
 
     virtual void draw(float deltaTime = GetFrameTime()) override;
 

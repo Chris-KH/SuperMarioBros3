@@ -1,4 +1,7 @@
 #include "../include/GoomBa.h"
+#include "../include/GameEngine.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
 
 GoomBa::~GoomBa() {
 	free(walkAnimation);
@@ -96,4 +99,7 @@ void GoomBa::stomped() {
 		setJumping(false);
 		jumpTime = 0.f;
 	}
+
+	Effect* text = new TextEffect(to_string(ENEMY_POINT).c_str(), getCenter());
+	globalGameEngine->addEffect(text);
 }

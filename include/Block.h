@@ -1,15 +1,13 @@
-#pragma once
-
-#include "../lib/raylib.h"
+#ifndef BLOCK_H
+#define BLOCK_H
+#include "raylib.h"
 #include "Entity.h"
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <functional>
-
-// I move all enum type to Global.h
-
+//#include "Item.h"
 class BaseBlock : public Entity {
 public:
     BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE);
@@ -69,12 +67,20 @@ public:
 class ItemBlock : public BaseBlock {
 private:
     bool hasItem = true;
-
+    ItemType item;
+    int subType;
+    bool isBouncing = false; // Flag to track if the block is bouncing
+    float bounceTime = 0.0f; // Timer for controlling the bounce
+    const float bounceHeight = 8.0f; // Height to move up during the bounce
+    const float bounceDuration = 0.2f;
+    float OgY;
 public:
     ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW);
     BlockType getBlockType() const override;
     void draw(float deltaTime) override;
     void update(float deltaTime) override;
+    void releaseItem();
+    void setItem(ItemType item,int subtype);
 };
 
 class HiddenBlock : public BaseBlock {
@@ -121,3 +127,4 @@ public:
     BlockType getBlockType() const override;
     void update();
 };
+#endif
