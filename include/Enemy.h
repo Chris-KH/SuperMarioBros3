@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#ifndef ENEMY_H
+#define ENEMY_H
+
 #include "Sprite.h"
 #include "Animation.h"
 
@@ -10,7 +12,8 @@ protected:
     bool kickable;
 
     Vector2 boudary; //The x-axis range that enemy can move (y-axis for vertical plant)
-    const float GROUND = 800.f;
+    const float DEAD_TIME = 0.5f;
+    const int ENEMY_POINT = 100;
 public:
     Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
 
@@ -36,3 +39,6 @@ public:
     virtual void attacked();
     virtual void kicked(Orientation direction) {};
 };
+
+#endif // !ENEMY_H
+

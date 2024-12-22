@@ -73,11 +73,15 @@ public:
 		for (Entity* entity : decor) {
 			delete entity;
 		}
+		for (Entity* entity : effects) {
+			delete entity;
+		}
 		player = NULL;
 		blocks.clear();
 		enemies.clear();
 		items.clear();
 		shells.clear();
+		effects.clear();
 	}
 	void resolveCollision() {};
 
@@ -92,6 +96,7 @@ public:
 	void addEffect(Entity* effect) {
 		this->effects.push_back(effect);
 	}
+
 	void addShell(Entity* shell)
 	{
 		this->enemies.push_back(shell);
@@ -158,6 +163,17 @@ public:
 			}
 		}
 
+		for (size_t i = 0; i < effects.size(); i++) {
+			if (effects[i]->isDead()) {
+				delete effects[i];
+				effects.erase(effects.begin() + i);
+				i--;
+			}
+			else {
+				effects[i]->update(deltaTime);
+			}
+		}
+
 		player->update(deltaTime);
 
 		//I think we have to update all entities before resolving collision
@@ -216,7 +232,16 @@ public:
 			else
 				i->draw(deltaTime);
 		}
+
+		for (Entity* i : effects) {
+			if (isPaused)
+				i->draw(0);
+			else
+				i->draw(deltaTime);
+		}
+
 		player->draw(deltaTime);
+
 		for (Entity* i : decor)
 			i->draw();
 		camera.endDrawing();
@@ -253,7 +278,7 @@ public:
 	}
 
 	bool run() {
-		Item* testItem = new Star(YELLOW_STAR, { 300,350 });
+		Item* testItem = new Mushroom(MUSHROOM_1UP, { 300,450 });
 		items.push_back(testItem);
 		while (!WindowShouldClose()) {
 			if (FPS_MANAGER.update()) {

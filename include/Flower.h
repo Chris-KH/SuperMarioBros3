@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FLOWER_H
+#define FLOWER_H
+
 #include "Item.h"
 
 class Flower : public Item {
@@ -41,3 +43,5 @@ public:
 		
 	}
 };
+
+#endif // !FLOWER_H

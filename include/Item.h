@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ITEM_H
+#define ITEM_H
+
 #include"Sprite.h"
 
 class Item : public Sprite {
@@ -24,3 +26,4 @@ public:
 	};
 };
 
+#endif //ITEM_H

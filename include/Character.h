@@ -16,6 +16,8 @@ class Item;
 class Enemy;
 class Fireball;
 class Shell;
+class Star;
+class GameEngine;
 
 //Base class for all character
 class Character : public Sprite, public InputManager::Listener  {

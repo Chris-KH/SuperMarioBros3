@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MUSHROOM_H
+#define MUSHROOM_H
+
 #include "Item.h"
 
 class Mushroom : public Item {
@@ -19,3 +21,5 @@ public:
 
 	void update(float deltaTime) override;
 };
+
+#endif // !MUSHROOM_H
