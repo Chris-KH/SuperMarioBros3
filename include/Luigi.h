@@ -22,7 +22,5 @@ public:
 
 	CharacterType getCharacterType() const override;
 
-	void onKey(KeyboardKey key, bool pressed) override;
-
 	void reset();
 };

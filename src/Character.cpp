@@ -30,6 +30,7 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     sitting = false;
     state = nullptr;
     holdShell = nullptr;
+    countThrowTime = 0.f;
 
     lastState = NORMAL;
     idleLeft = nullptr;
@@ -131,6 +132,29 @@ const Character::Phase& Character::getPhase() const {
 	return phase;
 }
 
+void Character::onKey(KeyboardKey key, bool pressed) {
+    if (isDead()) return;
+
+    if (key == KEY_R && pressed) {
+        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime >= TIME_BETWEEN_THROWS) {
+            Fireball* fireball = new Fireball();
+            fireball->setCharacterPositionBall(this);
+            if (orientation == RIGHT) {
+                setAnimation(throwRight, throwRight->getAnimationTime());
+            }
+            else if (orientation == LEFT) {
+                setAnimation(throwLeft, throwLeft->getAnimationTime());
+            }
+            setXVelocity(0.f);
+            if (fireball != nullptr) {
+                globalGameEngine->addFireBall(fireball);
+            }
+
+            countThrowTime = 0.f;
+        }
+    }
+}
+
 void Character::update(float deltaTime) {
     if (isDead()) return;
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
@@ -141,8 +165,6 @@ void Character::update(float deltaTime) {
     }
 
     if (phase == DEFAULT_PHASE) {
-        INPUT_MANAGER.update();
-
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
             setHolding(false);
@@ -172,6 +194,8 @@ void Character::update(float deltaTime) {
         }
 
         state->update(deltaTime);
+        INPUT_MANAGER.update();
+        countThrowTime += deltaTime;
     }
     else if (phase == TRANSFORM_PHASE) {
         //transform
@@ -404,7 +428,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             }
             else if (state->getState() == FIRE) {
                 transform(NORMAL);
-                RESOURCE_MANAGER.playSound("lost_suit");
+                RESOURCE_MANAGER.playSound("lost_suit.wav");
             }
         }
     }   
@@ -456,7 +480,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                 }
                 else if (state->getState() == FIRE) {
                     transform(NORMAL);
-                    RESOURCE_MANAGER.playSound("lost_suit");
+                    RESOURCE_MANAGER.playSound("lost_suit.wav");
                 }
             }
         }
