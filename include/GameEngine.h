@@ -21,6 +21,7 @@ private:
     std::vector<Entity*> testEntities;
     GameCamera camera;  
     bool isPaused;
+    float deltaTime;
 
 public:
     GameEngine(float screenWidth, float screenHeight, Level& level, Character*& player);
