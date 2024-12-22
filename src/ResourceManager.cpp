@@ -1,6 +1,5 @@
 ﻿#include"../include/ResourceManager.h"
 #include"../include/Animation.h"
-#include"../include/Background.h"
 #include"../include/Global.h"
 
 ResourceManager::ResourceManager() {}
@@ -160,10 +159,6 @@ void ResourceManager::loadMusic() {
 
 Animation* ResourceManager::getAnimation(const string& name) const {
     return animationResource.at(name).get();
-}
-
-Background* ResourceManager::getBackground(const string& name) const {
-    return backgroundResource.at(name).get();
 }
 
 Font* ResourceManager::getFont(const string& name) const {

@@ -7,6 +7,9 @@
 #include "../include/Shell.h"
 #include "../include/Plant.h"
 #include "../include/Mushroom.h"
+
+using namespace std;
+
 GameEngine* globalGameEngine = nullptr;
 
 GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Character*& player)
@@ -94,7 +97,7 @@ void GameEngine::update() {
     }
     for (size_t i = 0; i < enemies.size(); i++) {
         if (enemies[i]->isDead()) {
-            auto it = std::find(shells.begin(), shells.end(), enemies[i]);
+            auto it = find(shells.begin(), shells.end(), enemies[i]);
             if (it != shells.end())
                 shells.erase(it);
             delete enemies[i];
@@ -211,15 +214,15 @@ void GameEngine::render() {
     DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
 
     DrawText("LIVES: ", 10, 10, 40, WHITE);
-    DrawText(std::to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
+    DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
 
     DrawRectangle(300, 10, 30, 40, YELLOW);
     DrawRectangle(310, 20, 10, 20, ORANGE);
     DrawText("x", 340, 10, 40, WHITE);
-    DrawText(std::to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
+    DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
 
     DrawText("Score: ", 500, 10, 40, WHITE);
-    DrawText(std::to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
+    DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));

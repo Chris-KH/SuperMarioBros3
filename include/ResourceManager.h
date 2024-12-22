@@ -11,7 +11,6 @@ using namespace std;
 namespace fs = std::filesystem;
 
 class Animation;
-class Background;
 
 /*
  * ResourceManager class handles the loading and management of game resources,
@@ -22,7 +21,6 @@ class Background;
 class ResourceManager {
 private:
     map<string, unique_ptr<Animation>> animationResource;
-    map<string, unique_ptr<Background>> backgroundResource;
     map<string, unique_ptr<Font>> fontResource;
     map<string, unique_ptr<Music>> musicResource;
     map<string, unique_ptr<Sound>> soundResource;
@@ -49,8 +47,6 @@ public:
     void loadAllResource();
 
     Animation* getAnimation(const string& name) const; 
-
-    Background* getBackground(const string& name) const; 
 
     const Music* getMusic(const string& name) const;
 
