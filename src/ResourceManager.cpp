@@ -202,9 +202,14 @@ void ResourceManager::unloadTexture() {
 
 void ResourceManager::playMusic(const string& trackName) const {
     if (SETTINGS.isMusicEnabled() == false) return;
+    if (currentTrack == trackName) {
+        UpdateMusicStream(*getMusic(trackName));
+        return;
+    }
+    stopCurrentMusic();
 
-    if (isMusicPlaying(trackName)) UpdateMusicStream(*getMusic(trackName));
-    else PlayMusicStream(*getMusic(trackName));
+    PlayMusicStream(*getMusic(trackName));
+    currentTrack = trackName;
 }
 
 bool ResourceManager::isMusicPlaying(const string& musicName) const {
@@ -213,6 +218,14 @@ bool ResourceManager::isMusicPlaying(const string& musicName) const {
 
 void ResourceManager::stopMusic(const string& musicName) const {
     if (isMusicPlaying(musicName)) StopMusicStream(*getMusic(musicName));
+}
+
+void ResourceManager::stopCurrentMusic() const
+{
+    if (!currentTrack.empty() && isMusicPlaying(currentTrack)) {
+        StopMusicStream(*getMusic(currentTrack));
+        currentTrack.clear();
+    }
 }
 
 void ResourceManager::playSound(const string& soundName) const {

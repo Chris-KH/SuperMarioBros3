@@ -253,23 +253,37 @@ void GameEngine::render(float deltaTime) {
 bool GameEngine::run() {
     Item* testItem = new Mushroom(MUSHROOM_1UP, { 300, 450 });
     items.push_back(testItem);
+    bool flag = true;
+    RESOURCE_MANAGER.stopCurrentMusic();
+    RESOURCE_MANAGER.playMusic(level->getMusic());
+    // Load and play the new music
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
             float deltaTime = GetFrameTime();
             this->deltaTime = deltaTime;
             if (SETTINGS.isMusicEnabled())
-                UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+                UpdateMusicStream(*RESOURCE_MANAGER.getMusic(level->getMusic()));
 
             update(deltaTime);
             render(deltaTime);
         }
         if (cleared == true && isPaused == false)
+        {
+            RESOURCE_MANAGER.stopCurrentMusic();
+            RESOURCE_MANAGER.playMusic("Overworld.mp3");
             return true;
+        }
         if (player->getX() >= map.getMapSize().x) {
             cleared = true;
             isPaused = true;
+            if (flag)
+            RESOURCE_MANAGER.playSound("level_clear.wav");
+            flag = false;
+
         }   
     }
+    RESOURCE_MANAGER.stopCurrentMusic();
+    RESOURCE_MANAGER.playMusic("Overworld.mp3");
     return false;
 }
 
