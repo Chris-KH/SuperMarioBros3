@@ -264,8 +264,9 @@ void GameEngine::render(float deltaTime) {
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
-        if (cleared)
+        if (cleared) {
             GUI::drawLevelClear();
+        }
         else
             GUI::drawPauseMenu();
     }
@@ -299,10 +300,11 @@ bool GameEngine::run() {
         if (player->getX() >= map.getMapSize().x) {
             cleared = true;
             isPaused = true;
+            RESOURCE_MANAGER.stopCurrentMusic();
             if (flag)
             RESOURCE_MANAGER.playSound("level_clear.wav");
             flag = false;
-
+            player->setVelocity({ 0.f, 0.f });
         }   
     }
     RESOURCE_MANAGER.stopCurrentMusic();

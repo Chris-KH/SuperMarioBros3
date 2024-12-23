@@ -83,8 +83,11 @@ void Character::reset() {
     invicibleStarTime = 0.f;
     sitting = false;
     holdShell = nullptr;
+    movingBlockStandOn = nullptr;
     countThrowTime = 0.f;
     countImmortalTime = 0.f;
+    specificVelocity = { 0.f, 0.f };
+    transform(NORMAL);
 }
 
 STATE Character::getState() const {
