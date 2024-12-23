@@ -60,6 +60,8 @@ EnemyType KoopaTroopa::getEnemyType() const {
 }
 
 void KoopaTroopa::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);

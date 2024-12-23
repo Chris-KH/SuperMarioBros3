@@ -18,6 +18,8 @@ Star::Star(StarType type, Vector2 position, Orientation orientation) : Item(POIN
 }
 
 void Star::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (isAppear()) {

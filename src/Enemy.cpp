@@ -1,4 +1,4 @@
-#include "../include/Enemy.h"
+﻿#include "../include/Enemy.h"
 #include "../include/Character.h"
 #include "../include/GameEngine.h"
 #include "../include/Effect.h"
@@ -15,21 +15,6 @@ Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
 };
 
 EntityType Enemy::getType() const { return EntityType::ENEMY; }
-
-void Enemy::update(float deltaTime) {
-    currentAnimation->update(deltaTime);
-    if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
-
-    if (isJumping()) {
-        setYPosition(getPosition().y + velocity.y * deltaTime);
-    }
-
-    if (getBottom() >= 500.f) {
-        setYVelocity(0.f);
-        setYPosition(500.f - getSize().y);
-        jumping = false;
-    }
-}
 
 Orientation Enemy::getRandomOrientation() {
     random_device rd;

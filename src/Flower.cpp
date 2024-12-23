@@ -31,6 +31,8 @@ ItemType Flower::getItemType() const  {
 }
 
 void Flower::update(float deltaTime)  {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (isAppear()) {

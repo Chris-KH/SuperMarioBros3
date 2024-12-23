@@ -39,6 +39,8 @@ EnemyType Shell::getEnemyType() const  {
 }
 
 void Shell::update(float deltaTime)  {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 	if (inShellTime >= IN_SHELL_TIME) {
 		killEntity();

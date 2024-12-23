@@ -1,4 +1,4 @@
-#include "../include/Character.h"
+﻿#include "../include/Character.h"
 #include"../include/NormalState.h"
 #include"../include/SuperState.h"
 #include"../include/FireState.h"
@@ -196,6 +196,9 @@ void Character::update(float deltaTime) {
     }
 
     if (phase == DEFAULT_PHASE) {
+        Sprite::update(deltaTime);
+
+
         setVelocity(specificVelocity);
 
         state->update(deltaTime);

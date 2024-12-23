@@ -31,6 +31,8 @@ ItemType Mushroom::getItemType() const {
 }
 
 void Mushroom::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 	
 	if (isAppear()) {
