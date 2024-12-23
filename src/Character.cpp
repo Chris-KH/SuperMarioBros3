@@ -12,10 +12,10 @@
 #include"../include/Coin.h"
 #include"../include/Enemy.h"
 #include"../include/Shell.h"
-#include "../include/Effect.h"
-#include "../include/TextEffect.h"
-#include "../include/GameEngine.h"
-#include "../include/BaseBlock.h"
+#include"../include/Effect.h"
+#include"../include/TextEffect.h"
+#include"../include/GameEngine.h"
+#include"../include/BaseBlock.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {

@@ -182,5 +182,3 @@ public:
 	void collisionWithFireball(Fireball* fireball);
 };
 
-
-

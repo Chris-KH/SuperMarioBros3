@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(CS202-SuperMario)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
 
 # Specify the path to raylib
 set(RAYLIB_DIR "C:/raylib-5.5")
@@ -14,18 +16,29 @@ link_directories(${RAYLIB_DIR}/src)
 set(Main
     src/Animation.cpp
     src/Background.cpp
-    src/Block.cpp
     src/Camera.cpp
-    src/Collision.cpp
     src/Entity.cpp
     src/FileHandle.cpp
     src/FPSManager.cpp
     src/GameEngine.cpp
     src/Global.cpp
+    src/GUI.cpp
     src/InputManager.cpp
     src/ResourceManager.cpp
     src/Settings.cpp
     src/Sprite.cpp
+
+    src/BaseBlock.cpp
+    src/Brick.cpp
+    src/DecorBlock.cpp
+    src/Floor.cpp
+    src/HiddenBlock.cpp
+    src/ItemBlock.cpp
+    src/MovingBlock.cpp
+    src/PipeBlock.cpp
+    src/SolidBlock.cpp
+    src/SpikeBlock.cpp
+    src/TemporaryBlock.cpp
 
     src/Item.cpp
     src/Coin.cpp

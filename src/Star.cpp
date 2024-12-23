@@ -10,7 +10,6 @@ Star::Star(StarType type, Vector2 position, Orientation orientation) : Item(POIN
 	else if (type == BLUE_STAR) {
 		starAnimation = RESOURCE_MANAGER.getAnimation("blue_star_item")->clone();
 	}
-
 	
 	setAnimation(starAnimation);
 	setPosition(position);

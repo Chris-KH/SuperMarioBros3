@@ -48,8 +48,7 @@ void ItemBlock::releaseItem(const Sprite* object)
         ItemFactory& factory = ItemFactory::getInstance();
         Item* release = factory.createItem(item, {getX(), getY() - getSize().y / 2.f}, object->getOrientation(), subType);
         release->setAppearBottom(getTop());
-        if (item == COIN)
-            globalGameEngine->addScore(100);
+        if (item == COIN) globalGameEngine->addScore(100);
         globalGameEngine->addItem(release);
         hasItem = false;
         free(this->currentAnimation);
@@ -63,8 +62,6 @@ void ItemBlock::setItem(ItemType item, int subtype)
 {
     hasItem = true;
     this->item = item;
-    if (item == COIN)
-        this->subType = BLOCK_COIN;
-    else
-        this->subType = subtype;
+    if (item == COIN) this->subType = BLOCK_COIN;
+    else this->subType = subtype;
 }

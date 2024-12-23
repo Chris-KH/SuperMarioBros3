@@ -7,13 +7,7 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Block.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Entity.cpp">
@@ -31,6 +25,9 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\GUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -41,6 +38,39 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\BaseBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Brick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\DecorBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Floor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\HiddenBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\ItemBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\MovingBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\PipeBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SolidBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\SpikeBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\TemporaryBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Item.cpp">
@@ -118,7 +148,7 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\menu.cpp">
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp">

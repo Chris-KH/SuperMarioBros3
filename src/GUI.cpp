@@ -45,7 +45,7 @@ void GUI::drawStatusBar(const Character* player) {
     DrawTexturePro(multiplicationSign, dest, source, { 0.f, 0.f }, 0.f, WHITE);
     //
 
-    DrawText(to_string(player->getScores()).c_str(), 440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f, 45, 45, BLACK);
+    DrawText(to_string(player->getScores()).c_str(), static_cast<int>(440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f), 45, 45, BLACK);
 }
 
 void GUI::drawPauseMenu()

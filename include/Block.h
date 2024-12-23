@@ -1,4 +1,4 @@
-#ifndef BLOCK_H
+/*#ifndef BLOCK_H
 #define BLOCK_H
 #include "../lib/raylib.h"
 #include "Entity.h"
@@ -79,7 +79,7 @@ public:
     BlockType getBlockType() const override;
     void draw(float deltaTime) override;
     void update(float deltaTime) override;
-    void releaseItem();
+    void releaseItem(const Sprite* object);
     void setItem(ItemType item,int subtype);
 };
 
@@ -127,4 +127,4 @@ public:
     BlockType getBlockType() const override;
     void update();
 };
-#endif
+#endif*/

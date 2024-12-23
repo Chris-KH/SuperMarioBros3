@@ -12,6 +12,6 @@ void HiddenBlock::update(float deltaTime) {
     }
 }
 
-void HiddenBlock::reveal()
-{
+void HiddenBlock::reveal() {
+    
 }

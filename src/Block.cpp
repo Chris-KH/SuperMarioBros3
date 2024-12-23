@@ -1,4 +1,4 @@
-#include "../include/Block.h"
+/*#include "../include/Block.h"
 #include "../include/Global.h"
 #include "../include/ItemFactory.h"
 #include "../include/GameEngine.h"
@@ -156,7 +156,7 @@ void ItemBlock::update(float deltaTime) {
     currentAnimation->update(deltaTime);
 }
 
-void ItemBlock::releaseItem()
+void ItemBlock::releaseItem(const Sprite* object)
 {
     if (hasItem)
     {
@@ -253,5 +253,4 @@ void TemporaryBlock::update() {
             dead = true;
         }
     }
-}
-
+}*/

@@ -29,12 +29,12 @@ void Menu::run() {
     //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT | FLAG_WINDOW_UNDECORATED);
     SetConfigFlags(FLAG_WINDOW_ALWAYS_RUN); 
     InitWindow(1280, 800, "Super Mario Bros");
-    Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
+    Texture gameIcon = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Icon/GameIcon.png");
     Image gameIconImage = LoadImageFromTexture(gameIcon);
     SetWindowIcon(gameIconImage);
     if (backgroundTexture.id == 0)
     {
-        backgroundTexture = LoadTexture("../assets/Background/Menuscreen.png");
+        backgroundTexture = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/Menuscreen.png");
     }
 
     RESOURCE_MANAGER.loadAllResource();

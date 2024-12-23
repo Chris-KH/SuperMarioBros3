@@ -10,5 +10,7 @@ public:
     BlockType getBlockType() const override;
     void update(float deltaTime) override;
     void breakBrick();
+private:
+    bool isBroken = false;
 };
 #endif // !BRICK_H

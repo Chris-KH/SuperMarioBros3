@@ -1,9 +1,9 @@
 #include"../include/Fireball.h"
 #include"../include/BaseBlock.h"
 #include"../include/Character.h"
-#include "../include/GameEngine.h"
-#include "../include/Effect.h"
-#include "../include/TextEffect.h"
+#include"../include/GameEngine.h"
+#include"../include/Effect.h"
+#include"../include/TextEffect.h"
 
 Fireball::~Fireball() {
 	free(fireRight);

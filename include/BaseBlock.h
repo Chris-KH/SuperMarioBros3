@@ -1,6 +1,6 @@
-#ifndef BLOCK_H
-#define BLOCK_H
-#include "raylib.h"
+#ifndef BASEBLOCK_H
+#define BASEBLOCK_H
+#include "../lib/raylib.h"
 #include "Entity.h"
 #include <fstream>
 #include <sstream>

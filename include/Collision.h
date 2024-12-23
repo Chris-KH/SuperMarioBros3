@@ -1,7 +1,7 @@
 ﻿#ifndef COLL_H
 #define COLL_H
-#include"Entity.h"
-#include"BaseBlock.h"
+#include "Entity.h"
+#include "BaseBlock.h"
 #include "Floor.h"
 #include "ItemBlock.h"
 #include "MovingBlock.h"
@@ -12,10 +12,10 @@
 #include "Brick.h"
 #include "TemporaryBlock.h"
 #include "DecorBlock.h"
-#include"Character.h"
-#include"Enemy.h"
-#include"Fireball.h"
-#include"Item.h"
+#include "Character.h"
+#include "Enemy.h"
+#include "Fireball.h"
+#include "Item.h"
 
 class CollisionStrategy {
 public:
@@ -292,8 +292,6 @@ public:
             player->setMovingBlockStandOn(nullptr);
             return false; // No collision detected
         }
-
-        
 
         // Calculate the exact position at collision
         Vector2 collisionPlayerPos = {
@@ -1025,11 +1023,12 @@ public:
             if (block && block->getBlockType() == FLOOR) {
                 return std::make_unique<FireballFloorStrat>();
             }
-            if (block && block->getBlockType() == ITEMBLOCK)
+            if (block && block->getBlockType() == ITEMBLOCK) {
                 return std::make_unique<FireballItemBlockStrat>();
-            if (block && block->getBlockType() == BRICK)
+            }
+            if (block && block->getBlockType() == BRICK) {
                 return std::make_unique<FireballBrickStrat>();
-
+            }
             return std::make_unique<FireballBlockStrat>();
         }
         if (typeA == ENEMY && typeB == ENEMY) {
