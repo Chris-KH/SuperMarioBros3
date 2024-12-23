@@ -1,4 +1,5 @@
 #include "../include/Map.h"
+#include "../include/ItemFactory.h"
 Map::Map() : background({ 0 }) {}
 
 Map::~Map() {
@@ -232,7 +233,24 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 
 		}
 		else if (currentSection == "item") {
-			// Placeholder for item loading logic               
+			std::istringstream stream(line);
+			std::string itemTypeStr;
+			int subType;
+			float posX, posY;
+
+			if (!(stream >> itemTypeStr >> subType >> posX >> posY)) {
+				throw std::runtime_error("Malformed line for item: " + line);
+			}
+
+			ItemType itemType = stringToItemType(itemTypeStr);
+
+			Item* item = ItemFactory::getInstance().createItem(itemType, { posX, posY }, LEFT, subType);
+
+			if (!item) {
+				throw std::runtime_error("Failed to create item: " + itemTypeStr);
+			}
+
+			items.push_back(item);
 		}
 		else {
 			throw std::runtime_error("Unknown section: " + currentSection);

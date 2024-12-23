@@ -53,6 +53,7 @@ void ItemBlock::releaseItem(const Sprite* object)
         globalGameEngine->addItem(release);
         hasItem = false;
         free(this->currentAnimation);
+        this->currentAnimation = nullptr;
         sprite = RESOURCE_MANAGER.getAnimation("empty_block")->clone();
         setAnimation(sprite);
     }
