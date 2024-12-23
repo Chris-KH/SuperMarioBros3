@@ -261,7 +261,10 @@ void GameEngine::render(float deltaTime) {
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
-        DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
+        if (cleared)
+            GUI::drawLevelClear();
+        else
+            GUI::drawPauseMenu();
     }
 
     EndDrawing();
