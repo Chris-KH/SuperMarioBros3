@@ -118,7 +118,7 @@ void KoopaTroopa::stomped() {
 		jumpTime = 0.f;
 	}
 	else if (type == REDPARA_KoopaTroopa) {
-		type = GREEN_KoopaTroopa;
+		type = RED_KoopaTroopa;
 		free(jumpLeft);
 		free(jumpRight);
 		free(walkLeft);

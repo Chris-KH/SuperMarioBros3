@@ -141,9 +141,9 @@ void Character::draw(float deltaTime) {
             else if (getState() == SUPERSTARMAN) {
                 currentAnimation->update(deltaTime, 12, 3);
             }
-            //else if (getState() == FIRESTARMAN) {
-            //    currentAnimation->update(deltaTime, 9, 3);
-            //}
+            else if (getState() == FIRESTARMAN) {
+                currentAnimation->update(deltaTime, 12, 3);
+            }
             else currentAnimation->update(deltaTime, 1, 1);
             currentAnimation->render(getPosition());
         }
@@ -154,9 +154,9 @@ void Character::draw(float deltaTime) {
             else if (getState() == SUPERSTARMAN) {
                 currentAnimation->update(deltaTime, 9, 3);
             }
-            //else if (getState() == FIRESTARMAN) {
-            //    currentAnimation->update(deltaTime, 9, 3);
-            //}
+            else if (getState() == FIRESTARMAN) {
+                currentAnimation->update(deltaTime, 9, 3);
+            }
             else currentAnimation->update(deltaTime, 0, 1);
             currentAnimation->render(getPosition());
         }
