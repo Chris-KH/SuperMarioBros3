@@ -3,7 +3,7 @@
 #include "../include/GameEngine.h"
 #include "../include/Effect.h"
 #include "../include/TextEffect.h"
-#include "../include/Fireball.h"d
+#include "../include/Fireball.h"
 
 Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
     stompable = false;
@@ -63,6 +63,11 @@ void Enemy::attacked() {
 
 void Enemy::collisionWithFireball(Fireball* fireball) {
     attacked();
+    fireball->setCollisionAvailable(false);
     fireball->killEntity();
+    setCollisionAvailable(false);
+    Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("smoke")->clone(), getPosition(), true, 0.f);
+    smoke->setGravityAvailable(false);
+    globalGameEngine->addEffect(smoke);
     RESOURCE_MANAGER.playSound("fireball.wav");
 }

@@ -23,32 +23,36 @@ GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Char
     enemies = map.getEnemies();
     decor = map.getDecor();
     isPaused = false;
-    cleared = false;
     deltaTime = 0.f;
 }
 
 GameEngine::~GameEngine() {
-    for (Entity* entity : blocks) {
-        delete entity;
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        delete blocks[i];
     }
-    for (Entity* entity : enemies) {
-        delete entity;
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        delete enemies[i];
     }
-    for (Entity* entity : items) {
-        delete entity;
+    for (size_t i = 0; i < items.size(); ++i) {
+        delete items[i];
     }
-    for (Entity* entity : decor) {
-        delete entity;
+    for (size_t i = 0; i < decor.size(); ++i) {
+        delete decor[i];
     }
-    for (Entity* entity : effects) {
-        delete entity;
+    for (size_t i = 0; i < effects.size(); ++i) {
+        delete effects[i];
     }
+    for (size_t i = 0; i < fireball.size(); ++i) {
+        delete fireball[i];
+    }
+
     player = nullptr;
     blocks.clear();
     enemies.clear();
     items.clear();
     shells.clear();
     effects.clear();
+    fireball.clear();
 }
 
 void GameEngine::resolveCollision() {}
@@ -82,22 +86,30 @@ void GameEngine::update(float deltaTime) {
     if (IsKeyPressed(KEY_ENTER)) {
         isPaused = !isPaused;
     }
-    if (isPaused||cleared) {
+    if (isPaused) {
         return;
     }
 
-    for (Entity* i : blocks) {
-        i->update(deltaTime);
+    for (size_t i = 0; i < blocks.size(); i++) {
+        if (blocks[i]->isDead()) {
+            delete blocks[i];
+            blocks.erase(blocks.begin() + i);
+            i--;
+        }
+        else {
+            blocks[i]->update(deltaTime);
+        }
     }
-    for (Entity* i : enemies) {
-        Plant* enemy = dynamic_cast<Plant*>(i);
+
+    for (size_t i = 0; i < enemies.size(); i++) {
+        Plant* enemy = dynamic_cast<Plant*>(enemies[i]);
         if (enemy) {
             enemy->setPlayerForFireball(player);
         }
     }
+
     for (size_t i = 0; i < enemies.size(); i++) {
         if (enemies[i]->isDead()) {
-            cout << "aaaa";
             auto it = find(shells.begin(), shells.end(), enemies[i]);
             if (it != shells.end()) {
                 shells.erase(it);
@@ -155,35 +167,32 @@ void GameEngine::handleCollision() {
     CollisionInterface IColl;
     bool isGrounded = false;
 
-    for (Entity* block : blocks) {
-        if (IColl.resolve(player, block)) isGrounded = true;
-        for (Entity* enemy : enemies)IColl.resolve(enemy, block);
-        for (Entity* item : items)IColl.resolve(item, block);
-        for (Fireball* ball : fireball) {
-            if (ball->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(ball, block);
+    for (size_t j = 0; j < blocks.size(); j++) {
+        if (IColl.resolve(player, blocks[j])) isGrounded = true;
+        for (size_t i = 0; i < enemies.size(); i++) IColl.resolve(enemies[i], blocks[j]);
+        for (size_t i = 0; i < items.size(); i++) IColl.resolve(items[i], blocks[j]);
+        for (size_t i = 0; i < fireball.size(); i++) {
+            if (fireball[i]->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(fireball[i], blocks[j]);
         }
     }
 
     player->setJumping(!isGrounded);
 
-    for (Entity* enemy : enemies) {
+    for (size_t i = 0; i < enemies.size(); i++) {
         for (Fireball* ball : fireball) {
-            if (ball->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(ball, enemy);
+            if (ball->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(ball, enemies[i]);
         }
-        IColl.resolve(player, enemy);
+        IColl.resolve(player, enemies[i]);
     }
        
-    for (Fireball* ball : fireball) {
-        if (ball->isDead()) continue;
-
-        if (ball->getFireballType() == ENEMY_FIREBALL) {
-            IColl.resolve(ball, player);
+    for (size_t i = 0; i < fireball.size(); i++) {
+        if (fireball[i]->getFireballType() == ENEMY_FIREBALL) {
+            IColl.resolve(fireball[i], player);
         }
     }
 
-    for (Entity* item : items) {
-        if (item->isDead()) continue;
-        IColl.resolve(player, item);
+    for (size_t i = 0; i < items.size(); i++) {
+        IColl.resolve(player, items[i]);
     }
 }
 
@@ -192,10 +201,7 @@ void GameEngine::render(float deltaTime) {
     map.renderBackground();
 
     for (Entity* i : blocks)
-        if (isPaused)
-            i->draw(0);
-        else
-            i->draw(deltaTime);
+        i->draw(deltaTime);
     for (Entity* i : enemies) {
         if (player->getHoldShell() != nullptr) {
             if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
@@ -217,10 +223,8 @@ void GameEngine::render(float deltaTime) {
         else
             i->draw(deltaTime);
     }
-    if (isPaused)
-        player->draw(0);
-    else
-        player->draw(deltaTime);
+
+    player->draw(deltaTime);
 
     for (Entity* i : effects) {
         if (isPaused)
@@ -239,12 +243,25 @@ void GameEngine::render(float deltaTime) {
 
     GUI::drawStatusBar(player);
 
+    //DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
+
+    //DrawText("LIVES: ", 10, 10, 40, WHITE);
+    //DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
+
+    //DrawRectangle(300, 10, 30, 40, YELLOW);
+    //DrawRectangle(310, 20, 10, 20, ORANGE);
+    //DrawText("x", 340, 10, 40, WHITE);
+    //DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
+
+    //DrawText("Score: ", 500, 10, 40, WHITE);
+    //DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
+
+    //Texture2D texture = LoadTexture("../assets/Background/heart.png");
+    //DrawTexture(texture, 0, 0, WHITE);
+
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
-        if (cleared)
-            GUI::drawLevelClear();
-        else
-            GUI::drawPauseMenu();
+        DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
     }
 
     EndDrawing();

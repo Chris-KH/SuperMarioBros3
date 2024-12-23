@@ -1,4 +1,7 @@
 #include "../include/Brick.h"
+#include "../include/GameEngine.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
 
 Brick::Brick(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
     sprite = RESOURCE_MANAGER.getAnimation("gold_brick_block")->clone();
@@ -19,5 +22,8 @@ void Brick::update(float deltaTime) {
 }
 
 void Brick::breakBrick() {
-    isBroken = true;
+    killEntity();
+    Effect* breakEffect = new Effect(RESOURCE_MANAGER.getAnimation("gold_brick_block_broken")->clone(), getPosition(), true, 0.f);
+    globalGameEngine->addEffect(breakEffect);
+    RESOURCE_MANAGER.playSound("break_brick_block.wav");
 }

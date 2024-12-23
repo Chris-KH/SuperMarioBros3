@@ -1,6 +1,9 @@
 #include"../include/Fireball.h"
 #include"../include/BaseBlock.h"
 #include"../include/Character.h"
+#include "../include/GameEngine.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
 
 Fireball::~Fireball() {
 	free(fireRight);
@@ -121,7 +124,10 @@ void Fireball::collisionWithBlock(const BaseBlock* block, Edge edge) {
 	}
 	else {
 		killEntity();
+		setCollisionAvailable(false);
+		Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("smoke")->clone(), getPosition(), true, 0.f);
+		smoke->setGravityAvailable(false);
+		globalGameEngine->addEffect(smoke);
 		RESOURCE_MANAGER.playSound("bump.wav");
-		//Add smoke effect;
 	}
 }
