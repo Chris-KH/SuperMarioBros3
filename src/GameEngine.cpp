@@ -213,42 +213,45 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
-    for (Entity* i : blocks) {
-        i->draw(deltaTime);
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        blocks[i]->draw(deltaTime);
         //DrawRectangleRec(i->getRectangle(), BLACK);
     }
         
-    for (Entity* i : enemies) {
+    for (size_t i = 0; i < enemies.size(); ++i) {
         if (player->getHoldShell() != nullptr) {
-            if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
+            if (dynamic_cast<Shell*>(enemies[i]) == player->getHoldShell()) continue;
         }
         if (isPaused)
-            i->draw(0);
+            enemies[i]->draw(0);
         else
-            i->draw(deltaTime);
+            enemies[i]->draw(deltaTime);
     }
-    for (Entity* i : items) {
+
+    for (size_t i = 0; i < items.size(); ++i) {
         if (isPaused)
-            i->draw(0);
+            items[i]->draw(0);
         else
-            i->draw(deltaTime);
+            items[i]->draw(deltaTime);
     }
-    for (Entity* i : fireball) {
+
+    for (size_t i = 0; i < fireball.size(); ++i) {
         if (isPaused)
-            i->draw(0);
+            fireball[i]->draw(0);
         else
-            i->draw(deltaTime);
+            fireball[i]->draw(deltaTime);
     }
+
     if (isPaused)
         player->draw(0);
     else
         player->draw(deltaTime);
 
-    for (Entity* i : effects) {
+    for (size_t i = 0; i < effects.size(); ++i) {
         if (isPaused)
-            i->draw(0);
+            effects[i]->draw(0);
         else
-            i->draw(deltaTime);
+            effects[i]->draw(deltaTime);
     }
 
     for (Entity* i : decor)
@@ -260,22 +263,6 @@ void GameEngine::render(float deltaTime) {
     camera.render();
 
     GUI::drawStatusBar(player);
-
-    //DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
-
-    //DrawText("LIVES: ", 10, 10, 40, WHITE);
-    //DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
-
-    //DrawRectangle(300, 10, 30, 40, YELLOW);
-    //DrawRectangle(310, 20, 10, 20, ORANGE);
-    //DrawText("x", 340, 10, 40, WHITE);
-    //DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
-
-    //DrawText("Score: ", 500, 10, 40, WHITE);
-    //DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
-
-    //Texture2D texture = LoadTexture("../assets/Background/heart.png");
-    //DrawTexture(texture, 0, 0, WHITE);
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
@@ -292,8 +279,6 @@ void GameEngine::render(float deltaTime) {
 }
 
 bool GameEngine::run() {
-    Item* testItem = new Flower(FIRE_FLOWER, { 300, 450 });
-    items.push_back(testItem);
     bool flag = true;
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic(level->getMusic());

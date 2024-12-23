@@ -29,6 +29,8 @@ void NormalState::setAnimation() {
         character->flyRight = RESOURCE_MANAGER.getAnimation("mario_fly_right");
 		character->holdRight = RESOURCE_MANAGER.getAnimation("mario_hold_right");
 		character->kickRight = RESOURCE_MANAGER.getAnimation("mario_kick_right");
+
+        character->deadAniamtion = RESOURCE_MANAGER.getAnimation("mario_dead");
     }
     else if (character->getCharacterType() == LUIGI) {
         character->idleLeft = RESOURCE_MANAGER.getAnimation("luigi_idle_left");
@@ -48,6 +50,8 @@ void NormalState::setAnimation() {
         character->flyRight = RESOURCE_MANAGER.getAnimation("luigi_fly_right");
 		character->holdRight = RESOURCE_MANAGER.getAnimation("luigi_hold_right");
 		character->kickRight = RESOURCE_MANAGER.getAnimation("luigi_kick_right");
+
+        character->deadAniamtion = RESOURCE_MANAGER.getAnimation("luigi_dead");
     }
 
     character->fallLeft = nullptr;

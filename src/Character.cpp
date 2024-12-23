@@ -59,6 +59,8 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
 	holdRight = nullptr;
 	throwRight = nullptr;
 	kickRight = nullptr;
+
+    deadAniamtion = nullptr;
 };
 
 Character::~Character() {
@@ -217,9 +219,6 @@ void Character::update(float deltaTime) {
         setPhase(DEAD_PHASE);
 
     if (phase == DEFAULT_PHASE) {
-        //Sprite::update(deltaTime);
-
-
         setVelocity(specificVelocity);
          
         state->update(deltaTime); 
@@ -268,7 +267,8 @@ void Character::update(float deltaTime) {
     else if (phase == DEAD_PHASE) {
         RESOURCE_MANAGER.playSound("lost_life.wav");
         setLostLife(true);
-        // set animation -> death
+        setVelocity({ 0.f, DEAD_PLAYER_INITIAL_VELOCITY });
+        setAnimation(deadAniamtion);
         lives--;
     }
     else if (phase == EXIT_PHASE) {

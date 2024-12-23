@@ -24,24 +24,4 @@ public:
 
 	void update(float deltaTime) override;
 	void stomped() override;
-
-	//Test function
-	/*void update(float deltaTime) override {
-		if (isDead) return;
-		if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
-
-		if (IsKeyDown(KEY_D)) setXVelocity(SPEED);
-		else if (IsKeyDown(KEY_A)) setXVelocity(-SPEED);
-
-		if (IsKeyDown(KEY_SPACE) && canJump) {
-			setYVelocity(-JUMP_SPEED);
-			setAnimation(jumpAnimation);
-			setJumping(true);
-			jumpTime = 0.f;
-		}
-		if (isJumping() == false) {
-			setAnimation(walkAnimation);
-			jumpTime += deltaTime;
-		}
-	}*/
 };

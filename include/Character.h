@@ -66,6 +66,8 @@ protected:
 	Animation* throwRight; 
 	Animation* kickRight;
 
+    Animation* deadAniamtion;
+
     //Animation* lostSuperSuit;
     //Animation* lostFireSuit;
 
