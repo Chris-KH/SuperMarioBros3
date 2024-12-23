@@ -10,6 +10,8 @@ private:
 
     StarType type;
     Animation* starAnimation;
+
+    static constexpr float APPEAR_SPEED = 16.f;
 public:
     Star(StarType type = YELLOW_STAR, Vector2 position = { 0.f, 0.f }, Orientation orientation = RIGHT);
 

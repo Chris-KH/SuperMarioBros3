@@ -117,6 +117,12 @@ void Character::draw(float deltaTime) {
             if (getState() == STARMAN) {
                 currentAnimation->update(deltaTime, 0, 3);
             }
+            else if (getState() == SUPERSTARMAN) {
+                currentAnimation->update(deltaTime, 12, 3);
+            }
+            //else if (getState() == FIRESTARMAN) {
+            //    currentAnimation->update(deltaTime, 9, 3);
+            //}
             else currentAnimation->update(deltaTime, 1, 1);
             currentAnimation->render(getPosition());
         }
@@ -124,6 +130,12 @@ void Character::draw(float deltaTime) {
             if (getState() == STARMAN) {
                 currentAnimation->update(deltaTime, 0, 3);
             }
+            else if (getState() == SUPERSTARMAN) {
+                currentAnimation->update(deltaTime, 9, 3);
+            }
+            //else if (getState() == FIRESTARMAN) {
+            //    currentAnimation->update(deltaTime, 9, 3);
+            //}
             else currentAnimation->update(deltaTime, 0, 1);
             currentAnimation->render(getPosition());
         }
@@ -150,7 +162,7 @@ void Character::onKey(KeyboardKey key, bool pressed) {
     if (isDead()) return;
 
     if (key == KEY_W && pressed) {
-        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime > 0.f && holdShell == nullptr) {
+        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN || state->getState() == SUPERSTARMAN) && countThrowTime > 0.f && holdShell == nullptr) {
             Fireball* fireball = new Fireball();
             fireball->setCharacterPositionBall(this);
             if (orientation == RIGHT) {
@@ -389,6 +401,10 @@ void Character::collisionWithItem(const Item* item) {
 				transform(SUPER);
 				//phase = TRANSFORM_PHASE;
 			}
+            else if (getState() == STARMAN) {
+                transform(SUPERSTARMAN);
+                //phase = TRANSFORM_PHASE;
+            }
 			RESOURCE_MANAGER.playSound("power_up.wav");
             text = new TextEffect(to_string(mushroom->getPoint()).c_str(), Vector2(getCenterX(), getTop()));
         }
@@ -405,6 +421,10 @@ void Character::collisionWithItem(const Item* item) {
             if (getState() == NORMAL) {
                 transform(FIRE);
 				//phase = TRANSFORM_PHASE;
+            }
+            else if (getState() == STARMAN) {
+                transform(FIRESTARMAN);
+                //phase = TRANSFORM_PHASE;
             }
             RESOURCE_MANAGER.playSound("power_up.wav");
             text = new TextEffect(to_string(flower->getPoint()).c_str(), Vector2(getCenterX(), getTop()));
@@ -515,6 +535,9 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
 }
 
 void Character::collisionWithFireball(Fireball* fireball) {
+    if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+        return;
+    }
     lostSuit();
     fireball->killEntity();
 }

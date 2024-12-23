@@ -93,7 +93,7 @@ protected:
     const float MAX_WALK_VELOCITY = 100.f;
     const float JET_STOMP_VELOCITY = -200.f;
 
-    const float STAR_INVICIBLE_TIME = 12.f;
+    const float STAR_INVICIBLE_TIME = 15.f;
     const float TRANSFORM_TIME = 1.f; 
 
     const float IMMORTAL_TIME = 2.f;
