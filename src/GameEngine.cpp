@@ -65,7 +65,7 @@ void GameEngine::addFireBall(Fireball* fireball) {
     this->fireball.push_back(fireball);
 }
 
-void GameEngine::addEnemy(Entity* enemy) {
+void GameEngine::addEnemy(Enemy* enemy) {
     this->enemies.push_back(enemy);
 }
 
@@ -73,12 +73,12 @@ void GameEngine::addEffect(Entity* effect) {
     this->effects.push_back(effect);
 }
 
-void GameEngine::addShell(Entity* shell) {
+void GameEngine::addShell(Enemy* shell) {
     this->enemies.push_back(shell);
     this->shells.push_back(shell);
 }
 
-void GameEngine::addItem(Entity* item) {
+void GameEngine::addItem(Item* item) {
     this->items.push_back(item);
 }
 
