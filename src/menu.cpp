@@ -254,7 +254,8 @@ void MainMenuState::handleInput() {
                     globalGameEngine = nullptr;
                     if ((menu->getSelectedMap() + 1) <= 3)
                     {
-                        menu->player->resetInGame();
+                        menu->player->setPosition({ 16,400 });
+                        menu->player->setVelocity({ 0,0 });
                         menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
                         globalGameEngine = game;

@@ -205,7 +205,7 @@ void Character::onKey(KeyboardKey key, bool pressed) {
 }
 
 void Character::update(float deltaTime) {
-    if (isDead()) return;
+    //if (isDead()) return;
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         if (!isInvicible()) {
             invicibleStarTime = 0.f;
