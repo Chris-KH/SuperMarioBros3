@@ -18,5 +18,6 @@ public:
 	static void drawStatusBar(const Character* player);
 	static void drawPauseMenu();
 	static void drawLevelClear();
+	static void drawDeathScreen();
 	//static void drawButton(const Rectangle& rect);
 };

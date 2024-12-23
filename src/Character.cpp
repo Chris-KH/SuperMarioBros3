@@ -267,7 +267,8 @@ void Character::update(float deltaTime) {
     }
     else if (phase == DEAD_PHASE) {
         RESOURCE_MANAGER.playSound("lost_life.wav");
-        resetInGame();
+        setLostLife(true);
+        // set animation -> death
         lives--;
     }
     else if (phase == EXIT_PHASE) {
@@ -421,9 +422,8 @@ void Character::transform(STATE type) {
 
 void Character::lostSuit() {
     if (state->getState() == NORMAL) {
-        lives--;
-        setLostLife(true);
-        RESOURCE_MANAGER.playSound("lost_life.wav");
+        //setLostLife(true);
+        setPhase(DEAD_PHASE);
         return;
     }
     else if (state->getState() == SUPER) {

@@ -25,6 +25,7 @@ private:
     GameCamera camera;  
     bool isPaused;
     bool cleared = false;
+    bool died = false;
     float deltaTime;
 
 public:

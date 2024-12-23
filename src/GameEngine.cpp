@@ -205,7 +205,7 @@ void GameEngine::render(float deltaTime) {
 
     for (Entity* i : blocks) {
         i->draw(deltaTime);
-        DrawRectangleRec(i->getRectangle(), BLACK);
+        //DrawRectangleRec(i->getRectangle(), BLACK);
     }
         
     for (Entity* i : enemies) {

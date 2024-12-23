@@ -66,3 +66,19 @@ void GUI::drawLevelClear()
     DrawText("CLEARED", 440, 370, 90, BLACK);
     DrawText("Press Enter to continue", 360, 550, 45, BLACK);
 }
+
+void GUI::drawDeathScreen()
+{
+    const char* text = "YOU DIED";
+    int fontSize = 90;
+    int screenWidth = 1280;
+    int screenHeight = 800;
+
+    int textWidth = MeasureText(text, fontSize);
+    int textHeight = fontSize;
+
+    int posX = (screenWidth - textWidth) / 2;
+    int posY = (screenHeight - textHeight) / 2;
+
+    DrawText(text, posX, posY, fontSize, RED);
+}
