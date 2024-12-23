@@ -46,7 +46,7 @@ void ItemBlock::releaseItem(const Sprite* object)
         isBouncing = true;
         bounceTime = 0.0f; // Reset bounce timer
         ItemFactory& factory = ItemFactory::getInstance();
-        Item* release = factory.createItem(item, getPosition(), object->getOrientation(), subType);
+        Item* release = factory.createItem(item, {getX(), getY() - getSize().y / 2.f}, object->getOrientation(), subType);
         release->setAppearBottom(getTop());
         if (item == COIN)
             globalGameEngine->addScore(100);

@@ -7,7 +7,9 @@
 #include "../include/Shell.h"
 #include "../include/Plant.h"
 #include "../include/Mushroom.h"
+#include "../include/Flower.h"
 #include "../include/GUI.h"
+#include "../include/Effect.h"
 
 using namespace std;
 
@@ -65,20 +67,20 @@ void GameEngine::addFireBall(Fireball* fireball) {
     this->fireball.push_back(fireball);
 }
 
-void GameEngine::addEnemy(Entity* enemy) {
+void GameEngine::addEnemy(Enemy* enemy) {
     this->enemies.push_back(enemy);
 }
 
-void GameEngine::addEffect(Entity* effect) {
+void GameEngine::addEffect(Effect* effect) {
     this->effects.push_back(effect);
 }
 
-void GameEngine::addShell(Entity* shell) {
+void GameEngine::addShell(Enemy* shell) {
     this->enemies.push_back(shell);
     this->shells.push_back(shell);
 }
 
-void GameEngine::addItem(Entity* item) {
+void GameEngine::addItem(Item* item) {
     this->items.push_back(item);
 }
 
@@ -200,6 +202,13 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
+    for (Entity* i : items) {
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
+
     for (Entity* i : blocks)
         i->draw(deltaTime);
     for (Entity* i : enemies) {
@@ -212,12 +221,6 @@ void GameEngine::render(float deltaTime) {
             i->draw(deltaTime);
     }
     for (Entity* i : fireball) {
-        if (isPaused)
-            i->draw(0);
-        else
-            i->draw(deltaTime);
-    }
-    for (Entity* i : items) {
         if (isPaused)
             i->draw(0);
         else
@@ -261,30 +264,49 @@ void GameEngine::render(float deltaTime) {
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
-        DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
+        if (cleared)
+            GUI::drawLevelClear();
+        else
+            GUI::drawPauseMenu();
     }
 
     EndDrawing();
 }
 
 bool GameEngine::run() {
-    /*Item* testItem = new Mushroom(MUSHROOM_1UP, { 300, 450 });
-    items.push_back(testItem);*/
+    Item* testItem = new Flower(FIRE_FLOWER, { 300, 450 });
+    items.push_back(testItem);
+    bool flag = true;
+    RESOURCE_MANAGER.stopCurrentMusic();
+    RESOURCE_MANAGER.playMusic(level->getMusic());
+    // Load and play the new music
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
             float deltaTime = GetFrameTime();
             this->deltaTime = deltaTime;
             if (SETTINGS.isMusicEnabled())
-                UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+                UpdateMusicStream(*RESOURCE_MANAGER.getMusic(level->getMusic()));
 
             update(deltaTime);
             render(deltaTime);
         }
-
-        if (player->getX() >= map.getMapSize().x) {
-            return true; // finished the level
+        if (cleared == true && isPaused == false)
+        {
+            RESOURCE_MANAGER.stopCurrentMusic();
+            RESOURCE_MANAGER.playMusic("Overworld.mp3");
+            return true;
         }
+        if (player->getX() >= map.getMapSize().x) {
+            cleared = true;
+            isPaused = true;
+            if (flag)
+            RESOURCE_MANAGER.playSound("level_clear.wav");
+            flag = false;
+
+        }   
     }
+    RESOURCE_MANAGER.stopCurrentMusic();
+    RESOURCE_MANAGER.playMusic("Overworld.mp3");
     return false;
 }
 
