@@ -26,6 +26,7 @@ private:
     bool isPaused;
     bool cleared = false;
     bool died = false;
+    float time;
     float deltaTime;
 
 public:
@@ -43,6 +44,8 @@ public:
     void render(float deltaTime);
     bool run();
     float getGlobalTime();
+    float getRemainingTime();
+    float resetTimer();
     Vector2 getBound();
 };
 extern GameEngine* globalGameEngine;

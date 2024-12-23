@@ -10,6 +10,7 @@
 #include "../include/Flower.h"
 #include "../include/GUI.h"
 #include "../include/Effect.h"
+#include"../include/Character.h"
 
 using namespace std;
 
@@ -26,6 +27,8 @@ GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Char
     items = map.getItems();
     decor = map.getDecor();
     isPaused = false;
+    this->time = 300;
+    resetTimer();
     deltaTime = 0.f;
 }
 
@@ -93,12 +96,13 @@ void GameEngine::update(float deltaTime) {
             died = false;
             player->setLostLife(false);
             player->resetInGame();
+            resetTimer();
         }
     }
     if (isPaused) {
         return;
     }
-
+    this->time -= deltaTime;
     for (size_t i = 0; i < blocks.size(); i++) {
         if (blocks[i]->isDead()) {
             delete blocks[i];
@@ -319,6 +323,8 @@ bool GameEngine::run() {
             flag = false;
             player->setVelocity({ 0.f, 0.f });
         }   
+        if (this->time <= 0)
+            player->setPhase(Character::DEAD_PHASE); 
         if (player->isLostLife())
         {
             died = true;
@@ -339,6 +345,16 @@ float GameEngine::getGlobalTime()
     return deltaTime;
 }
 
+float GameEngine::resetTimer()
+{
+    this->time = 300;
+    return 300.f;
+}
+
+float GameEngine::getRemainingTime()
+{
+    return this->time;
+}
 Vector2 GameEngine::getBound()
 {
     return map.getMapSize();
