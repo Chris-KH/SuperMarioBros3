@@ -827,55 +827,126 @@ public:
     }
 };
 
-class EnemyEmenyStrat : public CollisionStrategy {
+class FireballItemBlockStrat : public CollisionStrategy
+{
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {
         Fireball* ball = dynamic_cast<Fireball*>(entityA);
-        BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
+        ItemBlock* block = dynamic_cast<ItemBlock*>(entityB);
 
         if (!ball || !block || ball->isCollisionAvailable() == false)
             return false;
 
-        if (ball->getFireballType() == PLANT) {
-            return false;
+        float deltaTime = GetFrameTime();
+        Rectangle ballRect = ball->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+        Vector2 prevPosition = ball->getPosition();
+        Vector2 nextPosition = {
+            prevPosition.x,
+            prevPosition.y + ball->getVelocity().y * deltaTime
+        };
+
+        Rectangle sweptRect = {
+            prevPosition.x,
+            nextPosition.y,
+            ballRect.width,
+            ballRect.height
+        };
+
+        if (CheckCollisionRecs(sweptRect, blockRect)) {
+            ball->collisionWithBlock(block, NONE_EDGE);
+            block->releaseItem();
+            return true;
         }
+
+        return false;
+
+    }
+};
+
+class FireballBrickStrat : public CollisionStrategy
+{
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Fireball* ball = dynamic_cast<Fireball*>(entityA);
+        Brick* block = dynamic_cast<Brick*>(entityB);
+
+        if (!ball || !block || ball->isCollisionAvailable() == false)
+            return false;
+
+        float deltaTime = GetFrameTime();
+        Rectangle ballRect = ball->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+        Vector2 prevPosition = ball->getPosition();
+        Vector2 nextPosition = {
+            prevPosition.x,
+            prevPosition.y + ball->getVelocity().y * deltaTime
+        };
+
+        Rectangle sweptRect = {
+            prevPosition.x,
+            nextPosition.y,
+            ballRect.width,
+            ballRect.height
+        };
+
+        if (CheckCollisionRecs(sweptRect, blockRect)) {
+            ball->collisionWithBlock(block, NONE_EDGE);
+            block->breakBrick();
+            return true;
+        }
+
+        return false;
+
+    }
+};
+
+
+
+class EnemyEmenyStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Enemy* enemy1 = dynamic_cast<Enemy*>(entityA);
+        Enemy* enemy2 = dynamic_cast<Enemy*>(entityB);
+
+        if (!enemy1 || !enemy2 || enemy1->isCollisionAvailable() == false || enemy2->isCollisionAvailable() == false)
+            return false;
+
 
         float deltaTime = GetFrameTime();
 
-        Vector2 velocity = ball->getVelocity();
-        Rectangle ballRect = ball->getRectangle();
-        Rectangle blockRect = block->getRectangle();
+        Vector2 enemy1Velocity = enemy1->getVelocity();
+        Vector2 enemy2Velocity = enemy2->getVelocity();
+        Rectangle enemy1Rect = enemy1->getRectangle();
+        Rectangle enemy2Rect = enemy2->getRectangle();
 
-        if (velocity.y != 0) {
-            Rectangle verticalRect = {
-                ballRect.x,
-                ballRect.y + velocity.y * deltaTime,
-                ballRect.width,
-                ballRect.height
-            };
+        Vector2 enemy1NextPos = {
+            enemy1Rect.x + enemy1Velocity.x * deltaTime,
+            enemy1Rect.y + enemy1Velocity.y * deltaTime
+        };
 
-            if (CheckCollisionRecs(verticalRect, blockRect)) {
-                if (velocity.y > 0) {
-                    ball->collisionWithBlock(block, TOP_EDGE);
-                    return true;
-                }
-                else if (velocity.y < 0) {
-                    ball->collisionWithBlock(block, BOTTOM_EDGE);
-                }
-            }
-        }
+        Vector2 enemy2NextPos = {
+            enemy2Rect.x + enemy2Velocity.x * deltaTime,
+            enemy2Rect.y + enemy2Velocity.y * deltaTime
+        };
 
-        if (velocity.x != 0) {
-            Rectangle horizontalRect = {
-                ballRect.x + velocity.x * deltaTime,
-                ballRect.y,
-                ballRect.width,
-                ballRect.height
-            };
+        Rectangle future1 = {
+            enemy1NextPos.x,
+            enemy1NextPos.y,
+            enemy1Rect.width,
+            enemy1Rect.height
+        };
 
-            if (CheckCollisionRecs(horizontalRect, blockRect)) {
-                ball->collisionWithBlock(block, NONE_EDGE);
-            }
+        Rectangle future2 = {
+            enemy2NextPos.x,
+            enemy2NextPos.y,
+            enemy2Rect.width,
+            enemy2Rect.height
+        };
+
+        if (CheckCollisionRecs(future1, future2)) {
+            
+            return true;
         }
 
         return false;
@@ -931,6 +1002,10 @@ public:
             if (block && block->getBlockType() == FLOOR) {
                 return std::make_unique<FireballFloorStrat>();
             }
+            if (block && block->getBlockType() == ITEMBLOCK)
+                return std::make_unique<FireballItemBlockStrat>();
+            if (block && block->getBlockType() == BRICK)
+                return std::make_unique<FireballBrickStrat>();
 
             return std::make_unique<FireballBlockStrat>();
         }

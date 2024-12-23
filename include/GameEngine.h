@@ -6,6 +6,9 @@
 #include "Map.h"
 #include <vector>
 
+class Effect;
+class Enemy;
+
 class GameEngine {
 private:
     Level* level;      
@@ -41,5 +44,4 @@ public:
     float getGlobalTime();
 };
 extern GameEngine* globalGameEngine;
-
 #endif

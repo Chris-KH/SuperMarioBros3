@@ -121,6 +121,7 @@ void Fireball::collisionWithBlock(const BaseBlock* block, Edge edge) {
 	}
 	else {
 		killEntity();
+		setCollisionAvailable(false);
 		RESOURCE_MANAGER.playSound("bump.wav");
 		//Add smoke effect;
 	}

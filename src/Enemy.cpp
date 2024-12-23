@@ -3,7 +3,7 @@
 #include "../include/GameEngine.h"
 #include "../include/Effect.h"
 #include "../include/TextEffect.h"
-#include "../include/Fireball.h"d
+#include "../include/Fireball.h"
 
 Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
     stompable = false;
