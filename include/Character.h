@@ -99,10 +99,10 @@ protected:
     const float MAX_WALK_VELOCITY = 100.f;
     const float JET_STOMP_VELOCITY = -200.f;
 
-    const float STAR_INVICIBLE_TIME = 15.f;
+    const float STAR_INVICIBLE_TIME = 12.f;
     const float TRANSFORM_TIME = 1.f; 
 
-    const float IMMORTAL_TIME = 2.f;
+    const float IMMORTAL_TIME = 3.f;
     const float FIREBALL_CHARGE_TIME = 0.f;
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);

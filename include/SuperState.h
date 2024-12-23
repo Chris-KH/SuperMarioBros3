@@ -7,7 +7,7 @@
 class SuperState : public CharacterState {
 	friend class Character;
 public:
-	SuperState(Character* character) : CharacterState(character) {
+	SuperState(Character* character = nullptr) : CharacterState(character) {
 		setAnimation();
 	}
 	~SuperState() = default;

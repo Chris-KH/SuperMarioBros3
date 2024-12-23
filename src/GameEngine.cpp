@@ -98,6 +98,9 @@ void GameEngine::update(float deltaTime) {
             player->resetInGame();
             resetTimer();
         }
+        else if (isPaused) {
+            RESOURCE_MANAGER.playSound("pause.wav");
+        }
     }
     if (isPaused) {
         return;

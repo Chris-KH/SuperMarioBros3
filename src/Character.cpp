@@ -35,7 +35,7 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     countThrowTime = 0.f;
     countImmortalTime = 0.f;
     specificVelocity = { 0.f, 0.f };
-    renderImmortal = { true, true, true, true, true, true, true, true, true, false };
+    renderImmortal = { true, true, true, true, true, true, false, false, false, false, false, false };
     indexRender = 0u;
 
     idleLeft = nullptr;
@@ -165,7 +165,6 @@ void Character::draw(float deltaTime) {
         else {
             currentAnimation->update(deltaTime);
         }
-        return;
     }
     else currentAnimation->update(deltaTime);
     
@@ -234,6 +233,7 @@ void Character::update(float deltaTime) {
         if (countImmortalTime > 0.f) {
             countImmortalTime = max(0.f, countImmortalTime - deltaTime);
             indexRender = (indexRender + 1) % renderImmortal.size();
+            RESOURCE_MANAGER.playSound("lost_suit.wav");
         }
         else setCollisionAvailable(true);
 
@@ -436,23 +436,18 @@ void Character::lostSuit() {
     }
     else if (state->getState() == SUPER) {
         transform(NORMAL);
-        RESOURCE_MANAGER.playSound("lost_suit.wav");
     }
     else if (state->getState() == FIRE) {
         transform(SUPER);
-        RESOURCE_MANAGER.playSound("lost_suit.wav");
     }
     else if (state->getState() == STARMAN) {
         transform(NORMAL);
-        RESOURCE_MANAGER.playSound("lost_suit.wav");
     }
     else if (state->getState() == SUPERSTARMAN) {
         transform(SUPER);
-        RESOURCE_MANAGER.playSound("lost_suit.wav");
     }
     else if (state->getState() == FIRESTARMAN) {
         transform(FIRE);
-        RESOURCE_MANAGER.playSound("lost_suit.wav");
     }
 
     countImmortalTime = IMMORTAL_TIME;

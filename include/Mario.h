@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MARIO_H
+#define MARIO_H
+
 #include "Character.h"
 
 class Mario : public Character {
@@ -24,3 +26,4 @@ public:
 
 	void reset();
 };
+#endif // !MARIO_H
