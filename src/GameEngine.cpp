@@ -306,6 +306,10 @@ bool GameEngine::run() {
             flag = false;
             player->setVelocity({ 0.f, 0.f });
         }   
+        if (player->getLives() < 0)
+        {
+            break;
+        }
     }
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
@@ -315,4 +319,9 @@ bool GameEngine::run() {
 float GameEngine::getGlobalTime()
 {
     return deltaTime;
+}
+
+Vector2 GameEngine::getBound()
+{
+    return map.getMapSize();
 }

@@ -1,5 +1,5 @@
 ﻿#include "../include/Sprite.h"
-
+#include "../include/GameEngine.h"
 Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
     : Entity(pos, size, color),
     velocity({ 0, 0 }), 
@@ -48,8 +48,12 @@ void Sprite::setYAcceleration(float ay) {
 
 void Sprite::update(float deltaTime) {
     if (isDead()) return;
-
-    //Check out map
+    if (globalGameEngine)
+    {
+        Vector2 bound = globalGameEngine->getBound();
+        if (this->getX() > bound.x || this->getY() > bound.y)
+            killEntity();
+    }
 }
 
 void Sprite::draw(float deltaTime) {
