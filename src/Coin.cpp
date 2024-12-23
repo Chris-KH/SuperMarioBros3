@@ -34,6 +34,8 @@ ItemType Coin::getItemType() const {
 }
 
 void Coin::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 	if (gravityAvailable) {
 		setYVelocity(getVelocity().y + GRAVITY * deltaTime);

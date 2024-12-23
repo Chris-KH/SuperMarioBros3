@@ -4,8 +4,6 @@ Mushroom::Mushroom(MushroomType type, Vector2 position, Orientation orientation)
 	this->type = type;
 	this->orientation = orientation;
 
-	setPosition(position);
-
 	if (type == MUSHROOM_SUPER) {
 		mushroomAnimation = RESOURCE_MANAGER.getAnimation("super_mushroom_item")->clone();
 	}
@@ -14,6 +12,7 @@ Mushroom::Mushroom(MushroomType type, Vector2 position, Orientation orientation)
 	}
 
 	setAnimation(mushroomAnimation);
+	setPosition(position);
 	setCollisionAvailable(false);
 	RESOURCE_MANAGER.playSound("mushroom_appears.wav");
 }
@@ -32,6 +31,8 @@ ItemType Mushroom::getItemType() const {
 }
 
 void Mushroom::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 	
 	if (isAppear()) {

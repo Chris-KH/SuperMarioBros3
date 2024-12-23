@@ -52,6 +52,8 @@ EnemyType GoomBa::getEnemyType() const {
 }
 
 void GoomBa::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);

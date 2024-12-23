@@ -29,6 +29,8 @@ EntityType Effect::getType() const {
 }
 
 void Effect::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (duration <= 0.f) {

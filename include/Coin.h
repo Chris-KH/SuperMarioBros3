@@ -6,8 +6,8 @@ class GameEngine;
 class Coin : public Item {
 private:
 	float BLOCK_COIN_LIFE_TIME = 0.5f;
-	const int POINT = 100;
-	const float COIN_UP_VELOCITY = 100.f;
+	static constexpr int POINT = 100;
+	static constexpr float COIN_UP_VELOCITY = 100.f;
 	CoinType type;
 	Animation* coinAnimation;
 

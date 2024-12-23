@@ -11,6 +11,7 @@ Flower::Flower(FlowerType type, Vector2 position, Orientation orientation) : Ite
 
 	}
 
+	setCollisionAvailable(false);
 	setYVelocity(0.f);
 	setAnimation(flowerAniamtion);
 	setPosition(position);
@@ -30,6 +31,8 @@ ItemType Flower::getItemType() const  {
 }
 
 void Flower::update(float deltaTime)  {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (isAppear()) {

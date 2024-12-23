@@ -48,6 +48,8 @@ void Sprite::setYAcceleration(float ay) {
 
 void Sprite::update(float deltaTime) {
     if (isDead()) return;
+
+    //Check out map
 }
 
 void Sprite::draw(float deltaTime) {

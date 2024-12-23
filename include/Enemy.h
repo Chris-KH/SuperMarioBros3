@@ -25,7 +25,7 @@ public:
     virtual EnemyType getEnemyType() const = 0;
     
     // Method to move enemy (AI-controlled)
-    virtual void update(float deltaTime) override;
+    virtual void update(float deltaTime) override = 0;
 
     Orientation getRandomOrientation();
 
