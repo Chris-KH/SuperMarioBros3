@@ -79,7 +79,7 @@ void GameEngine::addEffect(Effect* effect) {
     this->effects.push_back(effect);
 }
 
-void GameEngine::addShell(Enemy* shell) {
+void GameEngine::addShell(Shell* shell) {
     this->enemies.push_back(shell);
     this->shells.push_back(shell);
 }
@@ -126,9 +126,15 @@ void GameEngine::update(float deltaTime) {
 
     for (size_t i = 0; i < enemies.size(); i++) {
         if (enemies[i]->isDead()) {
-            auto it = find(shells.begin(), shells.end(), enemies[i]);
-            if (it != shells.end()) {
-                shells.erase(it);
+            if (enemies[i]->getEnemyType() == SHELL) {
+                auto it = find(shells.begin(), shells.end(), enemies[i]);
+                if (it != shells.end()) {
+                    if (enemies[i] == player->getHoldShell()) {
+                        player->setHoldingShell(nullptr);
+                        player->setHolding(false);
+                    }
+                    shells.erase(it);
+                }
             }
             delete enemies[i];
             enemies[i] = nullptr;
@@ -194,7 +200,17 @@ void GameEngine::handleCollision() {
 
     player->setJumping(!isGrounded);
 
+    for (size_t i = 0; i < shells.size(); i++) {
+        if (shells[i]->getIsHold() == false && shells[i]->getIsKicked() == false) continue;
+        for (size_t j = 0; j < enemies.size(); j++) {
+            if (shells[i] == enemies[j]) continue;
+            IColl.resolve(shells[i], enemies[j]);
+        }
+    }
+
     for (size_t i = 0; i < enemies.size(); i++) {
+        if (enemies[i]->getEnemyType() == SHELL && player->getHoldShell() == enemies[i]) continue;
+
         for (Fireball* ball : fireball) {
             if (ball->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(ball, enemies[i]);
         }

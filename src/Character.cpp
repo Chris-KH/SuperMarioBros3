@@ -572,6 +572,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                         setHolding(true);
                         setHoldingShell(shell);
                         shell->setGravityAvailable(false);
+                        shell->setIsHold(true);
                     }
                     else {
                         shell->kicked(RIGHT);
@@ -584,7 +585,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                         setHolding(true);
                         setHoldingShell(shell);
                         shell->setGravityAvailable(false);
-                        setAnimation(holdLeft);
+                        shell->setIsHold(true);
                     }
                     else {
                         shell->kicked(LEFT);

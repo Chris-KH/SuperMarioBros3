@@ -20,7 +20,7 @@ private:
     std::vector<Fireball*> fireball;
     std::vector<Effect*> effects;
     std::vector<BaseBlock*> decor;
-    std::vector<Enemy*> shells;
+    std::vector<Shell*> shells;
     std::vector<Entity*> testEntities;
     GameCamera camera;  
     bool isPaused;
@@ -37,7 +37,7 @@ public:
     void addFireBall(Fireball* fireball);
     void addEnemy(Enemy* enemy);
     void addEffect(Effect* effect);
-    void addShell(Enemy* shell);
+    void addShell(Shell* shell);
     void addItem(Item* item);
     void update(float deltaTime);
     void handleCollision();
