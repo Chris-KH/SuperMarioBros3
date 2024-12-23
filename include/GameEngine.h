@@ -42,6 +42,7 @@ public:
     void render(float deltaTime);
     bool run();
     float getGlobalTime();
+    Vector2 getBound();
 };
 extern GameEngine* globalGameEngine;
 #endif

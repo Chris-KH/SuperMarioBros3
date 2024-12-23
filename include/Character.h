@@ -105,7 +105,7 @@ public:
     virtual EntityType getType() const override;
 
     virtual CharacterType getCharacterType() const = 0;
-
+    virtual void resetInGame();
     virtual void update(float deltaTime) override;
         
     virtual void onKey(KeyboardKey key, bool pressed) override;

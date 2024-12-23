@@ -89,6 +89,24 @@ void Character::reset() {
     specificVelocity = { 0.f, 0.f };
     transform(NORMAL);
 }
+void Character::resetInGame()
+{
+    setPosition({ 16, 400 });
+    setVelocity({ 0,0 });
+    phase = DEFAULT_PHASE;
+    orientation = RIGHT;
+    jumping = false;
+    holding = false;
+    lostLife = false;
+    invicibleStarTime = 0.f;
+    sitting = false;
+    holdShell = nullptr;
+    movingBlockStandOn = nullptr;
+    countThrowTime = 0.f;
+    countImmortalTime = 0.f;
+    specificVelocity = { 0.f, 0.f };
+    transform(NORMAL);
+}
 
 STATE Character::getState() const {
     return state->getState();
@@ -194,16 +212,19 @@ void Character::update(float deltaTime) {
             lostSuit();
         }
     }
+    Vector2 bound = globalGameEngine->getBound();
+    if ( this->getY() > bound.y)
+        setPhase(DEAD_PHASE);
 
     if (phase == DEFAULT_PHASE) {
         Sprite::update(deltaTime);
 
 
         setVelocity(specificVelocity);
-
-        state->update(deltaTime);
-        INPUT_MANAGER.update();
-        countThrowTime += deltaTime;
+         
+        state->update(deltaTime); 
+        INPUT_MANAGER.update(); 
+        countThrowTime += deltaTime; 
         countThrowTime = min(countThrowTime, 3.f);
 
         if (countImmortalTime <= 0.f) setCollisionAvailable(true);
@@ -245,7 +266,9 @@ void Character::update(float deltaTime) {
         //transform
     }
     else if (phase == DEAD_PHASE) {
-        //dead
+        RESOURCE_MANAGER.playSound("lost_life.wav");
+        resetInGame();
+        lives--;
     }
     else if (phase == EXIT_PHASE) {
         //exit
