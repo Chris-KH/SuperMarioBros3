@@ -203,8 +203,11 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
-    for (Entity* i : blocks)
+    for (Entity* i : blocks) {
         i->draw(deltaTime);
+        DrawRectangleRec(i->getRectangle(), BLACK);
+    }
+        
     for (Entity* i : enemies) {
         if (player->getHoldShell() != nullptr) {
             if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
