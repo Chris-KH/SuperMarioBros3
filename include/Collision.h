@@ -204,7 +204,7 @@ public:
                 else if (velocity.y < 0) {
                     player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
                     player->setYVelocity(0.f);
-                    block->releaseItem();
+                    block->releaseItem(player);
                 }
             }
         }
@@ -855,7 +855,7 @@ public:
 
         if (CheckCollisionRecs(sweptRect, blockRect)) {
             ball->collisionWithBlock(block, NONE_EDGE);
-            block->releaseItem();
+            block->releaseItem(ball);
             return true;
         }
 

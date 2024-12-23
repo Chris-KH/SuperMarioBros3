@@ -18,7 +18,7 @@ private:
     std::vector<Enemy*> enemies;
     std::vector<Item*> items;
     std::vector<Fireball*> fireball;
-    std::vector<Entity*> effects;
+    std::vector<Effect*> effects;
     std::vector<BaseBlock*> decor;
     std::vector<Enemy*> shells;
     std::vector<Entity*> testEntities;
@@ -34,7 +34,7 @@ public:
     void addScore(int amount);
     void addFireBall(Fireball* fireball);
     void addEnemy(Enemy* enemy);
-    void addEffect(Entity* effect);
+    void addEffect(Effect* effect);
     void addShell(Enemy* shell);
     void addItem(Item* item);
     void update(float deltaTime);

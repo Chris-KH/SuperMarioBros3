@@ -2,6 +2,6 @@ AudioEnabled: true
 MusicEnabled: true
 SelectedMap: 2
 CharacterType: 0
-Lives: 6
+Lives: 5
 Coins: 0
-Scores: 200
+Scores: 0

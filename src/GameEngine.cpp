@@ -7,7 +7,9 @@
 #include "../include/Shell.h"
 #include "../include/Plant.h"
 #include "../include/Mushroom.h"
+#include "../include/Flower.h"
 #include "../include/GUI.h"
+#include "../include/Effect.h"
 
 using namespace std;
 
@@ -69,7 +71,7 @@ void GameEngine::addEnemy(Enemy* enemy) {
     this->enemies.push_back(enemy);
 }
 
-void GameEngine::addEffect(Entity* effect) {
+void GameEngine::addEffect(Effect* effect) {
     this->effects.push_back(effect);
 }
 
@@ -200,6 +202,13 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
+    for (Entity* i : items) {
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
+
     for (Entity* i : blocks)
         i->draw(deltaTime);
     for (Entity* i : enemies) {
@@ -212,12 +221,6 @@ void GameEngine::render(float deltaTime) {
             i->draw(deltaTime);
     }
     for (Entity* i : fireball) {
-        if (isPaused)
-            i->draw(0);
-        else
-            i->draw(deltaTime);
-    }
-    for (Entity* i : items) {
         if (isPaused)
             i->draw(0);
         else
@@ -271,7 +274,7 @@ void GameEngine::render(float deltaTime) {
 }
 
 bool GameEngine::run() {
-    Item* testItem = new Mushroom(MUSHROOM_1UP, { 300, 450 });
+    Item* testItem = new Flower(FIRE_FLOWER, { 300, 450 });
     items.push_back(testItem);
     bool flag = true;
     RESOURCE_MANAGER.stopCurrentMusic();
