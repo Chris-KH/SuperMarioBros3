@@ -88,6 +88,12 @@ void GameEngine::addItem(Item* item) {
 void GameEngine::update(float deltaTime) {
     if (IsKeyPressed(KEY_ENTER)) {
         isPaused = !isPaused;
+        if (died)
+        {
+            died = false;
+            player->setLostLife(false);
+            player->resetInGame();
+        }
     }
     if (isPaused) {
         return;
@@ -227,7 +233,10 @@ void GameEngine::render(float deltaTime) {
             i->draw(deltaTime);
     }
 
-    player->draw(deltaTime);
+    if (isPaused)
+            player->draw(0);
+        else
+            player->draw(deltaTime);
 
     for (Entity* i : effects) {
         if (isPaused)
@@ -267,6 +276,8 @@ void GameEngine::render(float deltaTime) {
         if (cleared) {
             GUI::drawLevelClear();
         }
+        else if (died)
+            GUI::drawDeathScreen();
         else
             GUI::drawPauseMenu();
     }
@@ -305,7 +316,12 @@ bool GameEngine::run() {
             RESOURCE_MANAGER.playSound("level_clear.wav");
             flag = false;
             player->setVelocity({ 0.f, 0.f });
-        }   
+        } 
+        if (player->isLostLife())
+        {
+            died = true;
+            isPaused = true;
+        }
         if (player->getLives() < 0)
         {
             break;
