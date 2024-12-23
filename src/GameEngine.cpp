@@ -23,6 +23,7 @@ GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Char
     camera.loadRenderTexture(Msize);
     blocks = map.getBlocks();
     enemies = map.getEnemies();
+    items = map.getItems();
     decor = map.getDecor();
     isPaused = false;
     deltaTime = 0.f;
