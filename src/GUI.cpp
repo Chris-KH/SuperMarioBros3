@@ -1,5 +1,6 @@
 #include"../include/GUI.h"
 #include"../include/Character.h"
+#include "../include/GameEngine.h"
 
 Texture2D GUI::heartTexture;
 Texture2D GUI::coinTexture;
@@ -15,6 +16,8 @@ void GUI::drawStatusBar(const Character* player) {
     source = { 20.f, 20.f, 1138.f / 4.f, 397.f / 4.f };
     DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
     source = { 20.f, 120.f, 1138.f / 4.f, 397.f / 4.f };
+    DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
+    source = { 490.f, 120.f, 1138.f / 4.f, 397.f / 4.f };
     DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
 
     dest = { 28.f, 1934.f, 1571.f, 421.f };
@@ -45,7 +48,13 @@ void GUI::drawStatusBar(const Character* player) {
     DrawTexturePro(multiplicationSign, dest, source, { 0.f, 0.f }, 0.f, WHITE);
     //
 
+<<<<<<< HEAD
     DrawText(to_string(player->getScores()).c_str(), static_cast<int>(440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f), 45, 45, BLACK);
+=======
+    DrawText(to_string(player->getScores()).c_str(), 440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f, 45, 45, BLACK);
+    int timer = floor((globalGameEngine->getRemainingTime()));
+    DrawText(to_string(timer).c_str(), 440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(timer).c_str(), 45.f, 0.f).x / 2.f, 145, 45, BLACK);
+>>>>>>> ea1bfc4cfb921c952fd76349912ac48987a1de91
 }
 
 void GUI::drawPauseMenu()
@@ -65,4 +74,20 @@ void GUI::drawLevelClear()
     DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
     DrawText("CLEARED", 440, 370, 90, BLACK);
     DrawText("Press Enter to continue", 360, 550, 45, BLACK);
+}
+
+void GUI::drawDeathScreen()
+{
+    const char* text = "YOU DIED";
+    int fontSize = 90;
+    int screenWidth = 1280;
+    int screenHeight = 800;
+
+    int textWidth = MeasureText(text, fontSize);
+    int textHeight = fontSize;
+
+    int posX = (screenWidth - textWidth) / 2;
+    int posY = (screenHeight - textHeight) / 2;
+
+    DrawText(text, posX, posY, fontSize, RED);
 }

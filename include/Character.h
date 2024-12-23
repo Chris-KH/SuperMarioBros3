@@ -1,6 +1,8 @@
-#pragma once
-#include"Animation.h"
-#include"Sprite.h"
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
+#include "Animation.h"
+#include "Sprite.h"
 //#include "Hitbox.h"
 #include"Global.h"
 #include"CharacterState.h"
@@ -64,6 +66,8 @@ protected:
 	Animation* throwRight; 
 	Animation* kickRight;
 
+    Animation* deadAniamtion;
+
     //Animation* lostSuperSuit;
     //Animation* lostFireSuit;
 
@@ -86,9 +90,11 @@ protected:
 
     float countThrowTime;
     float countImmortalTime;
+    unsigned indexRender;
+    vector<bool> renderImmortal;
 
-    const float DEAD_PLAYER_INITIAL_VELOCITY = 300.f; 
-    const float DEAD_PLAYER_GRAVITY = 1000.f;      
+    const float DEAD_PLAYER_INITIAL_VELOCITY = 400.f; 
+    const float DEAD_PLAYER_GRAVITY = 1200.f;      
 
     const float MAX_WALK_VELOCITY = 100.f;
     const float JET_STOMP_VELOCITY = -200.f;
@@ -97,7 +103,7 @@ protected:
     const float TRANSFORM_TIME = 1.f; 
 
     const float IMMORTAL_TIME = 2.f;
-    const float FIREBALL_CHARGE_TIME = 1.5f;
+    const float FIREBALL_CHARGE_TIME = 0.f;
 public:
     Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
     virtual ~Character();
@@ -105,7 +111,7 @@ public:
     virtual EntityType getType() const override;
 
     virtual CharacterType getCharacterType() const = 0;
-
+    virtual void resetInGame();
     virtual void update(float deltaTime) override;
         
     virtual void onKey(KeyboardKey key, bool pressed) override;
@@ -119,16 +125,10 @@ public:
 
     virtual STATE getState() const;
     bool isInvicible() const;
-    bool isSitting() const {
-        return sitting;
-    }
+    bool isSitting() const;
 
-    bool isLostLife() const {
-        return this->lostLife;
-    }
-    void setLostLife(bool lostLife) {
-        this->lostLife = lostLife;
-    }
+    bool isLostLife() const;
+    void setLostLife(bool lostLife);
     bool isIdle() const;
 
     int getLives() const;
@@ -140,25 +140,12 @@ public:
     int getScores() const;
     void setScores(int score);
 
-    bool isHolding() const {
-        return this->holding;
-    }
+    bool isHolding() const;
+    void setHoldingShell(Shell* shell);
+    Shell* getHoldShell() const;
 
-    void setHoldingShell(Shell* shell) {
-        this->holdShell = shell;
-    }
-
-    Shell* getHoldShell() const {
-        return this->holdShell;
-    }
-
-    void setMovingBlockStandOn(MovingBlock* block) {
-        this->movingBlockStandOn = block;
-    }
-
-    MovingBlock* getMovingBlockStandOn() const {
-        return this->movingBlockStandOn;
-    }
+    void setMovingBlockStandOn(MovingBlock* block);
+    MovingBlock* getMovingBlockStandOn() const;
 
     void setIdleAnimation();
     void setWalkAnimation();
@@ -171,14 +158,11 @@ public:
     void setHoldAnimation();
     void setStarInvicibleTime(float invicibleStarTime);
     void setSitting(bool sitting);
-    void setHolding(bool holding) {
-        this->holding = holding;
-    }
-
+    void setHolding(bool holding);
 	void transform(STATE type);
     void lostSuit();
 	void collisionWithItem(const Item* item);
     void collisionWithEnemy(Enemy* enemy, Edge edge = TOP_EDGE);
 	void collisionWithFireball(Fireball* fireball);
 };
-
+#endif // !CHARACTER_H

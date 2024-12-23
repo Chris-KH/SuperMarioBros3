@@ -35,6 +35,8 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     countThrowTime = 0.f;
     countImmortalTime = 0.f;
     specificVelocity = { 0.f, 0.f };
+    renderImmortal = { true, true, true, true, true, true, true, true, true, false };
+    indexRender = 0u;
 
     idleLeft = nullptr;
 	walkLeft = nullptr;
@@ -59,6 +61,8 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
 	holdRight = nullptr;
 	throwRight = nullptr;
 	kickRight = nullptr;
+
+    deadAniamtion = nullptr;
 };
 
 Character::~Character() {
@@ -75,6 +79,24 @@ void Character::reset() {
     scores = 0;
     coins = 0;
     lives = 5;
+    phase = DEFAULT_PHASE;
+    orientation = RIGHT;
+    jumping = false;
+    holding = false;
+    lostLife = false;
+    invicibleStarTime = 0.f;
+    sitting = false;
+    holdShell = nullptr;
+    movingBlockStandOn = nullptr;
+    countThrowTime = 0.f;
+    countImmortalTime = 0.f;
+    specificVelocity = { 0.f, 0.f };
+    transform(NORMAL);
+}
+void Character::resetInGame()
+{
+    setPosition({ 16, 400 });
+    setVelocity({ 0,0 });
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
@@ -127,7 +149,6 @@ void Character::draw(float deltaTime) {
                 currentAnimation->update(deltaTime, 12, 3);
             }
             else currentAnimation->update(deltaTime, 1, 1);
-            currentAnimation->render(getPosition());
         }
         else if (isIdle()) {
             if (getState() == STARMAN) {
@@ -140,17 +161,21 @@ void Character::draw(float deltaTime) {
                 currentAnimation->update(deltaTime, 9, 3);
             }
             else currentAnimation->update(deltaTime, 0, 1);
-            currentAnimation->render(getPosition());
         }
         else {
             currentAnimation->update(deltaTime);
-            currentAnimation->render(getPosition());
         }
         return;
     }
+    else currentAnimation->update(deltaTime);
+    
 
-    currentAnimation->update(deltaTime);
-    currentAnimation->render(getPosition());
+    if (countImmortalTime > 0.f) {
+        if (renderImmortal[indexRender]) {
+            currentAnimation->render(getPosition());
+        }
+    }
+    else currentAnimation->render(getPosition());
 }
 
 void Character::setPhase(Phase phase) {
@@ -187,27 +212,30 @@ void Character::onKey(KeyboardKey key, bool pressed) {
 }
 
 void Character::update(float deltaTime) {
-    if (isDead()) return;
+    //if (isDead()) return;
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         if (!isInvicible()) {
             invicibleStarTime = 0.f;
             lostSuit();
         }
     }
+    Vector2 bound = globalGameEngine->getBound();
+    if (this->getY() > bound.y)
+        setPhase(DEAD_PHASE);
 
     if (phase == DEFAULT_PHASE) {
-        Sprite::update(deltaTime);
-
-
         setVelocity(specificVelocity);
-
-        state->update(deltaTime);
-        INPUT_MANAGER.update();
-        countThrowTime += deltaTime;
+         
+        state->update(deltaTime); 
+        INPUT_MANAGER.update(); 
+        countThrowTime += deltaTime; 
         countThrowTime = min(countThrowTime, 3.f);
 
-        if (countImmortalTime <= 0.f) setCollisionAvailable(true);
-        countImmortalTime = max(0.f, countImmortalTime - deltaTime);
+        if (countImmortalTime > 0.f) {
+            countImmortalTime = max(0.f, countImmortalTime - deltaTime);
+            indexRender = (indexRender + 1) % renderImmortal.size();
+        }
+        else setCollisionAvailable(true);
 
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
@@ -245,7 +273,11 @@ void Character::update(float deltaTime) {
         //transform
     }
     else if (phase == DEAD_PHASE) {
-        //dead
+        RESOURCE_MANAGER.playSound("lost_life.wav");
+        setLostLife(true);
+        //Update gravity gì đó
+        setAnimation(deadAniamtion);
+        lives--;
     }
     else if (phase == EXIT_PHASE) {
         //exit
@@ -269,22 +301,54 @@ bool Character::isIdle() const {
 
 int Character::getLives() const { return lives; }
 
-void Character::setLives(int lives)
-{
+void Character::setLives(int lives) {
     this->lives = lives;
 }
 int Character::getCoins() const { return coins; }
 
-void Character::setCoins(int coins)
-{
+void Character::setCoins(int coins) {
     this->coins = coins;
 }
 
 int Character::getScores() const { return scores; }
 
-void Character::setScores(int score)
-{
+bool Character::isSitting() const {
+    return sitting;
+}
+
+bool Character::isLostLife() const {
+    return this->lostLife;
+}
+void Character::setLostLife(bool lostLife) {
+    this->lostLife = lostLife;
+}
+
+void Character::setScores(int score) {
     this->scores = score;
+}
+
+void Character::setHolding(bool holding) {
+    this->holding = holding;
+}
+
+bool Character::isHolding() const {
+    return this->holding;
+}
+
+void Character::setHoldingShell(Shell* shell) {
+    this->holdShell = shell;
+}
+
+Shell* Character::getHoldShell() const {
+    return this->holdShell;
+}
+
+void Character::setMovingBlockStandOn(MovingBlock* block) {
+    this->movingBlockStandOn = block;
+}
+
+MovingBlock* Character::getMovingBlockStandOn() const {
+    return this->movingBlockStandOn;
 }
 
 void Character::setIdleAnimation() {
@@ -366,9 +430,8 @@ void Character::transform(STATE type) {
 
 void Character::lostSuit() {
     if (state->getState() == NORMAL) {
-        lives--;
-        setLostLife(true);
-        RESOURCE_MANAGER.playSound("lost_life.wav");
+        //setLostLife(true);
+        setPhase(DEAD_PHASE);
         return;
     }
     else if (state->getState() == SUPER) {

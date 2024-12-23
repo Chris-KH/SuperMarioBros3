@@ -10,6 +10,7 @@
 #include "../include/Flower.h"
 #include "../include/GUI.h"
 #include "../include/Effect.h"
+#include"../include/Character.h"
 
 using namespace std;
 
@@ -26,6 +27,8 @@ GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Char
     items = map.getItems();
     decor = map.getDecor();
     isPaused = false;
+    this->time = 300;
+    resetTimer();
     deltaTime = 0.f;
 }
 
@@ -88,11 +91,18 @@ void GameEngine::addItem(Item* item) {
 void GameEngine::update(float deltaTime) {
     if (IsKeyPressed(KEY_ENTER)) {
         isPaused = !isPaused;
+        if (died)
+        {
+            died = false;
+            player->setLostLife(false);
+            player->resetInGame();
+            resetTimer();
+        }
     }
     if (isPaused) {
         return;
     }
-
+    this->time -= deltaTime;
     for (size_t i = 0; i < blocks.size(); i++) {
         if (blocks[i]->isDead()) {
             delete blocks[i];
@@ -203,37 +213,45 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
-    for (Entity* i : blocks)
-        i->draw(deltaTime);
-    for (Entity* i : enemies) {
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        blocks[i]->draw(deltaTime);
+        //DrawRectangleRec(i->getRectangle(), BLACK);
+    }
+        
+    for (size_t i = 0; i < enemies.size(); ++i) {
         if (player->getHoldShell() != nullptr) {
-            if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
+            if (dynamic_cast<Shell*>(enemies[i]) == player->getHoldShell()) continue;
         }
         if (isPaused)
-            i->draw(0);
+            enemies[i]->draw(0);
         else
-            i->draw(deltaTime);
-    }
-    for (Entity* i : items) {
-        if (isPaused)
-            i->draw(0);
-        else
-            i->draw(deltaTime);
-    }
-    for (Entity* i : fireball) {
-        if (isPaused)
-            i->draw(0);
-        else
-            i->draw(deltaTime);
+            enemies[i]->draw(deltaTime);
     }
 
-    player->draw(deltaTime);
-
-    for (Entity* i : effects) {
+    for (size_t i = 0; i < items.size(); ++i) {
         if (isPaused)
-            i->draw(0);
+            items[i]->draw(0);
         else
-            i->draw(deltaTime);
+            items[i]->draw(deltaTime);
+    }
+
+    for (size_t i = 0; i < fireball.size(); ++i) {
+        if (isPaused)
+            fireball[i]->draw(0);
+        else
+            fireball[i]->draw(deltaTime);
+    }
+
+    if (isPaused)
+        player->draw(0);
+    else
+        player->draw(deltaTime);
+
+    for (size_t i = 0; i < effects.size(); ++i) {
+        if (isPaused)
+            effects[i]->draw(0);
+        else
+            effects[i]->draw(deltaTime);
     }
 
     for (Entity* i : decor)
@@ -246,27 +264,13 @@ void GameEngine::render(float deltaTime) {
 
     GUI::drawStatusBar(player);
 
-    //DrawRectangle(0, 0, GetScreenWidth(), 60, DARKGRAY); // Background bar for the stats
-
-    //DrawText("LIVES: ", 10, 10, 40, WHITE);
-    //DrawText(to_string(player->getLives()).c_str(), 160, 10, 40, WHITE);
-
-    //DrawRectangle(300, 10, 30, 40, YELLOW);
-    //DrawRectangle(310, 20, 10, 20, ORANGE);
-    //DrawText("x", 340, 10, 40, WHITE);
-    //DrawText(to_string(player->getCoins()).c_str(), 370, 10, 40, WHITE);
-
-    //DrawText("Score: ", 500, 10, 40, WHITE);
-    //DrawText(to_string(player->getScores()).c_str(), 650, 10, 40, WHITE);
-
-    //Texture2D texture = LoadTexture("../assets/Background/heart.png");
-    //DrawTexture(texture, 0, 0, WHITE);
-
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
         if (cleared) {
             GUI::drawLevelClear();
         }
+        else if (died)
+            GUI::drawDeathScreen();
         else
             GUI::drawPauseMenu();
     }
@@ -275,8 +279,6 @@ void GameEngine::render(float deltaTime) {
 }
 
 bool GameEngine::run() {
-    Item* testItem = new Flower(FIRE_FLOWER, { 300, 450 });
-    items.push_back(testItem);
     bool flag = true;
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic(level->getMusic());
@@ -285,7 +287,7 @@ bool GameEngine::run() {
         if (FPS_MANAGER.update()) {
             float deltaTime = GetFrameTime();
             this->deltaTime = deltaTime;
-            if (SETTINGS.isMusicEnabled())
+            if (SETTINGS.isMusicEnabled()&&!isPaused)
                 UpdateMusicStream(*RESOURCE_MANAGER.getMusic(level->getMusic()));
 
             update(deltaTime);
@@ -306,6 +308,17 @@ bool GameEngine::run() {
             flag = false;
             player->setVelocity({ 0.f, 0.f });
         }   
+        if (this->time <= 0)
+            player->setPhase(Character::DEAD_PHASE); 
+        if (player->isLostLife())
+        {
+            died = true;
+            isPaused = true;
+        }
+        if (player->getLives() < 0)
+        {
+            break;
+        }
     }
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
@@ -315,4 +328,19 @@ bool GameEngine::run() {
 float GameEngine::getGlobalTime()
 {
     return deltaTime;
+}
+
+float GameEngine::resetTimer()
+{
+    this->time = 300;
+    return 300.f;
+}
+
+float GameEngine::getRemainingTime()
+{
+    return this->time;
+}
+Vector2 GameEngine::getBound()
+{
+    return map.getMapSize();
 }
