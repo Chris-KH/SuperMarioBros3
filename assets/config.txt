@@ -4,4 +4,4 @@ SelectedMap: 1
 CharacterType: 0
 Lives: 5
 Coins: 0
-Scores: 0
+Scores: 1100

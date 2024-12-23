@@ -5,8 +5,8 @@
 
 class Star : public Item {
 private:
-    const int POINT = 1000;
-    const float SPEED = 70.f;
+    static constexpr int POINT = 1000;
+    static constexpr float SPEED = 70.f;
 
     StarType type;
     Animation* starAnimation;

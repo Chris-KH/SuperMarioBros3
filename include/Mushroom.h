@@ -5,13 +5,13 @@
 
 class Mushroom : public Item {
 private:
-	const int POINT = 1000;
-	const float SPEED = 70.f;
+	static constexpr int POINT = 1000;
+	static constexpr float SPEED = 70.f;
 
 	MushroomType type;
 	Animation* mushroomAnimation;
 
-	const float APPEAR_SPEED = 16.f;
+	static constexpr float APPEAR_SPEED = 16.f;
 public:
 	//Create new mushroom
 	Mushroom(MushroomType type = MUSHROOM_SUPER, Vector2 position = {0.f, 0.f}, Orientation orientation = RIGHT);

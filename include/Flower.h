@@ -5,12 +5,12 @@
 
 class Flower : public Item {
 private:
-	const int POINT = 1000;
+	static constexpr int POINT = 1000;
 
 	FlowerType type;
 	Animation* flowerAniamtion;
 
-	const float APPEAR_SPEED = 16.f;
+	static constexpr float APPEAR_SPEED = 16.f;
 public:
 	Flower(FlowerType type = FIRE_FLOWER, Vector2 position = { 0.f, 0.f }, Orientation orientation = RIGHT);
 
