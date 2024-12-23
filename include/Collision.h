@@ -911,6 +911,7 @@ public:
 
         if (!enemy1 || !enemy2 || enemy1->isCollisionAvailable() == false || enemy2->isCollisionAvailable() == false)
             return false;
+        if (enemy1->getEnemyType() != SHELL) return false;
 
 
         float deltaTime = GetFrameTime();
@@ -1008,6 +1009,9 @@ public:
                 return std::make_unique<FireballBrickStrat>();
 
             return std::make_unique<FireballBlockStrat>();
+        }
+        if (typeA == ENEMY && typeB == ENEMY) {
+
         }
 
 

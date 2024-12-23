@@ -28,6 +28,8 @@ public:
 	void update(float deltaTime) override;
 	void setIsHold(bool hold);
 	bool getIsHold() const;
+	void setIsKicked(bool kicked);
+	bool getIsKicked() const;
 	void kicked(Orientation direction = RIGHT) override;
 	void stomped(Vector2 center = { 0.f, 0.f });
 

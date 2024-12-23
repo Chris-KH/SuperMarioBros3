@@ -63,6 +63,11 @@ void Enemy::attacked() {
 
 void Enemy::collisionWithFireball(Fireball* fireball) {
     attacked();
+    fireball->setCollisionAvailable(false);
     fireball->killEntity();
+    setCollisionAvailable(false);
+    Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("smoke")->clone(), getPosition(), true, 0.f);
+    smoke->setGravityAvailable(false);
+    globalGameEngine->addEffect(smoke);
     RESOURCE_MANAGER.playSound("fireball.wav");
 }

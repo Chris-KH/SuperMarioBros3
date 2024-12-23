@@ -482,7 +482,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             shell->stomped(getCenter());
         }
         else {
-            if (enemy->isIdle()) {
+            if (!shell->getIsHold() && !shell->getIsKicked()) {
                 if (edge == LEFT_EDGE) {
                     if (IsKeyDown(KEY_LEFT_SHIFT)) {
                         setHolding(true);

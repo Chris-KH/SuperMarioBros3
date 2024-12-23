@@ -86,8 +86,17 @@ void Shell::update(float deltaTime)  {
 void Shell::setIsHold(bool hold) {
 	this->isHold = hold;
 }
+
 bool Shell::getIsHold() const {
 	return this->isHold;
+}
+
+void Shell::setIsKicked(bool kicked) {
+	this->isKicked = kicked;
+}
+
+bool Shell::getIsKicked() const {
+	return this->isKicked;
 }
 
 void Shell::kicked(Orientation direction) {
