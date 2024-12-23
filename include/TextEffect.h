@@ -9,7 +9,7 @@ private:
 
 	static constexpr float TEXT_DURATION = .5f; 
 	const float TEXT_SPEED = 400.f;
-	static constexpr float FONT_SIZE = 12.f;
+	static constexpr float FONT_SIZE = 14.f;
 	static constexpr float OUTLINE_SIZE = FONT_SIZE / 20.f;
 public:
 	TextEffect(string text, Vector2 center, float duration = TEXT_DURATION, float delay = 0.f);

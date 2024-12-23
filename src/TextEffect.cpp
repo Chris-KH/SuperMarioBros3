@@ -5,8 +5,8 @@ TextEffect::TextEffect(string text, Vector2 center, float duration, float delay)
 	this->duration = duration;
 	this->delay = delay;
 
-	Font* myFont = RESOURCE_MANAGER.getFont("WinterMinie.ttf");
-	Vector2 textSize = MeasureTextEx(*myFont, text.c_str(), FONT_SIZE, OUTLINE_SIZE);
+	//Font* myFont = RESOURCE_MANAGER.getFont("WinterMinie.ttf");
+	Vector2 textSize = MeasureTextEx(GetFontDefault(), text.c_str(), FONT_SIZE,  4 * OUTLINE_SIZE);
 	setSize(textSize);
 	setCenter(center);
 
@@ -29,10 +29,10 @@ void TextEffect::draw(float deltaTime) {
 
 	Font* myFont = RESOURCE_MANAGER.getFont("WinterMinie.ttf");
 	SetTextureFilter(myFont->texture, TEXTURE_FILTER_BILINEAR);
-	DrawTextEx(*myFont, text.c_str(), { getPosition().x, getPosition().y + OUTLINE_SIZE }, FONT_SIZE, OUTLINE_SIZE, outlineColor);
-	DrawTextEx(*myFont, text.c_str(), { getPosition().x, getPosition().y - OUTLINE_SIZE }, FONT_SIZE, OUTLINE_SIZE, outlineColor);
-	DrawTextEx(*myFont, text.c_str(), { getPosition().x + OUTLINE_SIZE, getPosition().y }, FONT_SIZE, OUTLINE_SIZE, outlineColor);
-	DrawTextEx(*myFont, text.c_str(), { getPosition().x - OUTLINE_SIZE, getPosition().y }, FONT_SIZE, OUTLINE_SIZE, outlineColor);
+	DrawTextEx(GetFontDefault(), text.c_str(), { getPosition().x, getPosition().y + OUTLINE_SIZE }, FONT_SIZE, 4 * OUTLINE_SIZE, outlineColor);
+	DrawTextEx(GetFontDefault(), text.c_str(), { getPosition().x, getPosition().y - OUTLINE_SIZE }, FONT_SIZE, 4 * OUTLINE_SIZE, outlineColor);
+	DrawTextEx(GetFontDefault(), text.c_str(), { getPosition().x + OUTLINE_SIZE, getPosition().y }, FONT_SIZE, 4 * OUTLINE_SIZE, outlineColor);
+	DrawTextEx(GetFontDefault(), text.c_str(), { getPosition().x - OUTLINE_SIZE, getPosition().y }, FONT_SIZE, 4 * OUTLINE_SIZE, outlineColor);
 
-	DrawTextEx(*myFont, text.c_str(), getPosition(), FONT_SIZE, OUTLINE_SIZE, textColor);
+	DrawTextEx(GetFontDefault(), text.c_str(), getPosition(), FONT_SIZE, 4 * OUTLINE_SIZE, textColor);
 }
