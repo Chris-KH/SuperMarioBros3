@@ -35,6 +35,8 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     countThrowTime = 0.f;
     countImmortalTime = 0.f;
     specificVelocity = { 0.f, 0.f };
+    renderImmortal = { true, true, true, true, true, true, true, true, true, false };
+    indexRender = 0u;
 
     idleLeft = nullptr;
 	walkLeft = nullptr;
@@ -147,7 +149,6 @@ void Character::draw(float deltaTime) {
                 currentAnimation->update(deltaTime, 12, 3);
             }
             else currentAnimation->update(deltaTime, 1, 1);
-            currentAnimation->render(getPosition());
         }
         else if (isIdle()) {
             if (getState() == STARMAN) {
@@ -160,17 +161,21 @@ void Character::draw(float deltaTime) {
                 currentAnimation->update(deltaTime, 9, 3);
             }
             else currentAnimation->update(deltaTime, 0, 1);
-            currentAnimation->render(getPosition());
         }
         else {
             currentAnimation->update(deltaTime);
-            currentAnimation->render(getPosition());
         }
         return;
     }
+    else currentAnimation->update(deltaTime);
+    
 
-    currentAnimation->update(deltaTime);
-    currentAnimation->render(getPosition());
+    if (countImmortalTime > 0.f) {
+        if (renderImmortal[indexRender]) {
+            currentAnimation->render(getPosition());
+        }
+    }
+    else currentAnimation->render(getPosition());
 }
 
 void Character::setPhase(Phase phase) {
@@ -226,8 +231,11 @@ void Character::update(float deltaTime) {
         countThrowTime += deltaTime; 
         countThrowTime = min(countThrowTime, 3.f);
 
-        if (countImmortalTime <= 0.f) setCollisionAvailable(true);
-        countImmortalTime = max(0.f, countImmortalTime - deltaTime);
+        if (countImmortalTime > 0.f) {
+            countImmortalTime = max(0.f, countImmortalTime - deltaTime);
+            indexRender = (indexRender + 1) % renderImmortal.size();
+        }
+        else setCollisionAvailable(true);
 
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
@@ -267,7 +275,7 @@ void Character::update(float deltaTime) {
     else if (phase == DEAD_PHASE) {
         RESOURCE_MANAGER.playSound("lost_life.wav");
         setLostLife(true);
-        setVelocity({ 0.f, DEAD_PLAYER_INITIAL_VELOCITY });
+        //Update gravity gì đó
         setAnimation(deadAniamtion);
         lives--;
     }

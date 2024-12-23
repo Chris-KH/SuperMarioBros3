@@ -90,9 +90,11 @@ protected:
 
     float countThrowTime;
     float countImmortalTime;
+    unsigned indexRender;
+    vector<bool> renderImmortal;
 
-    const float DEAD_PLAYER_INITIAL_VELOCITY = 300.f; 
-    const float DEAD_PLAYER_GRAVITY = 1000.f;      
+    const float DEAD_PLAYER_INITIAL_VELOCITY = 400.f; 
+    const float DEAD_PLAYER_GRAVITY = 1200.f;      
 
     const float MAX_WALK_VELOCITY = 100.f;
     const float JET_STOMP_VELOCITY = -200.f;
