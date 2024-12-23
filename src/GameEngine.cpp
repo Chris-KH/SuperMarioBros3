@@ -287,7 +287,7 @@ bool GameEngine::run() {
         if (FPS_MANAGER.update()) {
             float deltaTime = GetFrameTime();
             this->deltaTime = deltaTime;
-            if (SETTINGS.isMusicEnabled())
+            if (SETTINGS.isMusicEnabled()&&!isPaused)
                 UpdateMusicStream(*RESOURCE_MANAGER.getMusic(level->getMusic()));
 
             update(deltaTime);
