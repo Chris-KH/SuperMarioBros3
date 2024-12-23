@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../lib/raylib.h"
+#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
 #include <chrono>
 
 using namespace std;

@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include<iostream>
 #include<fstream>
 #include<string>
@@ -22,4 +22,4 @@ public:
 
     // Set a specific setting by key and value
     void setSetting(const string& key, const string& value);
-};
+};*/

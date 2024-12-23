@@ -1,6 +1,6 @@
 #pragma once
-#include "../lib/raylib.h"
-#include "../lib/bits/stdc++.h"
+#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/bits/stdc++.h"
 
 using namespace std;
 

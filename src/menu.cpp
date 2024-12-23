@@ -48,19 +48,19 @@ void Menu::run() {
     registerItems();
     globalGameEngine = nullptr;
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
-    Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png", "World1.mp3");
-    Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3");
-    Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3");
+    Level level1("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-1.txt", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-1.png", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/World1.mp3");
+    Level level2("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-2.txt", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/map1-2.png", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/World4.mp3");
+    Level level3("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-3.txt", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/map1-3.png", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/World5.mp3");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
 
-    GUI::heartTexture = LoadTexture("../assets/Background/heart.png");
-    GUI::coinTexture = LoadTexture("../assets/Background/coin.png");
-    GUI::multiplicationSign = LoadTexture("../assets/Background/multiplicationSign.png");
-    GUI::board = LoadTexture("../assets/Background/board.png");
+    GUI::heartTexture = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/heart.png");
+    GUI::coinTexture = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/coin.png");
+    GUI::multiplicationSign = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/multiplicationSign.png");
+    GUI::board = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/board.png");
 
-    loadFromConfig("../assets/config.txt");
+    loadFromConfig("C:/Users/Dell/Downloads/CS202-SuperMario/assets/config.txt");
     selectMap(selectedMap);
 
     while (!WindowShouldClose()) {
@@ -75,7 +75,7 @@ void Menu::run() {
             WHITE
         );
         if (SETTINGS.isMusicEnabled())
-            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));       
+            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3"));       
         if (currentState) {
             currentState->draw();
             currentState->handleInput();
@@ -83,7 +83,7 @@ void Menu::run() {
         EndDrawing();
     }
 
-    saveToConfig("../assets/config.txt");
+    saveToConfig("C:/Users/Dell/Downloads/CS202-SuperMario/assets/config.txt");
     loadedLevel.clear();
     if (globalGameEngine != nullptr)
     {

@@ -54,5 +54,5 @@ void Enemy::collisionWithFireball(Fireball* fireball) {
     Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("smoke")->clone(), getPosition(), true, 0.f);
     smoke->setGravityAvailable(false);
     globalGameEngine->addEffect(smoke);
-    RESOURCE_MANAGER.playSound("fireball.wav");
+    RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/fireball.wav");
 }

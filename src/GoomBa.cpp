@@ -24,23 +24,23 @@ GoomBa::GoomBa(GoomBaType type, Vector2 position, Orientation orientation) : Ene
 	deadAnimation = nullptr;
 
 	if (type == BROWN_GoomBa) {
-		walkAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
-		deadAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba_dead");
+		walkAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/brown_goomba")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/brown_goomba_dead");
 	}
 	else if (type == RED_GoomBa) {
-		walkAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
-		deadAnimation = RESOURCE_MANAGER.getAnimation("red_goomba_dead");
+		walkAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_goomba")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_goomba_dead");
 	}
 	else if (type == BROWNPARA_GoomBa) {
-		walkAnimation = RESOURCE_MANAGER.getAnimation("brown_paragoomba")->clone();
-		jumpAnimation = RESOURCE_MANAGER.getAnimation("brown_paragoomba_jump")->clone();
-		deadAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba_dead");
+		walkAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/brown_paragoomba")->clone();
+		jumpAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/brown_paragoomba_jump")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/brown_goomba_dead");
 		this->canJump = true;
 	}
 	else if (type == REDPARA_GoomBa) {
-		walkAnimation = RESOURCE_MANAGER.getAnimation("red_paragoomba")->clone();
-		jumpAnimation = RESOURCE_MANAGER.getAnimation("red_paragoomba_jump")->clone();
-		deadAnimation = RESOURCE_MANAGER.getAnimation("red_goomba_dead");
+		walkAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_paragoomba")->clone();
+		jumpAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_paragoomba_jump")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_goomba_dead");
 		this->canJump = true;
 	}
 
@@ -94,7 +94,7 @@ void GoomBa::stomped() {
 		free(jumpAnimation);
 		free(walkAnimation);
 		jumpAnimation = nullptr;
-		walkAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
+		walkAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_goomba")->clone();
 		canJump = false;
 		currentAnimation = nullptr;
 		setJumping(false);
@@ -106,7 +106,7 @@ void GoomBa::stomped() {
 		free(walkAnimation);
 		jumpAnimation = nullptr;
 		currentAnimation = nullptr;
-		walkAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
+		walkAnimation = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/brown_goomba")->clone();
 		canJump = false;
 		setJumping(false);
 		jumpTime = 0.f;

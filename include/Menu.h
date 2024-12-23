@@ -1,7 +1,7 @@
 #ifndef MEMU_H
 #define MENU_H
 
-#include "../lib/raylib.h"
+#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
 #include <memory>
 #include <vector>
 #include "GameEngine.h"

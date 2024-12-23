@@ -18,25 +18,25 @@ KoopaTroopa::KoopaTroopa(KoopaTroopaType type, Vector2 position , Orientation or
 	jumpRight = nullptr;
 
 	if (type == GREEN_KoopaTroopa) {
-		walkLeft = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_walkLeft")->clone();
-		walkRight = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_walkRight")->clone();
+		walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_KoopaTroopa_walkLeft")->clone();
+		walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_KoopaTroopa_walkRight")->clone();
 	}
 	else if (type == RED_KoopaTroopa) {
-		walkLeft = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_walkLeft")->clone();
-		walkRight = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_walkRight")->clone();
+		walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_KoopaTroopa_walkLeft")->clone();
+		walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_KoopaTroopa_walkRight")->clone();
 	}
 	else if (type == GREENPARA_KoopaTroopa) {
-		walkLeft = RESOURCE_MANAGER.getAnimation("green_paraKoopaTroopa_walkLeft")->clone();
-		walkRight = RESOURCE_MANAGER.getAnimation("green_paraKoopaTroopa_walkRight")->clone();
-		jumpLeft = RESOURCE_MANAGER.getAnimation("green_paraKoopaTroopa_jumpLeft")->clone();
-		jumpRight = RESOURCE_MANAGER.getAnimation("green_paraKoopaTroopa_jumpRight")->clone();
+		walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_paraKoopaTroopa_walkLeft")->clone();
+		walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_paraKoopaTroopa_walkRight")->clone();
+		jumpLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_paraKoopaTroopa_jumpLeft")->clone();
+		jumpRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_paraKoopaTroopa_jumpRight")->clone();
 		this->canJump = true;
 	}
 	else if (type == REDPARA_KoopaTroopa) {
-		walkLeft = RESOURCE_MANAGER.getAnimation("red_paraKoopaTroopa_walkLeft")->clone();
-		walkRight = RESOURCE_MANAGER.getAnimation("red_paraKoopaTroopa_walkRight")->clone();
-		jumpLeft = RESOURCE_MANAGER.getAnimation("red_paraKoopaTroopa_jumpLeft")->clone();
-		jumpRight = RESOURCE_MANAGER.getAnimation("red_paraKoopaTroopa_jumpRight")->clone();
+		walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_paraKoopaTroopa_walkLeft")->clone();
+		walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_paraKoopaTroopa_walkRight")->clone();
+		jumpLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_paraKoopaTroopa_jumpLeft")->clone();
+		jumpRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_paraKoopaTroopa_jumpRight")->clone();
 		this->canJump = true;
 	}
 
@@ -112,8 +112,8 @@ void KoopaTroopa::stomped() {
 		currentAnimation = nullptr;
 		setJumping(false);
 		jumpRight = nullptr;
-		walkLeft = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_walkLeft")->clone();
-		walkRight = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_walkRight")->clone();
+		walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_KoopaTroopa_walkLeft")->clone();
+		walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_KoopaTroopa_walkRight")->clone();
 		canJump = false;
 		jumpTime = 0.f;
 	}
@@ -127,8 +127,8 @@ void KoopaTroopa::stomped() {
 		jumpRight = nullptr;
 		currentAnimation = nullptr;
 		setJumping(false);
-		walkLeft = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_walkLeft")->clone();
-		walkRight = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_walkRight")->clone();
+		walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_KoopaTroopa_walkLeft")->clone();
+		walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_KoopaTroopa_walkRight")->clone();
 		canJump = false;
 		jumpTime = 0.f;
 	}

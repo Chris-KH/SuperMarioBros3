@@ -2,7 +2,7 @@
 #define CAMERA_H
 
 #include <iostream>
-#include "../lib/raylib.h"
+#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
 class GameCamera {
 private:
 	float cameraX;
