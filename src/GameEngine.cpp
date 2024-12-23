@@ -203,19 +203,18 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
-    for (Entity* i : items) {
-        if (isPaused)
-            i->draw(0);
-        else
-            i->draw(deltaTime);
-    }
-
     for (Entity* i : blocks)
         i->draw(deltaTime);
     for (Entity* i : enemies) {
         if (player->getHoldShell() != nullptr) {
             if (dynamic_cast<Shell*>(i) == player->getHoldShell()) continue;
         }
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
+    for (Entity* i : items) {
         if (isPaused)
             i->draw(0);
         else
