@@ -11,22 +11,38 @@ Star::Star(StarType type, Vector2 position, Orientation orientation) : Item(POIN
 		starAnimation = RESOURCE_MANAGER.getAnimation("blue_star_item")->clone();
 	}
 
+	
 	setAnimation(starAnimation);
 	setPosition(position);
+	setCollisionAvailable(false);
 }
 
 void Star::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
-	if (getOrientation() == RIGHT) {
-		setXVelocity(SPEED);
+	if (isAppear()) {
+		if (getBottom() <= getAppearBottom()) {
+			setYPosition(getAppearBottom() - getSize().y);
+			setAppear(false);
+			setYVelocity(0.f);
+			setCollisionAvailable(true);
+			return;
+		}
+		setYVelocity(-APPEAR_SPEED);
 	}
 	else {
-		setXVelocity(-SPEED);
-	}
+		if (getOrientation() == RIGHT) {
+			setXVelocity(SPEED);
+		}
+		else {
+			setXVelocity(-SPEED);
+		}
 
-	if (gravityAvailable) {
-		setYVelocity(getVelocity().y + GRAVITY * deltaTime);
+		if (gravityAvailable) {
+			setYVelocity(getVelocity().y + GRAVITY * deltaTime);
+		}
 	}
 }
 

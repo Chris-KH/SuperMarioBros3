@@ -6,24 +6,21 @@
 class Item : public Sprite {
 private:
 	int point;
+	bool appear;
+	float bottomAppear;
 public:
 	Item(int point = 0);
 
-	int getPoint() const;
+	const int& getPoint() const;
 	virtual EntityType getType() const override;
 	virtual ItemType getItemType() const = 0;
 
 	virtual void update(float deltaTime) override = 0;
+	virtual void setAppearBottom(float bottom);
+	virtual const float& getAppearBottom();
 
-	virtual void draw(float deltaTime = GetFrameTime()) override {
-		if (isDead()) return;
-
-		if (currentAnimation == nullptr) return;
-		setXPosition(getPosition().x + velocity.x * deltaTime);
-		setYPosition(getPosition().y + velocity.y * deltaTime);
-		currentAnimation->update(deltaTime);
-		currentAnimation->render(getPosition());
-	};
+	virtual void setAppear(bool appear);
+	virtual bool isAppear() const;
 };
 
 #endif //ITEM_H

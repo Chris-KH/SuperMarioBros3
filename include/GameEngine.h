@@ -6,21 +6,25 @@
 #include "Map.h"
 #include <vector>
 
+class Effect;
+class Enemy;
+
 class GameEngine {
 private:
     Level* level;      
     Map map;           
     Character* player; 
-    std::vector<Entity*> blocks;
-    std::vector<Entity*> enemies;
-    std::vector<Entity*> items;
+    std::vector<BaseBlock*> blocks;
+    std::vector<Enemy*> enemies;
+    std::vector<Item*> items;
     std::vector<Fireball*> fireball;
-    std::vector<Entity*> effects;
-    std::vector<Entity*> decor;
-    std::vector<Entity*> shells;
+    std::vector<Effect*> effects;
+    std::vector<BaseBlock*> decor;
+    std::vector<Enemy*> shells;
     std::vector<Entity*> testEntities;
     GameCamera camera;  
     bool isPaused;
+    bool cleared = false;
     float deltaTime;
 
 public:
@@ -29,10 +33,10 @@ public:
     void resolveCollision();
     void addScore(int amount);
     void addFireBall(Fireball* fireball);
-    void addEnemy(Entity* enemy);
-    void addEffect(Entity* effect);
-    void addShell(Entity* shell);
-    void addItem(Entity* item);
+    void addEnemy(Enemy* enemy);
+    void addEffect(Effect* effect);
+    void addShell(Enemy* shell);
+    void addItem(Item* item);
     void update(float deltaTime);
     void handleCollision();
     void render(float deltaTime);
@@ -40,5 +44,4 @@ public:
     float getGlobalTime();
 };
 extern GameEngine* globalGameEngine;
-
-#endif  //ENGINE_H
+#endif

@@ -60,6 +60,8 @@ EnemyType KoopaTroopa::getEnemyType() const {
 }
 
 void KoopaTroopa::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
@@ -74,11 +76,6 @@ void KoopaTroopa::update(float deltaTime) {
 		setJumping(true);
 		jumpTime = 0.f;
 	}
-	//else if (getBottom() >= 500.f) {
-	//	setYVelocity(0.f);
-	//	setYPosition(500.f - getSize().y);
-	//	jumping = false;
-	//}
 
 	if (orientation) setXVelocity(SPEED);
 	else setXVelocity(-SPEED);
@@ -95,11 +92,13 @@ void KoopaTroopa::stomped() {
 
 	if (type == GREEN_KoopaTroopa) {
 		killEntity();
+		setCollisionAvailable(false);
 		Shell* shell = new Shell(GREEN_SHELL, getPosition());
 		globalGameEngine->addShell(shell);
 	}
 	else if (type == RED_KoopaTroopa) {
 		killEntity();
+		setCollisionAvailable(false);
 		Shell* shell = new Shell(RED_SHELL, getPosition());
 		globalGameEngine->addShell(shell);
 	}

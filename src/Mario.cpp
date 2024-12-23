@@ -7,8 +7,7 @@
 #include"../include/FireStarmanState.h"
 
 Mario::Mario(Vector2 pos) : Character(pos) {
-	state = new FireState(this);
-	lastState = state->getState();
+	state = new NormalState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
 	Vector2 vector2Pos = {this->getPosition().x, this->getPosition().y};

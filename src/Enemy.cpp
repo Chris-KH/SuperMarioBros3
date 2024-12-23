@@ -1,8 +1,9 @@
-#include "../include/Enemy.h"
+﻿#include "../include/Enemy.h"
 #include "../include/Character.h"
 #include "../include/GameEngine.h"
 #include "../include/Effect.h"
 #include "../include/TextEffect.h"
+#include "../include/Fireball.h"
 
 Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
     stompable = false;
@@ -14,31 +15,6 @@ Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
 };
 
 EntityType Enemy::getType() const { return EntityType::ENEMY; }
-
-void Enemy::draw(float deltaTime) {
-    if (isDead()) return;
-
-    if (currentAnimation == nullptr) return;
-    setXPosition(getPosition().x + velocity.x * deltaTime);
-    setYPosition(getPosition().y + velocity.y * deltaTime);
-    currentAnimation->update(deltaTime);
-    currentAnimation->render(getPosition());
-}
-
-void Enemy::update(float deltaTime) {
-    currentAnimation->update(deltaTime);
-    if (isGravityAvailable()) setYVelocity(velocity.y + GRAVITY * deltaTime);
-
-    if (isJumping()) {
-        setYPosition(getPosition().y + velocity.y * deltaTime);
-    }
-
-    if (getBottom() >= 500.f) {
-        setYVelocity(0.f);
-        setYPosition(500.f - getSize().y);
-        jumping = false;
-    }
-}
 
 Orientation Enemy::getRandomOrientation() {
     random_device rd;
@@ -64,7 +40,19 @@ void Enemy::stomped() {
 void Enemy::attacked() {
     if (isDead()) return;
     killEntity();
+    setCollisionAvailable(false);
 
     Effect* text = new TextEffect(to_string(ENEMY_POINT).c_str(), getCenter());
     globalGameEngine->addEffect(text);
+}
+
+void Enemy::collisionWithFireball(Fireball* fireball) {
+    attacked();
+    fireball->setCollisionAvailable(false);
+    fireball->killEntity();
+    setCollisionAvailable(false);
+    Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("smoke")->clone(), getPosition(), true, 0.f);
+    smoke->setGravityAvailable(false);
+    globalGameEngine->addEffect(smoke);
+    RESOURCE_MANAGER.playSound("fireball.wav");
 }

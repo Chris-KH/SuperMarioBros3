@@ -7,7 +7,9 @@
 #include "../include/Shell.h"
 #include "../include/Plant.h"
 #include "../include/Mushroom.h"
+#include "../include/Flower.h"
 #include "../include/GUI.h"
+#include "../include/Effect.h"
 
 using namespace std;
 
@@ -21,33 +23,39 @@ GameEngine::GameEngine(float screenWidth, float screenHeight, Level& level, Char
     camera.loadRenderTexture(Msize);
     blocks = map.getBlocks();
     enemies = map.getEnemies();
+    items = map.getItems();
     decor = map.getDecor();
     isPaused = false;
     deltaTime = 0.f;
 }
 
 GameEngine::~GameEngine() {
-    for (Entity* entity : blocks) {
-        delete entity;
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        delete blocks[i];
     }
-    for (Entity* entity : enemies) {
-        delete entity;
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        delete enemies[i];
     }
-    for (Entity* entity : items) {
-        delete entity;
+    for (size_t i = 0; i < items.size(); ++i) {
+        delete items[i];
     }
-    for (Entity* entity : decor) {
-        delete entity;
+    for (size_t i = 0; i < decor.size(); ++i) {
+        delete decor[i];
     }
-    for (Entity* entity : effects) {
-        delete entity;
+    for (size_t i = 0; i < effects.size(); ++i) {
+        delete effects[i];
     }
+    for (size_t i = 0; i < fireball.size(); ++i) {
+        delete fireball[i];
+    }
+
     player = nullptr;
     blocks.clear();
     enemies.clear();
     items.clear();
     shells.clear();
     effects.clear();
+    fireball.clear();
 }
 
 void GameEngine::resolveCollision() {}
@@ -60,20 +68,20 @@ void GameEngine::addFireBall(Fireball* fireball) {
     this->fireball.push_back(fireball);
 }
 
-void GameEngine::addEnemy(Entity* enemy) {
+void GameEngine::addEnemy(Enemy* enemy) {
     this->enemies.push_back(enemy);
 }
 
-void GameEngine::addEffect(Entity* effect) {
+void GameEngine::addEffect(Effect* effect) {
     this->effects.push_back(effect);
 }
 
-void GameEngine::addShell(Entity* shell) {
+void GameEngine::addShell(Enemy* shell) {
     this->enemies.push_back(shell);
     this->shells.push_back(shell);
 }
 
-void GameEngine::addItem(Entity* item) {
+void GameEngine::addItem(Item* item) {
     this->items.push_back(item);
 }
 
@@ -85,21 +93,32 @@ void GameEngine::update(float deltaTime) {
         return;
     }
 
-    for (Entity* i : blocks) {
-        i->update(deltaTime);
+    for (size_t i = 0; i < blocks.size(); i++) {
+        if (blocks[i]->isDead()) {
+            delete blocks[i];
+            blocks.erase(blocks.begin() + i);
+            i--;
+        }
+        else {
+            blocks[i]->update(deltaTime);
+        }
     }
-    for (Entity* i : enemies) {
-        Plant* enemy = dynamic_cast<Plant*>(i);
+
+    for (size_t i = 0; i < enemies.size(); i++) {
+        Plant* enemy = dynamic_cast<Plant*>(enemies[i]);
         if (enemy) {
             enemy->setPlayerForFireball(player);
         }
     }
+
     for (size_t i = 0; i < enemies.size(); i++) {
         if (enemies[i]->isDead()) {
             auto it = find(shells.begin(), shells.end(), enemies[i]);
-            if (it != shells.end())
+            if (it != shells.end()) {
                 shells.erase(it);
+            }
             delete enemies[i];
+            enemies[i] = nullptr;
             enemies.erase(enemies.begin() + i);
             i--;
         }
@@ -151,24 +170,39 @@ void GameEngine::handleCollision() {
     CollisionInterface IColl;
     bool isGrounded = false;
 
-    for (Entity* block : blocks) {
-        if (IColl.resolve(player, block))
-            isGrounded = true;
-        for (Entity* enemy : enemies)
-            IColl.resolve(enemy, block);
-        for (Entity* item : items)
-            IColl.resolve(item, block);
+    for (size_t j = 0; j < blocks.size(); j++) {
+        if (IColl.resolve(player, blocks[j])) isGrounded = true;
+        for (size_t i = 0; i < enemies.size(); i++) IColl.resolve(enemies[i], blocks[j]);
+        for (size_t i = 0; i < items.size(); i++) IColl.resolve(items[i], blocks[j]);
+        for (size_t i = 0; i < fireball.size(); i++) {
+            if (fireball[i]->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(fireball[i], blocks[j]);
+        }
     }
+
     player->setJumping(!isGrounded);
-    for (Entity* i : items)
-        IColl.resolve(player, i);
-    for (Entity* i : enemies)
-        IColl.resolve(player, i);
+
+    for (size_t i = 0; i < enemies.size(); i++) {
+        for (Fireball* ball : fireball) {
+            if (ball->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(ball, enemies[i]);
+        }
+        IColl.resolve(player, enemies[i]);
+    }
+       
+    for (size_t i = 0; i < fireball.size(); i++) {
+        if (fireball[i]->getFireballType() == ENEMY_FIREBALL) {
+            IColl.resolve(fireball[i], player);
+        }
+    }
+
+    for (size_t i = 0; i < items.size(); i++) {
+        IColl.resolve(player, items[i]);
+    }
 }
 
 void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
+
     for (Entity* i : blocks)
         i->draw(deltaTime);
     for (Entity* i : enemies) {
@@ -180,20 +214,13 @@ void GameEngine::render(float deltaTime) {
         else
             i->draw(deltaTime);
     }
-    for (Entity* i : fireball) {
-        if (isPaused)
-            i->draw(0);
-        else
-            i->draw(deltaTime);
-    }
     for (Entity* i : items) {
         if (isPaused)
             i->draw(0);
         else
             i->draw(deltaTime);
     }
-
-    for (Entity* i : effects) {
+    for (Entity* i : fireball) {
         if (isPaused)
             i->draw(0);
         else
@@ -201,6 +228,13 @@ void GameEngine::render(float deltaTime) {
     }
 
     player->draw(deltaTime);
+
+    for (Entity* i : effects) {
+        if (isPaused)
+            i->draw(0);
+        else
+            i->draw(deltaTime);
+    }
 
     for (Entity* i : decor)
         i->draw();
@@ -230,30 +264,51 @@ void GameEngine::render(float deltaTime) {
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
-        DrawText("PAUSED", GetScreenWidth() / 2 - MeasureText("PAUSED", 60) / 2, GetScreenHeight() / 2 - 30, 60, WHITE);
+        if (cleared) {
+            GUI::drawLevelClear();
+        }
+        else
+            GUI::drawPauseMenu();
     }
 
     EndDrawing();
 }
 
 bool GameEngine::run() {
-    Item* testItem = new Mushroom(MUSHROOM_1UP, { 300, 450 });
+    Item* testItem = new Flower(FIRE_FLOWER, { 300, 450 });
     items.push_back(testItem);
+    bool flag = true;
+    RESOURCE_MANAGER.stopCurrentMusic();
+    RESOURCE_MANAGER.playMusic(level->getMusic());
+    // Load and play the new music
     while (!WindowShouldClose()) {
         if (FPS_MANAGER.update()) {
             float deltaTime = GetFrameTime();
             this->deltaTime = deltaTime;
             if (SETTINGS.isMusicEnabled())
-                UpdateMusicStream(*RESOURCE_MANAGER.getMusic("Overworld.mp3"));
+                UpdateMusicStream(*RESOURCE_MANAGER.getMusic(level->getMusic()));
 
             update(deltaTime);
             render(deltaTime);
         }
-
-        if (player->getX() >= map.getMapSize().x) {
-            return true; // finished the level
+        if (cleared == true && isPaused == false)
+        {
+            RESOURCE_MANAGER.stopCurrentMusic();
+            RESOURCE_MANAGER.playMusic("Overworld.mp3");
+            return true;
         }
+        if (player->getX() >= map.getMapSize().x) {
+            cleared = true;
+            isPaused = true;
+            RESOURCE_MANAGER.stopCurrentMusic();
+            if (flag)
+            RESOURCE_MANAGER.playSound("level_clear.wav");
+            flag = false;
+            player->setVelocity({ 0.f, 0.f });
+        }   
     }
+    RESOURCE_MANAGER.stopCurrentMusic();
+    RESOURCE_MANAGER.playMusic("Overworld.mp3");
     return false;
 }
 

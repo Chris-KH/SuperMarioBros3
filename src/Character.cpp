@@ -12,9 +12,10 @@
 #include"../include/Coin.h"
 #include"../include/Enemy.h"
 #include"../include/Shell.h"
-#include"../include/Effect.h"
-#include"../include/TextEffect.h"
-#include"../include/GameEngine.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
+#include "../include/GameEngine.h"
+#include "../include/BaseBlock.h"
 
 Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
 , inputManager(INPUT_MANAGER) {
@@ -26,13 +27,15 @@ Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, c
     jumping = false;
     holding = false;
     lostLife = false;
-    invicibleTime = 0.f;
+    invicibleStarTime = 0.f;
     sitting = false;
     state = nullptr;
     holdShell = nullptr;
+    movingBlockStandOn = nullptr;
     countThrowTime = 0.f;
+    countImmortalTime = 0.f;
+    specificVelocity = { 0.f, 0.f };
 
-    lastState = NORMAL;
     idleLeft = nullptr;
 	walkLeft = nullptr;
 	runLeft = nullptr;
@@ -67,14 +70,24 @@ Character::~Character() {
 EntityType Character::getType() const { return EntityType::CHARACTER; }
 
 void Character::reset() {
+    setPosition({ 16, 400 });
+    setVelocity({ 0,0 });
+    scores = 0;
+    coins = 0;
+    lives = 5;
     phase = DEFAULT_PHASE;
     orientation = RIGHT;
     jumping = false;
     holding = false;
     lostLife = false;
-    invicibleTime = 0.f;
+    invicibleStarTime = 0.f;
     sitting = false;
-    state = nullptr;
+    holdShell = nullptr;
+    movingBlockStandOn = nullptr;
+    countThrowTime = 0.f;
+    countImmortalTime = 0.f;
+    specificVelocity = { 0.f, 0.f };
+    transform(NORMAL);
 }
 
 STATE Character::getState() const {
@@ -82,9 +95,6 @@ STATE Character::getState() const {
 }
 
 void Character::draw(float deltaTime) {
-	if (isDead()) return;
-
-
     if (isHolding() && holdShell) {
         if (holdShell->isDead() == false) {
             holdShell->setHoldingPosition(this);
@@ -93,6 +103,13 @@ void Character::draw(float deltaTime) {
     }
 
     if (currentAnimation == nullptr) return;
+    specificVelocity = getVelocity();
+
+    if (movingBlockStandOn != nullptr) {
+        setXVelocity(specificVelocity.x + movingBlockStandOn->getVelocity().x);
+        setYVelocity(specificVelocity.y + movingBlockStandOn->getVelocity().y);
+    }
+
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
     updateTime(deltaTime);
@@ -103,6 +120,12 @@ void Character::draw(float deltaTime) {
             if (getState() == STARMAN) {
                 currentAnimation->update(deltaTime, 0, 3);
             }
+            else if (getState() == SUPERSTARMAN) {
+                currentAnimation->update(deltaTime, 12, 3);
+            }
+            //else if (getState() == FIRESTARMAN) {
+            //    currentAnimation->update(deltaTime, 9, 3);
+            //}
             else currentAnimation->update(deltaTime, 1, 1);
             currentAnimation->render(getPosition());
         }
@@ -110,6 +133,12 @@ void Character::draw(float deltaTime) {
             if (getState() == STARMAN) {
                 currentAnimation->update(deltaTime, 0, 3);
             }
+            else if (getState() == SUPERSTARMAN) {
+                currentAnimation->update(deltaTime, 9, 3);
+            }
+            //else if (getState() == FIRESTARMAN) {
+            //    currentAnimation->update(deltaTime, 9, 3);
+            //}
             else currentAnimation->update(deltaTime, 0, 1);
             currentAnimation->render(getPosition());
         }
@@ -135,22 +164,24 @@ const Character::Phase& Character::getPhase() const {
 void Character::onKey(KeyboardKey key, bool pressed) {
     if (isDead()) return;
 
-    if (key == KEY_R && pressed) {
-        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN) && countThrowTime >= TIME_BETWEEN_THROWS) {
+    if (key == KEY_W && pressed) {
+        if ((state->getState() == FIRE || state->getState() == FIRESTARMAN || state->getState() == SUPERSTARMAN) && countThrowTime > 0.f && holdShell == nullptr) {
             Fireball* fireball = new Fireball();
             fireball->setCharacterPositionBall(this);
             if (orientation == RIGHT) {
                 setAnimation(throwRight, throwRight->getAnimationTime());
+                fireball->setXVelocity(0.f);
             }
             else if (orientation == LEFT) {
+                fireball->setXVelocity(0.f);
                 setAnimation(throwLeft, throwLeft->getAnimationTime());
             }
-            setXVelocity(0.f);
+            setXVelocity(getVelocity().x / 2.f);
             if (fireball != nullptr) {
                 globalGameEngine->addFireBall(fireball);
             }
 
-            countThrowTime = 0.f;
+            countThrowTime -= FIREBALL_CHARGE_TIME;
         }
     }
 }
@@ -159,12 +190,25 @@ void Character::update(float deltaTime) {
     if (isDead()) return;
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         if (!isInvicible()) {
-            invicibleTime = 0.f;
-            transform(lastState);
+            invicibleStarTime = 0.f;
+            lostSuit();
         }
     }
 
     if (phase == DEFAULT_PHASE) {
+        Sprite::update(deltaTime);
+
+
+        setVelocity(specificVelocity);
+
+        state->update(deltaTime);
+        INPUT_MANAGER.update();
+        countThrowTime += deltaTime;
+        countThrowTime = min(countThrowTime, 3.f);
+
+        if (countImmortalTime <= 0.f) setCollisionAvailable(true);
+        countImmortalTime = max(0.f, countImmortalTime - deltaTime);
+
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
             setHolding(false);
@@ -172,12 +216,12 @@ void Character::update(float deltaTime) {
                 holdShell->setOrientation(getOrientation());
                 if (orientation == RIGHT) {
                     holdShell->setXPosition(getRight());
-                    holdShell->setXVelocity(getVelocity().x + 1000.f);
+                    holdShell->setXVelocity(getVelocity().x + 500.f);
                     holdShell->kicked(RIGHT);
                 }
                 else if (orientation == LEFT) {
                     holdShell->setXPosition(getLeft() - holdShell->getSize().x);
-                    holdShell->setXVelocity(getVelocity().x - 1000.f);
+                    holdShell->setXVelocity(getVelocity().x - 500.f);
                     holdShell->kicked(LEFT);
                 }
                 holdShell->setGravityAvailable(true);
@@ -193,9 +237,9 @@ void Character::update(float deltaTime) {
             }
         }
 
-        state->update(deltaTime);
-        INPUT_MANAGER.update();
-        countThrowTime += deltaTime;
+        if (movingBlockStandOn != nullptr) {
+            setYVelocity(getVelocity().y + movingBlockStandOn->getVelocity().y);
+        }
     }
     else if (phase == TRANSFORM_PHASE) {
         //transform
@@ -212,12 +256,12 @@ void Character::update(float deltaTime) {
 
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         if (isInvicible()) {
-            invicibleTime -= deltaTime;
+            invicibleStarTime -= deltaTime;
         }
     }
 }
 
-bool Character::isInvicible() const { return invicibleTime > 0.f; }
+bool Character::isInvicible() const { return invicibleStarTime > 0.f; }
 
 bool Character::isIdle() const {
     return (velocity.x == 0.f && velocity.y == 0.f && !isJumping());
@@ -288,8 +332,8 @@ void Character::setHoldAnimation() {
     else if (orientation == LEFT) setAnimation(holdLeft);
 }
 
-void Character::setInvicible(float invicibleTime) {
-    this->invicibleTime = invicibleTime;
+void Character::setStarInvicibleTime(float invicibleStarTime) {
+    this->invicibleStarTime = invicibleStarTime;
 }
 
 void Character::setSitting(bool sitting) {
@@ -301,15 +345,12 @@ void Character::transform(STATE type) {
     free(state);
     if (type == NORMAL) {
         state = new NormalState(character);
-        lastState = NORMAL;
     }
     else if (type == SUPER) {
         state = new SuperState(character);
-        lastState = SUPER;
     }
     else if (type == FIRE) {
         state = new FireState(character);
-        lastState = FIRE;
     }
     else if (type == STARMAN) {
         state = new StarmanState(character);
@@ -323,19 +364,55 @@ void Character::transform(STATE type) {
     else state = nullptr;
 }
 
+void Character::lostSuit() {
+    if (state->getState() == NORMAL) {
+        lives--;
+        setLostLife(true);
+        RESOURCE_MANAGER.playSound("lost_life.wav");
+        return;
+    }
+    else if (state->getState() == SUPER) {
+        transform(NORMAL);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == FIRE) {
+        transform(SUPER);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == STARMAN) {
+        transform(NORMAL);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == SUPERSTARMAN) {
+        transform(SUPER);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+    else if (state->getState() == FIRESTARMAN) {
+        transform(FIRE);
+        RESOURCE_MANAGER.playSound("lost_suit.wav");
+    }
+
+    countImmortalTime = IMMORTAL_TIME;
+    setCollisionAvailable(false);
+}
+
 void Character::collisionWithItem(const Item* item) {
     Effect* text = nullptr;
     Vector2 vector2 = {getCenterX(), getTop()};
     if (item->getItemType() == MUSHROOM) {
 		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
         if (mushroom->getMushroomType() == MUSHROOM_SUPER) {
-            scores += mushroom->POINT;
+            scores += mushroom->getPoint();
 			if (getState() == NORMAL) {
 				transform(SUPER);
 				//phase = TRANSFORM_PHASE;
 			}
+            else if (getState() == STARMAN) {
+                transform(SUPERSTARMAN);
+                //phase = TRANSFORM_PHASE;
+            }
 			RESOURCE_MANAGER.playSound("power_up.wav");
-            text = new TextEffect(to_string(mushroom->POINT).c_str(), vector2);
+            text = new TextEffect(to_string(mushroom->getPoint()).c_str(), vector2);
         }
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
@@ -346,13 +423,17 @@ void Character::collisionWithItem(const Item* item) {
     else if (item->getItemType() == FLOWER) {
 		const Flower* flower = dynamic_cast<const Flower*>(item);
         if (flower->getFlowerType() == FIRE_FLOWER) {
-            scores += flower->POINT;
+            scores += flower->getPoint();
             if (getState() == NORMAL) {
                 transform(FIRE);
 				//phase = TRANSFORM_PHASE;
             }
+            else if (getState() == STARMAN) {
+                transform(FIRESTARMAN);
+                //phase = TRANSFORM_PHASE;
+            }
             RESOURCE_MANAGER.playSound("power_up.wav");
-            text = new TextEffect(to_string(flower->POINT).c_str(), vector2);
+            text = new TextEffect(to_string(flower->getPoint()).c_str(), vector2);
         }
     }
 	else if (item->getItemType() == STAR) {
@@ -371,18 +452,18 @@ void Character::collisionWithItem(const Item* item) {
                 //phase = TRANSFORM_PHASE;
             }
     
-            invicibleTime = INVICIBLE_TIME;
-			scores += star->POINT;
+            invicibleStarTime = STAR_INVICIBLE_TIME;
+			scores += star->getPoint();
 			RESOURCE_MANAGER.playSound("power_up.wav");
     
-            text = new TextEffect(to_string(star->POINT).c_str(), vector2);
+            text = new TextEffect(to_string(star->getPoint()).c_str(), vector2);
         }
 	}
 	else if (item->getItemType() == COIN) {
 		const Coin* coin = dynamic_cast<const Coin*>(item);
 		if (coin->getCoinType() == STATIC_COIN) {
 			coins++;
-			scores += coin->POINT;
+			scores += coin->getPoint();
 			RESOURCE_MANAGER.playSound("coin.wav");
 		}
 	}
@@ -416,21 +497,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             RESOURCE_MANAGER.playSound("stomp.wav");
             enemy->stomped();
         }
-        else {
-            if (state->getState() == NORMAL) {
-                lives--;
-                setLostLife(true);
-                RESOURCE_MANAGER.playSound("lost_life.wav");
-            }
-            else if (state->getState() == SUPER) {
-                transform(NORMAL);
-                RESOURCE_MANAGER.playSound("lost_suit.wav");
-            }
-            else if (state->getState() == FIRE) {
-                transform(NORMAL);
-                RESOURCE_MANAGER.playSound("lost_suit.wav");
-            }
-        }
+        else lostSuit();
     }   
     else if (enemy->getEnemyType() == SHELL) {
         Shell* shell = dynamic_cast<Shell*>(enemy);
@@ -441,7 +508,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             shell->stomped(getCenter());
         }
         else {
-            if (enemy->isIdle()) {
+            if (!shell->getIsHold() && !shell->getIsKicked()) {
                 if (edge == LEFT_EDGE) {
                     if (IsKeyDown(KEY_LEFT_SHIFT)) {
                         setHolding(true);
@@ -468,22 +535,15 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                     }
                 }
             }
-            else {
-                if (state->getState() == NORMAL) {
-                    lives--;
-                    setLostLife(true);
-                    RESOURCE_MANAGER.playSound("lost_life.wav");
-                }
-                else if (state->getState() == SUPER) {
-                    transform(NORMAL);
-                    RESOURCE_MANAGER.playSound("lost_suit.wav");
-                }
-                else if (state->getState() == FIRE) {
-                    transform(NORMAL);
-                    RESOURCE_MANAGER.playSound("lost_suit.wav");
-                }
-            }
+            else lostSuit();
         }
     }
-    
+}
+
+void Character::collisionWithFireball(Fireball* fireball) {
+    if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
+        return;
+    }
+    lostSuit();
+    fireball->killEntity();
 }

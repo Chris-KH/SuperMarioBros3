@@ -1,6 +1,9 @@
 #include"../include/Fireball.h"
-#include"../include/Block.h"
+#include"../include/BaseBlock.h"
 #include"../include/Character.h"
+#include "../include/GameEngine.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
 
 Fireball::~Fireball() {
 	free(fireRight);
@@ -80,8 +83,6 @@ void Fireball::setCharacterPositionBall(const Character* character) {
 }
 
 void Fireball::update(float deltaTime) {
-	if (isDead()) return;
-
 	if (orientation == LEFT) setAnimation(fireLeft);
 	else if (orientation == RIGHT) setAnimation(fireRight);
 
@@ -101,26 +102,32 @@ void Fireball::update(float deltaTime) {
 		}
 		if (delayTime >= 0.f) {
 			setVelocity(delayVelocity);
-			if (soundEffect == false) RESOURCE_MANAGER.playSound("shot.wav");
+			//if (soundEffect == false) RESOURCE_MANAGER.playSound("shot.wav");
 			soundEffect = true;
 		}
 
-		if (delayTime < 0.f) delayTime += deltaTime;
+		delayTime += deltaTime;
+		delayTime = min(delayTime, ENEMY_FIREBALL_LIFETIME);
 	}
 }
 
-void Fireball::collisionWithBlock(const Block* block, Edge edge) {
+void Fireball::collisionWithBlock(const BaseBlock* block, Edge edge) {
 	if (block == nullptr) return;
 
 	if (type == ENEMY_FIREBALL) return;
 
 	if (edge == TOP_EDGE) {
 		setYVelocity(BOUNCE_VELOCITY);
-		setJumping(true);
+	}
+	else if (edge == BOTTOM_EDGE) {
+		setYVelocity(-BOUNCE_VELOCITY);
 	}
 	else {
 		killEntity();
+		setCollisionAvailable(false);
+		Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("smoke")->clone(), getPosition(), true, 0.f);
+		smoke->setGravityAvailable(false);
+		globalGameEngine->addEffect(smoke);
 		RESOURCE_MANAGER.playSound("bump.wav");
-		//Add smoke effect;
 	}
 }

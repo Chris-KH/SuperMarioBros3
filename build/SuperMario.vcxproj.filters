@@ -118,7 +118,7 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Menu.cpp">
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp">

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include <iostream>
 #include "../lib/raylib.h"
 class GameCamera {
@@ -22,3 +24,4 @@ public:
 class special
 {};
 
+#endif // !CAMERA_H

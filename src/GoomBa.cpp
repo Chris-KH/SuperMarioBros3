@@ -8,6 +8,7 @@ GoomBa::~GoomBa() {
 	free(jumpAnimation);
 	walkAnimation = nullptr;
 	jumpAnimation = nullptr;
+	deadAnimation = nullptr;
 }
 
 GoomBa::GoomBa(GoomBaType type, Vector2 position, Orientation orientation) : Enemy(position) {
@@ -20,21 +21,26 @@ GoomBa::GoomBa(GoomBaType type, Vector2 position, Orientation orientation) : Ene
 
 	walkAnimation = nullptr;
 	jumpAnimation = nullptr;
+	deadAnimation = nullptr;
 
 	if (type == BROWN_GoomBa) {
 		walkAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba_dead");
 	}
 	else if (type == RED_GoomBa) {
 		walkAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("red_goomba_dead");
 	}
 	else if (type == BROWNPARA_GoomBa) {
 		walkAnimation = RESOURCE_MANAGER.getAnimation("brown_paragoomba")->clone();
 		jumpAnimation = RESOURCE_MANAGER.getAnimation("brown_paragoomba_jump")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba_dead");
 		this->canJump = true;
 	}
 	else if (type == REDPARA_GoomBa) {
 		walkAnimation = RESOURCE_MANAGER.getAnimation("red_paragoomba")->clone();
 		jumpAnimation = RESOURCE_MANAGER.getAnimation("red_paragoomba_jump")->clone();
+		deadAnimation = RESOURCE_MANAGER.getAnimation("red_goomba_dead");
 		this->canJump = true;
 	}
 
@@ -46,6 +52,8 @@ EnemyType GoomBa::getEnemyType() const {
 }
 
 void GoomBa::update(float deltaTime) {
+	Sprite::update(deltaTime);
+
 	if (isDead()) return;
 
 	if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
@@ -75,7 +83,11 @@ void GoomBa::stomped() {
 
 	if (type == BROWN_GoomBa || type == RED_GoomBa) {
 		killEntity();
-		//Create a dead Effect
+		setCollisionAvailable(false);
+		setAnimation(deadAnimation);
+		Effect* deadEffect = new Effect(deadAnimation->clone(), getPosition(), DEAD_TIME);
+		deadEffect->setGravityAvailable(false);
+		globalGameEngine->addEffect(deadEffect);
 	}
 	else if (type == REDPARA_GoomBa) {
 		type = RED_GoomBa;

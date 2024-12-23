@@ -15,9 +15,9 @@ private:
 	bool isHold;
 	float inShellTime;
 
-	const float IN_SHELL_TIME = 10.f;
+	const float IN_SHELL_TIME = 100.f;
 	const float OUT_SHELL_TIME = 3.f;
-	const float SPIN_SPEED = 1000.f;
+	const float SPIN_SPEED = 200.f;
 public:
 	~Shell();
 
@@ -28,6 +28,8 @@ public:
 	void update(float deltaTime) override;
 	void setIsHold(bool hold);
 	bool getIsHold() const;
+	void setIsKicked(bool kicked);
+	bool getIsKicked() const;
 	void kicked(Orientation direction = RIGHT) override;
 	void stomped(Vector2 center = { 0.f, 0.f });
 

@@ -41,16 +41,16 @@ void Menu::run() {
     INPUT_MANAGER.bindKey(KEY_A);
     INPUT_MANAGER.bindKey(KEY_D);
     INPUT_MANAGER.bindKey(KEY_S);
-    INPUT_MANAGER.bindKey(KEY_R);
+    INPUT_MANAGER.bindKey(KEY_W);
     INPUT_MANAGER.bindKey(KEY_SPACE);
     INPUT_MANAGER.bindKey(KEY_LEFT_SHIFT);
     registerBlocks();
     registerItems();
     globalGameEngine = nullptr;
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
-    Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png", "Overworld.mp3");
-    Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "Overworld.mp3");
-    Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "Overworld.mp3");
+    Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png", "World1.mp3");
+    Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3");
+    Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
@@ -166,24 +166,16 @@ void Menu::setBackground(const std::string& imagePath)
 
 MainMenuState::MainMenuState(Menu* menu) { 
     this->menu = menu; 
-    startButton = { 80, 720, 150, 40 };
-    continueButton = { 310, 720, 150, 40 };
-    settingsButton = { 540, 720, 150, 40 };
+    startButton = { 80, 720, 160, 40 };
+    continueButton = { 310, 720, 160, 40 };
+    settingsButton = { 540, 720, 160, 40 };
     charSelectionButton = { 770, 720, 200, 40 };
-    mapSelectionButton = { 1049, 720, 150, 40 };
+    mapSelectionButton = { 1049, 720, 160, 40 };
 }
 
 void MainMenuState::draw() {
     ClearBackground(RAYWHITE);
 
-    //Font* font = RESOURCE_MANAGER.getFont("HolenVintage.otf");
-    //DrawRectangleRec(startButton, ORANGE);
-    //DrawTextEx(*font ,"New Game",
-    //    { static_cast<float>(startButton.x) + static_cast<float>((startButton.width - MeasureTextEx(*font, "New Game", 30, 0.f).x) / 2),
-    //    static_cast<float>(startButton.y + (startButton.height - 30) / 2) },
-    //    30, 0.f, CheckCollisionPointRec(GetMousePosition(), startButton) ? LIGHTGRAY : BLACK);
-
-    // Start Button
     //startButton = { 440, buttonStartY, 400, 50 };
     DrawRectangleRec(startButton, ORANGE);
     DrawText("New Game",
@@ -232,7 +224,7 @@ void MainMenuState::handleInput() {
                     globalGameEngine = nullptr;
                     if ((menu->getSelectedMap() +1) <= 3)
                     {
-                        menu->player->setPosition({ 0,0 });
+                        menu->player->setPosition({ 16, 400 });
                         menu->player->setVelocity({ 0,0 });
                         menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
@@ -244,8 +236,10 @@ void MainMenuState::handleInput() {
             }
         }
         else if (CheckCollisionPointRec(mousePos, startButton)) {
-            menu->player->setPosition({ 0,0 });
-            menu->player->setVelocity({ 0,0 });
+            if (menu->player)
+            {
+                menu->player->reset();
+            }
             if (globalGameEngine != nullptr)
             {
                 delete globalGameEngine;
@@ -260,7 +254,7 @@ void MainMenuState::handleInput() {
                     globalGameEngine = nullptr;
                     if ((menu->getSelectedMap() + 1) <= 3)
                     {
-                        menu->player->setPosition({ 0,0 });
+                        menu->player->setPosition({ 16,400 });
                         menu->player->setVelocity({ 0,0 });
                         menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
@@ -362,7 +356,7 @@ void CharSelection::handleInput() {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, marioButton)) {
             delete menu->player;
-            menu->player = new Mario(Vector2{0, 0});
+            menu->player = new Mario(Vector2{16, 400});
             if (globalGameEngine != nullptr)
             {
                 delete globalGameEngine;
@@ -373,7 +367,7 @@ void CharSelection::handleInput() {
         else if (CheckCollisionPointRec(mousePos, luigiButton)) 
         {
             delete menu->player;
-            menu->player = new Luigi(Vector2{0, 0});
+            menu->player = new Luigi(Vector2{ 16, 400 });
             if (globalGameEngine != nullptr)
             {
                 delete globalGameEngine;
@@ -424,12 +418,15 @@ void MapSelection::handleInput() {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, map1Button)) {
             menu->selectMap(1);
+            menu->player->reset();
             menu->returnToMainMenu();
         } else if (CheckCollisionPointRec(mousePos, map2Button)) {
             menu->selectMap(2);
+            menu->player->reset();
             menu->returnToMainMenu();
         } else if (CheckCollisionPointRec(mousePos, map3Button)) {
             menu->selectMap(3);
+            menu->player->reset();
             menu->returnToMainMenu();
         }/* else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
@@ -473,11 +470,13 @@ void Menu::loadFromConfig(string filename) {
             string value;
             inFile >> value;
             audioEnabled = (value == "true");
+            SETTINGS.setSound((value == "true"));
         }
         else if (key == "MusicEnabled:") {
             string value;
             inFile >> value;
             musicEnabled = (value == "true");
+            SETTINGS.setMusic((value == "true"));
         }
         else if (key == "SelectedMap:") {
             inFile >> selectedMap;

@@ -25,7 +25,7 @@ private:
     map<string, unique_ptr<Sound>> soundResource;
 
     map<string, Texture2D> textures;
-
+    mutable string currentTrack;
     void loadTextures();
     void loadAnimationFromFile(const string& filePath, const string& fileName);
     void loadAnimation();  // Load animation resources
@@ -59,7 +59,7 @@ public:
     void playMusic(const string& trackName) const; 
     bool isMusicPlaying(const string& musicName) const;
     void stopMusic(const string& musicName) const;
-
+    void stopCurrentMusic() const;
     // Play a sound effect
     void playSound(const string& soundName) const; 
     bool isSoundPlaying(const string& soundName) const;

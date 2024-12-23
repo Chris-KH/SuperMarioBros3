@@ -1,4 +1,5 @@
 #include "../include/Map.h"
+#include "../include/ItemFactory.h"
 Map::Map() : background({ 0 }) {}
 
 Map::~Map() {
@@ -17,9 +18,9 @@ Vector2 Map::getMapSize() {
 	return { x, y };
 }
 
-void Map::addEntity(Entity* entity) {
-	blockArray.push_back(entity);
-}
+//void Map::addEntity(Entity* entity) {
+//	//blockArray.push_back(entity);
+//}
 
 void Map::loadFromFile(const std::string& filename) {
 	clearThings();
@@ -32,22 +33,22 @@ void Map::loadFromFile(const std::string& filename) {
 }
 
 void Map::saveToFile(const std::string& filename) const {
-	MapHelper::saveToTextFile(filename, blockArray);
+	//MapHelper::saveToTextFile(filename, blockArray);
 }
 
-std::vector<Entity*> Map::getBlocks() const {
+std::vector<BaseBlock*> Map::getBlocks() const {
 	return blockArray;
 }
 
-std::vector<Entity*> Map::getEnemies() const {
+std::vector<Enemy*> Map::getEnemies() const {
 	return enemies;
 }
 
-std::vector<Entity*> Map::getItems() const {
+std::vector<Item*> Map::getItems() const {
 	return items;
 }
 
-std::vector<Entity*> Map::getDecor() const {
+std::vector<BaseBlock*> Map::getDecor() const {
 	return decor;
 }
 
@@ -98,7 +99,7 @@ string Level::getMusic() const
 }
 
 // MapHelper Implementation
-bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<Entity*>& blocks, std::vector<Entity*>& enemies, std::vector<Entity*>& items, std::vector<Entity*>& decor) {
+bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& blocks, std::vector<Enemy*>& enemies, std::vector<Item*>& items, std::vector<BaseBlock*>& decor) {
 	string line;
 	string currentSection;
 
@@ -141,7 +142,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<Entity*>& bloc
 				block->setBounds(x, boundRight, y, boundBottom);
 				block->setVelocity({ velocityX, velocityY });
 
-				blocks.push_back(static_cast<Entity*>(block));
+				blocks.push_back(block);
 			}
 			else if (blockType == DECOR)
 			{
@@ -153,7 +154,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<Entity*>& bloc
 				if (!block) {
 					throw std::runtime_error("Failed to create static block: " + blockTypeStr);
 				}
-				decor.push_back(static_cast<Entity*>(block));
+				decor.push_back(block);
 			}
 			else if (blockType == ITEMBLOCK) {
 				string itemTy; ItemType type; int subType;
@@ -166,7 +167,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<Entity*>& bloc
 				if (!block) {
 					throw std::runtime_error("Failed to create static block: " + blockTypeStr);
 				}
-				blocks.push_back(static_cast<Entity*>(block));
+				blocks.push_back(block);
 
 			}
 			else {
@@ -181,7 +182,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<Entity*>& bloc
 					throw std::runtime_error("Failed to create static block: " + blockTypeStr);
 				}
 
-				blocks.push_back(static_cast<Entity*>(block));
+				blocks.push_back(block);
 			}
 		}
 		else if (currentSection == "enemy") {
@@ -232,7 +233,24 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<Entity*>& bloc
 
 		}
 		else if (currentSection == "item") {
-			// Placeholder for item loading logic               
+			std::istringstream stream(line);
+			std::string itemTypeStr;
+			int subType;
+			float posX, posY;
+
+			if (!(stream >> itemTypeStr >> subType >> posX >> posY)) {
+				throw std::runtime_error("Malformed line for item: " + line);
+			}
+
+			ItemType itemType = stringToItemType(itemTypeStr);
+
+			Item* item = ItemFactory::getInstance().createItem(itemType, { posX, posY }, LEFT, subType);
+
+			if (!item) {
+				throw std::runtime_error("Failed to create item: " + itemTypeStr);
+			}
+
+			items.push_back(item);
 		}
 		else {
 			throw std::runtime_error("Unknown section: " + currentSection);

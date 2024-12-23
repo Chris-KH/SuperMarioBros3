@@ -1,6 +1,6 @@
 #ifndef MEMU_H
 #define MENU_H
-#pragma once
+
 #include "../lib/raylib.h"
 #include <memory>
 #include <vector>
@@ -51,7 +51,7 @@ public:
     void setMenu(Menu* menu) { this->menu = menu; }
 
 protected:
-    Menu* menu;
+    Menu* menu = nullptr;
 };
 
 class MainMenuState : public MenuState {

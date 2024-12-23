@@ -1,13 +1,13 @@
 #pragma once
 #include"Sprite.h"
 
-class Block;
+class BaseBlock;
 class Character;
 
 class Fireball: public Sprite {
 private:
 	const float ENEMY_FIREBALL_LIFETIME = 5.f;
-	const float ENEMY_FIREBALL_SPEED = 1000.f;
+	const float ENEMY_FIREBALL_SPEED = 0.f;
 
 	const float CHARACTER_FIREBALL_SPEED = 150.f;
 	const float BOUNCE_VELOCITY = -200.f;
@@ -37,5 +37,5 @@ public:
 
 	void update(float deltaTime) override;
 
-	void collisionWithBlock(const Block* block, Edge edge);
+	void collisionWithBlock(const BaseBlock* block, Edge edge);
 };

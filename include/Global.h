@@ -24,14 +24,16 @@ enum Orientation {
 	DOWNLEFT,
 	UPLEFT,
 	DOWNRIGHT,
-	UPRIGHT
+	UPRIGHT,
+	NONE_ORIENTATION
 };
 
 enum Edge {
 	LEFT_EDGE,
 	RIGHT_EDGE,
 	TOP_EDGE,
-	BOTTOM_EDGE
+	BOTTOM_EDGE,
+	NONE_EDGE
 };
 
 enum EntityType {

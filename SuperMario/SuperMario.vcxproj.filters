@@ -67,6 +67,12 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{716a1728-34e2-4f51-abe8-266641608466}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Map\Block">
+      <UniqueIdentifier>{a731772c-a0e7-4150-b747-cb3efdab0ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map\Block">
+      <UniqueIdentifier>{76745d42-9d88-4a54-a8fe-a7464affffb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Entity.h">
@@ -80,9 +86,6 @@
     </ClInclude>
     <ClInclude Include="..\include\Animation.h">
       <Filter>Header Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Block.h">
-      <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="..\include\NormalState.h">
       <Filter>Header Files\Entity\State</Filter>
@@ -192,6 +195,42 @@
     <ClInclude Include="..\include\Menu.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\BaseBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Brick.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DecorBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Floor.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HiddenBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ItemBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MovingBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PipeBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SolidBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SpikeBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TemporaryBlock.h">
+      <Filter>Header Files\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TailState.h">
+      <Filter>Header Files\Entity\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
@@ -247,9 +286,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Item.cpp">
       <Filter>Source Files\Entity\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Block.cpp">
-      <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Mario.cpp">
       <Filter>Source Files\Entity\Character</Filter>
@@ -319,6 +355,42 @@
     </ClCompile>
     <ClCompile Include="..\include\GUI.h">
       <Filter>Header Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BaseBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Brick.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DecorBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Floor.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HiddenBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ItemBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MovingBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PipeBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SolidBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpikeBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TemporaryBlock.cpp">
+      <Filter>Source Files\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TailState.cpp">
+      <Filter>Source Files\Entity\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
