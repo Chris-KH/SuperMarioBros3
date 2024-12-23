@@ -213,11 +213,11 @@ void Character::update(float deltaTime) {
         }
     }
     Vector2 bound = globalGameEngine->getBound();
-    if ( this->getY() > bound.y)
+    if (this->getY() > bound.y)
         setPhase(DEAD_PHASE);
 
     if (phase == DEFAULT_PHASE) {
-        Sprite::update(deltaTime);
+        //Sprite::update(deltaTime);
 
 
         setVelocity(specificVelocity);
@@ -292,22 +292,54 @@ bool Character::isIdle() const {
 
 int Character::getLives() const { return lives; }
 
-void Character::setLives(int lives)
-{
+void Character::setLives(int lives) {
     this->lives = lives;
 }
 int Character::getCoins() const { return coins; }
 
-void Character::setCoins(int coins)
-{
+void Character::setCoins(int coins) {
     this->coins = coins;
 }
 
 int Character::getScores() const { return scores; }
 
-void Character::setScores(int score)
-{
+bool Character::isSitting() const {
+    return sitting;
+}
+
+bool Character::isLostLife() const {
+    return this->lostLife;
+}
+void Character::setLostLife(bool lostLife) {
+    this->lostLife = lostLife;
+}
+
+void Character::setScores(int score) {
     this->scores = score;
+}
+
+void Character::setHolding(bool holding) {
+    this->holding = holding;
+}
+
+bool Character::isHolding() const {
+    return this->holding;
+}
+
+void Character::setHoldingShell(Shell* shell) {
+    this->holdShell = shell;
+}
+
+Shell* Character::getHoldShell() const {
+    return this->holdShell;
+}
+
+void Character::setMovingBlockStandOn(MovingBlock* block) {
+    this->movingBlockStandOn = block;
+}
+
+MovingBlock* Character::getMovingBlockStandOn() const {
+    return this->movingBlockStandOn;
 }
 
 void Character::setIdleAnimation() {
