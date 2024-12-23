@@ -14,6 +14,8 @@ Mushroom::Mushroom(MushroomType type, Vector2 position, Orientation orientation)
 	}
 
 	setAnimation(mushroomAnimation);
+	setCollisionAvailable(false);
+	RESOURCE_MANAGER.playSound("mushroom_appears.wav");
 }
 
 Mushroom::~Mushroom() {
@@ -32,14 +34,26 @@ ItemType Mushroom::getItemType() const {
 void Mushroom::update(float deltaTime) {
 	if (isDead()) return;
 	
-	if (getOrientation() == RIGHT) {
-		setXVelocity(SPEED);
+	if (isAppear()) {
+		if (getBottom() <= getAppearBottom()) {
+			setYPosition(getAppearBottom() - getSize().y);
+			setAppear(false);
+			setYVelocity(0.f);
+			setCollisionAvailable(true);
+			return;
+		}
+		setYVelocity(-APPEAR_SPEED);
 	}
 	else {
-		setXVelocity(-SPEED);
-	}
+		if (getOrientation() == RIGHT) {
+			setXVelocity(SPEED);
+		}
+		else {
+			setXVelocity(-SPEED);
+		}
 
-	if (gravityAvailable) {
-		setYVelocity(getVelocity().y + GRAVITY * deltaTime);
+		if (gravityAvailable) {
+			setYVelocity(getVelocity().y + GRAVITY * deltaTime);
+		}
 	}
 }

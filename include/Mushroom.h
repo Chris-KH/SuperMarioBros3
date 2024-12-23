@@ -10,6 +10,8 @@ private:
 
 	MushroomType type;
 	Animation* mushroomAnimation;
+
+	const float APPEAR_SPEED = 40.f;
 public:
 	//Create new mushroom
 	Mushroom(MushroomType type = MUSHROOM_SUPER, Vector2 position = {0.f, 0.f}, Orientation orientation = RIGHT);

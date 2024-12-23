@@ -3,6 +3,10 @@
 
 #include "BaseBlock.h"
 
+class Sprite;
+class Character;
+class Fireball;
+
 class ItemBlock : public BaseBlock {
 private:
     bool hasItem = true;
@@ -18,7 +22,7 @@ public:
     BlockType getBlockType() const override;
     void draw(float deltaTime) override;
     void update(float deltaTime) override;
-    void releaseItem();
+    void releaseItem(const Sprite* object);
     void setItem(ItemType item, int subtype);
 };
 
