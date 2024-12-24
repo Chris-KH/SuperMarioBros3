@@ -13,9 +13,6 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FileHandle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FPSManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

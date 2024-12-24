@@ -6,8 +6,7 @@
 BaseBlock::BaseBlock(Vector2 pos, Vector2 size, Color color) : Entity(pos, size, color), sprite(nullptr) {}
 
 BaseBlock::~BaseBlock() {
-    if (sprite)
-        delete sprite;
+    if (sprite) delete sprite;
 }
 
 EntityType BaseBlock::getType() const {

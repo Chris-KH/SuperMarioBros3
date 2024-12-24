@@ -233,7 +233,7 @@ void Character::update(float deltaTime) {
         if (countImmortalTime > 0.f) {
             countImmortalTime = max(0.f, countImmortalTime - deltaTime);
             indexRender = (indexRender + 1) % renderImmortal.size();
-            RESOURCE_MANAGER.playSound("lost_suit.wav");
+            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/lost_suit.wav");
         }
         else setCollisionAvailable(true);
 
@@ -255,7 +255,7 @@ void Character::update(float deltaTime) {
                 holdShell->setGravityAvailable(true);
                 holdShell->setIsHold(false);
                 holdShell = nullptr;
-                RESOURCE_MANAGER.playSound("kick.wav");
+                RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/kick.wav");
             }
         }
         else if (IsKeyDown(KEY_LEFT_SHIFT)) {
@@ -273,7 +273,7 @@ void Character::update(float deltaTime) {
         //transform
     }
     else if (phase == DEAD_PHASE) {
-        RESOURCE_MANAGER.playSound("lost_life.wav");
+        RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/lost_life.wav");
         setLostLife(true);
         //Update gravity gì đó
         setAnimation(deadAniamtion);
@@ -469,12 +469,12 @@ void Character::collisionWithItem(const Item* item) {
                 transform(SUPERSTARMAN);
                 //phase = TRANSFORM_PHASE;
             }
-			RESOURCE_MANAGER.playSound("power_up.wav");
+			RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/power_up.wav");
             text = new TextEffect(to_string(mushroom->getPoint()).c_str(), vector2);
         }
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
-            RESOURCE_MANAGER.playSound("1_up.wav");
+            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/1_up.wav");
             text = new TextEffect("1 UP", vector2);
         }
     }
@@ -490,7 +490,7 @@ void Character::collisionWithItem(const Item* item) {
                 transform(FIRESTARMAN);
                 //phase = TRANSFORM_PHASE;
             }
-            RESOURCE_MANAGER.playSound("power_up.wav");
+            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/power_up.wav");
             text = new TextEffect(to_string(flower->getPoint()).c_str(), vector2);
         }
     }
@@ -512,7 +512,7 @@ void Character::collisionWithItem(const Item* item) {
     
             invicibleStarTime = STAR_INVICIBLE_TIME;
 			scores += star->getPoint();
-			RESOURCE_MANAGER.playSound("power_up.wav");
+			RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/power_up.wav");
     
             text = new TextEffect(to_string(star->getPoint()).c_str(), vector2);
         }
@@ -522,7 +522,7 @@ void Character::collisionWithItem(const Item* item) {
 		if (coin->getCoinType() == STATIC_COIN) {
 			coins++;
 			scores += coin->getPoint();
-			RESOURCE_MANAGER.playSound("coin.wav");
+			RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/coin.wav");
 		}
 	}
 	else {
@@ -544,7 +544,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
 
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         scores += 100;
-        RESOURCE_MANAGER.playSound("stomp.wav");
+        RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/stomp.wav");
         enemy->attacked();
     }
     else if (enemy->getEnemyType() != SHELL) {
@@ -552,7 +552,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             scores += 100;
             setYVelocity(JET_STOMP_VELOCITY);
             setJumping(true);
-            RESOURCE_MANAGER.playSound("stomp.wav");
+            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/stomp.wav");
             enemy->stomped();
         }
         else lostSuit();
@@ -562,7 +562,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
         if (edge == TOP_EDGE || edge == BOTTOM_EDGE) {
             setYVelocity(JET_STOMP_VELOCITY);
             setJumping(true);
-            RESOURCE_MANAGER.playSound("stomp.wav");
+            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/stomp.wav");
             shell->stomped(getCenter());
         }
         else {
@@ -577,7 +577,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                     else {
                         shell->kicked(RIGHT);
                         setAnimation(kickRight, 0.2f);
-                        RESOURCE_MANAGER.playSound("kick.wav");
+                        RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/kick.wav");
                     }
                 }
                 else if (edge == RIGHT_EDGE) {
@@ -590,7 +590,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                     else {
                         shell->kicked(LEFT);
                         setAnimation(kickLeft, 0.2f);
-                        RESOURCE_MANAGER.playSound("kick.wav");
+                        RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/kick.wav");
                     }
                 }
             }

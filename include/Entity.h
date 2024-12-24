@@ -13,7 +13,7 @@ private:
     Color color;      // RGBA color of the entity
     bool dead;           // Indicates if the sprite is "dead"
 protected:
-    Animation* currentAnimation; 
+    Animation* currentAnimation;
     float playTime;
 public:
     Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);

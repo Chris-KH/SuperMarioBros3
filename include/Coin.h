@@ -10,7 +10,6 @@ private:
 	static constexpr float COIN_UP_VELOCITY = 100.f;
 	CoinType type;
 	Animation* coinAnimation;
-
 	float lifeTime;
 public:
 	Coin(CoinType type = STATIC_COIN, Vector2 position = { 0.f, 0.f });

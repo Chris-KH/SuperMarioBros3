@@ -10,7 +10,7 @@
 #include "../include/Flower.h"
 #include "../include/GUI.h"
 #include "../include/Effect.h"
-#include"../include/Character.h"
+#include "../include/Character.h"
 
 using namespace std;
 
@@ -99,7 +99,7 @@ void GameEngine::update(float deltaTime) {
             resetTimer();
         }
         else if (isPaused) {
-            RESOURCE_MANAGER.playSound("pause.wav");
+            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/pause.wav");
         }
     }
     if (isPaused) {
@@ -315,7 +315,7 @@ bool GameEngine::run() {
         if (cleared == true && isPaused == false)
         {
             RESOURCE_MANAGER.stopCurrentMusic();
-            RESOURCE_MANAGER.playMusic("Overworld.mp3");
+            RESOURCE_MANAGER.playMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3");
             return true;
         }
         if (player->getX() >= map.getMapSize().x) {
@@ -323,7 +323,7 @@ bool GameEngine::run() {
             isPaused = true;
             RESOURCE_MANAGER.stopCurrentMusic();
             if (flag)
-            RESOURCE_MANAGER.playSound("level_clear.wav");
+            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/level_clear.wav");
             flag = false;
             player->setVelocity({ 0.f, 0.f });
         }   
@@ -340,7 +340,7 @@ bool GameEngine::run() {
         }
     }
     RESOURCE_MANAGER.stopCurrentMusic();
-    RESOURCE_MANAGER.playMusic("Overworld.mp3");
+    RESOURCE_MANAGER.playMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3");
     return false;
 }
 

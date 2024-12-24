@@ -60,8 +60,8 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         Floor* floor = dynamic_cast<Floor*>(entityB);
 
-        if (!player || !floor)
-            return false;
+        if (!player || !floor) return false;
+
         float deltaTime = GetFrameTime();
         Rectangle playerRect = player->getRectangle();
         Rectangle floorRect = floor->getRectangle();
@@ -97,8 +97,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!player || !block)
-            return false;
+        if (!player || !block) return false;
 
         float deltaTime = GetFrameTime();
 
@@ -163,8 +162,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         ItemBlock* block = dynamic_cast<ItemBlock*>(entityB); // Assume ItemBlock is a subclass of BaseBlock
 
-        if (!player || !block)
-            return false;
+        if (!player || !block) return false;
 
         float deltaTime = GetFrameTime();
 
@@ -274,8 +272,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         MovingBlock* block = dynamic_cast<MovingBlock*>(entityB);
 
-        if (!player || !block || !player->isCollisionAvailable())
-            return false;
+        if (!player || !block || !player->isCollisionAvailable()) return false;
 
         float deltaTime = GetFrameTime();
 
@@ -286,7 +283,6 @@ public:
         Rectangle blockRect = block->getRectangle();
 
         float collisionTime;
-        
 
         if (!SweptAABB(playerRect, playerVel, blockRect, blockVel, deltaTime, collisionTime)) {
             player->setMovingBlockStandOn(nullptr);
@@ -295,7 +291,7 @@ public:
 
         // Calculate the exact position at collision
         Vector2 collisionPlayerPos = {
-             playerRect.x + playerVel.x * collisionTime * deltaTime,
+            playerRect.x + playerVel.x * collisionTime * deltaTime,
             playerRect.y + playerVel.y * collisionTime * deltaTime
         };
 
@@ -464,8 +460,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         Item* item = dynamic_cast<Item*>(entityB);
 
-        if (player->isCollisionAvailable() == false || item->isCollisionAvailable() == false)
-            return false;
+        if (player->isCollisionAvailable() == false || item->isCollisionAvailable() == false) return false;
 
         Rectangle itemRect = item->getRectangle();
         Rectangle playerRect = player->getRectangle();
@@ -484,8 +479,7 @@ public:
         Item* item = dynamic_cast<Item*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!item || !block || item->isCollisionAvailable() == false)
-            return false;
+        if (!item || !block || item->isCollisionAvailable() == false) return false;
 
         float deltaTime = GetFrameTime();
 
@@ -551,10 +545,13 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         Enemy* enemy = dynamic_cast<Enemy*>(entityB);
 
-        if (!player || !enemy)
+        if (!player || !enemy) {
             return false;
-        if (player->isCollisionAvailable() == false || enemy->isCollisionAvailable() == false)
+        }
+            
+        if (player->isCollisionAvailable() == false || enemy->isCollisionAvailable() == false) {
             return false;
+        }
 
         float deltaTime = GetFrameTime();
 
@@ -660,8 +657,7 @@ public:
         Fireball* ball = dynamic_cast<Fireball*>(entityA);
         Character* player = dynamic_cast<Character*>(entityB);
 
-        if (!ball || !player || ball->isCollisionAvailable() == false || player->isCollisionAvailable() == false)
-            return false;
+        if (!ball || !player || ball->isCollisionAvailable() == false || player->isCollisionAvailable() == false) return false;
 
         float deltaTime = GetFrameTime();
         Vector2 playerVelocity = player->getVelocity();
@@ -709,8 +705,7 @@ public:
         Fireball* ball = dynamic_cast<Fireball*>(entityA);
         Enemy* enemy = dynamic_cast<Enemy*>(entityB);
 
-        if (!ball || !enemy || ball->isCollisionAvailable() == false || enemy->isCollisionAvailable() == false)
-            return false;
+        if (!ball || !enemy || ball->isCollisionAvailable() == false || enemy->isCollisionAvailable() == false) return false;
 
         float deltaTime = GetFrameTime();
         Vector2 enemyVelocity = enemy->getVelocity();
@@ -759,8 +754,7 @@ public:
         Fireball* ball = dynamic_cast<Fireball*>(entityA);
         Floor* floor = dynamic_cast<Floor*>(entityB);
 
-        if (!ball || !floor || ball->isCollisionAvailable() == false)
-            return false;
+        if (!ball || !floor || ball->isCollisionAvailable() == false) return false;
 
         float deltaTime = GetFrameTime();
         Rectangle ballRect = ball->getRectangle();
@@ -798,8 +792,9 @@ public:
         Fireball* ball = dynamic_cast<Fireball*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!ball || !block || ball->isCollisionAvailable() == false)
+        if (!ball || !block || ball->isCollisionAvailable() == false) {
             return false;
+        }
 
         if (ball->getFireballType() == PLANT) {
             return false;
@@ -854,8 +849,7 @@ public:
         Fireball* ball = dynamic_cast<Fireball*>(entityA);
         ItemBlock* block = dynamic_cast<ItemBlock*>(entityB);
 
-        if (!ball || !block || ball->isCollisionAvailable() == false)
-            return false;
+        if (!ball || !block || ball->isCollisionAvailable() == false) return false;
 
         float deltaTime = GetFrameTime();
         Rectangle ballRect = ball->getRectangle();
@@ -891,8 +885,7 @@ public:
         Fireball* ball = dynamic_cast<Fireball*>(entityA);
         Brick* block = dynamic_cast<Brick*>(entityB);
 
-        if (!ball || !block || ball->isCollisionAvailable() == false)
-            return false;
+        if (!ball || !block || ball->isCollisionAvailable() == false) return false;
 
         float deltaTime = GetFrameTime();
         Rectangle ballRect = ball->getRectangle();
@@ -929,10 +922,13 @@ public:
         Enemy* enemy1 = dynamic_cast<Enemy*>(entityA);
         Enemy* enemy2 = dynamic_cast<Enemy*>(entityB);
 
-        if (!enemy1 || !enemy2 || enemy1->isCollisionAvailable() == false || enemy2->isCollisionAvailable() == false)
+        if (!enemy1 || !enemy2 || enemy1->isCollisionAvailable() == false || enemy2->isCollisionAvailable() == false) {
             return false;
-        if (enemy1->getEnemyType() != SHELL) return false;
-
+        }
+        
+        if (enemy1->getEnemyType() != SHELL) {
+            return false;
+        }
 
         float deltaTime = GetFrameTime();
 

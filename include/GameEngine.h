@@ -49,4 +49,5 @@ public:
     Vector2 getBound();
 };
 extern GameEngine* globalGameEngine;
+
 #endif

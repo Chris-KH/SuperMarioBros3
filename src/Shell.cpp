@@ -21,14 +21,14 @@ Shell::Shell(ShellType type, Vector2 position) : Enemy(position) {
 	shellSpin = nullptr;
 
 	if (type == GREEN_SHELL) {
-		inShell = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_shell")->clone();
-		outShell = RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_outShell")->clone();
-		shellSpin = RESOURCE_MANAGER.getAnimation("green_paraKoopaTroopa_spin")->clone();
+		inShell = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_KoopaTroopa_shell")->clone();
+		outShell = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_KoopaTroopa_outShell")->clone();
+		shellSpin = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_paraKoopaTroopa_spin")->clone();
 	}
 	else if (type == RED_SHELL) {
-		inShell = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_shell")->clone();
-		outShell = RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_outShell")->clone();
-		shellSpin = RESOURCE_MANAGER.getAnimation("red_paraKoopaTroopa_spin")->clone();
+		inShell = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_KoopaTroopa_shell")->clone();
+		outShell = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_KoopaTroopa_outShell")->clone();
+		shellSpin = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_paraKoopaTroopa_spin")->clone();
 	}
 
 	setAnimation(inShell);
