@@ -923,7 +923,7 @@ public:
 
 
 
-class EnemyEmenyStrat : public CollisionStrategy {
+class EnemyEnemyStrat : public CollisionStrategy {
 public:
     bool resolve(Entity* entityA, Entity* entityB) override {
         Enemy* enemy1 = dynamic_cast<Enemy*>(entityA);
@@ -966,7 +966,8 @@ public:
         };
 
         if (CheckCollisionRecs(future1, future2)) {
-            
+            enemy2->attacked();
+            if (enemy2->getEnemyType() == SHELL) enemy1->attacked();
             return true;
         }
 
@@ -1032,7 +1033,7 @@ public:
             return std::make_unique<FireballBlockStrat>();
         }
         if (typeA == ENEMY && typeB == ENEMY) {
-
+            return std::make_unique<EnemyEnemyStrat>();
         }
 
 

@@ -230,7 +230,7 @@ void ResourceManager::stopCurrentMusic() const
 void ResourceManager::playSound(const string& soundName) const {
     if (SETTINGS.isSoundEnabled() == false) return;
 
-    PlaySound(*getSound(soundName));
+    if (isSoundPlaying(soundName) == false) PlaySound(*getSound(soundName));
 }
 
 bool ResourceManager::isSoundPlaying(const string& soundName) const {
