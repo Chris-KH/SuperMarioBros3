@@ -5,7 +5,6 @@
 class Sprite : public Entity {
 protected:
     Vector2 velocity;      // Velocity vector (dx, dy)
-    Vector2 acceleration;  // Acceleration vector (ax, ay)
     bool jumping;
     Orientation orientation; 
 
@@ -14,7 +13,7 @@ protected:
 
     const float GRAVITY = 600.f;
 public:
-    Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
+    Sprite(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
     Sprite(const Sprite& other);
 
     virtual ~Sprite() = default;
@@ -24,13 +23,8 @@ public:
     const Vector2& getVelocity() const;
     void setVelocity(Vector2 vel);
 
-    const Vector2& getAcceleration() const;
-    void setAcceleration(Vector2 acc);
-
     void setXVelocity(float vx);
     void setYVelocity(float vx);
-    void setXAcceleration(float ax);
-    void setYAcceleration(float yx);
 
     virtual bool isJumping() const;
     virtual void setJumping(bool value);

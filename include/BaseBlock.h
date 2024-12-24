@@ -11,7 +11,7 @@
 
 class BaseBlock : public Entity {
 public:
-    BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE);
+    BaseBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
     virtual ~BaseBlock();
 
     EntityType getType() const;

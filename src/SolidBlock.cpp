@@ -1,6 +1,6 @@
 #include "../include/SolidBlock.h"
 
-SolidBlock::SolidBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {}
+SolidBlock::SolidBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {}
 
 BlockType SolidBlock::getBlockType() const {
     return SOLIDBLOCK;

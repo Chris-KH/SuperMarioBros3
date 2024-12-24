@@ -10,7 +10,7 @@ private:
     bool dead;
 
 public:
-    TemporaryBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLANK);
+    TemporaryBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
     BlockType getBlockType() const override;
     void update();
 };

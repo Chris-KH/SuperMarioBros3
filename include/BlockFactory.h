@@ -17,7 +17,7 @@
 
 class BlockFactory {
 public:
-    using BlockCreator = std::function<BaseBlock* (Vector2, Vector2, Color)>;
+    using BlockCreator = std::function<BaseBlock* (Vector2, Vector2)>;
 
     static BlockFactory& getInstance() {
         static BlockFactory instance;
@@ -28,10 +28,10 @@ public:
         creators[type] = creator;
     }
 
-    BaseBlock* createBlock(BlockType type, Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = ORANGE) {
+    BaseBlock* createBlock(BlockType type, Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }) {
         auto it = creators.find(type);
         if (it != creators.end()) {
-            return it->second(pos, size, color);
+            return it->second(pos, size);
         }
         return nullptr; 
     }
@@ -49,44 +49,44 @@ private:
 inline void registerBlocks() {
     BlockFactory& factory = BlockFactory::getInstance();
 
-    factory.registerBlock(FLOOR, [](Vector2 pos, Vector2 size, Color color) {
-        return new Floor(pos, size, color);
+    factory.registerBlock(FLOOR, [](Vector2 pos, Vector2 size) {
+        return new Floor(pos, size);
         });
 
-    factory.registerBlock(BRICK, [](Vector2 pos, Vector2 size, Color color) {
-        return new Brick(pos, size, color);
+    factory.registerBlock(BRICK, [](Vector2 pos, Vector2 size) {
+        return new Brick(pos, size);
         });
 
-    factory.registerBlock(SOLIDBLOCK, [](Vector2 pos, Vector2 size, Color color) {
-        return new SolidBlock(pos, size, color);
+    factory.registerBlock(SOLIDBLOCK, [](Vector2 pos, Vector2 size) {
+        return new SolidBlock(pos, size);
         });
 
-    factory.registerBlock(MOVINGBLOCK, [](Vector2 pos, Vector2 size, Color color) {
-        return new MovingBlock(pos, size, color);
+    factory.registerBlock(MOVINGBLOCK, [](Vector2 pos, Vector2 size) {
+        return new MovingBlock(pos, size);
         });
 
-    factory.registerBlock(ITEMBLOCK, [](Vector2 pos, Vector2 size, Color color) {
-        return new ItemBlock(pos, size, color);
+    factory.registerBlock(ITEMBLOCK, [](Vector2 pos, Vector2 size) {
+        return new ItemBlock(pos, size);
         });
 
-    factory.registerBlock(HIDDEN, [](Vector2 pos, Vector2 size, Color color) {
-        return new HiddenBlock(pos, size, color);
+    factory.registerBlock(HIDDEN, [](Vector2 pos, Vector2 size) {
+        return new HiddenBlock(pos, size);
         });
 
-    factory.registerBlock(SPIKE, [](Vector2 pos, Vector2 size, Color color) {
-        return new SpikeBlock(pos, size, color);
+    factory.registerBlock(SPIKE, [](Vector2 pos, Vector2 size) {
+        return new SpikeBlock(pos, size);
         });
 
-    factory.registerBlock(PIPE, [](Vector2 pos, Vector2 size, Color color) {
-        return new PipeBlock(pos, size, color);
+    factory.registerBlock(PIPE, [](Vector2 pos, Vector2 size) {
+        return new PipeBlock(pos, size);
         });
 
-    factory.registerBlock(DECOR, [](Vector2 pos, Vector2 size, Color color) {
-        return new DecorBlock(pos, size, color);
+    factory.registerBlock(DECOR, [](Vector2 pos, Vector2 size) {
+        return new DecorBlock(pos, size);
         });
 
-    factory.registerBlock(TEMPBLOCK, [](Vector2 pos, Vector2 size, Color color) {
-        return new TemporaryBlock(pos, size, color);
+    factory.registerBlock(TEMPBLOCK, [](Vector2 pos, Vector2 size) {
+        return new TemporaryBlock(pos, size);
         });
 }
 //BlockFactory& factory = BlockFactory::getInstance();

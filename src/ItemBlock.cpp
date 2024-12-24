@@ -5,7 +5,7 @@
 #include "../include/Character.h"
 #include "../include/Fireball.h"
 
-ItemBlock::ItemBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
+ItemBlock::ItemBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
     sprite = RESOURCE_MANAGER.getAnimation("item_block")->clone();
     item = COIN;
     subType = BLOCK_COIN;

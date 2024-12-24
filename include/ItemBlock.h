@@ -18,7 +18,7 @@ private:
     const float bounceDuration = 0.2f;
     float OgY;
 public:
-    ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = YELLOW);
+    ItemBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
     BlockType getBlockType() const override;
     void draw(float deltaTime) override;
     void update(float deltaTime) override;

@@ -16,7 +16,7 @@ protected:
     const float DEAD_TIME = 0.5f;
     const int ENEMY_POINT = 100;
 public:
-    Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
+    Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
 
     virtual ~Enemy() = default;
     

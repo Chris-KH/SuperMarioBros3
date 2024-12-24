@@ -17,7 +17,7 @@
 #include "../include/GameEngine.h"
 #include "../include/BaseBlock.h"
 
-Character::Character(Vector2 pos, Vector2 size, Color col) : Sprite(pos, size, col)
+Character::Character(Vector2 pos, Vector2 size) : Sprite(pos, size)
 , inputManager(INPUT_MANAGER) {
     scores = 0;
     coins = 0;

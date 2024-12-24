@@ -5,7 +5,7 @@
 
 class SolidBlock : public BaseBlock {
 public:
-    SolidBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = DARKBROWN);
+    SolidBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
     BlockType getBlockType() const override;
     void update(float deltaTime) override;
 };

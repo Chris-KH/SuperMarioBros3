@@ -3,7 +3,7 @@
 #include "../include/Effect.h"
 #include "../include/TextEffect.h"
 
-Brick::Brick(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
+Brick::Brick(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
     sprite = RESOURCE_MANAGER.getAnimation("gold_brick_block")->clone();
     setAnimation(sprite);
 }
