@@ -14,7 +14,7 @@ protected:
 
     Vector2 boudary; //The x-axis range that enemy can move (y-axis for vertical plant)
     const float DEAD_TIME = 0.5f;
-    const int ENEMY_POINT = 100;
+    const int ENEMY_POINT = 100;    
 public:
     Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color col = WHITE);
 

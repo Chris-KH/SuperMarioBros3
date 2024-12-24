@@ -33,7 +33,7 @@ public:
         if (it != creators.end()) {
             return it->second(pos, size, color);
         }
-        return nullptr; 
+        return nullptr;
     }
 
 private:
