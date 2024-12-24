@@ -133,7 +133,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 
 				MovingBlock* block = dynamic_cast<MovingBlock*>(
 					BlockFactory::getInstance().createBlock(
-						blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType)));
+						blockType, { x, y }, { width, height }));
 
 				if (!block) {
 					throw std::runtime_error("Failed to create moving block: " + blockTypeStr);
@@ -150,7 +150,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 					throw std::runtime_error("Malformed line for decor: " + line);
 				}
 				BaseBlock* block = BlockFactory::getInstance().createBlock(
-					blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
+					blockType, { x, y }, { width, height });
 				if (!block) {
 					throw std::runtime_error("Failed to create static block: " + blockTypeStr);
 				}
@@ -162,7 +162,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 					throw std::runtime_error("Malformed line for decor: " + line);
 				}
 				type = stringToItemType(itemTy);
-				BaseBlock* block = BlockFactory::getInstance().createBlock(blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
+				BaseBlock* block = BlockFactory::getInstance().createBlock(blockType, { x, y }, { width, height });
 				dynamic_cast<ItemBlock*>(block)->setItem(type, subType);
 				if (!block) {
 					throw std::runtime_error("Failed to create static block: " + blockTypeStr);
@@ -176,7 +176,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 				}
 
 				BaseBlock* block = BlockFactory::getInstance().createBlock(
-					blockType, { x, y }, { width, height }, getDefaultColorForBlockType(blockType));
+					blockType, { x, y }, { width, height });
 
 				if (!block) {
 					throw std::runtime_error("Failed to create static block: " + blockTypeStr);

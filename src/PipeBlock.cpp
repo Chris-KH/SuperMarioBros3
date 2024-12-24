@@ -1,6 +1,6 @@
 #include "../include/PipeBlock.h"
 
-PipeBlock::PipeBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {}
+PipeBlock::PipeBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {}
 
 BlockType PipeBlock::getBlockType() const {
     return PIPE;

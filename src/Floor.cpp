@@ -1,6 +1,6 @@
 #include "../include/Floor.h"
 
-Floor::Floor(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {}
+Floor::Floor(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {}
 
 BlockType Floor::getBlockType() const {
     return FLOOR;

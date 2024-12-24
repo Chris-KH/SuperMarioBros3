@@ -105,7 +105,7 @@ protected:
     const float IMMORTAL_TIME = 3.f;
     const float FIREBALL_CHARGE_TIME = 0.f;
 public:
-    Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 }, Color col = WHITE);
+    Character(Vector2 pos = { 0, 0 }, Vector2 size = { 0, 0 });
     virtual ~Character();
     
     virtual EntityType getType() const override;

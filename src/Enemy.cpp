@@ -5,7 +5,7 @@
 #include "../include/TextEffect.h"
 #include "../include/Fireball.h"
 
-Enemy::Enemy(Vector2 pos, Vector2 size, Color col) {
+Enemy::Enemy(Vector2 pos, Vector2 size) {
     stompable = false;
     kickable = false;
     jumping = false;

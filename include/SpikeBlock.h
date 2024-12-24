@@ -5,7 +5,7 @@
 
 class SpikeBlock : public BaseBlock {
 public:
-    SpikeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = BLACK);
+    SpikeBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
     BlockType getBlockType() const override;
     void update(float deltaTime) override;
 };

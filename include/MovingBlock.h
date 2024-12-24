@@ -10,7 +10,7 @@ private:
     float boundTop, boundBottom;
 
 public:
-    MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 16, 16 }, Color color = DARKGRAY);
+    MovingBlock(Vector2 pos = { 0, 0 }, Vector2 size = { 16, 16 });
     BlockType getBlockType() const override;
     void draw(float deltaTime) override;
     void setBounds(float left, float right, float top, float bottom);

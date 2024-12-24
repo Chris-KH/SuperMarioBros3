@@ -3,7 +3,7 @@
 #include "../include/ItemFactory.h"
 #include "../include/GameEngine.h"
 
-BaseBlock::BaseBlock(Vector2 pos, Vector2 size, Color color) : Entity(pos, size, color), sprite(nullptr) {}
+BaseBlock::BaseBlock(Vector2 pos, Vector2 size) : Entity(pos, size), sprite(nullptr) {}
 
 BaseBlock::~BaseBlock() {
     if (sprite) delete sprite;

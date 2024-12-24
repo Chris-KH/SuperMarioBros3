@@ -1,14 +1,14 @@
 #include "../include/Entity.h"
 
-Entity::Entity(Vector2 pos, Vector2 size, Color color)
-    : position(pos), size(size), color(color) {
+Entity::Entity(Vector2 pos, Vector2 size)
+    : position(pos), size(size) {
     currentAnimation = nullptr;
     playTime = 0.f;
     dead = false;
 }
 
 Entity::Entity(const Entity& other)
-    : position(other.position), size(other.size), color(other.color) {
+    : position(other.position), size(other.size) {
     currentAnimation = nullptr;
     playTime = 0.f;
     dead = other.dead;
@@ -30,16 +30,12 @@ Rectangle Entity::getRectangle() const {
     return { position.x, position.y, size.x, size.y };
 }
 
-Vector2 Entity::getSize() const {
+const Vector2& Entity::getSize() const {
     return this->size;
 }
 
-Vector2 Entity::getPosition() const {
+const Vector2& Entity::getPosition() const {
     return this->position;
-}
-
-Color Entity::getColor() const {
-    return this->color;
 }
 
 float Entity::getCenterX() const {
@@ -77,8 +73,6 @@ void Entity::setXPosition(float x) { position.x = x; }
 void Entity::setYPosition(float y) { position.y = y; }
 
 void Entity::setSize(Vector2 sz) { size = sz; }
-
-void Entity::setColor(Color col) { color = col; }
 
 void Entity::setCenter(Vector2 center) {
     Vector2 oldCenter = getCenter();

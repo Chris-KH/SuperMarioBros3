@@ -1,6 +1,6 @@
 #include "../include/SpikeBlock.h"
 
-SpikeBlock::SpikeBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {}
+SpikeBlock::SpikeBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {}
 
 BlockType SpikeBlock::getBlockType() const {
     return SPIKE;

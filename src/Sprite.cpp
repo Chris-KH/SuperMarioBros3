@@ -1,9 +1,8 @@
 ﻿#include "../include/Sprite.h"
 #include "../include/GameEngine.h"
-Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
-    : Entity(pos, size, color),
+Sprite::Sprite(Vector2 pos, Vector2 size)
+    : Entity(pos, size),
     velocity({ 0, 0 }), 
-    acceleration({ 0, 0 }),
     jumping(false),
     gravityAvailable(true),
     collisionAvailable(true),
@@ -13,7 +12,6 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Color color)
 Sprite::Sprite(const Sprite& other)
     : Entity(other),
     velocity(other.velocity),
-    acceleration(other.acceleration),
     jumping(other.jumping),
     gravityAvailable(other.gravityAvailable),
     collisionAvailable(other.collisionAvailable),
@@ -26,24 +24,12 @@ const Vector2& Sprite::getVelocity() const { return velocity; }
 
 void Sprite::setVelocity(Vector2 vel) { velocity = vel; }
 
-const Vector2& Sprite::getAcceleration() const { return acceleration; }
-
-void Sprite::setAcceleration(Vector2 acc) { acceleration = acc; }
-
 void Sprite::setXVelocity(float vx) {
     velocity.x = vx;
 }
 
 void Sprite::setYVelocity(float vy) {
     velocity.y = vy;
-}
-
-void Sprite::setXAcceleration(float ax) {
-    acceleration.x = ax;
-}
-
-void Sprite::setYAcceleration(float ay) {
-    acceleration.y = ay;
 }
 
 void Sprite::update(float deltaTime) {

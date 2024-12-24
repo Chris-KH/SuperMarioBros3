@@ -178,7 +178,7 @@ const Texture2D& ResourceManager::getTexture(const string& name) const {
 
 void ResourceManager::unloadAnimation() {
     animationResource.clear();
-}
+}   
 
 void ResourceManager::unloadFonts() {
     fontResource.clear(); 

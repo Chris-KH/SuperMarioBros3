@@ -10,13 +10,12 @@ class Entity {
 private:
     Vector2 position; // Position of the entity
     Vector2 size;     // Size of the entity
-    Color color;      // RGBA color of the entity
     bool dead;           // Indicates if the sprite is "dead"
 protected:
     Animation* currentAnimation;
     float playTime;
 public:
-    Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 }, Color color = WHITE);
+    Entity(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
     Entity(const Entity& other);
 
     virtual ~Entity();
@@ -27,9 +26,8 @@ public:
     virtual float getWidth() const;
     virtual float getHeight() const;
     virtual Rectangle getRectangle() const;
-    virtual Vector2 getSize() const ;
-    virtual Vector2 getPosition() const;
-    virtual Color getColor() const;
+    virtual const Vector2& getSize() const ;
+    virtual const Vector2& getPosition() const;
     virtual EntityType getType() const = 0;
     virtual float getCenterX() const;
     virtual float getCenterY() const;
@@ -44,7 +42,6 @@ public:
     virtual void setXPosition(float x);
     virtual void setYPosition(float y);
     virtual void setSize(Vector2 sz);
-    virtual void setColor(Color col);
     virtual void setCenter(Vector2 center);
     
     // Pure virtual draw function

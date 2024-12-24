@@ -1,6 +1,6 @@
 #include "../include/DecorBlock.h"
 
-DecorBlock::DecorBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
+DecorBlock::DecorBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
     sprite = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/miscellaneous.txt/pipe_block_head")->clone();
     setAnimation(sprite);
 }
