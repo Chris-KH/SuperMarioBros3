@@ -545,7 +545,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         scores += 100;
         RESOURCE_MANAGER.playSound("stomp.wav");
-        enemy->attacked();
+        enemy->attacked(getOrientation());
     }
     else if (enemy->getEnemyType() != SHELL) {
         if (edge == TOP_EDGE && enemy->getEnemyType() != PLANT) {

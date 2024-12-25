@@ -6,7 +6,7 @@ class Character;
 
 class Fireball: public Sprite {
 private:
-	const float ENEMY_FIREBALL_LIFETIME = 5.f;
+	const float ENEMY_FIREBALL_LIFETIME = 3.f;
 	const float ENEMY_FIREBALL_SPEED = 150.f;
 
 	const float CHARACTER_FIREBALL_SPEED = 150.f;

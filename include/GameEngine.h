@@ -1,5 +1,6 @@
 ﻿#ifndef ENGINE_H
 #define ENGINE_H
+
 #include "Camera.h"  // For the camera
 #include "Character.h"   // For the player character
 #include "Fireball.h"    // For fireball handling

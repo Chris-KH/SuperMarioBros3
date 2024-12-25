@@ -29,6 +29,7 @@ public:
 	void update(float deltaTime) override;
 
 	void stomped() override;
+	void attacked(Orientation direction = RIGHT) override;
 };
 
 #endif // !ENEMY_H

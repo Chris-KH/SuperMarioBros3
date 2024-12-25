@@ -32,6 +32,7 @@ public:
 	bool getIsKicked() const;
 	void kicked(Orientation direction = RIGHT) override;
 	void stomped(Vector2 center = { 0.f, 0.f });
+	void attacked(Orientation direction = RIGHT) override;
 
 	void setHoldingPosition(const Character* character);
 };
