@@ -353,6 +353,11 @@ bool GameEngine::run() {
     return false;
 }
 
+string GameEngine::getCurrentMapName()
+{
+    return level->getName();
+}
+
 float GameEngine::getGlobalTime()
 {
     return deltaTime;
