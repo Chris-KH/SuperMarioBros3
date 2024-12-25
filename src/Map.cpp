@@ -81,8 +81,8 @@ void Map::clearThings() {
 }
 
 // Level Implementation
-Level::Level(const std::string& map, const std::string& background, string music)
-	: mapPath(map), backGroundPath(background), music(music) {}
+    Level::Level(const std::string& map, const std::string& background,string music, string const name )
+	: mapPath(map), backGroundPath(background), music(music),name(name) {}
 
 
 std::string Level::getMapPath() const {
@@ -91,6 +91,11 @@ std::string Level::getMapPath() const {
 
 std::string Level::getBackGroundPath() const {
 	return backGroundPath;
+}
+
+string Level::getName()
+{
+	return name;
 }
 
 string Level::getMusic() const

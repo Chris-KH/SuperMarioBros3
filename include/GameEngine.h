@@ -45,6 +45,7 @@ public:
     void handleCollision();
     void render(float deltaTime);
     bool run();
+    string getCurrentMapName();
     float getGlobalTime();
     float getRemainingTime();
     float resetTimer();

@@ -49,8 +49,10 @@ void GUI::drawStatusBar(const Character* player) {
     //
 
     DrawText(to_string(player->getScores()).c_str(), 440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f, 45, 45, BLACK);
+
+    DrawText(globalGameEngine->getCurrentMapName().c_str(), 530, 145, 45, BLACK);
     int timer = floor((globalGameEngine->getRemainingTime()));
-    DrawText(to_string(timer).c_str(), 440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(timer).c_str(), 45.f, 0.f).x / 2.f, 145, 45, BLACK);
+    DrawText(to_string(timer).c_str(), 480.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(timer).c_str(), 45.f, 0.f).x / 2.f, 145, 45, BLACK);
 }
 
 void GUI::drawPauseMenu()
