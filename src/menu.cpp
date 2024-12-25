@@ -232,7 +232,11 @@ void MainMenuState::handleInput() {
                     }
                     else break;
                 }
-                else break;
+                else {
+                    if (globalGameEngine->isOver())
+                        menu->player->reset();
+                    break;
+                }
             }
         }
         else if (CheckCollisionPointRec(mousePos, startButton)) {
@@ -262,7 +266,12 @@ void MainMenuState::handleInput() {
                     }
                     else break;
                 }
-                else break;
+                else
+                {
+                    if (globalGameEngine->isOver())
+                        menu->player->reset();
+                    break;
+                }
             }
         } else if (CheckCollisionPointRec(mousePos, settingsButton)) {
             menu->setState(std::make_unique<SettingState>(menu));

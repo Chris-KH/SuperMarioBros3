@@ -44,6 +44,7 @@ public:
     void loadBackground(const std::string& filePath);
     void renderAllBlock();
     void renderBackground() const;
+    void clearThings();
 
 private:
     std::vector<BaseBlock*> blockArray;
@@ -51,8 +52,6 @@ private:
     std::vector<Item*> items;
     std::vector<BaseBlock*> decor;
     Texture2D background;
-
-    void clearThings();
 };
 
 class Level {

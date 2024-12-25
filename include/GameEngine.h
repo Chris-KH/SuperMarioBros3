@@ -1,5 +1,6 @@
 ﻿#ifndef ENGINE_H
 #define ENGINE_H
+
 #include "Camera.h"  // For the camera
 #include "Character.h"   // For the player character
 #include "Fireball.h"    // For fireball handling
@@ -26,6 +27,7 @@ private:
     bool isPaused;
     bool cleared = false;
     bool died = false;
+    bool gameover = false;
     float time;
     float deltaTime;
 
@@ -46,6 +48,8 @@ public:
     float getGlobalTime();
     float getRemainingTime();
     float resetTimer();
+    bool isOver();
+    void resetGame();
     Vector2 getBound();
 };
 extern GameEngine* globalGameEngine;

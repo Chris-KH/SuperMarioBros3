@@ -37,7 +37,7 @@ void Enemy::stomped() {
 
 }
 
-void Enemy::attacked() {
+void Enemy::attacked(Orientation direction) {
     if (isDead()) return;
     killEntity();
     setCollisionAvailable(false);
@@ -47,7 +47,7 @@ void Enemy::attacked() {
 }
 
 void Enemy::collisionWithFireball(Fireball* fireball) {
-    attacked();
+    attacked(fireball->getOrientation());
     fireball->setCollisionAvailable(false);
     fireball->killEntity();
     setCollisionAvailable(false);

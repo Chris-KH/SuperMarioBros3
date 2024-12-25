@@ -96,6 +96,7 @@ void GameEngine::update(float deltaTime) {
             died = false;
             player->setLostLife(false);
             player->resetInGame();
+            resetGame();
             resetTimer();
         }
         else if (isPaused) {
@@ -288,6 +289,8 @@ void GameEngine::render(float deltaTime) {
         if (cleared) {
             GUI::drawLevelClear();
         }
+        else if (gameover)
+            GUI::drawGameOverScreen();
         else if (died)
             GUI::drawDeathScreen();
         else
@@ -299,6 +302,7 @@ void GameEngine::render(float deltaTime) {
 
 bool GameEngine::run() {
     bool flag = true;
+
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic(level->getMusic());
     // Load and play the new music
@@ -318,6 +322,10 @@ bool GameEngine::run() {
             RESOURCE_MANAGER.playMusic("Overworld.mp3");
             return true;
         }
+        if (gameover == true && isPaused == false)
+        {
+            break;
+        }
         if (player->getX() >= map.getMapSize().x) {
             cleared = true;
             isPaused = true;
@@ -336,7 +344,8 @@ bool GameEngine::run() {
         }
         if (player->getLives() < 0)
         {
-            break;
+            gameover = true;
+            isPaused = true;
         }
     }
     RESOURCE_MANAGER.stopCurrentMusic();
@@ -353,6 +362,51 @@ float GameEngine::resetTimer()
 {
     this->time = 300;
     return 300.f;
+}
+
+bool GameEngine::isOver()
+{
+    return gameover;
+}
+
+void GameEngine::resetGame()
+{
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        delete blocks[i];
+    }
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        delete enemies[i];
+    }
+    for (size_t i = 0; i < items.size(); ++i) {
+        delete items[i];
+    }
+    for (size_t i = 0; i < decor.size(); ++i) {
+        delete decor[i];
+    }
+    for (size_t i = 0; i < effects.size(); ++i) {
+        delete effects[i];
+    }
+    for (size_t i = 0; i < fireball.size(); ++i) {
+        delete fireball[i];
+    }
+    blocks.clear();
+    enemies.clear();
+    items.clear();
+    shells.clear();
+    effects.clear();
+    fireball.clear();
+    map.clearThings();
+    
+    map.loadFromFile(level->getMapPath());
+    map.loadBackground(level->getBackGroundPath());
+    blocks = map.getBlocks();
+    enemies = map.getEnemies();
+    items = map.getItems();
+    decor = map.getDecor();
+    isPaused = false;
+    this->time = 300;
+    resetTimer();
+    deltaTime = 0.f;
 }
 
 float GameEngine::getRemainingTime()
