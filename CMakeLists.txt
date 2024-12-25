@@ -38,6 +38,7 @@ set(Main
     src/TemporaryBlock.cpp
 
     src/Item.cpp
+    src/ItemFactory.cpp
     src/Coin.cpp
     src/Flower.cpp
     src/Mushroom.cpp

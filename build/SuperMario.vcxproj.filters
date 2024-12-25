@@ -73,6 +73,9 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\ItemFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Coin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

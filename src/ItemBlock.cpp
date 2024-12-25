@@ -5,7 +5,7 @@
 #include "../include/Character.h"
 #include "../include/Fireball.h"
 
-ItemBlock::ItemBlock(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
+ItemBlock::ItemBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
     sprite = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/tiles1.txt/item_block")->clone();
     item = COIN;
     subType = BLOCK_COIN;

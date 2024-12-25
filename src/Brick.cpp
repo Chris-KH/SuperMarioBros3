@@ -3,7 +3,7 @@
 #include "../include/Effect.h"
 #include "../include/TextEffect.h"
 
-Brick::Brick(Vector2 pos, Vector2 size, Color color) : BaseBlock(pos, size, color) {
+Brick::Brick(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
     sprite = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/tiles1.txt/gold_brick_block")->clone();
     setAnimation(sprite);
 }
