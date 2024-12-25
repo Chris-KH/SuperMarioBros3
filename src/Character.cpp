@@ -37,6 +37,7 @@ Character::Character(Vector2 pos, Vector2 size) : Sprite(pos, size)
     specificVelocity = { 0.f, 0.f };
     renderImmortal = { true, true, true, true, true, true, false, false, false, false, false, false };
     indexRender = 0u;
+    standingUp = false;
 
     idleLeft = nullptr;
 	walkLeft = nullptr;
@@ -225,6 +226,9 @@ void Character::update(float deltaTime) {
     if (phase == DEFAULT_PHASE) {
         setVelocity(specificVelocity);
          
+        if (IsKeyReleased(KEY_S) && isSitting()) standingUp = true;
+        else standingUp = false;
+
         state->update(deltaTime); 
         INPUT_MANAGER.update(); 
         countThrowTime += deltaTime; 
@@ -268,6 +272,7 @@ void Character::update(float deltaTime) {
         if (movingBlockStandOn != nullptr) {
             setYVelocity(getVelocity().y + movingBlockStandOn->getVelocity().y);
         }
+
     }
     else if (phase == TRANSFORM_PHASE) {
         //transform
@@ -298,6 +303,8 @@ bool Character::isInvicible() const { return invicibleStarTime > 0.f; }
 bool Character::isIdle() const {
     return (velocity.x == 0.f && velocity.y == 0.f && !isJumping());
 }
+
+bool Character::isStadingUp() const { return this->standingUp; }
 
 int Character::getLives() const { return lives; }
 

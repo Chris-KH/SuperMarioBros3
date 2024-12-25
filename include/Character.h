@@ -93,6 +93,8 @@ protected:
     unsigned indexRender;
     vector<bool> renderImmortal;
 
+    bool standingUp;
+
     const float DEAD_PLAYER_INITIAL_VELOCITY = 400.f; 
     const float DEAD_PLAYER_GRAVITY = 1200.f;      
 
@@ -130,6 +132,7 @@ public:
     bool isLostLife() const;
     void setLostLife(bool lostLife);
     bool isIdle() const;
+    bool isStadingUp() const;
 
     int getLives() const;
     void setLives(int lives);

@@ -330,7 +330,71 @@ public:
     }
 };
 
+class PlayerBrickStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Character* player = dynamic_cast<Character*>(entityA);
+        Brick* block = dynamic_cast<Brick*>(entityB);
 
+        if (!player || !block)
+            return false;
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = player->getVelocity();
+        Rectangle playerRect = player->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                playerRect.x + velocity.x * deltaTime,
+                playerRect.y,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect))
+            {
+                if (velocity.x > 0) {
+                    player->setPosition(Vector2(blockRect.x - playerRect.width, player->getPosition().y));
+                }
+                else if (velocity.x < 0) {
+                    player->setPosition(Vector2(blockRect.x + blockRect.width, player->getPosition().y));
+                }
+                player->setXVelocity(0.f);
+            }
+        }
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                playerRect.x,
+                playerRect.y + velocity.y * deltaTime,
+                playerRect.width,
+                playerRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y - playerRect.height));
+                    player->setYVelocity(0.f);
+                    return true;
+                }
+                else if (velocity.y < 0) {
+                    player->setPosition(Vector2(player->getPosition().x, blockRect.y + blockRect.height));
+                    player->setYVelocity(0.f);
+                    if (player->getState() != NORMAL && player->getState() != STARMAN) block->breakBrick();
+                }
+            }
+        }
+
+        if (player->isStadingUp() && CheckCollisionRecs(player->getRectangle(), blockRect)) {
+            player->setYVelocity(0.f);
+            block->breakBrick();
+        }
+
+        return false;
+    }
+};
 
 
 class EnemyFloorStrat : public CollisionStrategy
@@ -441,6 +505,7 @@ public:
         return false;
     }
 };
+
 class PlayerItemStrat : public CollisionStrategy
 {
 public:
@@ -901,6 +966,140 @@ public:
     }
 };
 
+class EnemyBrickStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Enemy* enemy = dynamic_cast<Enemy*>(entityA);
+        Brick* block = dynamic_cast<Brick*>(entityB);
+
+        if (!enemy || !block || enemy->isCollisionAvailable() == false)
+            return false;
+
+        if (enemy->getEnemyType() == PLANT) {
+            return false;
+        }
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = enemy->getVelocity();
+        Rectangle enemyRect = enemy->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                enemyRect.x + velocity.x * deltaTime,
+                enemyRect.y,
+                enemyRect.width,
+                enemyRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect))
+            {
+                if (velocity.x > 0) {
+                    enemy->setPosition(Vector2(blockRect.x - enemyRect.width, enemy->getPosition().y));
+                    enemy->setOrientation(LEFT);
+                }
+                else if (velocity.x < 0) {
+                    enemy->setPosition(Vector2(blockRect.x + blockRect.width, enemy->getPosition().y));
+                    enemy->setOrientation(RIGHT);
+                }
+                enemy->setXVelocity(0.f);
+                if (enemy->getEnemyType() == SHELL) block->breakBrick();
+            }
+        }
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                enemyRect.x,
+                enemyRect.y + velocity.y * deltaTime,
+                enemyRect.width,
+                enemyRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    enemy->setPosition(Vector2(enemy->getPosition().x, blockRect.y - enemyRect.height));
+                    enemy->setYVelocity(0.f);
+                    enemy->setJumping(false);
+                    return true;
+                }
+                else if (velocity.y < 0) {
+                    enemy->setPosition(Vector2(enemy->getPosition().x, blockRect.y + blockRect.height));
+                    enemy->setYVelocity(0.f);
+                }
+            }
+        }
+        return false;
+    }
+};
+
+class EnemyItemBlockStrat : public CollisionStrategy {
+public:
+    bool resolve(Entity* entityA, Entity* entityB) override {
+        Enemy* enemy = dynamic_cast<Enemy*>(entityA);
+        ItemBlock* block = dynamic_cast<ItemBlock*>(entityB);
+
+        if (!enemy || !block || enemy->isCollisionAvailable() == false)
+            return false;
+
+        if (enemy->getEnemyType() == PLANT) {
+            return false;
+        }
+
+        float deltaTime = GetFrameTime();
+
+        Vector2 velocity = enemy->getVelocity();
+        Rectangle enemyRect = enemy->getRectangle();
+        Rectangle blockRect = block->getRectangle();
+
+        if (velocity.x != 0) {
+            Rectangle horizontalRect = {
+                enemyRect.x + velocity.x * deltaTime,
+                enemyRect.y,
+                enemyRect.width,
+                enemyRect.height
+            };
+
+            if (CheckCollisionRecs(horizontalRect, blockRect))
+            {
+                if (velocity.x > 0) {
+                    enemy->setPosition(Vector2(blockRect.x - enemyRect.width, enemy->getPosition().y));
+                    enemy->setOrientation(LEFT);
+                }
+                else if (velocity.x < 0) {
+                    enemy->setPosition(Vector2(blockRect.x + blockRect.width, enemy->getPosition().y));
+                    enemy->setOrientation(RIGHT);
+                }
+                enemy->setXVelocity(0.f);
+                if (enemy->getEnemyType() == SHELL) block->releaseItem(enemy);
+            }
+        }
+
+        if (velocity.y != 0) {
+            Rectangle verticalRect = {
+                enemyRect.x,
+                enemyRect.y + velocity.y * deltaTime,
+                enemyRect.width,
+                enemyRect.height
+            };
+
+            if (CheckCollisionRecs(verticalRect, blockRect)) {
+                if (velocity.y > 0) {
+                    enemy->setPosition(Vector2(enemy->getPosition().x, blockRect.y - enemyRect.height));
+                    enemy->setYVelocity(0.f);
+                    enemy->setJumping(false);
+                    return true;
+                }
+                else if (velocity.y < 0) {
+                    enemy->setPosition(Vector2(enemy->getPosition().x, blockRect.y + blockRect.height));
+                    enemy->setYVelocity(0.f);
+                }
+            }
+        }
+        return false;
+    }
+};
+
 
 
 class EnemyEnemyStrat : public CollisionStrategy {
@@ -956,6 +1155,8 @@ public:
 };
 
 
+
+
 class CollisionStrategySelector {
 public:
     static std::unique_ptr<CollisionStrategy> getStrategy(EntityType typeA, EntityType typeB, BaseBlock* block = nullptr) {
@@ -966,7 +1167,8 @@ public:
                 return std::make_unique<PlayerMovingBlockStrat>();
             if (block && block->getBlockType() == ITEMBLOCK)
                 return std::make_unique<PlayerItemBlockStrat>();
-            //if (block && block->getBlockType() == SOLIDBLOCK)
+            if (block && block->getBlockType() == BRICK)
+                return std::make_unique<PlayerBrickStrat>();
             return std::make_unique<PlayerBlockStrat>();
         }
         if (typeA == ENEMY && typeB == BLOCK)
@@ -975,6 +1177,10 @@ public:
                 return make_unique<EnemyFloorStrat>();
             if (block && block->getBlockType() == SOLIDBLOCK)
                 return make_unique<EnemyBlockStrat>();
+            if (block && block->getBlockType() == BRICK)
+                return std::make_unique<EnemyBrickStrat>();
+            if (block && block->getBlockType() == ITEMBLOCK)
+                return std::make_unique<EnemyItemBlockStrat>();
             return  make_unique<EnemyBlockStrat>();
         }
         if (typeA == CHARACTER && typeB == ENEMY)
