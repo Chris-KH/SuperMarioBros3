@@ -87,3 +87,13 @@ void GUI::drawDeathScreen()
 
     DrawText(text, posX, posY, fontSize, RED);
 }
+
+void GUI::drawGameOverScreen()
+{
+    Rectangle dest, source;
+    dest = { 2043.f, 295.f, 1997.f, 1465.f };
+    source = { 300.f, 200.f, 1997.f / 3.f, 1465.f / 3.f };
+    DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
+    DrawText("Game Over", 420, 370, 90, BLACK);
+    DrawText("Press Enter to continue", 360, 550, 45, BLACK);
+}

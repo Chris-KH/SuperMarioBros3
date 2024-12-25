@@ -26,6 +26,7 @@ private:
     bool isPaused;
     bool cleared = false;
     bool died = false;
+    bool gameover = false;
     float time;
     float deltaTime;
 
@@ -46,6 +47,7 @@ public:
     float getGlobalTime();
     float getRemainingTime();
     float resetTimer();
+    bool isOver();
     void resetGame();
     Vector2 getBound();
 };

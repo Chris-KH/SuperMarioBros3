@@ -19,5 +19,6 @@ public:
 	static void drawPauseMenu();
 	static void drawLevelClear();
 	static void drawDeathScreen();
+	static void drawGameOverScreen();
 	//static void drawButton(const Rectangle& rect);
 };

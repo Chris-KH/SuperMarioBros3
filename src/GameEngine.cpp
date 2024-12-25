@@ -289,6 +289,8 @@ void GameEngine::render(float deltaTime) {
         if (cleared) {
             GUI::drawLevelClear();
         }
+        else if (gameover)
+            GUI::drawGameOverScreen();
         else if (died)
             GUI::drawDeathScreen();
         else
@@ -300,6 +302,7 @@ void GameEngine::render(float deltaTime) {
 
 bool GameEngine::run() {
     bool flag = true;
+
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic(level->getMusic());
     // Load and play the new music
@@ -319,6 +322,10 @@ bool GameEngine::run() {
             RESOURCE_MANAGER.playMusic("Overworld.mp3");
             return true;
         }
+        if (gameover == true && isPaused == false)
+        {
+            break;
+        }
         if (player->getX() >= map.getMapSize().x) {
             cleared = true;
             isPaused = true;
@@ -337,7 +344,8 @@ bool GameEngine::run() {
         }
         if (player->getLives() < 0)
         {
-            break;
+            gameover = true;
+            isPaused = true;
         }
     }
     RESOURCE_MANAGER.stopCurrentMusic();
@@ -354,6 +362,11 @@ float GameEngine::resetTimer()
 {
     this->time = 300;
     return 300.f;
+}
+
+bool GameEngine::isOver()
+{
+    return gameover;
 }
 
 void GameEngine::resetGame()
