@@ -9,9 +9,6 @@ class Fireball;
 
 class Enemy : public Sprite {
 protected:
-    bool stompable;
-    bool kickable;
-
     Vector2 boudary; //The x-axis range that enemy can move (y-axis for vertical plant)
     const float DEAD_TIME = 0.5f;
     const float DEAD_INITIAL_VELOCITY_Y = 300.f;

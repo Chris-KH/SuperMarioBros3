@@ -6,8 +6,6 @@
 #include "../include/Fireball.h"
 
 Enemy::Enemy(Vector2 pos, Vector2 size) {
-    stompable = false;
-    kickable = false;
     jumping = false;
 
     boudary = { 0.f, 3000.f };

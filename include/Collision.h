@@ -16,6 +16,7 @@
 #include"Enemy.h"
 #include"Fireball.h"
 #include"Item.h"
+#include"Shell.h"
 
 class CollisionStrategy {
 public:
@@ -472,10 +473,16 @@ public:
                 if (velocity.x > 0) {
                     enemy->setPosition(Vector2(blockRect.x - enemyRect.width, enemy->getPosition().y));
                     enemy->setOrientation(LEFT);
+                    if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
+                        shell->attacked(LEFT);
+                    }
                 }
                 else if (velocity.x < 0) {
                     enemy->setPosition(Vector2(blockRect.x + blockRect.width, enemy->getPosition().y));
                     enemy->setOrientation(RIGHT);
+                    if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
+                        shell->attacked(RIGHT);
+                    }
                 }
                 enemy->setXVelocity(0.f);
             }
@@ -985,7 +992,7 @@ public:
         Rectangle enemyRect = enemy->getRectangle();
         Rectangle blockRect = block->getRectangle();
 
-        if (velocity.x != 0) {
+        if (velocity.x != 0 || enemy->getEnemyType() == SHELL) {
             Rectangle horizontalRect = {
                 enemyRect.x + velocity.x * deltaTime,
                 enemyRect.y,
@@ -1004,7 +1011,12 @@ public:
                     enemy->setOrientation(RIGHT);
                 }
                 enemy->setXVelocity(0.f);
-                if (enemy->getEnemyType() == SHELL) block->breakBrick();
+                if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
+                    if (shell->getIsHold()) {
+                        //Do not thing
+                    }
+                    else block->breakBrick();
+                }
             }
         }
 
@@ -1071,7 +1083,12 @@ public:
                     enemy->setOrientation(RIGHT);
                 }
                 enemy->setXVelocity(0.f);
-                if (enemy->getEnemyType() == SHELL) block->releaseItem(enemy);
+                if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
+                    if (shell->getIsHold()) {
+                        //Do not thing
+                    }
+                    else block->releaseItem(enemy);
+                }
             }
         }
 
@@ -1145,8 +1162,8 @@ public:
         };
 
         if (CheckCollisionRecs(future1, future2)) {
-            enemy2->attacked();
-            if (enemy2->getEnemyType() == SHELL) enemy1->attacked();
+            enemy2->attacked(enemy1->getOrientation());
+            if (enemy2->getEnemyType() == SHELL) enemy1->attacked(enemy1->getOrientation());
             return true;
         }
 
