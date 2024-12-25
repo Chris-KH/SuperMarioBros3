@@ -191,6 +191,12 @@ void Character::setPhase(Phase phase) {
         setAnimation(deadAniamtion);
         lives--;
     }
+    else if (phase == CLEARLEVEL_PHASE) {
+        RESOURCE_MANAGER.stopCurrentMusic();
+        RESOURCE_MANAGER.playSound("level_clear.wav");
+        setYVelocity(0.f);
+        setXVelocity(MAX_WALK_VELOCITY);
+    }
 	this->phase = phase;
 }
 
@@ -234,6 +240,8 @@ void Character::update(float deltaTime) {
     Vector2 bound = globalGameEngine->getBound();
     if (this->getY() > bound.y)
         setPhase(DEAD_PHASE);
+    if (this->getX() >= bound.x - 150.f)
+        setPhase(CLEARLEVEL_PHASE);
 
     if (phase == DEFAULT_PHASE) {
         setVelocity(specificVelocity);
@@ -251,7 +259,6 @@ void Character::update(float deltaTime) {
             indexRender = (indexRender + 1) % renderImmortal.size();
             RESOURCE_MANAGER.playSound("lost_suit.wav");
         }
-        else setCollisionAvailable(true);
 
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
@@ -297,6 +304,13 @@ void Character::update(float deltaTime) {
     }
     else if (phase == ENTER_PHASE) {
         //enter
+    }
+    else if (phase == CLEARLEVEL_PHASE) {
+        setYVelocity(getVelocity().y + GRAVITY * deltaTime);
+
+        if (isJumping() == false) setAnimation(walkRight);
+        else if (getState() == NORMAL || getState() == STARMAN) setAnimation(jumpRight);
+        else setAnimation(fallRight);
     }
 
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
@@ -466,7 +480,6 @@ void Character::lostSuit() {
     }
 
     countImmortalTime = IMMORTAL_TIME;
-    setCollisionAvailable(false);
 }
 
 void Character::collisionWithItem(const Item* item) {
@@ -546,6 +559,7 @@ void Character::collisionWithItem(const Item* item) {
 //True if character stomp, kick or starman. Otherwise it false
 void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
     if (enemy == nullptr) return;
+    if (countImmortalTime > 0.f) return;
 
     Shell* shell = dynamic_cast<Shell*>(enemy);
     if (shell && shell == getHoldShell()) return;
@@ -608,6 +622,8 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
 }
 
 void Character::collisionWithFireball(Fireball* fireball) {
+    if (countImmortalTime > 0.f) return;
+
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         return;
     }

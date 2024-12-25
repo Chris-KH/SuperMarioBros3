@@ -38,7 +38,8 @@ public:
         TRANSFORM_PHASE,
         DEAD_PHASE,
         EXIT_PHASE,
-        ENTER_PHASE
+        ENTER_PHASE,
+        CLEARLEVEL_PHASE
     };
 
 protected:

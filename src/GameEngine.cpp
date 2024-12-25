@@ -330,10 +330,9 @@ bool GameEngine::run() {
         if (player->getX() >= map.getMapSize().x) {
             cleared = true;
             isPaused = true;
-            RESOURCE_MANAGER.stopCurrentMusic();
-            if (flag)
+            /*if (flag)
             RESOURCE_MANAGER.playSound("level_clear.wav");
-            flag = false;
+            flag = false;*/
             player->setVelocity({ 0.f, 0.f });
         }   
         if (this->time <= 0)
