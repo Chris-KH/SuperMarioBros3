@@ -46,6 +46,7 @@ public:
     float getGlobalTime();
     float getRemainingTime();
     float resetTimer();
+    void resetGame();
     Vector2 getBound();
 };
 extern GameEngine* globalGameEngine;

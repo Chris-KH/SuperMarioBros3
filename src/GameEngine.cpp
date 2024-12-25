@@ -96,6 +96,7 @@ void GameEngine::update(float deltaTime) {
             died = false;
             player->setLostLife(false);
             player->resetInGame();
+            resetGame();
             resetTimer();
         }
         else if (isPaused) {
@@ -353,6 +354,46 @@ float GameEngine::resetTimer()
 {
     this->time = 300;
     return 300.f;
+}
+
+void GameEngine::resetGame()
+{
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        delete blocks[i];
+    }
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        delete enemies[i];
+    }
+    for (size_t i = 0; i < items.size(); ++i) {
+        delete items[i];
+    }
+    for (size_t i = 0; i < decor.size(); ++i) {
+        delete decor[i];
+    }
+    for (size_t i = 0; i < effects.size(); ++i) {
+        delete effects[i];
+    }
+    for (size_t i = 0; i < fireball.size(); ++i) {
+        delete fireball[i];
+    }
+    blocks.clear();
+    enemies.clear();
+    items.clear();
+    shells.clear();
+    effects.clear();
+    fireball.clear();
+    map.clearThings();
+    
+    map.loadFromFile(level->getMapPath());
+    map.loadBackground(level->getBackGroundPath());
+    blocks = map.getBlocks();
+    enemies = map.getEnemies();
+    items = map.getItems();
+    decor = map.getDecor();
+    isPaused = false;
+    this->time = 300;
+    resetTimer();
+    deltaTime = 0.f;
 }
 
 float GameEngine::getRemainingTime()

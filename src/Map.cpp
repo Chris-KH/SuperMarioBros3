@@ -3,10 +3,6 @@
 Map::Map() : background({ 0 }) {}
 
 Map::~Map() {
-	if (background.id > 0) {
-		UnloadTexture(background);
-		background.id = 0;
-	}
 	clearThings();
 }
 
@@ -74,6 +70,10 @@ void Map::renderBackground() const {
 }
 
 void Map::clearThings() {
+	if (background.id > 0) {
+		UnloadTexture(background);
+		background.id = 0;
+	}
 	blockArray.clear();
 	enemies.clear();
 	items.clear();
