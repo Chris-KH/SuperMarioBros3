@@ -93,6 +93,7 @@ void Character::reset() {
     countImmortalTime = 0.f;
     specificVelocity = { 0.f, 0.f };
     transform(NORMAL);
+    setCollisionAvailable(true);
 }
 void Character::resetInGame()
 {
@@ -111,6 +112,7 @@ void Character::resetInGame()
     countImmortalTime = 0.f;
     specificVelocity = { 0.f, 0.f };
     transform(NORMAL);
+    setCollisionAvailable(true);
 }
 
 STATE Character::getState() const {
@@ -179,6 +181,16 @@ void Character::draw(float deltaTime) {
 }
 
 void Character::setPhase(Phase phase) {
+    if (phase == DEAD_PHASE) {
+        setXVelocity(0.f);
+        setYVelocity(-DEAD_PLAYER_INITIAL_VELOCITY);
+        setCollisionAvailable(false);
+        RESOURCE_MANAGER.stopCurrentMusic();
+        RESOURCE_MANAGER.playSound("lost_life.wav");
+        setLostLife(true);
+        setAnimation(deadAniamtion);
+        lives--;
+    }
 	this->phase = phase;
 }
 
@@ -278,11 +290,7 @@ void Character::update(float deltaTime) {
         //transform
     }
     else if (phase == DEAD_PHASE) {
-        RESOURCE_MANAGER.playSound("lost_life.wav");
-        setLostLife(true);
-        //Update gravity gì đó
-        setAnimation(deadAniamtion);
-        lives--;
+        //setYVelocity(getVelocity().y + DEAD_PLAYER_GRAVITY * deltaTime);
     }
     else if (phase == EXIT_PHASE) {
         //exit
@@ -445,7 +453,7 @@ void Character::lostSuit() {
         transform(NORMAL);
     }
     else if (state->getState() == FIRE) {
-        transform(SUPER);
+        transform(NORMAL);
     }
     else if (state->getState() == STARMAN) {
         transform(NORMAL);
@@ -470,11 +478,9 @@ void Character::collisionWithItem(const Item* item) {
             scores += mushroom->getPoint();
 			if (getState() == NORMAL) {
 				transform(SUPER);
-				//phase = TRANSFORM_PHASE;
 			}
             else if (getState() == STARMAN) {
                 transform(SUPERSTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
 			RESOURCE_MANAGER.playSound("power_up.wav");
             text = new TextEffect(to_string(mushroom->getPoint()).c_str(), Vector2(getCenterX(), getTop()));
@@ -491,11 +497,9 @@ void Character::collisionWithItem(const Item* item) {
             scores += flower->getPoint();
             if (getState() == NORMAL) {
                 transform(FIRE);
-				//phase = TRANSFORM_PHASE;
             }
             else if (getState() == STARMAN) {
                 transform(FIRESTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
             RESOURCE_MANAGER.playSound("power_up.wav");
             text = new TextEffect(to_string(flower->getPoint()).c_str(), Vector2(getCenterX(), getTop()));
@@ -506,15 +510,12 @@ void Character::collisionWithItem(const Item* item) {
         if (star->getStarType() == YELLOW_STAR) {
             if (getState() == NORMAL) {
                 transform(STARMAN);
-                //phase = TRANSFORM_PHASE;
             }
             else if (getState() == SUPER) {
                 transform(SUPERSTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
             else if (getState() == FIRE) {
                 transform(FIRESTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
     
             invicibleStarTime = STAR_INVICIBLE_TIME;

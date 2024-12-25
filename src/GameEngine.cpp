@@ -233,30 +233,31 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
+    bool lostLife = player->isLostLife();
+
     for (size_t i = 0; i < blocks.size(); ++i) {
         blocks[i]->draw(deltaTime);
-        //DrawRectangleRec(i->getRectangle(), BLACK);
     }
         
     for (size_t i = 0; i < enemies.size(); ++i) {
         if (player->getHoldShell() != nullptr) {
             if (dynamic_cast<Shell*>(enemies[i]) == player->getHoldShell()) continue;
         }
-        if (isPaused)
+        if (isPaused || lostLife)
             enemies[i]->draw(0);
         else
             enemies[i]->draw(deltaTime);
     }
 
     for (size_t i = 0; i < items.size(); ++i) {
-        if (isPaused)
+        if (isPaused || lostLife)
             items[i]->draw(0);
         else
             items[i]->draw(deltaTime);
     }
 
     for (size_t i = 0; i < fireball.size(); ++i) {
-        if (isPaused)
+        if (isPaused || lostLife)
             fireball[i]->draw(0);
         else
             fireball[i]->draw(deltaTime);
@@ -268,7 +269,7 @@ void GameEngine::render(float deltaTime) {
         player->draw(deltaTime);
 
     for (size_t i = 0; i < effects.size(); ++i) {
-        if (isPaused)
+        if (isPaused || lostLife)
             effects[i]->draw(0);
         else
             effects[i]->draw(deltaTime);
@@ -282,7 +283,7 @@ void GameEngine::render(float deltaTime) {
     ClearBackground(RAYWHITE);
     camera.render();
 
-    GUI::drawStatusBar(player);
+    if (lostLife == false) GUI::drawStatusBar(player);
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
@@ -337,7 +338,7 @@ bool GameEngine::run() {
         }   
         if (this->time <= 0)
             player->setPhase(Character::DEAD_PHASE); 
-        if (player->isLostLife())
+        if (player->isLostLife() && player->getBottom() < 0.f)
         {
             died = true;
             isPaused = true;
@@ -402,6 +403,7 @@ void GameEngine::resetGame()
     fireball.clear();
     map.clearThings();
     
+    RESOURCE_MANAGER.playMusic(level->getMusic());
     map.loadFromFile(level->getMapPath());
     map.loadBackground(level->getBackGroundPath());
     blocks = map.getBlocks();

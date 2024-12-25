@@ -4,7 +4,8 @@ Animation::Animation(const Texture2D& texture) :
     texture(texture),
     currentFrame(0),
     frameTimeCounter(0.0f),
-    scale(1.f)
+    scale(1.f),
+    rotate(0.f)
 {}
 
 void Animation::addFrame(const Rectangle& source, const Vector2& offset, const Vector2& size, float duration) {
@@ -54,14 +55,14 @@ void Animation::render(Vector2 position) const {
     Rectangle dest = { position.x, position.y, frame.source.width * scale, frame.source.height * scale };
     Rectangle source = frame.source;
 
-    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
+    DrawTexturePro(texture, source, dest, frame.offset, rotate, WHITE);
 }
 
 void Animation::render(Vector2 position, const Frame& frame) const {
     Rectangle dest = { position.x, position.y, frame.source.width * scale, frame.source.height * scale };
     Rectangle source = frame.source;
 
-    DrawTexturePro(texture, source, dest, frame.offset, 0.0f, WHITE);
+    DrawTexturePro(texture, source, dest, frame.offset, rotate, WHITE);
 }
 
 void Animation::render(Vector2 position, int frameNumber) const {
@@ -81,6 +82,10 @@ const Vector2 Animation::getSize() const {
 
 void Animation::setScale(float scale) {
     this->scale = scale;
+}
+
+void Animation::setRotate(float rotate) {
+    this->rotate = rotate;
 }
 
 float Animation::getAnimationTime() const {

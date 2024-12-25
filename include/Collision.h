@@ -61,7 +61,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         Floor* floor = dynamic_cast<Floor*>(entityB);
 
-        if (!player || !floor)
+        if (!player || !floor || player->isCollisionAvailable() == false)
             return false;
         float deltaTime = GetFrameTime();
         Rectangle playerRect = player->getRectangle();
@@ -97,7 +97,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         BaseBlock* block = dynamic_cast<BaseBlock*>(entityB);
 
-        if (!player || !block)
+        if (!player || !block || player->isCollisionAvailable() == false)
             return false;
 
         float deltaTime = GetFrameTime();
@@ -159,7 +159,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         ItemBlock* block = dynamic_cast<ItemBlock*>(entityB); // Assume ItemBlock is a subclass of BaseBlock
 
-        if (!player || !block)
+        if (!player || !block || player->isCollisionAvailable() == false)
             return false;
 
         float deltaTime = GetFrameTime();
@@ -337,7 +337,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         Brick* block = dynamic_cast<Brick*>(entityB);
 
-        if (!player || !block)
+        if (!player || !block || player->isCollisionAvailable() == false)
             return false;
 
         float deltaTime = GetFrameTime();
@@ -603,7 +603,7 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         Enemy* enemy = dynamic_cast<Enemy*>(entityB);
 
-        if (!player || !enemy)
+        if (!player || !enemy || player->isCollisionAvailable() == false)
             return false;
         if (player->isCollisionAvailable() == false || enemy->isCollisionAvailable() == false)
             return false;

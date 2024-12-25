@@ -39,6 +39,7 @@ public:
     //Hitbox
     const Vector2 getSize() const;
     void setScale(float scale);
+    void setRotate(float rotate);
 
     //Time of all frame
     float getAnimationTime() const;
@@ -52,5 +53,6 @@ private:
     int currentFrame; ///< Index of the current frame.
     float frameTimeCounter; ///< Time counter for the current frame.
     float scale;
+    float rotate;
 };
 
