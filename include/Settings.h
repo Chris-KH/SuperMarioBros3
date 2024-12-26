@@ -1,6 +1,11 @@
 #pragma once
 
+template <class T>
+class Singleton;
+
 class Settings {
+    template <class T>
+    friend class Singleton;
 private:
     int screenWidth;  //The width of the screen
     int screenHeight; //The height of the screen
@@ -9,9 +14,12 @@ private:
     bool sound;       //Sound effects on/off
     bool music;       //Music on/off
 
-public:
     // Constructor to initialize settings with default values
     Settings();
+    Settings(const Settings& other) = delete;
+    Settings& operator=(const Settings& other) = delete;
+public:
+    
     ~Settings() = default;
 
     // Getter for screen width
