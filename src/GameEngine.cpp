@@ -237,6 +237,7 @@ void GameEngine::render(float deltaTime) {
 
     for (size_t i = 0; i < blocks.size(); ++i) {
         blocks[i]->draw(deltaTime);
+        DrawRectangleRec(blocks[i]->getRectangle(), BLACK);
     }
         
     for (size_t i = 0; i < enemies.size(); ++i) {

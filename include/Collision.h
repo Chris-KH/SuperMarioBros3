@@ -270,27 +270,42 @@ public:
 
         float deltaTime = GetFrameTime();
 
-        Vector2 playerVel = player->getVelocity();
-        Vector2 blockVel = block->getVelocity();
+        Vector2 playerVelocity = player->getVelocity();
+        Vector2 blockVelocity = block->getVelocity();
 
         Rectangle playerRect = player->getRectangle();
         Rectangle blockRect = block->getRectangle();
 
-        float collisionTime;
-        
-
-        if (!SweptAABB(playerRect, playerVel, blockRect, blockVel, deltaTime, collisionTime)) {
-            player->setMovingBlockStandOn(nullptr);
-            return false; // No collision detected
-        }
-
-        
-
-        // Calculate the exact position at collision
-        Vector2 collisionPlayerPos = {
-             playerRect.x + playerVel.x * collisionTime * deltaTime,
-            playerRect.y + playerVel.y * collisionTime * deltaTime
+        Vector2 playerNextPos = {
+            playerRect.x + playerVelocity.x * deltaTime,
+            playerRect.y + playerVelocity.y * deltaTime
         };
+
+        Vector2 blockNextPos = {
+            blockRect.x + blockVelocity.x * deltaTime,
+            blockRect.y + blockVelocity.y * deltaTime
+        };
+
+        Rectangle futurePlayerRect = {
+            playerNextPos.x,
+            playerNextPos.y,
+            playerRect.width,
+            playerRect.height
+        };
+
+        Rectangle futureBlockRect = {
+            blockNextPos.x,
+            blockNextPos.y,
+            blockRect.width,
+            blockRect.height
+        };
+
+        bool collisionDetected = CheckCollisionRecs(futurePlayerRect, futureBlockRect);
+        if (!collisionDetected) {
+            player->setMovingBlockStandOn(nullptr);
+            return false;
+        }
+            
 
         // Adjust player position based on collision direction
         if (playerRect.y + playerRect.height <= blockRect.y) {

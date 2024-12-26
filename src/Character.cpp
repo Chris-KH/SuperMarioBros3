@@ -184,7 +184,7 @@ void Character::setPhase(Phase phase) {
     if (phase == DEAD_PHASE) {
         setXVelocity(0.f);
         setYVelocity(-DEAD_PLAYER_INITIAL_VELOCITY);
-        setCollisionAvailable(false);
+        //setCollisionAvailable(false);
         RESOURCE_MANAGER.stopCurrentMusic();
         RESOURCE_MANAGER.playSound("lost_life.wav");
         setLostLife(true);
