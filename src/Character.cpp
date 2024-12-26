@@ -232,9 +232,6 @@ void Character::update(float deltaTime) {
             lostSuit();
         }
     }
-    Vector2 bound = globalGameEngine->getBound();
-    if (this->getY() > bound.y)
-        setLostLife(true);
 
     if (phase == DEFAULT_PHASE) {
         setVelocity(specificVelocity);

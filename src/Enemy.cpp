@@ -7,7 +7,7 @@
 
 Enemy::Enemy(Vector2 pos, Vector2 size) {
     jumping = false;
-
+    randomMoveTimer = 0.f;
     boudary = { 0.f, 3000.f };
     setPosition(pos);
 };

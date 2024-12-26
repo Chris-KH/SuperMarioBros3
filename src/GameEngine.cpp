@@ -327,6 +327,9 @@ bool GameEngine::run() {
 
         if (gameover == true && isPaused == false) break;
 
+        if (this->time <= 0) player->setLostLife(true);
+        if (player->getY() > getBound().y && player->getPhase() != Character::CLEARLEVEL_PHASE) player->setLostLife(true);
+
         if (player->getX() >= map.getMapSize().x && RESOURCE_MANAGER.isSoundPlaying("level_clear.wav") == false) {
             cleared = true;
             isPaused = true;
@@ -339,11 +342,7 @@ bool GameEngine::run() {
                 player->setPhase(Character::CLEARLEVEL_PHASE);
             }
         }
-
-        if (this->time <= 0)
-            player->setPhase(Character::DEAD_PHASE); 
-
-        if (player->isLostLife() && player->getBottom() < 0.f) {
+        else if (player->isLostLife() && player->getBottom() < 0.f) {
             if (player->getLives() < 0) {
                 gameover = true;
                 isPaused = true;
