@@ -217,6 +217,13 @@ void MainMenuState::handleInput() {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 mousePos = GetMousePosition();
         if (CheckCollisionPointRec(mousePos, continueButton)) {
+            if (globalGameEngine == nullptr)
+            {
+                menu->player->setPosition({ 16, 400 });
+                menu->player->setVelocity({ 0,0 });
+                GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
+                globalGameEngine = game;
+            }
             while (globalGameEngine != nullptr) {
                 if (globalGameEngine->run())
                 {
