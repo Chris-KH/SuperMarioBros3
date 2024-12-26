@@ -64,6 +64,12 @@ void KoopaTroopa::update(float deltaTime) {
 
 	if (isDead()) return;
 
+	if (randomMoveTimer >= TIME_RANDOM_MOVE) {
+		setOrientation(getRandomOrientation());
+		randomMoveTimer -= TIME_RANDOM_MOVE;
+	}
+	else randomMoveTimer += deltaTime;
+
 	if (getPosition().x <= getBoundary().x) setOrientation(RIGHT);
 	else if (getRight() >= getBoundary().y) setOrientation(LEFT);
 
