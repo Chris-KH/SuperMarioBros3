@@ -11,6 +11,9 @@ namespace fs = std::filesystem;
 
 class Animation;
 
+template <class T>
+class Singleton;
+
 /*
  * ResourceManager class handles the loading and management of game resources,
  * including animations, backgrounds, fonts, music, and sound effects.
@@ -18,6 +21,8 @@ class Animation;
  * bind texture atlases, and play audio tracks.
 */
 class ResourceManager {
+    template <class T>
+    friend class Singleton;
 private:
     map<string, unique_ptr<Animation>> animationResource;
     map<string, unique_ptr<Font>> fontResource;
@@ -39,8 +44,10 @@ private:
     void unloadMusic();
     void unloadTexture();
 
-public:
     ResourceManager();     // Constructor
+    ResourceManager(const ResourceManager& other) = delete;
+    ResourceManager& operator=(const ResourceManager& other) = delete;
+public:
     ~ResourceManager();    // Destructor
 
     void loadAllResource();
