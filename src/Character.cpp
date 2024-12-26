@@ -452,8 +452,7 @@ void Character::transform(STATE type) {
 
 void Character::lostSuit() {
     if (state->getState() == NORMAL) {
-        //setLostLife(true);
-        setPhase(DEAD_PHASE);
+        setLostLife(true);
         return;
     }
     else if (state->getState() == SUPER) {

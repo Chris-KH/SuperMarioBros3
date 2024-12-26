@@ -1,3 +1,0 @@
-C:/Users/Dell/Downloads/CS202-SuperMario/build/CMakeFiles/SuperMario.dir
-C:/Users/Dell/Downloads/CS202-SuperMario/build/CMakeFiles/edit_cache.dir
-C:/Users/Dell/Downloads/CS202-SuperMario/build/CMakeFiles/rebuild_cache.dir
