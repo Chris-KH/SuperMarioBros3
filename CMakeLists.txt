@@ -77,3 +77,4 @@ add_executable(SuperMario ${Main})
 
 # Link the executable target with raylib and other system libraries
 target_link_libraries(SuperMario raylib opengl32 gdi32 kernel32 winmm)
+

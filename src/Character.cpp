@@ -185,15 +185,10 @@ void Character::setPhase(Phase phase) {
         setXVelocity(0.f);
         setYVelocity(-DEAD_PLAYER_INITIAL_VELOCITY);
         setCollisionAvailable(false);
-        RESOURCE_MANAGER.stopCurrentMusic();
-        RESOURCE_MANAGER.playSound("lost_life.wav");
-        setLostLife(true);
         setAnimation(deadAniamtion);
         lives--;
     }
     else if (phase == CLEARLEVEL_PHASE) {
-        RESOURCE_MANAGER.stopCurrentMusic();
-        RESOURCE_MANAGER.playSound("level_clear.wav");
         setYVelocity(0.f);
         setXVelocity(MAX_WALK_VELOCITY);
     }
@@ -239,9 +234,7 @@ void Character::update(float deltaTime) {
     }
     Vector2 bound = globalGameEngine->getBound();
     if (this->getY() > bound.y)
-        setPhase(DEAD_PHASE);
-    if (this->getX() >= bound.x - 150.f)
-        setPhase(CLEARLEVEL_PHASE);
+        setLostLife(true);
 
     if (phase == DEFAULT_PHASE) {
         setVelocity(specificVelocity);
@@ -459,8 +452,7 @@ void Character::transform(STATE type) {
 
 void Character::lostSuit() {
     if (state->getState() == NORMAL) {
-        //setLostLife(true);
-        setPhase(DEAD_PHASE);
+        setLostLife(true);
         return;
     }
     else if (state->getState() == SUPER) {

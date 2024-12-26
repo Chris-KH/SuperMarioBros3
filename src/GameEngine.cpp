@@ -103,7 +103,7 @@ void GameEngine::update(float deltaTime) {
             RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/pause.wav");
         }
     }
-    if (isPaused) {
+    if (isPaused || cleared) {
         return;
     }
     this->time -= deltaTime;
@@ -318,36 +318,55 @@ bool GameEngine::run() {
             update(deltaTime);
             render(deltaTime);
         }
-        if (cleared == true && isPaused == false)
-        {
+
+        if (cleared == true && isPaused == false) {
             RESOURCE_MANAGER.stopCurrentMusic();
             RESOURCE_MANAGER.playMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3");
             return true;
         }
-        if (gameover == true && isPaused == false)
-        {
-            break;
-        }
-        if (player->getX() >= map.getMapSize().x) {
+
+        if (gameover == true && isPaused == false) break;
+
+        if (player->getX() >= map.getMapSize().x && RESOURCE_MANAGER.isSoundPlaying("level_clear.wav") == false) {
             cleared = true;
             isPaused = true;
-            /*if (flag)
-            RESOURCE_MANAGER.playSound("level_clear.wav");
-            flag = false;*/
             player->setVelocity({ 0.f, 0.f });
         }   
+        else if (player->getX() >= map.getMapSize().x - 150.f) {
+            if (player->getPhase() != Character::CLEARLEVEL_PHASE) {
+                RESOURCE_MANAGER.stopCurrentMusic();
+                RESOURCE_MANAGER.playSound("level_clear.wav");
+                player->setPhase(Character::CLEARLEVEL_PHASE);
+            }
+        }
+
         if (this->time <= 0)
             player->setPhase(Character::DEAD_PHASE); 
-        if (player->isLostLife() && player->getBottom() < 0.f)
-        {
-            died = true;
-            isPaused = true;
+
+        if (player->isLostLife() && player->getBottom() < 0.f) {
+            if (player->getLives() < 0) {
+                gameover = true;
+                isPaused = true;
+            }
+            else {
+                died = true;
+                isPaused = true;
+            }
         }
-        if (player->getLives() < 0)
-        {
-            gameover = true;
-            isPaused = true;
+        else if (player->isLostLife()) {
+            if (player->getPhase() != Character::DEAD_PHASE) {
+                RESOURCE_MANAGER.stopCurrentMusic();
+                player->setPhase(Character::DEAD_PHASE);
+                if (player->getLives() < 0) {
+                    RESOURCE_MANAGER.playSound("game_over.wav");
+                }
+                else {
+                    RESOURCE_MANAGER.playSound("lost_life.wav");
+                }
+            }
         }
+
+        
     }
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3");
