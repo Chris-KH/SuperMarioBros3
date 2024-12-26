@@ -6,8 +6,6 @@
 #include "../include/Fireball.h"
 
 Enemy::Enemy(Vector2 pos, Vector2 size) {
-    stompable = false;
-    kickable = false;
     jumping = false;
 
     boudary = { 0.f, 3000.f };
@@ -37,7 +35,7 @@ void Enemy::stomped() {
 
 }
 
-void Enemy::attacked() {
+void Enemy::attacked(Orientation direction) {
     if (isDead()) return;
     killEntity();
     setCollisionAvailable(false);
@@ -47,7 +45,7 @@ void Enemy::attacked() {
 }
 
 void Enemy::collisionWithFireball(Fireball* fireball) {
-    attacked();
+    attacked(fireball->getOrientation());
     fireball->setCollisionAvailable(false);
     fireball->killEntity();
     setCollisionAvailable(false);

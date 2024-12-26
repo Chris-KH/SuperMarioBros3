@@ -96,6 +96,7 @@ void GameEngine::update(float deltaTime) {
             died = false;
             player->setLostLife(false);
             player->resetInGame();
+            resetGame();
             resetTimer();
         }
         else if (isPaused) {
@@ -232,30 +233,32 @@ void GameEngine::render(float deltaTime) {
     camera.beginDrawing();
     map.renderBackground();
 
+    bool lostLife = player->isLostLife();
+
     for (size_t i = 0; i < blocks.size(); ++i) {
         blocks[i]->draw(deltaTime);
-        //DrawRectangleRec(i->getRectangle(), BLACK);
+        DrawRectangleRec(blocks[i]->getRectangle(), BLACK);
     }
         
     for (size_t i = 0; i < enemies.size(); ++i) {
         if (player->getHoldShell() != nullptr) {
             if (dynamic_cast<Shell*>(enemies[i]) == player->getHoldShell()) continue;
         }
-        if (isPaused)
+        if (isPaused || lostLife)
             enemies[i]->draw(0);
         else
             enemies[i]->draw(deltaTime);
     }
 
     for (size_t i = 0; i < items.size(); ++i) {
-        if (isPaused)
+        if (isPaused || lostLife)
             items[i]->draw(0);
         else
             items[i]->draw(deltaTime);
     }
 
     for (size_t i = 0; i < fireball.size(); ++i) {
-        if (isPaused)
+        if (isPaused || lostLife)
             fireball[i]->draw(0);
         else
             fireball[i]->draw(deltaTime);
@@ -267,7 +270,7 @@ void GameEngine::render(float deltaTime) {
         player->draw(deltaTime);
 
     for (size_t i = 0; i < effects.size(); ++i) {
-        if (isPaused)
+        if (isPaused || lostLife)
             effects[i]->draw(0);
         else
             effects[i]->draw(deltaTime);
@@ -281,13 +284,15 @@ void GameEngine::render(float deltaTime) {
     ClearBackground(RAYWHITE);
     camera.render();
 
-    GUI::drawStatusBar(player);
+    if (lostLife == false) GUI::drawStatusBar(player);
 
     if (isPaused) {
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.5f));
         if (cleared) {
             GUI::drawLevelClear();
         }
+        else if (gameover)
+            GUI::drawGameOverScreen();
         else if (died)
             GUI::drawDeathScreen();
         else
@@ -299,6 +304,7 @@ void GameEngine::render(float deltaTime) {
 
 bool GameEngine::run() {
     bool flag = true;
+
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic(level->getMusic());
     // Load and play the new music
@@ -318,30 +324,39 @@ bool GameEngine::run() {
             RESOURCE_MANAGER.playMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3");
             return true;
         }
+        if (gameover == true && isPaused == false)
+        {
+            break;
+        }
         if (player->getX() >= map.getMapSize().x) {
             cleared = true;
             isPaused = true;
-            RESOURCE_MANAGER.stopCurrentMusic();
-            if (flag)
-            RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/level_clear.wav");
-            flag = false;
+            /*if (flag)
+            RESOURCE_MANAGER.playSound("level_clear.wav");
+            flag = false;*/
             player->setVelocity({ 0.f, 0.f });
         }   
         if (this->time <= 0)
             player->setPhase(Character::DEAD_PHASE); 
-        if (player->isLostLife())
+        if (player->isLostLife() && player->getBottom() < 0.f)
         {
             died = true;
             isPaused = true;
         }
         if (player->getLives() < 0)
         {
-            break;
+            gameover = true;
+            isPaused = true;
         }
     }
     RESOURCE_MANAGER.stopCurrentMusic();
     RESOURCE_MANAGER.playMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3");
     return false;
+}
+
+string GameEngine::getCurrentMapName()
+{
+    return level->getName();
 }
 
 float GameEngine::getGlobalTime()
@@ -353,6 +368,52 @@ float GameEngine::resetTimer()
 {
     this->time = 300;
     return 300.f;
+}
+
+bool GameEngine::isOver()
+{
+    return gameover;
+}
+
+void GameEngine::resetGame()
+{
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        delete blocks[i];
+    }
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        delete enemies[i];
+    }
+    for (size_t i = 0; i < items.size(); ++i) {
+        delete items[i];
+    }
+    for (size_t i = 0; i < decor.size(); ++i) {
+        delete decor[i];
+    }
+    for (size_t i = 0; i < effects.size(); ++i) {
+        delete effects[i];
+    }
+    for (size_t i = 0; i < fireball.size(); ++i) {
+        delete fireball[i];
+    }
+    blocks.clear();
+    enemies.clear();
+    items.clear();
+    shells.clear();
+    effects.clear();
+    fireball.clear();
+    map.clearThings();
+    
+    RESOURCE_MANAGER.playMusic(level->getMusic());
+    map.loadFromFile(level->getMapPath());
+    map.loadBackground(level->getBackGroundPath());
+    blocks = map.getBlocks();
+    enemies = map.getEnemies();
+    items = map.getItems();
+    decor = map.getDecor();
+    isPaused = false;
+    this->time = 300;
+    resetTimer();
+    deltaTime = 0.f;
 }
 
 float GameEngine::getRemainingTime()

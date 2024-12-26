@@ -23,5 +23,6 @@ public:
 	EnemyType getEnemyType() const override;
 
 	void update(float deltaTime) override;
+	void attacked(Orientation direction = RIGHT) override;
 	void stomped() override;
 };

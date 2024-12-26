@@ -136,3 +136,19 @@ void KoopaTroopa::stomped() {
 	Effect* text = new TextEffect(to_string(ENEMY_POINT).c_str(), getCenter());
 	globalGameEngine->addEffect(text);
 }
+
+void KoopaTroopa::attacked(Orientation direction) {
+	Enemy::attacked();
+
+	Effect* dead = nullptr;
+	if (type == GREENPARA_KoopaTroopa || type == GREEN_KoopaTroopa) {
+		dead = new Effect(RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
+	}
+	else if (type == REDPARA_KoopaTroopa || type == RED_KoopaTroopa) {
+		dead = new Effect(RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
+	}
+
+	if (dead) dead->setVelocity({ direction == RIGHT ? DEAD_INITIAL_VELOCITY_X : -DEAD_INITIAL_VELOCITY_X , -DEAD_INITIAL_VELOCITY_Y });
+
+	globalGameEngine->addEffect(dead);
+}

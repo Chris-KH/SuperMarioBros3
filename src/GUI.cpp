@@ -48,9 +48,11 @@ void GUI::drawStatusBar(const Character* player) {
     DrawTexturePro(multiplicationSign, dest, source, { 0.f, 0.f }, 0.f, WHITE);
     //
 
-    DrawText(to_string(player->getScores()).c_str(), static_cast<int>(440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f), 45, 45, BLACK);
-    int timer = static_cast<int>(floor((globalGameEngine->getRemainingTime())));
-    DrawText(to_string(timer).c_str(), static_cast<int>(440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(timer).c_str(), 45.f, 0.f).x / 2.f), 145, 45, BLACK);
+    DrawText(to_string(player->getScores()).c_str(), 440.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(player->getScores()).c_str(), 45.f, 0.f).x / 2.f, 45, 45, BLACK);
+
+    DrawText(globalGameEngine->getCurrentMapName().c_str(), 530, 145, 45, BLACK);
+    int timer = floor((globalGameEngine->getRemainingTime()));
+    DrawText(to_string(timer).c_str(), 480.f + 1571.f / 8.f - MeasureTextEx(GetFontDefault(), to_string(timer).c_str(), 45.f, 0.f).x / 2.f, 145, 45, BLACK);
 }
 
 void GUI::drawPauseMenu()
@@ -86,4 +88,14 @@ void GUI::drawDeathScreen()
     int posY = (screenHeight - textHeight) / 2;
 
     DrawText(text, posX, posY, fontSize, RED);
+}
+
+void GUI::drawGameOverScreen()
+{
+    Rectangle dest, source;
+    dest = { 2043.f, 295.f, 1997.f, 1465.f };
+    source = { 300.f, 200.f, 1997.f / 3.f, 1465.f / 3.f };
+    DrawTexturePro(board, dest, source, { 0.f, 0.f }, 0.f, WHITE);
+    DrawText("Game Over", 420, 370, 90, BLACK);
+    DrawText("Press Enter to continue", 360, 550, 45, BLACK);
 }

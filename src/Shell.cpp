@@ -1,6 +1,8 @@
 #include"../include/Shell.h"
 #include"../include/GameEngine.h"
 #include"../include/KoopaTroopa.h"
+#include "../include/Effect.h"
+#include "../include/TextEffect.h"
 
 Shell::~Shell() {
 	free(inShell);
@@ -71,7 +73,7 @@ void Shell::update(float deltaTime)  {
 		setAnimation(shellSpin);
 	}
 	else if (isHold) {
-		
+		//Do nothing
 	}
 	else {
 		setXVelocity(0.f);
@@ -120,6 +122,22 @@ void Shell::stomped(Vector2 center) {
 	}
 	else setOrientation(getRandomOrientation());
 	isKicked = true;
+}
+
+void Shell::attacked(Orientation direction) {
+	Enemy::attacked();
+
+	Effect* dead = nullptr;
+	if (type == GREEN_SHELL) {
+		dead = new Effect(RESOURCE_MANAGER.getAnimation("green_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
+	}
+	else if (type == RED_SHELL) {
+		dead = new Effect(RESOURCE_MANAGER.getAnimation("red_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
+	}
+
+	if (dead) dead->setVelocity({ direction == RIGHT ? DEAD_INITIAL_VELOCITY_X : -DEAD_INITIAL_VELOCITY_X , -DEAD_INITIAL_VELOCITY_Y });
+
+	globalGameEngine->addEffect(dead);
 }
 
 void Shell::setHoldingPosition(const Character* character) {

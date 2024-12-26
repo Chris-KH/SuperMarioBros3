@@ -3,5 +3,5 @@ MusicEnabled: true
 SelectedMap: 3
 CharacterType: 0
 Lives: 5
-Coins: 9
-Scores: 1100
+Coins: 3
+Scores: 400

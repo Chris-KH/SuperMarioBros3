@@ -98,7 +98,7 @@ void FireStarmanState::update(float deltaTime) {
     if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
         character->setSitting(false);
         if (character->velocity.x < 0) {
-            if (character->isJumping() == false && character->isHolding() == false) {
+            if (character->isJumping() == false && character->isHolding() == false && character->isSitting() == false) {
                 character->setAnimation(character->stopLeft);
                 RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/skid.wav");
             }
@@ -128,7 +128,7 @@ void FireStarmanState::update(float deltaTime) {
         }
         else {
             character->setXVelocity(character->getVelocity().x - acceleration * deltaTime);
-            if (character->isJumping() == false && character->isHolding() == false) {
+            if (character->isJumping() == false && character->isHolding() == false && character->isSitting() == false) {
                 if (fabs(character->velocity.x) >= max_run_velocity && IsKeyDown(KEY_LEFT_SHIFT)) {
                     character->setAnimation(character->runLeft);
                 }
@@ -140,12 +140,12 @@ void FireStarmanState::update(float deltaTime) {
         if (character->velocity.x > 0) {
             character->setXVelocity(character->getVelocity().x - deceleration * deltaTime);
             if (character->velocity.x < 0) character->setXVelocity(0.f);
-            if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkRight);
+            if (character->isJumping() == false && character->isHolding() == false && character->isSitting() == false) character->setAnimation(character->walkRight);
         }
         else if (character->velocity.x < 0) {
             character->setXVelocity(character->getVelocity().x + deceleration * deltaTime);
             if (character->velocity.x > 0) character->setXVelocity(0.f);
-            if (character->isJumping() == false && character->isHolding() == false) character->setAnimation(character->walkLeft);
+            if (character->isJumping() == false && character->isHolding() == false && character->isSitting() == false) character->setAnimation(character->walkLeft);
         }
     }
 

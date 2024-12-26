@@ -38,7 +38,8 @@ public:
         TRANSFORM_PHASE,
         DEAD_PHASE,
         EXIT_PHASE,
-        ENTER_PHASE
+        ENTER_PHASE,
+        CLEARLEVEL_PHASE
     };
 
 protected:
@@ -93,8 +94,10 @@ protected:
     unsigned indexRender;
     vector<bool> renderImmortal;
 
-    const float DEAD_PLAYER_INITIAL_VELOCITY = 400.f; 
-    const float DEAD_PLAYER_GRAVITY = 1200.f;      
+    bool standingUp;
+
+    const float DEAD_PLAYER_INITIAL_VELOCITY = 120.f; 
+    const float DEAD_PLAYER_GRAVITY = 1000.f;      
 
     const float MAX_WALK_VELOCITY = 100.f;
     const float JET_STOMP_VELOCITY = -200.f;
@@ -130,6 +133,7 @@ public:
     bool isLostLife() const;
     void setLostLife(bool lostLife);
     bool isIdle() const;
+    bool isStadingUp() const;
 
     int getLives() const;
     void setLives(int lives);

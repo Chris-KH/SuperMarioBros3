@@ -9,12 +9,11 @@ class Fireball;
 
 class Enemy : public Sprite {
 protected:
-    bool stompable;
-    bool kickable;
-
     Vector2 boudary; //The x-axis range that enemy can move (y-axis for vertical plant)
     const float DEAD_TIME = 0.5f;
-    const int ENEMY_POINT = 100;    
+    const float DEAD_INITIAL_VELOCITY_Y = 200.f;
+    const float DEAD_INITIAL_VELOCITY_X = 100.f;
+    const int ENEMY_POINT = 100;
 public:
     Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
 
@@ -34,7 +33,7 @@ public:
     virtual const Vector2& getBoundary() const;
 
     virtual void stomped();
-    virtual void attacked();
+    virtual void attacked(Orientation direction = RIGHT);
     virtual void kicked(Orientation direction) {};
     void collisionWithFireball(Fireball* fireball);
 };

@@ -37,6 +37,7 @@ Character::Character(Vector2 pos, Vector2 size) : Sprite(pos, size)
     specificVelocity = { 0.f, 0.f };
     renderImmortal = { true, true, true, true, true, true, false, false, false, false, false, false };
     indexRender = 0u;
+    standingUp = false;
 
     idleLeft = nullptr;
 	walkLeft = nullptr;
@@ -92,6 +93,7 @@ void Character::reset() {
     countImmortalTime = 0.f;
     specificVelocity = { 0.f, 0.f };
     transform(NORMAL);
+    setCollisionAvailable(true);
 }
 void Character::resetInGame()
 {
@@ -110,6 +112,7 @@ void Character::resetInGame()
     countImmortalTime = 0.f;
     specificVelocity = { 0.f, 0.f };
     transform(NORMAL);
+    setCollisionAvailable(true);
 }
 
 STATE Character::getState() const {
@@ -178,6 +181,22 @@ void Character::draw(float deltaTime) {
 }
 
 void Character::setPhase(Phase phase) {
+    if (phase == DEAD_PHASE) {
+        setXVelocity(0.f);
+        setYVelocity(-DEAD_PLAYER_INITIAL_VELOCITY);
+        //setCollisionAvailable(false);
+        RESOURCE_MANAGER.stopCurrentMusic();
+        RESOURCE_MANAGER.playSound("lost_life.wav");
+        setLostLife(true);
+        setAnimation(deadAniamtion);
+        lives--;
+    }
+    else if (phase == CLEARLEVEL_PHASE) {
+        RESOURCE_MANAGER.stopCurrentMusic();
+        RESOURCE_MANAGER.playSound("level_clear.wav");
+        setYVelocity(0.f);
+        setXVelocity(MAX_WALK_VELOCITY);
+    }
 	this->phase = phase;
 }
 
@@ -221,10 +240,15 @@ void Character::update(float deltaTime) {
     Vector2 bound = globalGameEngine->getBound();
     if (this->getY() > bound.y)
         setPhase(DEAD_PHASE);
+    if (this->getX() >= bound.x - 150.f)
+        setPhase(CLEARLEVEL_PHASE);
 
     if (phase == DEFAULT_PHASE) {
         setVelocity(specificVelocity);
          
+        if (IsKeyReleased(KEY_S) && isSitting()) standingUp = true;
+        else standingUp = false;
+
         state->update(deltaTime); 
         INPUT_MANAGER.update(); 
         countThrowTime += deltaTime; 
@@ -235,7 +259,6 @@ void Character::update(float deltaTime) {
             indexRender = (indexRender + 1) % renderImmortal.size();
             RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/lost_suit.wav");
         }
-        else setCollisionAvailable(true);
 
         //Hold shell
         if (IsKeyUp(KEY_LEFT_SHIFT)) {
@@ -268,22 +291,26 @@ void Character::update(float deltaTime) {
         if (movingBlockStandOn != nullptr) {
             setYVelocity(getVelocity().y + movingBlockStandOn->getVelocity().y);
         }
+
     }
     else if (phase == TRANSFORM_PHASE) {
         //transform
     }
     else if (phase == DEAD_PHASE) {
-        RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/lost_life.wav");
-        setLostLife(true);
-        //Update gravity gì đó
-        setAnimation(deadAniamtion);
-        lives--;
+        //setYVelocity(getVelocity().y + DEAD_PLAYER_GRAVITY * deltaTime);
     }
     else if (phase == EXIT_PHASE) {
         //exit
     }
     else if (phase == ENTER_PHASE) {
         //enter
+    }
+    else if (phase == CLEARLEVEL_PHASE) {
+        setYVelocity(getVelocity().y + GRAVITY * deltaTime);
+
+        if (isJumping() == false) setAnimation(walkRight);
+        else if (getState() == NORMAL || getState() == STARMAN) setAnimation(jumpRight);
+        else setAnimation(fallRight);
     }
 
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
@@ -298,6 +325,8 @@ bool Character::isInvicible() const { return invicibleStarTime > 0.f; }
 bool Character::isIdle() const {
     return (velocity.x == 0.f && velocity.y == 0.f && !isJumping());
 }
+
+bool Character::isStadingUp() const { return this->standingUp; }
 
 int Character::getLives() const { return lives; }
 
@@ -438,7 +467,7 @@ void Character::lostSuit() {
         transform(NORMAL);
     }
     else if (state->getState() == FIRE) {
-        transform(SUPER);
+        transform(NORMAL);
     }
     else if (state->getState() == STARMAN) {
         transform(NORMAL);
@@ -451,7 +480,6 @@ void Character::lostSuit() {
     }
 
     countImmortalTime = IMMORTAL_TIME;
-    setCollisionAvailable(false);
 }
 
 void Character::collisionWithItem(const Item* item) {
@@ -463,11 +491,9 @@ void Character::collisionWithItem(const Item* item) {
             scores += mushroom->getPoint();
 			if (getState() == NORMAL) {
 				transform(SUPER);
-				//phase = TRANSFORM_PHASE;
 			}
             else if (getState() == STARMAN) {
                 transform(SUPERSTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
 			RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/power_up.wav");
             text = new TextEffect(to_string(mushroom->getPoint()).c_str(), vector2);
@@ -484,11 +510,9 @@ void Character::collisionWithItem(const Item* item) {
             scores += flower->getPoint();
             if (getState() == NORMAL) {
                 transform(FIRE);
-				//phase = TRANSFORM_PHASE;
             }
             else if (getState() == STARMAN) {
                 transform(FIRESTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
             RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/power_up.wav");
             text = new TextEffect(to_string(flower->getPoint()).c_str(), vector2);
@@ -499,15 +523,12 @@ void Character::collisionWithItem(const Item* item) {
         if (star->getStarType() == YELLOW_STAR) {
             if (getState() == NORMAL) {
                 transform(STARMAN);
-                //phase = TRANSFORM_PHASE;
             }
             else if (getState() == SUPER) {
                 transform(SUPERSTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
             else if (getState() == FIRE) {
                 transform(FIRESTARMAN);
-                //phase = TRANSFORM_PHASE;
             }
     
             invicibleStarTime = STAR_INVICIBLE_TIME;
@@ -538,14 +559,15 @@ void Character::collisionWithItem(const Item* item) {
 //True if character stomp, kick or starman. Otherwise it false
 void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
     if (enemy == nullptr) return;
+    if (countImmortalTime > 0.f) return;
 
     Shell* shell = dynamic_cast<Shell*>(enemy);
     if (shell && shell == getHoldShell()) return;
 
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         scores += 100;
-        RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/stomp.wav");
-        enemy->attacked();
+        RESOURCE_MANAGER.playSound("stomp.wav");
+        enemy->attacked(getOrientation());
     }
     else if (enemy->getEnemyType() != SHELL) {
         if (edge == TOP_EDGE && enemy->getEnemyType() != PLANT) {
@@ -600,6 +622,8 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
 }
 
 void Character::collisionWithFireball(Fireball* fireball) {
+    if (countImmortalTime > 0.f) return;
+
     if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
         return;
     }

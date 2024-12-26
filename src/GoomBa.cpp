@@ -78,6 +78,24 @@ void GoomBa::update(float deltaTime) {
 	}
 }
 
+void GoomBa::attacked(Orientation direction) {
+	Enemy::attacked();
+	
+	Animation* deadAnimation = nullptr;
+	if (type == BROWN_GoomBa || type == BROWNPARA_GoomBa) {
+		deadAnimation = RESOURCE_MANAGER.getAnimation("brown_goomba")->clone();
+	}
+	else if (type == RED_GoomBa || type == REDPARA_GoomBa) {
+		deadAnimation = RESOURCE_MANAGER.getAnimation("red_goomba")->clone();
+	}
+
+	deadAnimation->setRotate(180.f);
+	Effect* dead = new Effect(deadAnimation, getPosition(), 999.f);
+	if (dead) dead->setVelocity({ direction == RIGHT ? DEAD_INITIAL_VELOCITY_X : -DEAD_INITIAL_VELOCITY_X , -DEAD_INITIAL_VELOCITY_Y });
+
+	globalGameEngine->addEffect(dead);
+}
+
 void GoomBa::stomped() {
 	if (isDead()) return;
 

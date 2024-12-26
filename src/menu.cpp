@@ -48,9 +48,9 @@ void Menu::run() {
     registerItems();
     globalGameEngine = nullptr;
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
-    Level level1("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-1.txt", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-1.png", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/World1.mp3");
-    Level level2("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-2.txt", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/map1-2.png", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/World4.mp3");
-    Level level3("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/Map1-3.txt", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Map/map1-3.png", "C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/World5.mp3");
+    Level level1("../assets/Map/Map1-1.txt", "../assets/Map/Map1-1.png", "World1.mp3","1-1");
+    Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3","1-2");
+    Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3","1-3");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
@@ -226,13 +226,18 @@ void MainMenuState::handleInput() {
                     {
                         menu->player->setPosition({ 16, 400 });
                         menu->player->setVelocity({ 0,0 });
+                        menu->player->setPhase(Character::DEFAULT_PHASE);
                         menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
                         globalGameEngine = game;
                     }
                     else break;
                 }
-                else break;
+                else {
+                    if (globalGameEngine->isOver())
+                        menu->player->reset();
+                    break;
+                }
             }
         }
         else if (CheckCollisionPointRec(mousePos, startButton)) {
@@ -256,13 +261,19 @@ void MainMenuState::handleInput() {
                     {
                         menu->player->setPosition({ 16,400 });
                         menu->player->setVelocity({ 0,0 });
+                        menu->player->setPhase(Character::DEFAULT_PHASE);
                         menu->selectMap(menu->getSelectedMap() + 1);
                         GameEngine* game = new GameEngine(820.0f, 512.0f, *menu->map, menu->player);
                         globalGameEngine = game;
                     }
                     else break;
                 }
-                else break;
+                else
+                {
+                    if (globalGameEngine->isOver())
+                        menu->player->reset();
+                    break;
+                }
             }
         } else if (CheckCollisionPointRec(mousePos, settingsButton)) {
             menu->setState(std::make_unique<SettingState>(menu));
