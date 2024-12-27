@@ -265,9 +265,10 @@ public:
         Character* player = dynamic_cast<Character*>(entityA);
         MovingBlock* block = dynamic_cast<MovingBlock*>(entityB);
 
+
+        cout << player->isCollisionAvailable();
         if (!player || !block || !player->isCollisionAvailable())
             return false;
-
         float deltaTime = GetFrameTime();
 
         Vector2 playerVelocity = player->getVelocity();

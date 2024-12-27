@@ -8,7 +8,7 @@ class GameEngine;
 class KoopaTroopa : public Enemy {
 private:
 	const float SPEED = 50.f;
-	const float JUMP_SPEED = 200.f;
+	const float JUMP_SPEED = 10.f;
 	const float TIME_PER_JUMP = 2.f;
 
 	KoopaTroopaType type;

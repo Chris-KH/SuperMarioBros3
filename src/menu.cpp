@@ -51,7 +51,7 @@ void Menu::run() {
     Level level1("../assets/Map/Map1-1.txt", "../assets/Map/map1-1.png", "World1.mp3","1-1");
     Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3","1-2");
     Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3","1-3");
-    Level level4("../assets/Map/1-4.txt", "../assets/Map/1-4.png", "Star Theme.mp3", "1-3");
+    Level level4("../assets/Map/Map1-4.txt", "../assets/Map/map1-4.png", "Athletic.mp3", "1-3");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);

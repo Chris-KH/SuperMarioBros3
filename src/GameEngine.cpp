@@ -276,8 +276,11 @@ void GameEngine::render(float deltaTime) {
             effects[i]->draw(deltaTime);
     }
 
-    for (Entity* i : decor)
+    for (Entity* i : decor) {
         i->draw();
+        //DrawRectangleRec(i->getRectangle(), BLACK);
+    }
+        
     camera.endDrawing();
 
     BeginDrawing();
