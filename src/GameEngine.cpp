@@ -236,7 +236,10 @@ void GameEngine::render(float deltaTime) {
     bool lostLife = player->isLostLife();
 
     for (size_t i = 0; i < blocks.size(); ++i) {
-        blocks[i]->draw(deltaTime);
+        if (isPaused || lostLife)
+            fireball[i]->draw(0);
+        else
+            fireball[i]->draw(deltaTime);
         //DrawRectangleRec(blocks[i]->getRectangle(), BLACK);
     }
         
