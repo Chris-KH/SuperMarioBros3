@@ -138,6 +138,8 @@ void Character::draw(float deltaTime) {
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
     updateTime(deltaTime);
+
+    setVelocity(specificVelocity);
     
     
     if (isHolding()) {
@@ -237,8 +239,6 @@ void Character::update(float deltaTime) {
     }
 
     if (phase == DEFAULT_PHASE) {
-        setVelocity(specificVelocity);
-         
         if (IsKeyReleased(KEY_S) && isSitting()) standingUp = true;
         else standingUp = false;
 
