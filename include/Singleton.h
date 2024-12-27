@@ -28,3 +28,4 @@ private:
 // Initialize the static member
 template <class T>
 unique_ptr<T> Singleton<T>::instance = nullptr;
+

@@ -327,23 +327,22 @@ bool GameEngine::run() {
 
         if (gameover == true && isPaused == false) break;
 
+        if (this->time <= 0) player->setLostLife(true);
+        if (player->getY() > getBound().y && player->getPhase() != Character::CLEARLEVEL_PHASE) player->setLostLife(true);
+
         if (player->getX() >= map.getMapSize().x && RESOURCE_MANAGER.isSoundPlaying("level_clear.wav") == false) {
             cleared = true;
             isPaused = true;
             player->setVelocity({ 0.f, 0.f });
         }   
-        else if (player->getX() >= map.getMapSize().x - 150.f) {
+        else if (player->getX() >= map.getMapSize().x - 100.f) {
             if (player->getPhase() != Character::CLEARLEVEL_PHASE) {
                 RESOURCE_MANAGER.stopCurrentMusic();
                 RESOURCE_MANAGER.playSound("level_clear.wav");
                 player->setPhase(Character::CLEARLEVEL_PHASE);
             }
         }
-
-        if (this->time <= 0)
-            player->setPhase(Character::DEAD_PHASE); 
-
-        if (player->isLostLife() && player->getBottom() < 0.f) {
+        else if (player->isLostLife() && player->getBottom() < 0.f) {
             if (player->getLives() < 0) {
                 gameover = true;
                 isPaused = true;

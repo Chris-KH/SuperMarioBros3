@@ -10,10 +10,14 @@ class Fireball;
 class Enemy : public Sprite {
 protected:
     Vector2 boudary; //The x-axis range that enemy can move (y-axis for vertical plant)
+    float randomMoveTimer;
+
     const float DEAD_TIME = 0.5f;
     const float DEAD_INITIAL_VELOCITY_Y = 200.f;
     const float DEAD_INITIAL_VELOCITY_X = 100.f;
     const int ENEMY_POINT = 100;
+
+    const float TIME_RANDOM_MOVE = 3.f;
 public:
     Enemy(Vector2 pos = { 0, 0 }, Vector2 size = { 1, 1 });
 

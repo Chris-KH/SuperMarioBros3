@@ -185,6 +185,9 @@ void Character::setPhase(Phase phase) {
         setXVelocity(0.f);
         setYVelocity(-DEAD_PLAYER_INITIAL_VELOCITY);
         setCollisionAvailable(false);
+        setMovingBlockStandOn(nullptr);
+        setHoldingShell(nullptr);
+        setHolding(false);
         setAnimation(deadAniamtion);
         lives--;
     }
@@ -232,9 +235,6 @@ void Character::update(float deltaTime) {
             lostSuit();
         }
     }
-    Vector2 bound = globalGameEngine->getBound();
-    if (this->getY() > bound.y)
-        setLostLife(true);
 
     if (phase == DEFAULT_PHASE) {
         setVelocity(specificVelocity);
