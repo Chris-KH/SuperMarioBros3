@@ -51,9 +51,11 @@ void Menu::run() {
     Level level1("../assets/Map/Map1-1.txt", "../assets/Map/map1-1.png", "World1.mp3","1-1");
     Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3","1-2");
     Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3","1-3");
+    Level level4("../assets/Map/1-4.txt", "../assets/Map/1-4.png", "Star Theme.mp3", "1-3");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
+    loadedLevel.push_back(&level4);
 
     GUI::heartTexture = LoadTexture("../assets/Background/heart.png");
     GUI::coinTexture = LoadTexture("../assets/Background/coin.png");
@@ -111,7 +113,7 @@ void Menu::selectCharacter(int characterIndex) {
 }
 
 void Menu::selectMap(int mapIndex) {
-    if (mapIndex > 3 || mapIndex <= 0)
+    if (mapIndex > 4 || mapIndex <= 0)
         return;
     switch (mapIndex)
     {case 1:
@@ -127,6 +129,11 @@ void Menu::selectMap(int mapIndex) {
     case 3:
     {
         this->map = loadedLevel[2];
+        break;
+    }
+    case 4:
+    {
+        this->map = loadedLevel[3];
         break;
     }
     default:
@@ -229,7 +236,7 @@ void MainMenuState::handleInput() {
                 {
                     delete globalGameEngine;
                     globalGameEngine = nullptr;
-                    if ((menu->getSelectedMap() +1) <= 3)
+                    if ((menu->getSelectedMap() +1) <= 4)
                     {
                         menu->player->setPosition({ 16, 400 });
                         menu->player->setVelocity({ 0,0 });
@@ -264,7 +271,7 @@ void MainMenuState::handleInput() {
                 {
                     delete globalGameEngine;
                     globalGameEngine = nullptr;
-                    if ((menu->getSelectedMap() + 1) <= 3)
+                    if ((menu->getSelectedMap() + 1) <= 4)
                     {
                         menu->player->setPosition({ 16,400 });
                         menu->player->setVelocity({ 0,0 });
@@ -437,6 +444,12 @@ void MapSelection::draw() {
         static_cast<int>(map3Button.y + (map3Button.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), map3Button) ? LIGHTGRAY : BLACK);
+    DrawRectangleRec(map4Button, ORANGE);
+    DrawText("Map4",
+        static_cast<int>(map4Button.x + (map4Button.width - MeasureText("Map4", 30)) / 2),
+        static_cast<int>(map4Button.y + (map4Button.height - 30) / 2),
+        30,
+        CheckCollisionPointRec(GetMousePosition(), map4Button) ? LIGHTGRAY : BLACK);
 
 }
 
@@ -456,7 +469,13 @@ void MapSelection::handleInput() {
             menu->selectMap(3);
             menu->player->reset();
             menu->returnToMainMenu();
-        }/* else if (CheckCollisionPointRec(mousePos, backButton)) {
+        }
+    else if (CheckCollisionPointRec(mousePos, map4Button)) {
+        menu->selectMap(4);
+        menu->player->reset();
+        menu->returnToMainMenu();
+    }
+        /* else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
         }*/
     }
