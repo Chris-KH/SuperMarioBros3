@@ -1,13 +1,12 @@
 #ifndef BASEBLOCK_H
 #define BASEBLOCK_H
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#include "../lib/raylib.h"
 #include "Entity.h"
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <functional>
-//#include "Item.h"
 
 class BaseBlock : public Entity {
 public:

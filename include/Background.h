@@ -1,5 +1,6 @@
-#pragma once
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#ifndef BACKGROUND_H
+#define BACKGROUND_H
+#include "../lib/raylib.h"
 
 class Animation;
 
@@ -36,3 +37,4 @@ public:
     // Returns the tiling mode used for rendering.
     BackgroundTiling getTiling() const;
 };
+#endif

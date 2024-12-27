@@ -1,6 +1,7 @@
-#pragma once
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/bits/stdc++.h"
+#ifndef ANIMATION_H
+#define ANIMATION_H
+#include "../lib/raylib.h"
+#include "../lib/bits/stdc++.h"
 
 using namespace std;
 
@@ -56,4 +57,4 @@ private:
     float scale;
     float rotate;
 };
-
+#endif

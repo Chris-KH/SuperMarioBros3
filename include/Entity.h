@@ -1,5 +1,7 @@
-#pragma once
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#ifndef ENTITY_H
+#define ENTITY_H
+
+#include "../lib/raylib.h"
 #include "Animation.h"
 #include "CharacterState.h"
 #include "Global.h"
@@ -57,3 +59,4 @@ public:
     virtual void killEntity();
 	virtual bool isDead() const;
 };
+#endif

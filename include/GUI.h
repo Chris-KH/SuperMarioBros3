@@ -1,6 +1,8 @@
-#pragma once
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/bits/stdc++.h"
+#ifndef GUI_H
+#define GUI_H
+
+#include "../lib/raylib.h"
+#include "../lib/bits/stdc++.h"
 #include "Global.h"
 
 using namespace std;
@@ -20,5 +22,5 @@ public:
 	static void drawLevelClear();
 	static void drawDeathScreen();
 	static void drawGameOverScreen();
-	//static void drawButton(const Rectangle& rect);
 };
+#endif

@@ -1,5 +1,7 @@
-﻿#pragma once
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+﻿#ifndef RESOURCEMANAGER_H
+#define RESOURCEMANAGER_H
+
+#include "../lib/raylib.h"
 #include <map>
 #include <string>
 #include <filesystem>
@@ -75,3 +77,4 @@ public:
         return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
     }
 };
+#endif

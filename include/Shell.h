@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SHELL_H
+#define SHELL_H
+
 #include "Enemy.h"
 
 class GameEngine;
@@ -36,3 +38,4 @@ public:
 
 	void setHoldingPosition(const Character* character);
 };
+#endif

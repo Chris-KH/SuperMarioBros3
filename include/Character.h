@@ -3,7 +3,6 @@
 
 #include"Animation.h"
 #include"Sprite.h"
-//#include "Hitbox.h"
 #include"Global.h"
 #include"CharacterState.h"
 
@@ -68,9 +67,6 @@ protected:
 	Animation* kickRight;
 
     Animation* deadAniamtion;
-
-    //Animation* lostSuperSuit;
-    //Animation* lostFireSuit;
 
     Phase phase;
     CharacterState* state;
@@ -169,4 +165,4 @@ public:
     void collisionWithEnemy(Enemy* enemy, Edge edge = TOP_EDGE);
 	void collisionWithFireball(Fireball* fireball);
 };
-#endif // !CHARACTER_H
+#endif

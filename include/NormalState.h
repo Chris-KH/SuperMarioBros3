@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#ifndef NORMALSTATE_H
+#define NORMALSTATE_H
+
 #include"CharacterState.h"
 #include"Character.h"
 #include"Mario.h"
@@ -14,3 +16,4 @@ public:
     void update(float deltaTime) override;
     STATE getState() const override;
 };
+#endif

@@ -1,7 +1,7 @@
 #ifndef MEMU_H
 #define MENU_H
 
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#include "../lib/raylib.h"
 #include <memory>
 #include <vector>
 #include "GameEngine.h"
@@ -98,8 +98,7 @@ public:
 private:
     Rectangle map1Button = { 170, 720, 150, 40 };
     Rectangle map2Button = { 540, 720, 150, 40 }; 
-    Rectangle map3Button = { 910, 720, 150, 40 };
-    //Rectangle backButton = { 1040, 720, 150, 40 }; 
+    Rectangle map3Button = { 910, 720, 150, 40 }; 
 
 };
 #endif

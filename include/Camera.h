@@ -1,8 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-
 #include <iostream>
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#include "../lib/raylib.h"
+
 class GameCamera {
 private:
 	float cameraX;
@@ -21,7 +21,4 @@ public:
 	void endDrawing();
 	void setScale(float newScale);
 };
-class special
-{};
-
-#endif // !CAMERA_H
+#endif

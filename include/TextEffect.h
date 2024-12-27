@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TEXTEFFECT_H
+#define TEXTEFFECT_H
+
 #include"Effect.h"
 
 class TextEffect : public Effect {
@@ -19,3 +21,4 @@ public:
 
 	void draw(float deltaTime = GetFrameTime()) override;
 };
+#endif

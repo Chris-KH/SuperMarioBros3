@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STARMANSTATE_H
+#define STARMANSTATE_H
+
 #include"CharacterState.h"
 #include"Character.h"
 #include"Mario.h"
@@ -15,3 +17,4 @@ public:
 
     STATE getState() const override;
 };
+#endif

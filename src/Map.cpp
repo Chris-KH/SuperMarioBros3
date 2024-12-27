@@ -7,16 +7,13 @@ Map::~Map() {
 }
 
 Vector2 Map::getMapSize() {
-	if (background.id <= 0)
-		throw std::runtime_error("error loading map");
+	if (background.id <= 0) {
+		throw std::runtime_error("Error loading map");
+	}
 	float x = (float)background.width;
 	float y = (float)background.height;
 	return { x, y };
 }
-
-//void Map::addEntity(Entity* entity) {
-//	//blockArray.push_back(entity);
-//}
 
 void Map::loadFromFile(const std::string& filename) {
 	clearThings();
@@ -26,10 +23,6 @@ void Map::loadFromFile(const std::string& filename) {
 	}
 	MapHelper::loadFromTextFile(file, blockArray, enemies, items, decor);
 	file.close();
-}
-
-void Map::saveToFile(const std::string& filename) const {
-	//MapHelper::saveToTextFile(filename, blockArray);
 }
 
 std::vector<BaseBlock*> Map::getBlocks() const {
@@ -59,8 +52,7 @@ void Map::loadBackground(const std::string& filePath) {
 }
 
 void Map::renderAllBlock() {
-	for (Entity* entity : blockArray)
-		entity->draw();
+	for (Entity* entity : blockArray) entity->draw();
 }
 
 void Map::renderBackground() const {
@@ -83,7 +75,6 @@ void Map::clearThings() {
 // Level Implementation
     Level::Level(const std::string& map, const std::string& background,string music, string const name )
 	: mapPath(map), backGroundPath(background), music(music),name(name) {}
-
 
 std::string Level::getMapPath() const {
 	return mapPath;
@@ -234,8 +225,6 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 				enemies.push_back(enemy);
 			}
 
-
-
 		}
 		else if (currentSection == "item") {
 			std::istringstream stream(line);
@@ -263,29 +252,6 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 	}
 
 	return true;
-}
-
-void MapHelper::saveToTextFile(const std::string& filename, const std::vector<Entity*>& entities) {
-	//std::ofstream file(filename);
-
-		 //if (!file.is_open()) {
-		 //    throw std::runtime_error("Failed to open file: " + filename);
-		 //}
-
-		 //for (Entity* entity : entities) {
-		 //    // Attempt to cast the Entity* back to BaseBlock*
-		 //    BaseBlock* block = dynamic_cast<BaseBlock*>(entity);
-		 //    if (!block) {
-		 //        throw std::runtime_error("Invalid entity type: Cannot save non-block entities.");
-		 //    }
-
-		 //    // Write block data to the file
-		 //    file << blockTypeToString(block->getBlockType()) << " "
-		 //        << block->getPosition().x << " "
-		 //        << block->getPosition().y << " "
-		 //        << block->getSize().x << " "
-		 //        << block->getSize().y << "\n";
-		 //}
 }
 
 bool MapHelper::stringToEnemyType(std::string& enemyTypeStr, std::string& subTypeStr, EnemyType& enemyTypeOut, int& subTypeOut) {

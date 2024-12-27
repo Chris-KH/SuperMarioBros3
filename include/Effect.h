@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EFFECT_H
+#define EFFECT_H
 #include"Sprite.h"
 
 class Effect : public Sprite {
@@ -17,3 +18,4 @@ public:
 
 	virtual void update(float deltaTime) override;
 };
+#endif

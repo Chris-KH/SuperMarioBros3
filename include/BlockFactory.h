@@ -14,7 +14,6 @@
 #include "TemporaryBlock.h"
 #include "DecorBlock.h"
 
-
 class BlockFactory {
 public:
     using BlockCreator = std::function<BaseBlock* (Vector2, Vector2)>;
@@ -89,7 +88,4 @@ inline void registerBlocks() {
         return new TemporaryBlock(pos, size);
         });
 }
-//BlockFactory& factory = BlockFactory::getInstance();
-// blocks.push_back(factory.createBlock(FLOOR, {10, 10}, {50, 50}, GREEN));
-//BaseBlock* block = BlockFactory::getInstance().createBlock( blockType, { x, y }, { width, height });
 #endif

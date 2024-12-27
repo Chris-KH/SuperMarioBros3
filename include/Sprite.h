@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SPRITE_H
+#define SPRITE_H
+
 #include "Entity.h"
 
 //For moving object
@@ -39,3 +41,4 @@ public:
     virtual void update(float deltaTime) override;
     virtual void draw(float deltaTime = GetFrameTime()) override;
 };
+#endif

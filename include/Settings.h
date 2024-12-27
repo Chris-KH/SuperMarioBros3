@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 template <class T>
 class Singleton;
@@ -61,4 +62,4 @@ public:
     // Method to reset settings to default values
     void resetToDefaults();
 };
-
+#endif

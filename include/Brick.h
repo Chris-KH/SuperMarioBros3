@@ -13,4 +13,4 @@ public:
 private:
     bool isBroken = false;
 };
-#endif // !BRICK_H
+#endif

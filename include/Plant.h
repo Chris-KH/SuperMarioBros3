@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PLANT_H
+#define PLANT_H
+
 #include "Enemy.h"
 
 class Fireball;
@@ -42,3 +44,4 @@ public:
 	void setPlayerForFireball(Character* player);
 	void setDirection();
 };
+#endif

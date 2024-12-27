@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#ifndef SINGLETON_H
+#define SINGLETON_H
+
 #include <memory>
 #include <stdexcept>
 
@@ -29,3 +31,4 @@ private:
 template <class T>
 unique_ptr<T> Singleton<T>::instance = nullptr;
 
+#endif

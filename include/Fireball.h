@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FIREBALL_H
+#define FIREBALL_H
+
 #include"Sprite.h"
 
 class BaseBlock;
@@ -39,3 +41,4 @@ public:
 
 	void collisionWithBlock(const BaseBlock* block, Edge edge);
 };
+#endif

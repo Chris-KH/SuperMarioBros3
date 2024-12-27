@@ -4,7 +4,7 @@
 #include "../include/TextEffect.h"
 
 Brick::Brick(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
-    sprite = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/tiles1.txt/gold_brick_block")->clone();
+    sprite = RESOURCE_MANAGER.getAnimation("../assets/Animation/tiles1.txt/gold_brick_block")->clone();
     setAnimation(sprite);
 }
 
@@ -23,12 +23,12 @@ void Brick::update(float deltaTime) {
 
 void Brick::breakBrick() {
     killEntity();
-    Effect* breakEffect = new Effect(RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/tiles1.txt/gold_brick_block_broken")->clone(), getPosition(), true, 0.f);
+    Effect* breakEffect = new Effect(RESOURCE_MANAGER.getAnimation("../assets/Animation/tiles1.txt/gold_brick_block_broken")->clone(), getPosition(), true, 0.f);
     globalGameEngine->addEffect(breakEffect);
 
     Effect* textEffect = new TextEffect("100", getCenter());
     globalGameEngine->addEffect(textEffect);
 
     globalGameEngine->addScore(100);
-    RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/break_brick_block.wav");
+    RESOURCE_MANAGER.playSound("../assets/Sound/break_brick_block.wav");
 }

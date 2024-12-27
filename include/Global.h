@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#ifndef GLOBAL_H
+#define GLOBAL_H
+
 #include"Singleton.h"
 #include"ResourceManager.h"
 #include"FPSManager.h"
@@ -143,3 +145,4 @@ enum BlockType {
 	TEMPBLOCK,
 	DECOR
 };
+#endif

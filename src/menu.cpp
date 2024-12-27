@@ -9,10 +9,8 @@ Menu::Menu() : backgroundTexture({ 0 }) {
     musicEnabled = true;
     player = nullptr;
     map = nullptr;
-    //backgroundTexture = nullptr;
     selectedCharacter = 1;
     selectedMap = 1;
-    //// titleScreen = { 0 };
 
 }
 
@@ -26,15 +24,14 @@ Menu::~Menu()
 
 void Menu::run() {
     InitAudioDevice();
-    //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT | FLAG_WINDOW_UNDECORATED);
     SetConfigFlags(FLAG_WINDOW_ALWAYS_RUN); 
-    InitWindow(1280, 800, "Super Mario Bros");
-    Texture gameIcon = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Icon/GameIcon.png");
+    InitWindow(1280, 800, "Super Mario Bros 3");
+    Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
     Image gameIconImage = LoadImageFromTexture(gameIcon);
     SetWindowIcon(gameIconImage);
     if (backgroundTexture.id == 0)
     {
-        backgroundTexture = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/Menuscreen.png");
+        backgroundTexture = LoadTexture("../assets/Background/Menuscreen.png");
     }
 
     RESOURCE_MANAGER.loadAllResource();
@@ -55,12 +52,12 @@ void Menu::run() {
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
 
-    GUI::heartTexture = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/heart.png");
-    GUI::coinTexture = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/coin.png");
-    GUI::multiplicationSign = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/multiplicationSign.png");
-    GUI::board = LoadTexture("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Background/board.png");
+    GUI::heartTexture = LoadTexture("../assets/Background/heart.png");
+    GUI::coinTexture = LoadTexture("../assets/Background/coin.png");
+    GUI::multiplicationSign = LoadTexture("../assets/Background/MultiplicationSign.png");
+    GUI::board = LoadTexture("../assets/Background/board.png");
 
-    loadFromConfig("C:/Users/Dell/Downloads/CS202-SuperMario/assets/config.txt");
+    loadFromConfig("../assets/config.txt");
     selectMap(selectedMap);
 
     while (!WindowShouldClose()) {
@@ -75,7 +72,7 @@ void Menu::run() {
             WHITE
         );
         if (SETTINGS.isMusicEnabled())
-            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/Overworld.mp3"));       
+            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("../assets/Sound/Overworld.mp3"));
         if (currentState) {
             currentState->draw();
             currentState->handleInput();
@@ -83,7 +80,7 @@ void Menu::run() {
         EndDrawing();
     }
 
-    saveToConfig("C:/Users/Dell/Downloads/CS202-SuperMario/assets/config.txt");
+    saveToConfig("../assets/config.txt");
     loadedLevel.clear();
     if (globalGameEngine != nullptr)
     {
@@ -176,7 +173,6 @@ MainMenuState::MainMenuState(Menu* menu) {
 void MainMenuState::draw() {
     ClearBackground(RAYWHITE);
 
-    //startButton = { 440, buttonStartY, 400, 50 };
     DrawRectangleRec(startButton, ORANGE);
     DrawText("New Game",
         static_cast<int>(startButton.x) + static_cast<int>((startButton.width - MeasureText("New Game", 30)) / 2),
@@ -190,21 +186,20 @@ void MainMenuState::draw() {
         30, CheckCollisionPointRec(GetMousePosition(), continueButton) ? LIGHTGRAY : BLACK);
 
     // Settings Button
-    //settingsButton = { 440, buttonStartY + buttonSpacing, 400, 50 };
     DrawRectangleRec(settingsButton, ORANGE);
     DrawText("Settings",
         static_cast<int>(settingsButton.x) + static_cast<int>((settingsButton.width - MeasureText("Settings", 30)) / 2),
         static_cast<int>(settingsButton.y + (settingsButton.height - 30) / 2),
         30, CheckCollisionPointRec(GetMousePosition(), settingsButton) ? LIGHTGRAY : BLACK);
 
- 
+    //Character Button
     DrawRectangleRec(charSelectionButton, ORANGE);
     DrawText("Character",
         static_cast<int>(charSelectionButton.x) + static_cast<int>((charSelectionButton.width - MeasureText("Charcter", 30)) / 2),
         static_cast<int>(charSelectionButton.y + (charSelectionButton.height - 30) / 2),
         30, CheckCollisionPointRec(GetMousePosition(), charSelectionButton) ? LIGHTGRAY : BLACK);
 
-
+    //Map Button
     DrawRectangleRec(mapSelectionButton, ORANGE);
     DrawText("Level",
         static_cast<int>(mapSelectionButton.x) + static_cast<int>((mapSelectionButton.width - MeasureText("Level", 30)) / 2),
@@ -343,9 +338,6 @@ CharSelection::CharSelection(Menu* menu) { this->menu = menu; }
 void CharSelection::draw() {
     ClearBackground(RAYWHITE);
 
-    // Title
-    //DrawText("Character Selection", 200, 100, 40, BLACK);
-
     // Mario Button
     DrawRectangleRec(marioButton, ORANGE);
     DrawText("Mario",
@@ -405,9 +397,6 @@ MapSelection::MapSelection(Menu* menu) { this->menu = menu; }
 void MapSelection::draw() {
     ClearBackground(RAYWHITE);
 
-    // Title
-    //DrawText("Map Selection", 200, 100, 40, BLACK);
-
     // Map1 Button
     DrawRectangleRec(map1Button, ORANGE);
     DrawText("Map1",
@@ -446,9 +435,7 @@ void MapSelection::handleInput() {
             menu->selectMap(3);
             menu->player->reset();
             menu->returnToMainMenu();
-        }/* else if (CheckCollisionPointRec(mousePos, backButton)) {
-            menu->returnToMainMenu();
-        }*/
+        }
     }
 }
 
@@ -462,6 +449,7 @@ void Menu::saveToConfig(string filename) {
     outFile << "AudioEnabled: " << (audioEnabled ? "true" : "false") << endl;
     outFile << "MusicEnabled: " << (musicEnabled ? "true" : "false") << endl;
     outFile << "SelectedMap: " << selectedMap << endl;
+
     if (player) {
         outFile << "CharacterType: " << static_cast<int>(player->getCharacterType()) << endl;
         outFile << "Lives: " << player->getLives() << endl;
@@ -503,10 +491,8 @@ void Menu::loadFromConfig(string filename) {
             int type;
             inFile >> type;
             if (type != -1) {
-                if (type == 0)
-                    this->player = new Mario({ 0, 0 });
-                else if (type == 1)
-                    this->player = new Luigi({ 0,0 });
+                if (type == 0) this->player = new Mario({ 0, 0 });
+                else if (type == 1) this->player = new Luigi({ 0,0 });
             }
         }
         else if (key == "Lives:") {

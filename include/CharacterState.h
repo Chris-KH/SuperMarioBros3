@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CHARACTERSTATE_H
+#define CHARACTERSTATE_H
 #include"Global.h"
 
 class Entity;
@@ -23,3 +24,4 @@ public:
 
 	virtual Character* getCharacter() const;
 };
+#endif

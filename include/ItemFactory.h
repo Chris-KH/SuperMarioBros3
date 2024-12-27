@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ITEMFACTORY_H
+#define ITEMFACTORY_H
+
 #include"Item.h"
 #include"Coin.h"
 #include"Mushroom.h"
@@ -53,7 +55,5 @@ inline void registerItems() {
         return new Star(static_cast<StarType>(subtype), pos, orientation);
         });
 
-    //factory.registerItem(SUPERLEAF, [](Vector2 pos, Orientation orientation, int subtype) {
-    //    return new SuperLeaf(pos, orientation); // No subtype for SuperLeaf
-    //    });
 }
+#endif

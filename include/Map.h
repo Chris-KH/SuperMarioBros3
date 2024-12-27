@@ -16,7 +16,6 @@
 class MapHelper {
 public:
     static bool loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& blocks, std::vector<Enemy*>& enemies, std::vector<Item*>& items, std::vector<BaseBlock*>& decor);
-    static void saveToTextFile(const std::string& filename, const std::vector<Entity*>& entities); /// not using.
 
 private:
     static bool stringToEnemyType(std::string& enemyTypeStr, std::string& subTypeStr, EnemyType& enemyTypeOut, int& subTypeOut);
@@ -32,9 +31,7 @@ public:
     ~Map();
 
     Vector2 getMapSize();
-    //void addEntity(Entity* entity);
     void loadFromFile(const std::string& filename);
-    void saveToFile(const std::string& filename) const;
 
     std::vector<BaseBlock*> getBlocks() const;
     std::vector<Enemy*> getEnemies() const;

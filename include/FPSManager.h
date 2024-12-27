@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#include "../lib/raylib.h"
 #include <chrono>
 
 using namespace std;
@@ -31,4 +31,3 @@ private:
     unsigned frameCounter; // Count of frames processed
     chrono::high_resolution_clock::time_point lastTickTime; // Time of the last processed frame
 };
-

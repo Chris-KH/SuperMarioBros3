@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GOOMBA_H
+#define GOOMBA_H
+
 #include "Enemy.h"
 #include "Collision.h"
 
@@ -26,3 +28,4 @@ public:
 	void attacked(Orientation direction = RIGHT) override;
 	void stomped() override;
 };
+#endif

@@ -1,5 +1,5 @@
 #pragma once
-#include"C:/Users/Dell/Downloads/CS202-SuperMario/lib/raylib.h"
+#include"../lib/raylib.h"
 #include<vector>
 #include<unordered_map>
 

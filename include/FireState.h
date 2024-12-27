@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FIRESTATE_H
+#define FIRESTATE_H
+
 #include"CharacterState.h"
 #include"Character.h"
 #include"Mario.h"
@@ -16,3 +18,4 @@ public:
 	void update(float deltaTime) override;
 	STATE getState() const override;
 };
+#endif

@@ -33,9 +33,7 @@ void Effect::update(float deltaTime) {
 
 	if (isDead()) return;
 
-	if (duration <= 0.f) {
-		killEntity();
-	}
+	if (duration <= 0.f) killEntity();
 
 	if (isGravityAvailable()) setYVelocity(getVelocity().y + GRAVITY * deltaTime);
 

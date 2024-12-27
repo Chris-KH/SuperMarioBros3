@@ -10,8 +10,8 @@ Mario::Mario(Vector2 pos) : Character(pos) {
 	state = new NormalState(this);
 	setAnimation(idleRight);
 	INPUT_MANAGER.addListener(*this);
-	Vector2 vector2Pos = {this->getPosition().x, this->getPosition().y};
-	this->setPosition(vector2Pos);
+	Vector2 vector2 = {this->getPosition().x, this->getPosition().y};
+	this->setPosition(vector2);
 };
 
 CharacterType Mario::getCharacterType() const {

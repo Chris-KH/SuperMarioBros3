@@ -6,7 +6,7 @@
 #include "../include/Fireball.h"
 
 ItemBlock::ItemBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
-    sprite = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/tiles1.txt/item_block")->clone();
+    sprite = RESOURCE_MANAGER.getAnimation("../assets/Animation/tiles1.txt/item_block")->clone();
     item = COIN;
     subType = BLOCK_COIN;
     setAnimation(sprite);
@@ -53,7 +53,7 @@ void ItemBlock::releaseItem(const Sprite* object)
         hasItem = false;
         free(this->currentAnimation);
         this->currentAnimation = nullptr;
-        sprite = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/miscellaneous.txt/empty_block")->clone();
+        sprite = RESOURCE_MANAGER.getAnimation("../assets/Animation/miscellaneous.txt/empty_block")->clone();
         setAnimation(sprite);
     }
 }
