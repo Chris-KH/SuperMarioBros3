@@ -185,6 +185,9 @@ void Character::setPhase(Phase phase) {
         setXVelocity(0.f);
         setYVelocity(-DEAD_PLAYER_INITIAL_VELOCITY);
         setCollisionAvailable(false);
+        setMovingBlockStandOn(nullptr);
+        setHoldingShell(nullptr);
+        setHolding(false);
         setAnimation(deadAniamtion);
         lives--;
     }
