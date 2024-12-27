@@ -51,11 +51,13 @@ void Menu::run() {
     Level level1("../assets/Map/Map1-1.txt", "../assets/Map/map1-1.png", "World1.mp3","1-1");
     Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3","1-2");
     Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3","1-3");
-    Level level4("../assets/Map/Map1-4.txt", "../assets/Map/map1-4.png", "Athletic.mp3", "1-3");
+    Level level4("../assets/Map/Map1-4.txt", "../assets/Map/map1-4.png", "Athletic.mp3", "1-4");
+    Level level5("../assets/Map/Map1-5.txt", "../assets/Map/map1-5.png", "Athletic.mp3", "1-5");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
     loadedLevel.push_back(&level4);
+    loadedLevel.push_back(&level5);
 
     GUI::heartTexture = LoadTexture("../assets/Background/heart.png");
     GUI::coinTexture = LoadTexture("../assets/Background/coin.png");
@@ -134,6 +136,11 @@ void Menu::selectMap(int mapIndex) {
     case 4:
     {
         this->map = loadedLevel[3];
+        break;
+    }
+    case 5:
+    {
+        this->map = loadedLevel[4];
         break;
     }
     default:
@@ -450,7 +457,12 @@ void MapSelection::draw() {
         static_cast<int>(map4Button.y + (map4Button.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), map4Button) ? LIGHTGRAY : BLACK);
-
+    //DrawRectangleRec(map5Button, ORANGE);
+    //DrawText("Map5",
+    //    static_cast<int>(map5Button.x + (map5Button.width - MeasureText("Map5", 30)) / 2),
+    //    static_cast<int>(map5Button.y + (map5Button.height - 30) / 2),
+    //    30,
+    //    CheckCollisionPointRec(GetMousePosition(), map5Button) ? LIGHTGRAY : BLACK);
 }
 
 
@@ -470,11 +482,16 @@ void MapSelection::handleInput() {
             menu->player->reset();
             menu->returnToMainMenu();
         }
-    else if (CheckCollisionPointRec(mousePos, map4Button)) {
-        menu->selectMap(4);
-        menu->player->reset();
-        menu->returnToMainMenu();
-    }
+        else if (CheckCollisionPointRec(mousePos, map4Button)) {
+            menu->selectMap(4);
+            menu->player->reset();
+            menu->returnToMainMenu();
+        }
+        else if (CheckCollisionPointRec(mousePos, map5Button)) {
+            menu->selectMap(5);
+            menu->player->reset();
+            menu->returnToMainMenu();
+        }
         /* else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
         }*/
