@@ -475,7 +475,7 @@ void Character::lostSuit() {
 }
 
 void Character::collisionWithItem(const Item* item) {
-    Effect* text = nullptr;
+    TextEffect* text = nullptr;
 
     if (item->getItemType() == MUSHROOM) {
 		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
@@ -494,6 +494,8 @@ void Character::collisionWithItem(const Item* item) {
             lives++;
             RESOURCE_MANAGER.playSound("1_up.wav");
             text = new TextEffect("1 UP", Vector2(getCenterX(), getTop()));
+            text->setTextColor(WHITE);
+            text->setOutlineColor(YELLOW);
         }
     }
     else if (item->getItemType() == FLOWER) {
