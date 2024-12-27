@@ -335,7 +335,7 @@ bool GameEngine::run() {
             isPaused = true;
             player->setVelocity({ 0.f, 0.f });
         }   
-        else if (player->getX() >= map.getMapSize().x - 150.f) {
+        else if (player->getX() >= map.getMapSize().x - 100.f) {
             if (player->getPhase() != Character::CLEARLEVEL_PHASE) {
                 RESOURCE_MANAGER.stopCurrentMusic();
                 RESOURCE_MANAGER.playSound("level_clear.wav");
