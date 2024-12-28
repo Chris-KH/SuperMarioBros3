@@ -52,12 +52,12 @@ void Menu::run() {
     Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3","1-2");
     Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3","1-3");
     Level level4("../assets/Map/Map1-4.txt", "../assets/Map/map1-4.png", "Athletic.mp3", "1-4");
-    Level level5("../assets/Map/Map1-5.txt", "../assets/Map/map1-5.png", "Athletic.mp3", "1-5");
+    //Level level5("../assets/Map/Map1-5.txt", "../assets/Map/map1-5.png", "Athletic.mp3", "1-5");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
     loadedLevel.push_back(&level3);
     loadedLevel.push_back(&level4);
-    loadedLevel.push_back(&level5);
+    //loadedLevel.push_back(&level5);
 
     GUI::heartTexture = LoadTexture("../assets/Background/heart.png");
     GUI::coinTexture = LoadTexture("../assets/Background/coin.png");
@@ -138,11 +138,11 @@ void Menu::selectMap(int mapIndex) {
         this->map = loadedLevel[3];
         break;
     }
-    case 5:
-    {
-        this->map = loadedLevel[4];
-        break;
-    }
+    //case 5:
+    //{
+    //    this->map = loadedLevel[4];
+    //    break;
+    //}
     default:
         break;
     }
@@ -487,11 +487,11 @@ void MapSelection::handleInput() {
             menu->player->reset();
             menu->returnToMainMenu();
         }
-        else if (CheckCollisionPointRec(mousePos, map5Button)) {
-            menu->selectMap(5);
-            menu->player->reset();
-            menu->returnToMainMenu();
-        }
+        //else if (CheckCollisionPointRec(mousePos, map5Button)) {
+        //    menu->selectMap(5);
+        //    menu->player->reset();
+        //    menu->returnToMainMenu();
+        //}
         /* else if (CheckCollisionPointRec(mousePos, backButton)) {
             menu->returnToMainMenu();
         }*/

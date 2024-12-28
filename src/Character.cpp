@@ -553,7 +553,6 @@ void Character::collisionWithItem(const Item* item) {
 //True if character stomp, kick or starman. Otherwise it false
 void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
     if (enemy == nullptr) return;
-    if (countImmortalTime > 0.f) return;
 
     Shell* shell = dynamic_cast<Shell*>(enemy);
     if (shell && shell == getHoldShell()) return;
@@ -571,6 +570,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             RESOURCE_MANAGER.playSound("stomp.wav");
             enemy->stomped();
         }
+        else if (countImmortalTime > 0.f) return;
         else lostSuit();
     }   
     else if (enemy->getEnemyType() == SHELL) {
@@ -610,6 +610,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                     }
                 }
             }
+            else if (countImmortalTime > 0.f) return;
             else lostSuit();
         }
     }
