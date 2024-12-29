@@ -138,6 +138,8 @@ void Character::draw(float deltaTime) {
     setXPosition(getPosition().x + velocity.x * deltaTime);
     setYPosition(getPosition().y + velocity.y * deltaTime);
     updateTime(deltaTime);
+
+    setVelocity(specificVelocity);
     
     
     if (isHolding()) {
@@ -237,8 +239,6 @@ void Character::update(float deltaTime) {
     }
 
     if (phase == DEFAULT_PHASE) {
-        setVelocity(specificVelocity);
-         
         if (IsKeyReleased(KEY_S) && isSitting()) standingUp = true;
         else standingUp = false;
 
@@ -475,8 +475,8 @@ void Character::lostSuit() {
 }
 
 void Character::collisionWithItem(const Item* item) {
-    Effect* text = nullptr;
-    Vector2 vector2 = {getCenterX(), getTop()};
+    TextEffect* text = nullptr;
+
     if (item->getItemType() == MUSHROOM) {
 		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
         if (mushroom->getMushroomType() == MUSHROOM_SUPER) {
@@ -492,8 +492,10 @@ void Character::collisionWithItem(const Item* item) {
         }
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
-            RESOURCE_MANAGER.playSound("../assets/Sound/1_up.wav");
-            text = new TextEffect("1 UP", vector2);
+            RESOURCE_MANAGER.playSound("1_up.wav");
+            text = new TextEffect("1 UP", Vector2(getCenterX(), getTop()));
+            text->setTextColor(WHITE);
+            text->setOutlineColor(YELLOW);
         }
     }
     else if (item->getItemType() == FLOWER) {
@@ -551,7 +553,6 @@ void Character::collisionWithItem(const Item* item) {
 //True if character stomp, kick or starman. Otherwise it false
 void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
     if (enemy == nullptr) return;
-    if (countImmortalTime > 0.f) return;
 
     Shell* shell = dynamic_cast<Shell*>(enemy);
     if (shell && shell == getHoldShell()) return;
@@ -569,6 +570,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
             RESOURCE_MANAGER.playSound("../assets/Sound/stomp.wav");
             enemy->stomped();
         }
+        else if (countImmortalTime > 0.f) return;
         else lostSuit();
     }   
     else if (enemy->getEnemyType() == SHELL) {
@@ -608,6 +610,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
                     }
                 }
             }
+            else if (countImmortalTime > 0.f) return;
             else lostSuit();
         }
     }

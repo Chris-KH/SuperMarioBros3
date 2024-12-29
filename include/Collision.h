@@ -492,17 +492,17 @@ public:
                     Vector2 vector2 = {blockRect.x - enemyRect.width, enemy->getPosition().y};
                     enemy->setPosition(vector2);
                     enemy->setOrientation(LEFT);
-                    if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
-                        shell->attacked(LEFT);
-                    }
+                    //if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
+                    //    shell->attacked(LEFT);
+                    //}
                 }
                 else if (velocity.x < 0) {
                     Vector2 vector2 = {blockRect.x + blockRect.width, enemy->getPosition().y};
                     enemy->setPosition(vector2);
                     enemy->setOrientation(RIGHT);
-                    if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
-                        shell->attacked(RIGHT);
-                    }
+                    //if (Shell* shell = dynamic_cast<Shell*>(enemy)) {
+                    //    shell->attacked(RIGHT);
+                    //}
                 }
                 enemy->setXVelocity(0.f);
             }

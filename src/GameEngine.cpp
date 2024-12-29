@@ -236,7 +236,11 @@ void GameEngine::render(float deltaTime) {
     bool lostLife = player->isLostLife();
 
     for (size_t i = 0; i < blocks.size(); ++i) {
-        blocks[i]->draw(deltaTime);
+        if (isPaused || lostLife)
+            blocks[i]->draw(0);
+        else
+            blocks[i]->draw(deltaTime);
+        //DrawRectangleRec(blocks[i]->getRectangle(), BLACK);
     }
         
     for (size_t i = 0; i < enemies.size(); ++i) {
@@ -275,8 +279,11 @@ void GameEngine::render(float deltaTime) {
             effects[i]->draw(deltaTime);
     }
 
-    for (Entity* i : decor)
+    for (Entity* i : decor) {
         i->draw();
+        //DrawRectangleRec(i->getRectangle(), BLACK);
+    }
+        
     camera.endDrawing();
 
     BeginDrawing();
@@ -334,7 +341,7 @@ bool GameEngine::run() {
             isPaused = true;
             player->setVelocity({ 0.f, 0.f });
         }   
-        else if (player->getX() >= map.getMapSize().x - 150.f) {
+        else if (player->getX() >= map.getMapSize().x - 100.f) {
             if (player->getPhase() != Character::CLEARLEVEL_PHASE) {
                 RESOURCE_MANAGER.stopCurrentMusic();
                 RESOURCE_MANAGER.playSound("../assets/Sound/level_clear.wav");

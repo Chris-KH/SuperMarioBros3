@@ -96,9 +96,12 @@ public:
     void draw() override;
     void handleInput() override;
 private:
-    Rectangle map1Button = { 170, 720, 150, 40 };
-    Rectangle map2Button = { 540, 720, 150, 40 }; 
-    Rectangle map3Button = { 910, 720, 150, 40 }; 
+    Rectangle map1Button = { 50, 720, 150, 40 };
+    Rectangle map2Button = { 300, 720, 150, 40 }; 
+    Rectangle map3Button = { 550, 720, 150, 40 };
+    Rectangle map4Button = { 800, 720, 150, 40 };
+    Rectangle map5Button = { 1050, 720, 150, 40 };
+    //Rectangle backButton = { 1040, 720, 150, 40 }; 
 
 };
 #endif

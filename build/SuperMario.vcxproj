@@ -381,7 +381,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Mario.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Luigi.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Map.cpp" />
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\menu.cpp" />
+    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Menu.cpp" />
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\Main.cpp" />
   </ItemGroup>
   <ItemGroup />
