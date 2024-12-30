@@ -50,7 +50,6 @@ set(Main
     src/Fireball.cpp
     src/SuperState.cpp
     src/StarmanState.cpp
-    src/TailState.cpp
     src/FireStarmanState.cpp
     src/SuperStarmanState.cpp
 

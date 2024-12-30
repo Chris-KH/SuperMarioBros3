@@ -14,4 +14,4 @@ public:
     BlockType getBlockType() const override;
     void update();
 };
-#endif // !TEMPORARYBLOCK_H
+#endif

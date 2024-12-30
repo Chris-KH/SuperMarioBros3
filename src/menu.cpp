@@ -11,7 +11,6 @@ Menu::Menu() : backgroundTexture({ 0 }) {
     map = nullptr;
     selectedCharacter = 1;
     selectedMap = 1;
-
 }
 
 Menu::~Menu()
@@ -286,8 +285,7 @@ void MainMenuState::handleInput() {
                 }
                 else
                 {
-                    if (globalGameEngine->isOver())
-                        menu->player->reset();
+                    if (globalGameEngine->isOver()) menu->player->reset();
                     break;
                 }
             }

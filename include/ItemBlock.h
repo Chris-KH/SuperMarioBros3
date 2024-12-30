@@ -26,4 +26,4 @@ public:
     void setItem(ItemType item, int subtype);
 };
 
-#endif // !ITEMBLOCK_H
+#endif

@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#ifndef FPSMANAGER_H
+#define FPSMANAGER_H
+
 #include "../lib/raylib.h"
 #include <chrono>
 
@@ -31,3 +33,4 @@ private:
     unsigned frameCounter; // Count of frames processed
     chrono::high_resolution_clock::time_point lastTickTime; // Time of the last processed frame
 };
+#endif

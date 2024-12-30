@@ -236,52 +236,38 @@ void GameEngine::render(float deltaTime) {
     bool lostLife = player->isLostLife();
 
     for (size_t i = 0; i < blocks.size(); ++i) {
-        if (isPaused || lostLife)
-            blocks[i]->draw(0);
-        else
-            blocks[i]->draw(deltaTime);
-        //DrawRectangleRec(blocks[i]->getRectangle(), BLACK);
+        if (isPaused || lostLife) blocks[i]->draw(0);
+        else blocks[i]->draw(deltaTime);
     }
         
     for (size_t i = 0; i < enemies.size(); ++i) {
         if (player->getHoldShell() != nullptr) {
             if (dynamic_cast<Shell*>(enemies[i]) == player->getHoldShell()) continue;
         }
-        if (isPaused || lostLife)
-            enemies[i]->draw(0);
-        else
-            enemies[i]->draw(deltaTime);
+        if (isPaused || lostLife) enemies[i]->draw(0);
+        else enemies[i]->draw(deltaTime);
     }
 
     for (size_t i = 0; i < items.size(); ++i) {
-        if (isPaused || lostLife)
-            items[i]->draw(0);
-        else
-            items[i]->draw(deltaTime);
+        if (isPaused || lostLife) items[i]->draw(0);
+        else items[i]->draw(deltaTime);
     }
 
     for (size_t i = 0; i < fireball.size(); ++i) {
-        if (isPaused || lostLife)
-            fireball[i]->draw(0);
-        else
-            fireball[i]->draw(deltaTime);
+        if (isPaused || lostLife) fireball[i]->draw(0);
+        else fireball[i]->draw(deltaTime);
     }
 
-    if (isPaused)
-        player->draw(0);
-    else
-        player->draw(deltaTime);
+    if (isPaused) player->draw(0);
+    else player->draw(deltaTime);
 
     for (size_t i = 0; i < effects.size(); ++i) {
-        if (isPaused || lostLife)
-            effects[i]->draw(0);
-        else
-            effects[i]->draw(deltaTime);
+        if (isPaused || lostLife) effects[i]->draw(0);
+        else effects[i]->draw(deltaTime);
     }
 
     for (Entity* i : decor) {
         i->draw();
-        //DrawRectangleRec(i->getRectangle(), BLACK);
     }
         
     camera.endDrawing();

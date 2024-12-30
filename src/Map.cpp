@@ -73,7 +73,7 @@ void Map::clearThings() {
 }
 
 // Level Implementation
-    Level::Level(const std::string& map, const std::string& background,string music, string const name )
+    Level::Level(const std::string& map, const std::string& background,string music, string const name)
 	: mapPath(map), backGroundPath(background), music(music),name(name) {}
 
 std::string Level::getMapPath() const {
@@ -145,8 +145,7 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 				if (!(stream >> x >> y >> width >> height)) {
 					throw std::runtime_error("Malformed line for decor: " + line);
 				}
-				BaseBlock* block = BlockFactory::getInstance().createBlock(
-					blockType, { x, y }, { width, height });
+				BaseBlock* block = BlockFactory::getInstance().createBlock(blockType, { x, y }, { width, height });
 				if (!block) {
 					throw std::runtime_error("Failed to create static block: " + blockTypeStr);
 				}
@@ -191,13 +190,15 @@ bool MapHelper::loadFromTextFile(std::ifstream& file, std::vector<BaseBlock*>& b
 			EnemyType type;
 			int subtype;
 			stream >> enemyTypeStr >> specificType;
-			if (!stringToEnemyType(enemyTypeStr, specificType, type, subtype))
+			if (!stringToEnemyType(enemyTypeStr, specificType, type, subtype)) {
 				throw std::runtime_error("Malformed line in file: " + line);
+			}
 			if (!(stream >> x >> y >> boundLeft >> boundRight >> orientation)) {
 				throw std::runtime_error("Malformed line : " + line);
 			}
-			if (orientation >= 8)
+			if (orientation >= 8) {
 				throw std::runtime_error("Malformed line (orientation error): " + line);
+			}
 			Orientation facing = static_cast<Orientation>(orientation);
 			if (type == GOOMBA)
 			{
@@ -392,6 +393,7 @@ ItemType MapHelper::stringToItemType(const string& typeStr)
 	else if (typeStr == "STAR") {
 		return STAR;
 	}
-	else
+	else {
 		return COIN;
+	}
 }

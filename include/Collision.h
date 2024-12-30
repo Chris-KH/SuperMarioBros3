@@ -104,7 +104,7 @@ public:
         Rectangle playerRect = player->getRectangle();
         Rectangle blockRect = block->getRectangle();
 
-        // thay vì để 1 future rect, chia 2 trường hợp để dễ check hơn.
+        // Thay vì để 1 future rect, chia 2 trường hợp để dễ check hơn.
 
         if (velocity.x != 0) {
             Rectangle horizontalRect = {

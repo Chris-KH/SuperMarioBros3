@@ -18,4 +18,4 @@ public:
     void setVelocity(Vector2 newVelocity);
     void update(float deltaTime) override;
 };
-#endif // !MOVINGBLOCK_H
+#endif

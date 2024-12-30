@@ -243,7 +243,7 @@ void Character::update(float deltaTime) {
         else standingUp = false;
 
         state->update(deltaTime); 
-        INPUT_MANAGER.update(); 
+        INPUT_MANAGER.update();
         countThrowTime += deltaTime; 
         countThrowTime = min(countThrowTime, 3.f);
 
@@ -476,6 +476,7 @@ void Character::lostSuit() {
 
 void Character::collisionWithItem(const Item* item) {
     TextEffect* text = nullptr;
+    Vector2 vector2 = {getCenterX(), getTop()};
 
     if (item->getItemType() == MUSHROOM) {
 		const Mushroom* mushroom = dynamic_cast<const Mushroom*>(item);
@@ -493,7 +494,7 @@ void Character::collisionWithItem(const Item* item) {
         else if (mushroom->getMushroomType() == MUSHROOM_1UP) {
             lives++;
             RESOURCE_MANAGER.playSound("1_up.wav");
-            text = new TextEffect("1 UP", Vector2(getCenterX(), getTop()));
+            text = new TextEffect("1 UP", vector2);
             text->setTextColor(WHITE);
             text->setOutlineColor(YELLOW);
         }
@@ -619,9 +620,7 @@ void Character::collisionWithEnemy(Enemy* enemy, Edge edge) {
 void Character::collisionWithFireball(Fireball* fireball) {
     if (countImmortalTime > 0.f) return;
 
-    if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) {
-        return;
-    }
+    if (state->getState() == STARMAN || state->getState() == SUPERSTARMAN || state->getState() == FIRESTARMAN) return;
     lostSuit();
     fireball->killEntity();
 }

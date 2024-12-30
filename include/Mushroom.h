@@ -24,4 +24,4 @@ public:
 	void update(float deltaTime) override;
 };
 
-#endif // !MUSHROOM_H
+#endif

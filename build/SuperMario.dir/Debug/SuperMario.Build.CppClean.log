@@ -19,11 +19,11 @@ c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\entity.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\camera.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\background.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\animation.obj
+c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\koopatroopa.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\goomba.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\enemy.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\superstarmanstate.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\firestarmanstate.obj
-c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\tailstate.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\starmanstate.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\superstate.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\fireball.obj
@@ -49,7 +49,6 @@ c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\texteffect.o
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\effect.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\shell.obj
 c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\plant.obj
-c:\users\dell\downloads\cs202-supermario\build\supermario.dir\debug\koopatroopa.obj
 c:\users\dell\downloads\cs202-supermario\build\cmakefiles\generate.stamp
 c:\users\dell\downloads\cs202-supermario\build\debug\supermario.exe
 c:\users\dell\downloads\cs202-supermario\build\debug\supermario.pdb

@@ -106,9 +106,6 @@
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\StarmanState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\TailState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\Dell\Downloads\CS202-SuperMario\src\FireStarmanState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -22,4 +22,4 @@ public:
     ItemType getItemType() const override;
 };
 
-#endif // STAR_H
+#endif

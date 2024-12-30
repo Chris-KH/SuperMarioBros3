@@ -11,7 +11,7 @@ public:
     struct Frame {
         Rectangle source; ///< Position and size of the frame in the texture atlas.
         Vector2 offset;   ///< Offset for rendering the frame.
-        Vector2 size; //< Size of actual sprite
+        Vector2 size;     //< Size of actual sprite
         float duration;   ///< Duration of the frame in seconds.
     };
 

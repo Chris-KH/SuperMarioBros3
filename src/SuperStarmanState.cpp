@@ -12,45 +12,45 @@ void SuperStarmanState::setAnimation() {
     }
 
     if (character->getCharacterType() == MARIO) {
-        character->idleLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_idle_left");
-        character->walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_walk_left");
-        character->runLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_run_left");
-        character->stopLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_stop_left");
-        character->jumpLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_jump_left");
-        character->fallLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_fall_left");
-        character->flyLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_fly_left");
-        character->sitLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_sit_left");
-        character->holdLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_hold_left");
+        character->idleLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_idle_left");
+        character->walkLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_walk_left");
+        character->runLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_run_left");
+        character->stopLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_stop_left");
+        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_jump_left");
+        character->fallLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_fall_left");
+        character->flyLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_fly_left");
+        character->sitLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_sit_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_hold_left");
 
-        character->idleRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_idle_right");
-        character->walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_walk_right");
-        character->runRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_run_right");
-        character->stopRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_stop_right");
-        character->jumpRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_jump_right");
-        character->fallRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_fall_right");
-        character->flyRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_fly_right");
-        character->sitRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_sit_right");
-        character->holdRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/mario1.txt/superstarmario_hold_right");
+        character->idleRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_idle_right");
+        character->walkRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_walk_right");
+        character->runRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_run_right");
+        character->stopRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_stop_right");
+        character->jumpRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_jump_right");
+        character->fallRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_fall_right");
+        character->flyRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_fly_right");
+        character->sitRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_sit_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/superstarmario_hold_right");
     }
     else if (character->getCharacterType() == LUIGI) {
-        character->idleLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_idle_left");
-        character->walkLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_walk_left");
-        character->runLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_run_left");
-        character->stopLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_stop_left");
-        character->jumpLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_jump_left");
-        character->fallLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_fall_left");
-        character->flyLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_fly_left");
-        character->sitLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_sit_left");
-        character->holdLeft = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_hold_left");
+        character->idleLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_idle_left");
+        character->walkLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_walk_left");
+        character->runLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_run_left");
+        character->stopLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_stop_left");
+        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_jump_left");
+        character->fallLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_fall_left");
+        character->flyLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_fly_left");
+        character->sitLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_sit_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_hold_left");
 
-        character->idleRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_idle_right");
-        character->walkRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_walk_right");
-        character->stopRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_stop_right");
-        character->jumpRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_jump_right");
-        character->fallRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_fall_right");
-        character->flyRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_fly_right");
-        character->sitRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_sit_right");
-        character->holdRight = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/luigi1.txt/superstarluigi_hold_right");
+        character->idleRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_idle_right");
+        character->walkRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_walk_right");
+        character->stopRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_stop_right");
+        character->jumpRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_jump_right");
+        character->fallRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_fall_right");
+        character->flyRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_fly_right");
+        character->sitRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_sit_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/superstarluigi_hold_right");
     }
 
     character->kickLeft = nullptr;
@@ -97,7 +97,7 @@ void SuperStarmanState::update(float deltaTime) {
         if (character->velocity.x < 0) {
             if (character->isJumping() == false && character->isHolding() == false && character->isSitting() == false) {
                 character->setAnimation(character->stopLeft);
-                RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/skid.wav");
+                RESOURCE_MANAGER.playSound("../assets/Sound/skid.wav");
             }
             character->setXVelocity(character->getVelocity().x + skid_deceleration * deltaTime);
             if (character->velocity.x > 0) character->setXVelocity(0.f);
@@ -118,7 +118,7 @@ void SuperStarmanState::update(float deltaTime) {
         if (character->velocity.x > 0) {
             if (character->isJumping() == false && character->isHolding() == false && character->isSitting() == false) {
                 character->setAnimation(character->stopRight);
-                RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/skid.wav");
+                RESOURCE_MANAGER.playSound("../assets/Sound/skid.wav");
             }
             character->setXVelocity(character->getVelocity().x - skid_deceleration * deltaTime);
             if (character->velocity.x < 0) character->setXVelocity(0.f);
@@ -156,7 +156,7 @@ void SuperStarmanState::update(float deltaTime) {
     if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
         character->setYVelocity(-jump_velocity);
         character->jumping = true;
-        RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/jump.wav");
+        RESOURCE_MANAGER.playSound("../assets/Sound/jump.wav");
     }
 
     if (IsKeyUp(KEY_LEFT_SHIFT) && fabs(character->velocity.x) > max_walk_velocity) {
@@ -199,9 +199,9 @@ void SuperStarmanState::update(float deltaTime) {
     }
 
     if (!character->isJumping() && fabs(character->getVelocity().x) >= max_run_velocity) {
-        if (!RESOURCE_MANAGER.isSoundPlaying("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/pmeter.wav")) RESOURCE_MANAGER.playSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/pmeter.wav");
+        if (!RESOURCE_MANAGER.isSoundPlaying("../assets/Sound/pmeter.wav")) RESOURCE_MANAGER.playSound("../assets/Sound/pmeter.wav");
     }
-    else RESOURCE_MANAGER.stopSound("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Sound/pmeter.wav");
+    else RESOURCE_MANAGER.stopSound("../assets/Sound/pmeter.wav");
 }
 
 STATE SuperStarmanState::getState() const {

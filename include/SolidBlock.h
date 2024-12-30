@@ -9,4 +9,4 @@ public:
     BlockType getBlockType() const override;
     void update(float deltaTime) override;
 };
-#endif // !SOLIDBLOCK_H
+#endif

@@ -26,4 +26,4 @@ public:
 
 	void reset();
 };
-#endif // !MARIO_H
+#endif

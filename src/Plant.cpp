@@ -29,21 +29,21 @@ Plant::Plant(PlantType type, Vector2 position, Orientation orientation, Characte
 	this->phase = WAIT_PHASE;
 
 	if (type == GREEN_PIRANHA) {
-		this->piranha = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_piranha")->clone();
+		this->piranha = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/green_piranha")->clone();
 		setAnimation(this->piranha);
 	}
 	else if (type == RED_PIRANHA) {
-		this->piranha = RESOURCE_MANAGER.getAnimation("red_piranha")->clone();
+		this->piranha = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/red_piranha")->clone();
 		setAnimation(this->piranha);
 	}
 	else if (type == GREEN_FIREPIRANHA) {
-		this->firePiranhaRest = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_firepiranha")->clone();
-		this->firePiranhaAttack = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/green_firepiranha_attack")->clone();
+		this->firePiranhaRest = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/green_firepiranha")->clone();
+		this->firePiranhaAttack = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/green_firepiranha_attack")->clone();
 		setAnimation(this->firePiranhaRest);
 	}
 	else if (type == RED_FIREPIRANHA) {
-		this->firePiranhaRest = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_firepiranha")->clone();
-		this->firePiranhaAttack = RESOURCE_MANAGER.getAnimation("C:/Users/Dell/Downloads/CS202-SuperMario/assets/Animation/enemies1.txt/red_firepiranha_attack")->clone();
+		this->firePiranhaRest = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/red_firepiranha")->clone();
+		this->firePiranhaAttack = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/red_firepiranha_attack")->clone();
 		setAnimation(this->firePiranhaRest);
 	}
 

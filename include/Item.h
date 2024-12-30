@@ -23,4 +23,4 @@ public:
 	virtual bool isAppear() const;
 };
 
-#endif //ITEM_H
+#endif

@@ -32,4 +32,4 @@ public:
 	void attacked(Orientation direction = RIGHT) override;
 };
 
-#endif // !ENEMY_H
+#endif
