@@ -10,4 +10,4 @@ public:
     BlockType getBlockType() const override;
     void update(float deltaTime) override;
 };
-#endif // !DECORBLOCK_H
+#endif

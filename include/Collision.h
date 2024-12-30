@@ -12,11 +12,11 @@
 #include "Brick.h"
 #include "TemporaryBlock.h"
 #include "DecorBlock.h"
-#include"Character.h"
-#include"Enemy.h"
-#include"Fireball.h"
-#include"Item.h"
-#include"Shell.h"
+#include "Character.h"
+#include "Enemy.h"
+#include "Fireball.h"
+#include "Item.h"
+#include "Shell.h"
 
 class CollisionStrategy {
 public:
@@ -1203,9 +1203,6 @@ public:
         return false;
     }
 };
-
-
-
 
 class CollisionStrategySelector {
 public:

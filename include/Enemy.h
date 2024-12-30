@@ -42,4 +42,4 @@ public:
     void collisionWithFireball(Fireball* fireball);
 };
 
-#endif // !ENEMY_H
+#endif

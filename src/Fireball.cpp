@@ -19,8 +19,8 @@ Fireball::Fireball(Vector2 center , FireballType type, Orientation orientation) 
 	this->delayVelocity = { 0.f, 0.f };
 	this->soundEffect = false;
 
-	fireLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/fireball_left")->clone();
-	fireRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/fireball_right")->clone();
+	fireLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/fireball_left")->clone();
+	fireRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/fireball_right")->clone();
 
 	if (orientation == LEFT) setAnimation(fireLeft);
 	else if (orientation == RIGHT) setAnimation(fireRight);
@@ -121,9 +121,9 @@ void Fireball::collisionWithBlock(const BaseBlock* block, Edge edge) {
 	else {
 		killEntity();
 		setCollisionAvailable(false);
-		Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("../assets/Animation/tiles1.txt/smoke")->clone(), getPosition(), true, 0.f);
+		Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("../../assets/Animation/tiles1.txt/smoke")->clone(), getPosition(), true, 0.f);
 		smoke->setGravityAvailable(false);
 		globalGameEngine->addEffect(smoke);
-		RESOURCE_MANAGER.playSound("../assets/Sound/bump.wav");
+		RESOURCE_MANAGER.playSound("../../assets/Sound/bump.wav");
 	}
 }

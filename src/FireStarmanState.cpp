@@ -12,50 +12,50 @@ void FireStarmanState::setAnimation() {
     }
 
     if (character->getCharacterType() == MARIO) {
-        character->idleLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_idle_left");
-        character->walkLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_walk_left");
-        character->runLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_run_left");
-        character->stopLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_stop_left");
-        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_jump_left");
-        character->fallLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_fall_left");
-        character->flyLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_fly_left");
-        character->sitLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_sit_left");
-        character->holdLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_hold_left");
-        character->throwLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_throw_left");
+        character->idleLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_idle_left");
+        character->walkLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_walk_left");
+        character->runLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_run_left");
+        character->stopLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_stop_left");
+        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_jump_left");
+        character->fallLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_fall_left");
+        character->flyLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_fly_left");
+        character->sitLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_sit_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_hold_left");
+        character->throwLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_throw_left");
 
-        character->idleRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_idle_right");
-        character->walkRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_walk_right");
-        character->runRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_run_right");
-        character->stopRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_stop_right");
-        character->jumpRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_jump_right");
-        character->fallRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_fall_right");
-        character->flyRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_fly_right");
-        character->sitRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_sit_right");
-        character->holdRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_hold_right");
-        character->throwRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/mario1.txt/firestarmario_throw_right");
+        character->idleRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_idle_right");
+        character->walkRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_walk_right");
+        character->runRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_run_right");
+        character->stopRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_stop_right");
+        character->jumpRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_jump_right");
+        character->fallRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_fall_right");
+        character->flyRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_fly_right");
+        character->sitRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_sit_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_hold_right");
+        character->throwRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/firestarmario_throw_right");
     }
     else if (character->getCharacterType() == LUIGI) {
-        character->idleLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_idle_left");
-        character->walkLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_walk_left");
-        character->runLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_run_left");
-        character->stopLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_stop_left");
-        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_jump_left");
-        character->fallLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_fall_left");
-        character->flyLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_fly_left");
-        character->sitLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_sit_left");
-        character->holdLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_hold_left");
-        character->throwLeft = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_throw_left");
+        character->idleLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_idle_left");
+        character->walkLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_walk_left");
+        character->runLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_run_left");
+        character->stopLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_stop_left");
+        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_jump_left");
+        character->fallLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_fall_left");
+        character->flyLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_fly_left");
+        character->sitLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_sit_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_hold_left");
+        character->throwLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_throw_left");
 
-        character->idleRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_idle_right");
-        character->walkRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_walk_right");
-        character->runRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_run_right");
-        character->stopRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_stop_right");
-        character->jumpRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_jump_right");
-        character->fallRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_fall_right");
-        character->flyRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_fly_right");
-        character->sitRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_sit_right");
-        character->holdRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_hold_right");
-        character->throwRight = RESOURCE_MANAGER.getAnimation("../assets/Animation/luigi1.txt/firestarluigi_throw_right");
+        character->idleRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_idle_right");
+        character->walkRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_walk_right");
+        character->runRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_run_right");
+        character->stopRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_stop_right");
+        character->jumpRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_jump_right");
+        character->fallRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_fall_right");
+        character->flyRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_fly_right");
+        character->sitRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_sit_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_hold_right");
+        character->throwRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/firestarluigi_throw_right");
     }
 
     character->kickLeft = nullptr;
@@ -100,7 +100,7 @@ void FireStarmanState::update(float deltaTime) {
         if (character->velocity.x < 0) {
             if (character->isJumping() == false && character->isHolding() == false && character->isSitting() == false) {
                 character->setAnimation(character->stopLeft);
-                RESOURCE_MANAGER.playSound("../assets/Sound/skid.wav");
+                RESOURCE_MANAGER.playSound("../../assets/Sound/skid.wav");
             }
             character->setXVelocity(character->getVelocity().x + skid_deceleration * deltaTime);
             if (character->velocity.x > 0) character->setXVelocity(0.f);
@@ -121,7 +121,7 @@ void FireStarmanState::update(float deltaTime) {
         if (character->velocity.x > 0) {
             if (character->isJumping() == false && character->isHolding() == false) {
                 character->setAnimation(character->stopRight);
-                RESOURCE_MANAGER.playSound("../assets/Sound/skid.wav");
+                RESOURCE_MANAGER.playSound("../../assets/Sound/skid.wav");
             }
             character->setXVelocity(character->getVelocity().x - skid_deceleration * deltaTime);
             if (character->velocity.x < 0) character->setXVelocity(0.f);
@@ -159,7 +159,7 @@ void FireStarmanState::update(float deltaTime) {
     if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
         character->setYVelocity(-jump_velocity);
         character->jumping = true;
-        RESOURCE_MANAGER.playSound("../assets/Sound/jump.wav");
+        RESOURCE_MANAGER.playSound("../../assets/Sound/jump.wav");
     }
 
     if (IsKeyUp(KEY_LEFT_SHIFT) && fabs(character->velocity.x) > max_walk_velocity) {
@@ -202,9 +202,9 @@ void FireStarmanState::update(float deltaTime) {
     }
 
     if (!character->isJumping() && fabs(character->getVelocity().x) >= max_run_velocity) {
-        if (!RESOURCE_MANAGER.isSoundPlaying("../assets/Sound/pmeter.wav")) RESOURCE_MANAGER.playSound("../assets/Sound/pmeter.wav");
+        if (!RESOURCE_MANAGER.isSoundPlaying("../../assets/Sound/pmeter.wav")) RESOURCE_MANAGER.playSound("../../assets/Sound/pmeter.wav");
     }
-    else RESOURCE_MANAGER.stopSound("../assets/Sound/pmeter.wav");
+    else RESOURCE_MANAGER.stopSound("../../assets/Sound/pmeter.wav");
 }
 
 STATE FireStarmanState::getState() const {

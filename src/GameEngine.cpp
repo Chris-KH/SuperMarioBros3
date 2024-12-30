@@ -100,7 +100,7 @@ void GameEngine::update(float deltaTime) {
             resetTimer();
         }
         else if (isPaused) {
-            RESOURCE_MANAGER.playSound("../assets/Sound/pause.wav");
+            RESOURCE_MANAGER.playSound("../../assets/Sound/pause.wav");
         }
     }
     if (isPaused || cleared) {

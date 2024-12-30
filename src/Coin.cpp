@@ -6,13 +6,13 @@
 Coin::Coin(CoinType type, Vector2 position) : Item(POINT) {
 	this->type = type;
 	this->lifeTime = 0.f;
-	coinAnimation = RESOURCE_MANAGER.getAnimation("../assets/Animation/tiles1.txt/coin_item")->clone();
+	coinAnimation = RESOURCE_MANAGER.getAnimation("../../assets/Animation/tiles1.txt/coin_item")->clone();
 
 	if (type == BLOCK_COIN) {
 		setYVelocity(-COIN_UP_VELOCITY);
 		setCollisionAvailable(false);
 		this->lifeTime = BLOCK_COIN_LIFE_TIME;
-		RESOURCE_MANAGER.playSound("../assets/Sound/coin.wav");
+		RESOURCE_MANAGER.playSound("../../assets/Sound/coin.wav");
 	}
 
 	setPosition(position);
