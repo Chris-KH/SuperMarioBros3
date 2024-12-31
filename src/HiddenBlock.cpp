@@ -8,9 +8,4 @@ BlockType HiddenBlock::getBlockType() const {
 
 void HiddenBlock::update(float deltaTime) {
     //PlaceHolder for HiddenBlock
-    if (revealed == true) {
-        if (sprite) {
-            sprite->update(deltaTime);
-        }
-    }
 }

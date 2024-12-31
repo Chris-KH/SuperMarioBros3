@@ -27,7 +27,7 @@ void TextEffect::setTextColor(Color color) {
 void TextEffect::draw(float deltaTime) {
 	setYPosition(getPosition().y + getVelocity().y * deltaTime);
 
-	Font* myFont = RESOURCE_MANAGER.getFont("../assets/Font/WinterMinie.ttf");
+	Font* myFont = RESOURCE_MANAGER.getFont("../../assets/Font/WinterMinie.ttf");
 	SetTextureFilter(myFont->texture, TEXTURE_FILTER_BILINEAR);
 	DrawTextEx(GetFontDefault(), text.c_str(), { getPosition().x, getPosition().y + OUTLINE_SIZE }, FONT_SIZE, 4 * OUTLINE_SIZE, outlineColor);
 	DrawTextEx(GetFontDefault(), text.c_str(), { getPosition().x, getPosition().y - OUTLINE_SIZE }, FONT_SIZE, 4 * OUTLINE_SIZE, outlineColor);

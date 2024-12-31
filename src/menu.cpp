@@ -25,12 +25,12 @@ void Menu::run() {
     InitAudioDevice();
     SetConfigFlags(FLAG_WINDOW_ALWAYS_RUN); 
     InitWindow(1280, 800, "Super Mario Bros 3");
-    Texture gameIcon = LoadTexture("../assets/Icon/GameIcon.png");
+    Texture gameIcon = LoadTexture("../../assets/Icon/GameIcon.png");
     Image gameIconImage = LoadImageFromTexture(gameIcon);
     SetWindowIcon(gameIconImage);
     if (backgroundTexture.id == 0)
     {
-        backgroundTexture = LoadTexture("../assets/Background/Menuscreen.png");
+        backgroundTexture = LoadTexture("../../assets/Background/Menuscreen.png");
     }
 
     RESOURCE_MANAGER.loadAllResource();
@@ -44,10 +44,10 @@ void Menu::run() {
     registerItems();
     globalGameEngine = nullptr;
     RESOURCE_MANAGER.playMusic("Overworld.mp3");
-    Level level1("../assets/Map/Map1-1.txt", "../assets/Map/map1-1.png", "World1.mp3","1-1");
-    Level level2("../assets/Map/Map1-2.txt", "../assets/Map/map1-2.png", "World4.mp3","1-2");
-    Level level3("../assets/Map/Map1-3.txt", "../assets/Map/map1-3.png", "World5.mp3","1-3");
-    Level level4("../assets/Map/Map1-4.txt", "../assets/Map/map1-4.png", "Athletic.mp3", "1-4");
+    Level level1("../../assets/Map/Map1-1.txt", "../../assets/Map/map1-1.png", "World1.mp3","1-1");
+    Level level2("../../assets/Map/Map1-2.txt", "../../assets/Map/map1-2.png", "World4.mp3","1-2");
+    Level level3("../../assets/Map/Map1-3.txt", "../../assets/Map/map1-3.png", "World5.mp3","1-3");
+    Level level4("../../assets/Map/Map1-4.txt", "../../assets/Map/map1-4.png", "Athletic.mp3", "1-4");
     //Level level5("../assets/Map/Map1-5.txt", "../assets/Map/map1-5.png", "Athletic.mp3", "1-5");
     loadedLevel.push_back(&level1);
     loadedLevel.push_back(&level2);
@@ -55,12 +55,12 @@ void Menu::run() {
     loadedLevel.push_back(&level4);
     //loadedLevel.push_back(&level5);
 
-    GUI::heartTexture = LoadTexture("../assets/Background/heart.png");
-    GUI::coinTexture = LoadTexture("../assets/Background/coin.png");
-    GUI::multiplicationSign = LoadTexture("../assets/Background/MultiplicationSign.png");
-    GUI::board = LoadTexture("../assets/Background/board.png");
+    GUI::heartTexture = LoadTexture("../../assets/Background/heart.png");
+    GUI::coinTexture = LoadTexture("../../assets/Background/coin.png");
+    GUI::multiplicationSign = LoadTexture("../../assets/Background/MultiplicationSign.png");
+    GUI::board = LoadTexture("../../assets/Background/board.png");
 
-    loadFromConfig("../assets/config.txt");
+    loadFromConfig("../../assets/config.txt");
     selectMap(selectedMap);
 
     while (!WindowShouldClose()) {
@@ -75,7 +75,7 @@ void Menu::run() {
             WHITE
         );
         if (SETTINGS.isMusicEnabled())
-            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("../assets/Sound/Overworld.mp3"));
+            UpdateMusicStream(*RESOURCE_MANAGER.getMusic("../../assets/Sound/Overworld.mp3"));
         if (currentState) {
             currentState->draw();
             currentState->handleInput();
@@ -83,7 +83,7 @@ void Menu::run() {
         EndDrawing();
     }
 
-    saveToConfig("../assets/config.txt");
+    saveToConfig("../../assets/config.txt");
     loadedLevel.clear();
     if (globalGameEngine != nullptr)
     {

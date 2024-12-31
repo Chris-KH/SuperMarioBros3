@@ -1,8 +1,8 @@
 #include"../include/Shell.h"
 #include"../include/GameEngine.h"
 #include"../include/KoopaTroopa.h"
-#include "../include/Effect.h"
-#include "../include/TextEffect.h"
+#include"../include/Effect.h"
+#include"../include/TextEffect.h"
 
 Shell::~Shell() {
 	free(inShell);
@@ -23,14 +23,14 @@ Shell::Shell(ShellType type, Vector2 position) : Enemy(position) {
 	shellSpin = nullptr;
 
 	if (type == GREEN_SHELL) {
-		inShell = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/green_KoopaTroopa_shell")->clone();
-		outShell = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/green_KoopaTroopa_outShell")->clone();
-		shellSpin = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/green_paraKoopaTroopa_spin")->clone();
+		inShell = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/green_KoopaTroopa_shell")->clone();
+		outShell = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/green_KoopaTroopa_outShell")->clone();
+		shellSpin = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/green_paraKoopaTroopa_spin")->clone();
 	}
 	else if (type == RED_SHELL) {
-		inShell = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/red_KoopaTroopa_shell")->clone();
-		outShell = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/red_KoopaTroopa_outShell")->clone();
-		shellSpin = RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/red_paraKoopaTroopa_spin")->clone();
+		inShell = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/red_KoopaTroopa_shell")->clone();
+		outShell = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/red_KoopaTroopa_outShell")->clone();
+		shellSpin = RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/red_paraKoopaTroopa_spin")->clone();
 	}
 
 	setAnimation(inShell);
@@ -129,10 +129,10 @@ void Shell::attacked(Orientation direction) {
 
 	Effect* dead = nullptr;
 	if (type == GREEN_SHELL) {
-		dead = new Effect(RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/green_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
+		dead = new Effect(RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/green_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
 	}
 	else if (type == RED_SHELL) {
-		dead = new Effect(RESOURCE_MANAGER.getAnimation("../assets/Animation/enemies1.txt/red_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
+		dead = new Effect(RESOURCE_MANAGER.getAnimation("../../assets/Animation/enemies1.txt/red_KoopaTroopa_up_spin")->clone(), getPosition(), 999.f);
 	}
 
 	if (dead) dead->setVelocity({ direction == RIGHT ? DEAD_INITIAL_VELOCITY_X : -DEAD_INITIAL_VELOCITY_X , -DEAD_INITIAL_VELOCITY_Y });

@@ -21,7 +21,7 @@ void ResourceManager::loadAllResource() {
 }
 
 void ResourceManager::loadTextures() {
-    string texturesFolder = "../assets/Textures";
+    string texturesFolder = "../../assets/Textures";
 
     for (const auto& entry : fs::directory_iterator(texturesFolder)) {
         if (entry.is_regular_file()) { 
@@ -44,7 +44,7 @@ void ResourceManager::loadTextures() {
 }
 
 void ResourceManager::loadAnimation() {
-    string animationFolder = "../assets/Animation";
+    string animationFolder = "../../assets/Animation";
 
     for (const auto& entry : fs::directory_iterator(animationFolder)) {
         if (entry.is_regular_file() && entry.path().extension() == ".txt") {
@@ -102,7 +102,7 @@ void ResourceManager::loadAnimationFromFile(const string& filePath, const string
 }
 
 void ResourceManager::loadFont() {
-    string fontFolder = "../assets/Font";
+    string fontFolder = "../../assets/Font";
 
     for (const auto& entry : fs::directory_iterator(fontFolder)) {
         if (entry.is_regular_file()) {
@@ -121,7 +121,7 @@ void ResourceManager::loadFont() {
 }
 
 void ResourceManager::loadSound() {
-    string soundFolder = "../assets/Sound";
+    string soundFolder = "../../assets/Sound";
 
     for (const auto& entry : fs::directory_iterator(soundFolder)) {
         if (entry.is_regular_file()) {
@@ -139,7 +139,7 @@ void ResourceManager::loadSound() {
 }
 
 void ResourceManager::loadMusic() {
-    string musicFolder = "../assets/Music";
+    string musicFolder = "../../assets/Music";
 
     for (const auto& entry : fs::directory_iterator(musicFolder)) {
         if (entry.is_regular_file()) {
@@ -240,4 +240,3 @@ bool ResourceManager::isSoundPlaying(const string& soundName) const {
 void ResourceManager::stopSound(const string& soundName) const {
     if (isSoundPlaying(soundName)) StopSound(*getSound(soundName));
 }
-

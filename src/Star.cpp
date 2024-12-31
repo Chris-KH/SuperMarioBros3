@@ -5,10 +5,10 @@ Star::Star(StarType type, Vector2 position, Orientation orientation) : Item(POIN
 	this->orientation = orientation;
 
 	if (type == YELLOW_STAR) {
-		starAnimation = RESOURCE_MANAGER.getAnimation("../assets/Animation/miscellaneous.txt/yellow_star_item")->clone();
+		starAnimation = RESOURCE_MANAGER.getAnimation("../../assets/Animation/miscellaneous.txt/yellow_star_item")->clone();
 	}
 	else if (type == BLUE_STAR) {
-		starAnimation = RESOURCE_MANAGER.getAnimation("../assets/Animation/miscellaneous.txt/blue_star_item")->clone();
+		starAnimation = RESOURCE_MANAGER.getAnimation("../../assets/Animation/miscellaneous.txt/blue_star_item")->clone();
 	}
 	
 	setAnimation(starAnimation);

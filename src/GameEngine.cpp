@@ -313,7 +313,7 @@ bool GameEngine::run() {
 
         if (cleared == true && isPaused == false) {
             RESOURCE_MANAGER.stopCurrentMusic();
-            RESOURCE_MANAGER.playMusic("../assets/Sound/Overworld.mp3");
+            RESOURCE_MANAGER.playMusic("../../assets/Sound/Overworld.mp3");
             return true;
         }
 
@@ -322,7 +322,7 @@ bool GameEngine::run() {
         if (this->time <= 0) player->setLostLife(true);
         if (player->getY() > getBound().y && player->getPhase() != Character::CLEARLEVEL_PHASE) player->setLostLife(true);
 
-        if (player->getX() >= map.getMapSize().x && RESOURCE_MANAGER.isSoundPlaying("../assets/Sound/level_clear.wav") == false) {
+        if (player->getX() >= map.getMapSize().x && RESOURCE_MANAGER.isSoundPlaying("../../assets/Sound/level_clear.wav") == false) {
             cleared = true;
             isPaused = true;
             player->setVelocity({ 0.f, 0.f });
@@ -330,7 +330,7 @@ bool GameEngine::run() {
         else if (player->getX() >= map.getMapSize().x - 100.f) {
             if (player->getPhase() != Character::CLEARLEVEL_PHASE) {
                 RESOURCE_MANAGER.stopCurrentMusic();
-                RESOURCE_MANAGER.playSound("../assets/Sound/level_clear.wav");
+                RESOURCE_MANAGER.playSound("../../assets/Sound/level_clear.wav");
                 player->setPhase(Character::CLEARLEVEL_PHASE);
             }
         }
@@ -349,10 +349,10 @@ bool GameEngine::run() {
                 RESOURCE_MANAGER.stopCurrentMusic();
                 player->setPhase(Character::DEAD_PHASE);
                 if (player->getLives() < 0) {
-                    RESOURCE_MANAGER.playSound("../assets/Sound/game_over.wav");
+                    RESOURCE_MANAGER.playSound("../../assets/Sound/game_over.wav");
                 }
                 else {
-                    RESOURCE_MANAGER.playSound("../assets/Sound/lost_life.wav");
+                    RESOURCE_MANAGER.playSound("../../assets/Sound/lost_life.wav");
                 }
             }
         }
@@ -360,7 +360,7 @@ bool GameEngine::run() {
         
     }
     RESOURCE_MANAGER.stopCurrentMusic();
-    RESOURCE_MANAGER.playMusic("../assets/Sound/Overworld.mp3");
+    RESOURCE_MANAGER.playMusic("../../assets/Sound/Overworld.mp3");
     return false;
 }
 
