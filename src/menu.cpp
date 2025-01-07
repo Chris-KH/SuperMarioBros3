@@ -431,12 +431,6 @@ void MapSelection::draw() {
         static_cast<int>(map4Button.y + (map4Button.height - 30) / 2),
         30,
         CheckCollisionPointRec(GetMousePosition(), map4Button) ? LIGHTGRAY : BLACK);
-    //DrawRectangleRec(map5Button, ORANGE);
-    //DrawText("Map5",
-    //    static_cast<int>(map5Button.x + (map5Button.width - MeasureText("Map5", 30)) / 2),
-    //    static_cast<int>(map5Button.y + (map5Button.height - 30) / 2),
-    //    30,
-    //    CheckCollisionPointRec(GetMousePosition(), map5Button) ? LIGHTGRAY : BLACK);
 }
 
 void MapSelection::handleInput() {
@@ -460,14 +454,6 @@ void MapSelection::handleInput() {
             menu->player->reset();
             menu->returnToMainMenu();
         }
-        //else if (CheckCollisionPointRec(mousePos, map5Button)) {
-        //    menu->selectMap(5);
-        //    menu->player->reset();
-        //    menu->returnToMainMenu();
-        //}
-        /* else if (CheckCollisionPointRec(mousePos, backButton)) {
-            menu->returnToMainMenu();
-        }*/
     }
 }
 
