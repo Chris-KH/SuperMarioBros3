@@ -134,11 +134,6 @@ void Menu::selectMap(int mapIndex) {
         this->map = loadedLevel[3];
         break;
     }
-    //case 5:
-    //{
-    //    this->map = loadedLevel[4];
-    //    break;
-    //}
     default:
         break;
     }

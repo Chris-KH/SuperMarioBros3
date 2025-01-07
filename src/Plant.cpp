@@ -65,32 +65,6 @@ void Plant::update(float deltaTime) {
 			fireball->calculateFireballVelocity(fireball->getCenter(), player->getCenter());
 			fireball->setDelayTime(ATTACK_TIME / 2.f);
 			globalGameEngine->addFireBall(fireball);
-
-			//Chill
-			/*Fireball* fireball1 = new Fireball(getCentral(), ENEMY_FIREBALL);
-			fireball1->calculateFireballVelocity(fireball1->getCenter(), player->getCenter());
-			fireball1->setDelayTime(0.f);
-			globalGameEngine->addFireBall(fireball1);
-
-			Fireball* fireball2 = new Fireball(getCentral(), ENEMY_FIREBALL);
-			fireball2->calculateFireballVelocity(fireball2->getCenter(), player->getCenter());
-			fireball2->setDelayTime(0.5f);
-			globalGameEngine->addFireBall(fireball2);
-
-			Fireball* fireball3 = new Fireball(getCentral(), ENEMY_FIREBALL);
-			fireball3->calculateFireballVelocity(fireball3->getCenter(), player->getCenter());
-			fireball3->setDelayTime(1.0f);
-			globalGameEngine->addFireBall(fireball3);
-
-			Fireball* fireball4 = new Fireball(getCentral(), ENEMY_FIREBALL);
-			fireball4->calculateFireballVelocity(fireball4->getCenter(), player->getCenter());
-			fireball4->setDelayTime(1.5f);
-			globalGameEngine->addFireBall(fireball4);
-
-			Fireball* fireball5 = new Fireball(getCentral(), ENEMY_FIREBALL);
-			fireball5->calculateFireballVelocity(fireball5->getCenter(), player->getCenter());
-			fireball5->setDelayTime(2.f);
-			globalGameEngine->addFireBall(fireball5);*/
 		}
 		setYVelocity(0.f);
 		setYPosition(getBoundary().x);
