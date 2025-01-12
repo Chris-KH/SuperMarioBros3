@@ -1,7 +1,7 @@
 #include "../include/DecorBlock.h"
 
 DecorBlock::DecorBlock(Vector2 pos, Vector2 size) : BaseBlock(pos, size) {
-    sprite = RESOURCE_MANAGER.getAnimation("../../assets/Animation/miscellaneous.txt/pipe_block_head")->clone();
+    sprite = RESOURCE_MANAGER.getAnimation("miscellaneous.txt/pipe_block_head")->clone();
     setAnimation(sprite);
 }
 

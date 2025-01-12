@@ -879,7 +879,7 @@ public:
             return false;
         }
 
-        if (ball->getFireballType() == PLANT) {
+        if (static_cast<int>(ball->getFireballType()) == static_cast<int>(PLANT)) {
             return false;
         }
 

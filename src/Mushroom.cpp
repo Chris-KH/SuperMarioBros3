@@ -5,16 +5,16 @@ Mushroom::Mushroom(MushroomType type, Vector2 position, Orientation orientation)
 	this->orientation = orientation;
 
 	if (type == MUSHROOM_SUPER) {
-		mushroomAnimation = RESOURCE_MANAGER.getAnimation("../../assets/Animation/miscellaneous.txt/super_mushroom_item")->clone();
+		mushroomAnimation = RESOURCE_MANAGER.getAnimation("miscellaneous.txt/super_mushroom_item")->clone();
 	}
 	else if (type == MUSHROOM_1UP) {
-		mushroomAnimation = RESOURCE_MANAGER.getAnimation("../../assets/Animation/miscellaneous.txt/1up_mushroom_item")->clone();
+		mushroomAnimation = RESOURCE_MANAGER.getAnimation("miscellaneous.txt/1up_mushroom_item")->clone();
 	}
 
 	setAnimation(mushroomAnimation);
 	setPosition(position);
 	setCollisionAvailable(false);
-	RESOURCE_MANAGER.playSound("../../assets/Sound/mushroom_appears.wav");
+	RESOURCE_MANAGER.playSound("mushroom_appears.wav");
 }
 
 Mushroom::~Mushroom() {

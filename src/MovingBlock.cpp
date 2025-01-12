@@ -2,7 +2,7 @@
 
 MovingBlock::MovingBlock(Vector2 pos, Vector2 size)
     : BaseBlock(pos, size), boundLeft(pos.x), boundRight(pos.x), boundTop(pos.y), boundBottom(pos.y) {
-    sprite = RESOURCE_MANAGER.getAnimation("../../assets/Animation/miscellaneous.txt/moving_platform_block")->clone();
+    sprite = RESOURCE_MANAGER.getAnimation("miscellaneous.txt/moving_platform_block")->clone();
     setAnimation(sprite);
 }
 

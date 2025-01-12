@@ -49,8 +49,8 @@ void Enemy::collisionWithFireball(Fireball* fireball) {
     fireball->setCollisionAvailable(false);
     fireball->killEntity();
     setCollisionAvailable(false);
-    Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("../../assets/Animation/tiles1.txt/smoke")->clone(), getPosition(), true, 0.f);
+    Effect* smoke = new Effect(RESOURCE_MANAGER.getAnimation("tiles1.txt/smoke")->clone(), getPosition(), true, 0.f);
     smoke->setGravityAvailable(false);
     globalGameEngine->addEffect(smoke);
-    RESOURCE_MANAGER.playSound("../../assets/Sound/fireball.wav");
+    RESOURCE_MANAGER.playSound("fireball.wav");
 }

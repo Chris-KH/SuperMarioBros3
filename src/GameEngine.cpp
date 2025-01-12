@@ -100,14 +100,14 @@ void GameEngine::update(float deltaTime) {
             resetTimer();
         }
         else if (isPaused) {
-            RESOURCE_MANAGER.playSound("../../assets/Sound/pause.wav");
+            RESOURCE_MANAGER.playSound("pause.wav");
         }
     }
     if (isPaused || cleared) {
         return;
     }
     this->time -= deltaTime;
-    for (size_t i = 0; i < blocks.size(); i++) {
+    for (size_t i = 0; i < blocks.size(); ++i) {
         if (blocks[i]->isDead()) {
             delete blocks[i];
             blocks.erase(blocks.begin() + i);
@@ -118,14 +118,14 @@ void GameEngine::update(float deltaTime) {
         }
     }
 
-    for (size_t i = 0; i < enemies.size(); i++) {
+    for (size_t i = 0; i < enemies.size(); ++i) {
         Plant* enemy = dynamic_cast<Plant*>(enemies[i]);
         if (enemy) {
             enemy->setPlayerForFireball(player);
         }
     }
 
-    for (size_t i = 0; i < enemies.size(); i++) {
+    for (size_t i = 0; i < enemies.size(); ++i) {
         if (enemies[i]->isDead()) {
             if (enemies[i]->getEnemyType() == SHELL) {
                 auto it = find(shells.begin(), shells.end(), enemies[i]);
@@ -147,7 +147,7 @@ void GameEngine::update(float deltaTime) {
         }
     }
 
-    for (size_t i = 0; i < fireball.size(); i++) {
+    for (size_t i = 0; i < fireball.size(); ++i) {
         if (fireball[i]->isDead()) {
             delete fireball[i];
             fireball.erase(fireball.begin() + i);
@@ -158,7 +158,7 @@ void GameEngine::update(float deltaTime) {
         }
     }
 
-    for (size_t i = 0; i < items.size(); i++) {
+    for (size_t i = 0; i < items.size(); ++i) {
         if (items[i]->isDead()) {
             delete items[i];
             items.erase(items.begin() + i);
@@ -169,7 +169,7 @@ void GameEngine::update(float deltaTime) {
         }
     }
 
-    for (size_t i = 0; i < effects.size(); i++) {
+    for (size_t i = 0; i < effects.size(); ++i) {
         if (effects[i]->isDead()) {
             delete effects[i];
             effects.erase(effects.begin() + i);
@@ -190,26 +190,26 @@ void GameEngine::handleCollision() {
     CollisionInterface IColl;
     bool isGrounded = false;
 
-    for (size_t j = 0; j < blocks.size(); j++) {
+    for (size_t j = 0; j < blocks.size(); ++j) {
         if (IColl.resolve(player, blocks[j])) isGrounded = true;
-        for (size_t i = 0; i < enemies.size(); i++) IColl.resolve(enemies[i], blocks[j]);
-        for (size_t i = 0; i < items.size(); i++) IColl.resolve(items[i], blocks[j]);
-        for (size_t i = 0; i < fireball.size(); i++) {
+        for (size_t i = 0; i < enemies.size(); ++i) IColl.resolve(enemies[i], blocks[j]);
+        for (size_t i = 0; i < items.size(); ++i) IColl.resolve(items[i], blocks[j]);
+        for (size_t i = 0; i < fireball.size(); ++i) {
             if (fireball[i]->getFireballType() == CHARACTER_FIREBALL) IColl.resolve(fireball[i], blocks[j]);
         }
     }
 
     player->setJumping(!isGrounded);
 
-    for (size_t i = 0; i < shells.size(); i++) {
+    for (size_t i = 0; i < shells.size(); ++i) {
         if (shells[i]->getIsHold() == false && shells[i]->getIsKicked() == false) continue;
-        for (size_t j = 0; j < enemies.size(); j++) {
+        for (size_t j = 0; j < enemies.size(); ++j) {
             if (shells[i] == enemies[j]) continue;
             IColl.resolve(shells[i], enemies[j]);
         }
     }
 
-    for (size_t i = 0; i < enemies.size(); i++) {
+    for (size_t i = 0; i < enemies.size(); ++i) {
         if (enemies[i]->getEnemyType() == SHELL && player->getHoldShell() == enemies[i]) continue;
 
         for (Fireball* ball : fireball) {
@@ -218,13 +218,13 @@ void GameEngine::handleCollision() {
         IColl.resolve(player, enemies[i]);
     }
        
-    for (size_t i = 0; i < fireball.size(); i++) {
+    for (size_t i = 0; i < fireball.size(); ++i) {
         if (fireball[i]->getFireballType() == ENEMY_FIREBALL) {
             IColl.resolve(fireball[i], player);
         }
     }
 
-    for (size_t i = 0; i < items.size(); i++) {
+    for (size_t i = 0; i < items.size(); ++i) {
         IColl.resolve(player, items[i]);
     }
 }
@@ -313,7 +313,7 @@ bool GameEngine::run() {
 
         if (cleared == true && isPaused == false) {
             RESOURCE_MANAGER.stopCurrentMusic();
-            RESOURCE_MANAGER.playMusic("../../assets/Sound/Overworld.mp3");
+            RESOURCE_MANAGER.playMusic("Overworld.mp3");
             return true;
         }
 
@@ -322,7 +322,7 @@ bool GameEngine::run() {
         if (this->time <= 0) player->setLostLife(true);
         if (player->getY() > getBound().y && player->getPhase() != Character::CLEARLEVEL_PHASE) player->setLostLife(true);
 
-        if (player->getX() >= map.getMapSize().x && RESOURCE_MANAGER.isSoundPlaying("../../assets/Sound/level_clear.wav") == false) {
+        if (player->getX() >= map.getMapSize().x && RESOURCE_MANAGER.isSoundPlaying("level_clear.wav") == false) {
             cleared = true;
             isPaused = true;
             player->setVelocity({ 0.f, 0.f });
@@ -330,7 +330,7 @@ bool GameEngine::run() {
         else if (player->getX() >= map.getMapSize().x - 100.f) {
             if (player->getPhase() != Character::CLEARLEVEL_PHASE) {
                 RESOURCE_MANAGER.stopCurrentMusic();
-                RESOURCE_MANAGER.playSound("../../assets/Sound/level_clear.wav");
+                RESOURCE_MANAGER.playSound("level_clear.wav");
                 player->setPhase(Character::CLEARLEVEL_PHASE);
             }
         }
@@ -349,10 +349,10 @@ bool GameEngine::run() {
                 RESOURCE_MANAGER.stopCurrentMusic();
                 player->setPhase(Character::DEAD_PHASE);
                 if (player->getLives() < 0) {
-                    RESOURCE_MANAGER.playSound("../../assets/Sound/game_over.wav");
+                    RESOURCE_MANAGER.playSound("game_over.wav");
                 }
                 else {
-                    RESOURCE_MANAGER.playSound("../../assets/Sound/lost_life.wav");
+                    RESOURCE_MANAGER.playSound("lost_life.wav");
                 }
             }
         }
@@ -360,7 +360,7 @@ bool GameEngine::run() {
         
     }
     RESOURCE_MANAGER.stopCurrentMusic();
-    RESOURCE_MANAGER.playMusic("../../assets/Sound/Overworld.mp3");
+    RESOURCE_MANAGER.playMusic("Overworld.mp3");
     return false;
 }
 

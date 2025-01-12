@@ -1,3 +1,4 @@
+#include <algorithm>
 #include"../include/InputManager.h"
 
 void InputManager::bindKey(KeyboardKey key) {

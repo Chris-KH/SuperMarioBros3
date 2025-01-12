@@ -12,38 +12,38 @@ void StarmanState::setAnimation() {
     }
 
     if (character->getCharacterType() == MARIO) {
-        character->idleLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_idle_left");
-        character->walkLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_walk_left");
-        character->runLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_run_left");
-        character->stopLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_stop_left");
-        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_jump_left");
-        character->flyLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_fly_left");
-        character->holdLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_hold_left");
+        character->idleLeft = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_idle_left");
+        character->walkLeft = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_walk_left");
+        character->runLeft = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_run_left");
+        character->stopLeft = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_stop_left");
+        character->jumpLeft = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_jump_left");
+        character->flyLeft = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_fly_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_hold_left");
 
-        character->idleRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_idle_right");
-        character->walkRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_walk_right");
-        character->runRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_run_right");
-        character->stopRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_stop_right");
-        character->jumpRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_jump_right");
-        character->flyRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_fly_right");
-        character->holdRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/mario1.txt/starmario_hold_right");
+        character->idleRight = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_idle_right");
+        character->walkRight = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_walk_right");
+        character->runRight = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_run_right");
+        character->stopRight = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_stop_right");
+        character->jumpRight = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_jump_right");
+        character->flyRight = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_fly_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("mario1.txt/starmario_hold_right");
     }
     else if (character->getCharacterType() == LUIGI) {
-        character->idleLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_idle_left");
-        character->walkLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_walk_left");
-        character->runLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_run_left");
-        character->stopLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_stop_left");
-        character->jumpLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_jump_left");
-        character->flyLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_fly_left");
-        character->holdLeft = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_hold_left");
+        character->idleLeft = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_idle_left");
+        character->walkLeft = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_walk_left");
+        character->runLeft = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_run_left");
+        character->stopLeft = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_stop_left");
+        character->jumpLeft = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_jump_left");
+        character->flyLeft = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_fly_left");
+        character->holdLeft = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_hold_left");
 
-        character->idleRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_idle_right");
-        character->walkRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_walk_right");
-        character->runRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_run_right");
-        character->stopRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_stop_right");
-        character->jumpRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_jump_right");
-        character->flyRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_fly_right");
-        character->holdRight = RESOURCE_MANAGER.getAnimation("../../assets/Animation/luigi1.txt/starluigi_hold_right");
+        character->idleRight = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_idle_right");
+        character->walkRight = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_walk_right");
+        character->runRight = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_run_right");
+        character->stopRight = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_stop_right");
+        character->jumpRight = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_jump_right");
+        character->flyRight = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_fly_right");
+        character->holdRight = RESOURCE_MANAGER.getAnimation("luigi1.txt/starluigi_hold_right");
     }
 
     character->kickLeft = nullptr;
@@ -91,7 +91,7 @@ void StarmanState::update(float deltaTime) {
         if (character->velocity.x < 0) {
             if (character->isJumping() == false && character->isHolding() == false) {
                 character->setAnimation(character->stopLeft);
-                RESOURCE_MANAGER.playSound("../../assets/Sound/skid.wav");
+                RESOURCE_MANAGER.playSound("skid.wav");
             }
             character->setXVelocity(character->getVelocity().x + skid_deceleration * deltaTime);
             if (character->velocity.x > 0) character->setXVelocity(0.f);
@@ -111,7 +111,7 @@ void StarmanState::update(float deltaTime) {
         if (character->velocity.x > 0) {
             if (character->isJumping() == false && character->isHolding() == false) {
                 character->setAnimation(character->stopRight);
-                RESOURCE_MANAGER.playSound("../../assets/Sound/skid.wav");
+                RESOURCE_MANAGER.playSound("skid.wav");
             }
             character->setXVelocity(character->getVelocity().x - skid_deceleration * deltaTime);
             if (character->velocity.x < 0) character->setXVelocity(0.f);
@@ -150,7 +150,7 @@ void StarmanState::update(float deltaTime) {
     if (IsKeyPressed(KEY_SPACE) && character->isJumping() == false) {
         character->setYVelocity(-jump_velocity);
         character->jumping = true;
-        RESOURCE_MANAGER.playSound("../../assets/Sound/jump.wav");
+        RESOURCE_MANAGER.playSound("jump.wav");
     }
 
     if (IsKeyUp(KEY_LEFT_SHIFT) && fabs(character->velocity.x) > max_walk_velocity) {
@@ -185,9 +185,9 @@ void StarmanState::update(float deltaTime) {
     character->setYVelocity(character->getVelocity().y + gravity * deltaTime);
 
     if (!character->isJumping() && fabs(character->getVelocity().x) >= max_run_velocity) {
-        if (!RESOURCE_MANAGER.isSoundPlaying("../../assets/Sound/pmeter.wav")) RESOURCE_MANAGER.playSound("../../assets/Sound/pmeter.wav");
+        if (!RESOURCE_MANAGER.isSoundPlaying("pmeter.wav")) RESOURCE_MANAGER.playSound("pmeter.wav");
     }
-    else RESOURCE_MANAGER.stopSound("../../assets/Sound/pmeter.wav");
+    else RESOURCE_MANAGER.stopSound("pmeter.wav");
 }
 
 STATE StarmanState::getState() const {

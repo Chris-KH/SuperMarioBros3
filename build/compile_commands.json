@@ -1,0 +1,302 @@
+[
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Animation.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Animation.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Animation.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Animation.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Background.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Background.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Background.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Background.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Camera.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Camera.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Camera.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Camera.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Entity.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Entity.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Entity.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Entity.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\FPSManager.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\FPSManager.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\FPSManager.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\FPSManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\GameEngine.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\GameEngine.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\GameEngine.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\GameEngine.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Global.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Global.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Global.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Global.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\GUI.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\GUI.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\GUI.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\GUI.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\InputManager.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\InputManager.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\InputManager.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\InputManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\ResourceManager.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\ResourceManager.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\ResourceManager.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\ResourceManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Settings.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Settings.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Settings.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Settings.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Sprite.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Sprite.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Sprite.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Sprite.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\BaseBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\BaseBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\BaseBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\BaseBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Brick.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Brick.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Brick.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Brick.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\DecorBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\DecorBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\DecorBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\DecorBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Floor.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Floor.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Floor.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Floor.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\HiddenBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\HiddenBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\HiddenBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\HiddenBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\ItemBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\ItemBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\ItemBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\ItemBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\MovingBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\MovingBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\MovingBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\MovingBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\PipeBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\PipeBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\PipeBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\PipeBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\SolidBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SolidBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SolidBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\SolidBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\SpikeBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SpikeBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SpikeBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\SpikeBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\TemporaryBlock.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\TemporaryBlock.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\TemporaryBlock.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\TemporaryBlock.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Item.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Item.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Item.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Item.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\ItemFactory.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\ItemFactory.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\ItemFactory.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\ItemFactory.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Coin.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Coin.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Coin.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Coin.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Flower.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Flower.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Flower.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Flower.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Mushroom.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Mushroom.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Mushroom.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Mushroom.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Star.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Star.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Star.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Star.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\CharacterState.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\CharacterState.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\CharacterState.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\CharacterState.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\NormalState.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\NormalState.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\NormalState.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\NormalState.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\FireState.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\FireState.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\FireState.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\FireState.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Fireball.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Fireball.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Fireball.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Fireball.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\SuperState.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SuperState.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SuperState.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\SuperState.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\StarmanState.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\StarmanState.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\StarmanState.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\StarmanState.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\FireStarmanState.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\FireStarmanState.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\FireStarmanState.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\FireStarmanState.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\SuperStarmanState.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SuperStarmanState.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\SuperStarmanState.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\SuperStarmanState.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Enemy.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Enemy.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Enemy.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Enemy.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\GoomBa.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\GoomBa.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\GoomBa.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\GoomBa.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\KoopaTroopa.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\KoopaTroopa.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\KoopaTroopa.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\KoopaTroopa.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Plant.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Plant.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Plant.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Plant.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Shell.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Shell.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Shell.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Shell.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Effect.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Effect.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Effect.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Effect.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\TextEffect.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\TextEffect.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\TextEffect.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\TextEffect.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Character.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Character.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Character.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Character.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Mario.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Mario.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Mario.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Mario.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Luigi.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Luigi.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Luigi.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Luigi.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Map.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Map.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Map.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Map.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Menu.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Menu.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Menu.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Menu.cpp.obj"
+},
+{
+  "directory": "C:/Users/Dell/Downloads/CS202-SuperMario/build",
+  "command": "C:\\MinGW\\bin\\c++.exe -IC:/raylib/include -g -std=gnu++17 -o CMakeFiles\\SuperMario.dir\\src\\Main.cpp.obj -c C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Main.cpp",
+  "file": "C:\\Users\\Dell\\Downloads\\CS202-SuperMario\\src\\Main.cpp",
+  "output": "CMakeFiles\\SuperMario.dir\\src\\Main.cpp.obj"
+}
+]

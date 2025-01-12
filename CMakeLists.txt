@@ -4,11 +4,15 @@ project(CS202-SuperMario)
 set(CMAKE_CXX_STANDARD 17)
 
 # Specify the path to raylib
-set(RAYLIB_DIR "C:/raylib-5.5")
+set(RAYLIB_DIR "C:/raylib")
+set(RAYLIB_INCLUDE_DIR "${RAYLIB_DIR}/include")
+set(RAYLIB_LIB_DIR "${RAYLIB_DIR}/lib")
 
-# Include raylib headers and libraries
-include_directories(${RAYLIB_DIR}/src)
-link_directories(${RAYLIB_DIR}/src)
+# Include raylib headers
+include_directories(${RAYLIB_INCLUDE_DIR})
+
+# Link to raylib library (static or dynamic)
+link_directories(${RAYLIB_LIB_DIR})
 
 # Define source files for your project
 set(Main
@@ -75,5 +79,8 @@ set(Main
 add_executable(SuperMario ${Main})
 
 # Link the executable target with raylib and other system libraries
-target_link_libraries(SuperMario raylib opengl32 gdi32 kernel32 winmm)
-
+target_link_libraries(SuperMario ${RAYLIB_LIB_DIR}/libraylib.a opengl32 gdi32 kernel32 winmm)
+add_custom_command(TARGET SuperMario POST_BUILD
+                   COMMAND ${CMAKE_COMMAND}
+                   -E copy_if_different "${RAYLIB_LIB_DIR}/raylib.dll"
+                   $<TARGET_FILE_DIR:SuperMario>)

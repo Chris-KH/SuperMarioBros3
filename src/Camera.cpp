@@ -1,3 +1,4 @@
+#include <cmath>
 #include "../include/Camera.h"
 
 GameCamera::GameCamera(float width, float height, float initialScale)
