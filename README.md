@@ -2,6 +2,11 @@
 
 This is a remake of the classic **Super Mario Bros 3** game, developed in **C++** using the **Raylib** graphics library. The goal of this project is to recreate the nostalgic gameplay experience while adding modern improvements and customizations.  
 
+## Contents
+- [Features](#features)
+- [Requirements](#requirements)
+- [License](#license)
+
 ## Features  
 - **Classic Gameplay**: Faithful to the original mechanics, including running, jumping, and power-ups.  
 - **Modern Graphics**: Built using Raylib for smooth and optimized rendering.  
